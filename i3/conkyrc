@@ -71,9 +71,8 @@ TEXT
 # Ethernet status
 ${if_up eth0}eth0 ${addr eth0}(${exec ethtool eth0 | awk '/Speed:/ {print $2}'}) | ${endif}\
 ${if_up enp3s0}enp3s0 ${addr enp3s0}(${exec ethtool enp3s0 2>/dev/null | awk '/Speed:/ {print $2}'}) | ${endif}\
-${if_up wlan0}wlan0 ${addr wlan0}(${exec ethtool wlan0 2>/dev/null | awk '/Speed:/ {print $2}'}) | ${endif}\
 # Wireless status
-# wlan0 ${if_up wlan0}${addr wlan0}${endif} | \
+${if_up wlp1s0}wlp1s0 ${addr wlp1s0}(${exec iwconfig wlp1s0 | egrep -o '[0-9]+(\.[0-9])? Mb/s'}) | ${endif}\
 # CPU stats
 CPU ${cpu cpu0}% ${freq_g}GHz ${exec sensors | grep "CPU Temperature"|awk '{print $3}'}| \
 # RAM in use
