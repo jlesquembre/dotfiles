@@ -181,4 +181,4 @@ bar {
 exec udiskie
 exec --no-startup-id nm-applet
 
-#exec fish ~/.i3/set_i3_workspaces.fish
+exec fish ~/.i3/set_i3_workspaces.fish
