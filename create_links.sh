@@ -24,7 +24,7 @@ do
       rm "$link"
     elif [ -d "$link" ]; then
       # It's a directory
-      rmdir "$link"
+      rm -r "$link"
     else
       rm "$link"
     fi
