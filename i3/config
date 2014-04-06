@@ -170,10 +170,15 @@ bar {
         # Show status text in light blue color
         #    statusline #ADD8E6
         #}
+        workspace_buttons no
         status_command conky -c ~/.i3/conkyrc
+}
+bar {
+        #status_command i3status
 }
 
 
-exec udiskie &
+exec udiskie
+exec --no-startup-id nm-applet
 
 #exec fish ~/.i3/set_i3_workspaces.fish
