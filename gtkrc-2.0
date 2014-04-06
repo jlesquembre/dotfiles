@@ -1,0 +1,42 @@
+include "/usr/share/themes/oxygen-gtk/gtk-2.0/gtkrc"
+# include "~/.themes/oxygen-gtk/gtk-2.0/gtkrc"
+
+ style "user"
+ {
+    fg[NORMAL] = "#1b1918"
+    bg[NORMAL] = "#d5d1cf"
+    text[NORMAL] = "#181615"
+    base[NORMAL] = "#ffffff"
+    fg[ACTIVE] = "#1b1918"
+    bg[ACTIVE] = "#d5d1cf"
+    text[ACTIVE] = "#181615"
+    base[ACTIVE] = "#ffffff"
+    fg[PRELIGHT] = "#1b1918"
+    bg[PRELIGHT] = "#d5d1cf"
+    text[PRELIGHT] = "#ffffff"
+    base[PRELIGHT] = "#43ace8"
+    fg[SELECTED] = "#1b1918"
+    bg[SELECTED] = "#d5d1cf"
+    text[SELECTED] = "#ffffff"
+    base[SELECTED] = "#43ace8"
+    fg[INSENSITIVE] = "#8d8a88"
+    bg[INSENSITIVE] = "#ccc7c5"
+    text[INSENSITIVE] = "#a6a5a5"
+    base[INSENSITIVE] = "#f4f4f4"
+    GtkTreeView::odd_row_color="#ffffff"
+    GtkTreeView::even_row_color="#f8f7f6"
+ }
+
+ widget_class "*" style "user"
+
+ style "tooltips"
+ {
+    bg[NORMAL] = "#bedfff"
+    fg[NORMAL] = "#252321"
+ }
+
+ widget "gtk-tooltips" style "tooltips"
+ #gtk-theme-name="qt4"
+ gtk-font-name="Sans Serif 9"
+ gtk-icon-theme-name="gk4ico"
+ gtk-icon-sizes = "panel-menu=16,16:panel=16,16:gtk-button=22,22:gtk-large-toolbar=22,22"

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+eval $(keychain --noask --quiet --eval --agents gpg)
+
+xrdb $HOME/dotfiles/xresources
+
+# Load modified map keyboard
+setxkbmap -I ~/dotfiles/xkb isodev -print | xkbcomp -I$HOME/dotfiles/xkb - $DISPLAY

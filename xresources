@@ -1,0 +1,117 @@
+Xft.antialias: true
+
+XTerm*faceName: Inconsolata\ for\ Powerline
+XTerm*faceSize: 14
+XTerm*faceNameDoublesize: WenQuanYi Zen Hei Mono
+
+
+! Peaksea colors
+XTerm*color0:           #000000
+XTerm*color1:           #800000
+XTerm*color2:           #008000
+XTerm*color3:           #d0d090
+XTerm*color4:           #000080
+XTerm*color5:           #800080
+XTerm*color6:           #a6caf0
+XTerm*color7:           #d0d0d0
+XTerm*color8:           #b0b0b0
+XTerm*color9:           #f08060
+XTerm*color10:          #60f080
+XTerm*color11:          #e0c060
+XTerm*color12:          #80c0e0
+XTerm*color13:          #f0c0f0
+XTerm*color14:          #c0d8f8
+XTerm*color15:          #e0e0e0
+XTerm*cursorColor:      #f0f0f0
+
+
+XTerm*saveLines: 2000
+XTerm*cursorBlink: true
+XTerm*visualBell: false
+
+
+XTerm*VT100.Translations:    #override \n\
+        Shift <KeyPress> Insert:        insert-selection(CLIPBOARD) \n\
+        <Btn2Up>:                       insert-selection(SELECT, CUT_BUFFER0) \n\
+        ~Shift<BtnUp>:                  select-end(PRIMARY, CUT_BUFFER0) \n\
+        Shift<BtnUp>:                   select-end(CLIPBOARD, CUT_BUFFER1)
+
+
+XTerm*reverseVideo:     False
+XTerm*background:       #000000
+XTerm*foreground:       #d0d0d0
+XTerm*boldMode:         True
+XTerm*termName:         xterm-256color
+
+Xcursor.theme: oxygen_w
+
+
+! Config for urxvt
+
+!URxvt*faceName: Inconsolata\ for\ Powerline
+!URxvt*faceSize: 14
+!URxvt*faceNameDoublesize: WenQuanYi Zen Hei Mono
+URxvt*font:					xft:Inconsolata\ for\ Powerline:regular:size=14
+
+
+URxvt*reverseVideo:     False
+URxvt*background:       #000000
+URxvt*foreground:       #d0d0d0
+URxvt*boldMode:         True
+URxvt*termName:         rxvt-unicode-256color
+URxvt.scrollBar: false
+
+! Peaksea colors
+URxvt*color0:           #000000
+URxvt*color1:           #800000
+URxvt*color2:           #008000
+URxvt*color3:           #d0d090
+URxvt*color4:           #000080
+URxvt*color5:           #800080
+URxvt*color6:           #a6caf0
+URxvt*color7:           #d0d0d0
+URxvt*color8:           #b0b0b0
+URxvt*color9:           #f08060
+URxvt*color10:          #60f080
+URxvt*color11:          #e0c060
+URxvt*color12:          #80c0e0
+URxvt*color13:          #f0c0f0
+URxvt*color14:          #c0d8f8
+URxvt*color15:          #e0e0e0
+URxvt*cursorColor:      #f0f0f0
+
+URxvt*colorUL:          #4682B4
+
+URxvt.loginShell: true
+URxvt.geometry: 80x50
+
+
+URxvt*saveLines: 2000
+URxvt*cursorBlink: true
+URxvt*visualBell: false
+
+! Perl extensions
+URxvt.perl-ext-common:      default,clipboard,keyboard-select,url-select
+! URxvt.perl-ext-common:      default,matcher
+
+! Clickable URLs
+URxvt.url-select.launcher:   chromium
+URxvt.url-select.button:     1
+!URxvt.url-select.underline:  true
+
+! URxvt.underlineColor:        #000000
+!URxvt.matcher.button:        1
+!URxvt.matcher.rend.0: -Uline
+!URxvt.underlineURLs:         False
+
+URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.M-s:           perl:keyboard-select:search
+
+! URxvt.clipboard.copycmd:  xsel -ib
+! URxvt.clipboard.pastecmd: xsel -ob
+
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+URxvt.clipboard.autocopy: true
