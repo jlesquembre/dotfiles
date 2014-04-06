@@ -2,7 +2,7 @@ set -x SHELL /usr/bin/fish
 set -x EDITOR vim
 set -x HOSTNAME (hostname)
 set -x PROJECT_HOME $HOME/projects
-
+set fish_greeting ""
 
 # Use local node packages
 set -x PATH ./node_modules/.bin $PATH
