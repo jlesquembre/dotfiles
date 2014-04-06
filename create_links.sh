@@ -15,12 +15,15 @@ links["$HOME/dotfiles/gtkrc-2.0"]="$HOME/.gtkrc-2.0"
 # value -> link
 for target in "${!links[@]}"
 do
-  link=${links[$i]}
+  link=${links[$target]}
 
   # Check if there is a file with same link name
-  if [ -e "$link" ] || [ -L "$link"]; then
-    if [ -d "$link" ]; then
-      # It's a directory!
+  if [ -e "$link" ] || [ -L "$link" ]; then
+    if [ -L "$link" ]; then
+      # It's a symlink
+      rm "$link"
+    elif [ -d "$link" ]; then
+      # It's a directory
       rmdir "$link"
     else
       rm "$link"
