@@ -11,7 +11,7 @@ set -x PATH ./node_modules/.bin $PATH
 # Use ruby gems
 if test -d "$HOME/.gem"
     set ruby_version (command ls $HOME/.gem/ruby | tail -1)
-    set -x PATH $PATH "$HOME/.gem/ruby/$ruby_version/.bin"
+    set -x PATH $PATH "$HOME/.gem/ruby/$ruby_version/bin"
 end
 
 
