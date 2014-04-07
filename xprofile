@@ -6,3 +6,5 @@ xrdb $HOME/dotfiles/xresources
 
 # Load modified map keyboard
 setxkbmap -I ~/dotfiles/xkb isodev -print | xkbcomp -I$HOME/dotfiles/xkb - $DISPLAY
+
+export QT_PLUGIN_PATH=$HOME/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/
