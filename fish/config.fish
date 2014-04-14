@@ -26,16 +26,6 @@ end
 . $HOME/.config/fish/functions.fish
 
 
-# pew autocompletion
-# TODO Remove when installed with pacman
-. $PROJECT_HOME/invewrapper/invewrapper/complete_scripts/complete.fish
-
-# pass completion
-# TODO Remove when fixed: https://bugs.archlinux.org/task/39384
-. $HOME/dotfiles/fish/pass-completion.fish
-
-
-
 #### A better prompt
 
 
