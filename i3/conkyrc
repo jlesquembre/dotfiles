@@ -85,4 +85,4 @@ ${if_existing /sys/class/power_supply/BAT0}${battery_short BAT0} | $endif\
 # Volume %
 #Vol: ${mixer}
 #${exec pactl list sinks | awk '/Volume: 0:/ {print substr($3, 1, index($3, "%") - 1)}'}%
-♪ ${exec amixer get 'Master',0 -c 0 | grep "$1:" | egrep -o '[0-9]{1,3}%'}
+♪ ${exec amixer -D pulse sget Master | awk '/Front Left:/ {print $5}' | tr -dc "0-9"}%
