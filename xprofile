@@ -9,3 +9,6 @@ xrdb $HOME/dotfiles/xresources
 setxkbmap -I ~/dotfiles/xkb isodev -print | xkbcomp -I$HOME/dotfiles/xkb - $DISPLAY
 
 export QT_PLUGIN_PATH=$HOME/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/
+
+# Disable PC Speaker Beep
+xset -b
