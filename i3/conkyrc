@@ -85,4 +85,4 @@ ${if_existing /sys/class/power_supply/BAT0}${battery_short BAT0} | $endif\
 # Volume %
 #Vol: ${mixer}
 #${exec pactl list sinks | awk '/Volume: 0:/ {print substr($3, 1, index($3, "%") - 1)}'}%
-♪ ${exec amixer -D pulse sget Master | awk '/Front Left:/ {print $5}' | tr -dc "0-9"}%
+♪ ${exec bash $HOME/dotfiles/i3/get_volume.sh}
