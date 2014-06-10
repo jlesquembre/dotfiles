@@ -4,6 +4,14 @@ set -x HOSTNAME (hostname)
 set -x PROJECT_HOME $HOME/projects
 set fish_greeting ""
 
+
+# Global npm packages
+set -x NPM_PREFIX $HOME/.node
+function npmg --description 'npm global'
+    npm -g --prefix $NPM_PREFIX $argv
+end
+set -x PATH $NPM_PREFIX/bin $PATH
+
 # Use local node packages
 set -x PATH ./node_modules/.bin $PATH
 
