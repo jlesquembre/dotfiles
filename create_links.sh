@@ -12,6 +12,8 @@ links["$HOME/dotfiles/xprofile"]="$HOME/.xprofile"
 links["$HOME/dotfiles/gtkrc-2.0"]="$HOME/.gtkrc-2.0"
 links["$HOME/dotfiles/irssi"]="$HOME/.irssi"
 
+links["$HOME/dotfiles/tigrc"]="$HOME/.tigrc"
+
 # key   -> target
 # value -> link
 for target in "${!links[@]}"
