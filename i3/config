@@ -170,12 +170,12 @@ bar {
         # Show status text in light blue color
         #    statusline #ADD8E6
         #}
-        workspace_buttons no
+        #workspace_buttons no
         status_command conky -c ~/.i3/conkyrc
 }
-bar {
-        #status_command i3status
-}
+#bar {
+#        #status_command i3status
+#}
 
 
 #exec udiskie
