@@ -70,11 +70,8 @@ TEXT
 (/home)${fs_free /home}/${fs_size /home} Use: ${fs_used_perc /home}% | \
 # Ethernet status
 ${if_up net0}net0 ${addr net0}(${exec ethtool net0 | awk '/Speed:/ {print $2}'}) | ${endif}\
-${if_up eno1}eno1 ${addr eno1}(${exec ethtool eno1 | awk '/Speed:/ {print $2}'}) | ${endif}\
-${if_up enp3s0}enp3s0 ${addr enp3s0}(${exec ethtool enp3s0 2>/dev/null | awk '/Speed:/ {print $2}'}) | ${endif}\
 # Wireless status
-${if_up wlp1s0}wlp1s0 ${addr wlp1s0}(${exec iwconfig wlp1s0 | egrep -o '[0-9]+(\.[0-9])? Mb/s'}) | ${endif}\
-${if_up wlp2s0}wlp2s0 ${addr wlp2s0}(${exec iwconfig wlp2s0 | egrep -o '[0-9]+(\.[0-9])? Mb/s'}) | ${endif}\
+${if_up wifi0}wifi0 ${addr wifi0}(${exec iwconfig wifi0 | egrep -o '[0-9]+(\.[0-9])? Mb/s'}) | ${endif}\
 # CPU stats
 CPU ${cpu cpu0}% ${freq_g}GHz ${exec sensors | grep "CPU Temperature"|awk '{print $3}'}| \
 # RAM in use
