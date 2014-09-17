@@ -69,7 +69,7 @@ TEXT
 # Free space on home
 (/home)${fs_free /home}/${fs_size /home} Use: ${fs_used_perc /home}% | \
 # Ethernet status
-${if_up eth0}eth0 ${addr eth0}(${exec ethtool eth0 | awk '/Speed:/ {print $2}'}) | ${endif}\
+${if_up net0}net0 ${addr net0}(${exec ethtool net0 | awk '/Speed:/ {print $2}'}) | ${endif}\
 ${if_up eno1}eno1 ${addr eno1}(${exec ethtool eno1 | awk '/Speed:/ {print $2}'}) | ${endif}\
 ${if_up enp3s0}enp3s0 ${addr enp3s0}(${exec ethtool enp3s0 2>/dev/null | awk '/Speed:/ {print $2}'}) | ${endif}\
 # Wireless status
