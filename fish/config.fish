@@ -30,8 +30,11 @@ end
 #end
 
 
-# Some extra utitilities
+# Some extra utilities
 . $HOME/.config/fish/functions.fish
+. $HOME/.config/fish/docker_completion.fish
+. $HOME/.config/fish/docker.fish
+
 
 
 #### A better prompt
