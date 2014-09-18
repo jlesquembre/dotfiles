@@ -35,7 +35,8 @@ end
 . $HOME/.config/fish/docker_completion.fish
 . $HOME/.config/fish/docker.fish
 
-
+# Some abbreviations
+set -x fish_user_abbreviations 'gco=git checkout'
 
 #### A better prompt
 
