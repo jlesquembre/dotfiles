@@ -1,0 +1,3 @@
+[submodule "fish/extras/sack"]
+	path = fish/extras/sack
+	url = https://github.com/garaud/sack.git

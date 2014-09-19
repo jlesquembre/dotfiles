@@ -110,3 +110,22 @@ function aur_build --description 'Builds a package from the AUR'
             return 1
     end
 end
+
+function pyclean --description 'Remove python bytecode'
+    find . -name "*.pyc" -delete
+    find . -name __pycache__ -exec rm -rf {} \;
+end
+
+
+#### Sack ####
+
+set -x SACK_EDITOR gvim
+set -x SACK_SHORTCUT /tmp/.sack_shortcuts
+
+function sag --description 's(hortcut)-ag'
+    bash $HOME/dotfiles/fish/extras/sack/sack -ag $argv
+end
+
+function F --description 'Open s(hortcut)-ag file'
+    bash $HOME/dotfiles/fish/extras/sack/F $argv
+end
