@@ -2,16 +2,17 @@
     path = ~/.gitconfig.local
 
 [user]
-	name = José Luis Lafuente
+    name = José Luis Lafuente
 
 [gui]
-	spellingdictionary = en_US
+    spellingdictionary = en_US
 
 [core]
-	editor = /usr/bin/vim
+    editor = /usr/bin/vim
 
 [push]
-	default = simple
+    default = simple
 
 [alias]
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    cloner = clone --recursive
