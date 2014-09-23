@@ -32,7 +32,6 @@ end
 
 # Some extra utilities
 . $HOME/.config/fish/functions.fish
-. $HOME/.config/fish/docker_completion.fish
 . $HOME/.config/fish/docker.fish
 
 # Some abbreviations
