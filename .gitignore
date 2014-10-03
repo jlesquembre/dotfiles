@@ -4,3 +4,5 @@ fish/fish_history
 ranger/bookmarks
 ranger/history
 ranger/tagged
+
+weechat/script/plugins.xml.gz
