@@ -4,6 +4,9 @@ set -x HOSTNAME (hostname)
 set -x PROJECT_HOME $HOME/projects
 set fish_greeting ""
 
+# Until devpi issue #64 is implemented, you need to set REQUESTS_CA_BUNDLE environment variable
+set -x REQUESTS_CA_BUNDLE $HOME/devpi_certs/nginx.crt
+
 
 # Global npm packages
 set -x NPM_PREFIX $HOME/.node

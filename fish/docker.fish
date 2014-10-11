@@ -19,6 +19,13 @@ function dockrm_untag  --description 'Remove docker untagged images'
     end
 end
 
+function dockrm_images  --description 'Remove ALL docker images'
+    set image_ids (docker images -q)
+    if [ -n "$image_ids" ]
+        docker rmi $image_ids
+    end
+end
+
 function dockrm_containers  --description 'Remove docker stopped containers'
     docker rm (docker ps -aq)
 end
