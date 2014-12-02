@@ -5,7 +5,8 @@ set -x PROJECT_HOME $HOME/projects
 set fish_greeting ""
 
 # Until devpi issue #64 is implemented, you need to set REQUESTS_CA_BUNDLE environment variable
-set -x REQUESTS_CA_BUNDLE $HOME/devpi_certs/nginx.crt
+# Uhm, not really a good solution, in that case this is the only CA allowed by requests
+# set -x REQUESTS_CA_BUNDLE $HOME/devpi_certs/nginx.crt
 
 
 # Global npm packages
