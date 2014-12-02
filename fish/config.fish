@@ -9,6 +9,11 @@ set fish_greeting ""
 # set -x REQUESTS_CA_BUNDLE $HOME/devpi_certs/nginx.crt
 
 
+# Set go variables
+set -x GOPATH $HOME/go
+set -x PATH $GOPATH/bin $PATH
+
+
 # Global npm packages
 set -x NPM_PREFIX $HOME/.node
 function npmg --description 'npm global'
