@@ -91,16 +91,21 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
+bindsym $mod+1 workspace number 1 www
+bindsym $mod+2 workspace number 2 gvim
 bindsym $mod+3 workspace number 3
 bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
+bindsym $mod+5 workspace number 5 chat
 bindsym $mod+6 workspace number 6
 bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10
+bindsym $mod+0 workspace number 10 irc
+
+assign [class="Chromium"] 1 www
+assign [class="Skype"] 5 chat
+assign [class="Akregator"] 10 irc
+assign [Title="(?i)weechat"] 10 irc
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1
@@ -181,4 +186,8 @@ bar {
 #exec udiskie
 #exec --no-startup-id nm-applet
 
-exec fish ~/.i3/set_i3_workspaces.fish
+#exec fish ~/.i3/set_i3_workspaces.fish
+workspace_layout tabbed
+exec chromium
+exec akregator
+exec urxvt -e weechat -T weechat
