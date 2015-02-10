@@ -20,6 +20,7 @@ function npmg --description 'npm global'
     npm -g --prefix $NPM_PREFIX $argv
 end
 set -x PATH $NPM_PREFIX/bin $PATH
+set -x NODE_PATH $NPM_PREFIX/lib/node_modules
 
 # Use local node packages
 set -x PATH ./node_modules/.bin $PATH
