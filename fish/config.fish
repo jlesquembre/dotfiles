@@ -8,6 +8,11 @@ set fish_greeting ""
 # Uhm, not really a good solution, in that case this is the only CA allowed by requests
 # set -x REQUESTS_CA_BUNDLE $HOME/devpi_certs/nginx.crt
 
+# We need this for now, see:
+# https://github.com/fish-shell/fish-shell/issues/1485
+# https://github.com/fish-shell/fish-shell/commit/5157ac30faf8fde5e9ea84977fdf430e01b71f96
+# Not merged in any release yet
+set fish_complete_path $fish_complete_path $__fish_datadir/vendor_completions.d
 
 # Set go variables
 set -x GOPATH $HOME/go
