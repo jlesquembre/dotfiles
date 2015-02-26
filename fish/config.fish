@@ -20,12 +20,12 @@ set -x PATH $GOPATH/bin $PATH
 
 
 # Global npm packages
-set -x NPM_PREFIX $HOME/.node
+set -x NPM_CONFIG_PREFIX $HOME/.node
 function npmg --description 'npm global'
-    npm -g --prefix $NPM_PREFIX $argv
+    npm -g --prefix $NPM_CONFIG_PREFIX $argv
 end
-set -x PATH $NPM_PREFIX/bin $PATH
-set -x NODE_PATH $NPM_PREFIX/lib/node_modules
+set -x PATH $NPM_CONFIG_PREFIX/bin $PATH
+set -x NODE_PATH $NPM_CONFIG_PREFIX/lib/node_modules
 
 # Use local node packages
 set -x PATH ./node_modules/.bin $PATH
