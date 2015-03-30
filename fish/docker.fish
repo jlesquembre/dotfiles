@@ -17,5 +17,5 @@ function dockrm_images  --description 'Remove ALL docker images'
 end
 
 function dockrm_containers  --description 'Remove docker stopped containers'
-    docker rm (docker ps -aq)
+    docker rm -v (docker ps -aq)
 end
