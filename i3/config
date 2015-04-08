@@ -194,5 +194,4 @@ bar {
 #exec fish ~/.i3/set_i3_workspaces.fish
 workspace_layout tabbed
 exec chromium
-exec akregator
 exec urxvt -e weechat -T weechat
