@@ -51,6 +51,7 @@ end
 
 # Some abbreviations
 set -x fish_user_abbreviations 'gco=git checkout'
+set -x fish_user_abbreviations 'gp=git pull --ff-only'
 
 #### A better prompt
 
