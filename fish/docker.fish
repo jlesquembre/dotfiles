@@ -1,5 +1,5 @@
 function denter --description 'Enter in a docker container'
-    docker exec -it $argv bash
+    docker exec -it $argv sh
 end
 
 function dockrm_untag  --description 'Remove docker untagged images'
