@@ -50,8 +50,8 @@ end
 . $HOME/.config/fish/docker.fish
 
 # Some abbreviations
-set -x fish_user_abbreviations 'gco=git checkout'
-set -x fish_user_abbreviations 'gp=git pull --ff-only'
+set -x fish_user_abbreviations $fish_user_abbreviations 'gco=git checkout'
+set -x fish_user_abbreviations $fish_user_abbreviations 'gp=git pull --ff-only'
 
 #### A better prompt
 
