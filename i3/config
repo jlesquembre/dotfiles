@@ -102,7 +102,7 @@ bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10 irc
 
-assign [class="Chromium"] 1 www
+#assign [class="Chromium"] 1 www
 assign [class="Skype"] 5 chat
 assign [class="Akregator"] 10 irc
 assign [Title="(?i)weechat"] 10 irc
@@ -193,5 +193,5 @@ bar {
 
 #exec fish ~/.i3/set_i3_workspaces.fish
 workspace_layout tabbed
-exec chromium
 exec urxvt -e weechat -T weechat
+exec --no-startup-id i3-msg 'workspace 1 www; exec /usr/bin/chromium'
