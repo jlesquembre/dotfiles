@@ -117,15 +117,25 @@ function pyclean --description 'Remove python bytecode'
 end
 
 
+
+set here (dirname (status -f))
+
+##   https://github.com/garaud/sack.git
 #### Sack ####
 
 set -x SACK_EDITOR gvim
 set -x SACK_SHORTCUT /tmp/.sack_shortcuts
 
 function sag --description 's(hortcut)-ag'
-    bash $HOME/dotfiles/fish/extras/sack/sack -ag $argv
+    bash $here/extras/sack/sack -ag $argv
 end
 
 function F --description 'Open s(hortcut)-ag file'
-    bash $HOME/dotfiles/fish/extras/sack/F $argv
+    bash $here/extras/sack/F $argv
 end
+
+
+##  https://github.com/StackExchange/blackbox.git
+#### Blackbox ####
+
+set -x PATH $PATH $here/extras/blackbox/bin
