@@ -52,6 +52,8 @@ end
 # Some abbreviations
 set -x fish_user_abbreviations $fish_user_abbreviations 'gco=git checkout'
 set -x fish_user_abbreviations $fish_user_abbreviations 'gp=git pull --ff-only'
+set -x fish_user_abbreviations $fish_user_abbreviations 'gd=git branch -d'
+set -x fish_user_abbreviations $fish_user_abbreviations 'gdr=git push origin --delete'
 
 #### A better prompt
 
