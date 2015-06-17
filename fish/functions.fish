@@ -111,6 +111,72 @@ function aur_build --description 'Builds a package from the AUR'
     end
 end
 
+
+function aur4_build --description 'Builds a package from the AUR4'
+    switch (count $argv)
+        case 1
+            set name $argv[1]
+            set aur_url "ssh://aur@aur4.archlinux.org/"{$name}".git"
+            set git_dir $HOME/aur/$name
+            (cd $git_dir)
+            exit 0
+
+            git ls-remote --exit-code $aur_url > /dev/null
+            if test $status -ne 0
+                echo "'$name' was not found in the AUR repository"
+                return 1
+            end
+
+            git clone $aur_url $git_dir
+            if test $status -ne 0
+                echo "##### git clone failed! Try a git pull"
+                git -C $git_dir pull --ff-only
+                if test $status -ne 0
+                    echo "##### ERROR on $git_dir"
+                    return 1
+                end
+            end
+
+            mkdir -p $HOME/aur/_src/
+            (cd $git_dir; makepkg -c -f PKGDEST=$HOME/aur SRCDEST=$HOME/aur/_src/ BUILDDIR=/tmp/makepkg)
+            #fish subshell
+            # fish -c 'cd ~'
+            #makepkg -c -f PKGDEST=$HOME/aur SRCDEST=$HOME/aur/_src/ BUILDDIR=/tmp/makepkg
+
+            #if test -d $name
+            #    rm -r $name
+            #end
+
+            #tar -xzf $tar_file
+            #cd $name
+            #makepkg
+
+            #set packages (command ls *.tar.xz)
+            #mv *.tar.xz ..
+
+            #cd ..
+            #rm $tar_file
+
+            #echo ""
+            #echo "To install run:"
+            #for package in $packages
+            #    echo "sudo pacman -U $package"
+            #end
+            #echo ""
+            return 0
+
+        case 0
+            echo 'Provide a valid AUR package as argument'
+            echo 'Usage: aur_build [AUR_PAKAGE_NAME]'
+            return 1
+
+        case '*'
+            echo 'Too many arguments!'
+            echo 'Usage: aur_build [AUR_PAKAGE_NAME]'
+            return 1
+    end
+end
+
 function pyclean --description 'Remove python bytecode'
     find . -name "*.pyc" -delete
     find . -name __pycache__ -exec rm -rf {} \;
