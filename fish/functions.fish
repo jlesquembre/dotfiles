@@ -62,6 +62,7 @@ function jldtar --description 'Decrypts a tar file'
     end
 end
 
+
 function aur_build --description 'Builds a package from the AUR'
     switch (count $argv)
         case 1
@@ -118,8 +119,6 @@ function aur4_build --description 'Builds a package from the AUR4'
             set name $argv[1]
             set aur_url "ssh://aur@aur4.archlinux.org/"{$name}".git"
             set git_dir $HOME/aur/$name
-            (cd $git_dir)
-            exit 0
 
             git ls-remote --exit-code $aur_url > /dev/null
             if test $status -ne 0
@@ -137,32 +136,20 @@ function aur4_build --description 'Builds a package from the AUR4'
                 end
             end
 
-            mkdir -p $HOME/aur/_src/
-            (cd $git_dir; makepkg -c -f PKGDEST=$HOME/aur SRCDEST=$HOME/aur/_src/ BUILDDIR=/tmp/makepkg)
+            mkdir -p /tmp/makepkg/_src
             #fish subshell
-            # fish -c 'cd ~'
-            #makepkg -c -f PKGDEST=$HOME/aur SRCDEST=$HOME/aur/_src/ BUILDDIR=/tmp/makepkg
+            fish -c "cd $git_dir; makepkg -f PKGDEST=$HOME/aur SRCDEST=/tmp/makepkg/_src BUILDDIR=/tmp/makepkg"
+            set packages (command ls $HOME/aur/$name/*.tar.xz)
 
-            #if test -d $name
-            #    rm -r $name
-            #end
+            rm -rf /tmp/makepkg/
+            rm $HOME/aur/$name/*.tar.xz
 
-            #tar -xzf $tar_file
-            #cd $name
-            #makepkg
-
-            #set packages (command ls *.tar.xz)
-            #mv *.tar.xz ..
-
-            #cd ..
-            #rm $tar_file
-
-            #echo ""
-            #echo "To install run:"
-            #for package in $packages
-            #    echo "sudo pacman -U $package"
-            #end
-            #echo ""
+            echo ""
+            echo "To install run:"
+            for package in $packages
+                echo "sudo pacman -U ~/aur/"(basename $package)""
+            end
+            echo ""
             return 0
 
         case 0
@@ -176,6 +163,7 @@ function aur4_build --description 'Builds a package from the AUR4'
             return 1
     end
 end
+
 
 function pyclean --description 'Remove python bytecode'
     find . -name "*.pyc" -delete
