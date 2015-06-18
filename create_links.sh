@@ -15,6 +15,7 @@ links["$HOME/dotfiles/weechat"]="$HOME/.weechat"
 
 links["$HOME/dotfiles/gitconfig"]="$HOME/.gitconfig"
 links["$HOME/dotfiles/tigrc"]="$HOME/.tigrc"
+links["$HOME/dotfiles/pacman"]="$HOME/.config/pacman"
 
 # key   -> target
 # value -> link
