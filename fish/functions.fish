@@ -113,6 +113,16 @@ function aur_build --description 'Builds a package from the AUR'
 end
 
 
+function jlmakepkg --description 'Archlinux package build utility'
+    mkdir -p /tmp/makepkg/_src
+    makepkg -f PKGDEST=$HOME/aur SRCDEST=/tmp/makepkg/_src BUILDDIR=/tmp/makepkg
+    set packages (command ls ./*.tar.xz)
+    if [ "$argv" != 'NODELETE' ]
+        rm $packages
+    end
+end
+
+
 function aur4_build --description 'Builds a package from the AUR4'
     switch (count $argv)
         case 1
@@ -136,13 +146,12 @@ function aur4_build --description 'Builds a package from the AUR4'
                 end
             end
 
-            mkdir -p /tmp/makepkg/_src
             #fish subshell
-            fish -c "cd $git_dir; makepkg -f PKGDEST=$HOME/aur SRCDEST=/tmp/makepkg/_src BUILDDIR=/tmp/makepkg"
-            set packages (command ls $HOME/aur/$name/*.tar.xz)
+            fish -c "cd $git_dir; jlmakepkg NODELETE"
+            set packages (command ls $git_dir/*.tar.xz)
 
             rm -rf /tmp/makepkg/
-            rm $HOME/aur/$name/*.tar.xz
+            rm $git_dir/*.tar.xz
 
             echo ""
             echo "To install run:"
