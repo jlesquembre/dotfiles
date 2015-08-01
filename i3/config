@@ -164,9 +164,10 @@ bindsym XF86AudioMute exec "amixer -D pulse sset Master toggle"
 
 
 # Suspend / Lock
-#bindsym $mod+Shift+z exec "i3lock -c 000000 && systemctl suspend"
-bindsym $mod+Shift+z exec "i3lock -f -r 7 -s 20 && systemctl suspend"
-bindsym $mod+Shift+f exec "i3lock -f -r 7 -s 20"
+bindsym $mod+Shift+z exec "i3lock -c 000000 && systemctl suspend"
+bindsym $mod+Shift+f exec "i3lock -c 000000"
+#bindsym $mod+Shift+z exec "i3lock -f -r 7 -s 20 && systemctl suspend"
+#bindsym $mod+Shift+f exec "i3lock -f -r 7 -s 20"
 
 # Poweroff
 bindsym $mod+Shift+p exec "systemctl poweroff"
