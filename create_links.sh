@@ -10,7 +10,6 @@ links["$HOME/dotfiles/i3"]="$HOME/.i3"
 
 links["$HOME/dotfiles/xprofile"]="$HOME/.xprofile"
 links["$HOME/dotfiles/gtkrc-2.0"]="$HOME/.gtkrc-2.0"
-links["$HOME/dotfiles/irssi"]="$HOME/.irssi"
 links["$HOME/dotfiles/weechat"]="$HOME/.weechat"
 
 links["$HOME/dotfiles/gitconfig"]="$HOME/.gitconfig"
