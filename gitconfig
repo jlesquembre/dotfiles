@@ -15,7 +15,10 @@
 
 [alias]
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    clog = !bash $HOME/dotfiles/scripts/git_changelog.sh
     cloner = clone --recursive
+    lasttag = describe --tags --abbrev=0
+    lt = describe --tags --abbrev=0
 
 [fetch]
     prune = true
