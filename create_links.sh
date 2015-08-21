@@ -17,6 +17,7 @@ links["$HOME/dotfiles/tigrc"]="$HOME/.tigrc"
 links["$HOME/dotfiles/pacman"]="$HOME/.config/pacman"
 
 links["$HOME/dotfiles/ipython"]="$HOME/.ipython"
+links["$HOME/dotfiles/jupyter"]="$HOME/.jupyter"
 
 # key   -> target
 # value -> link
