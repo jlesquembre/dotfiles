@@ -180,6 +180,35 @@ function pyclean --description 'Remove python bytecode'
 end
 
 
+function __get_new_image_name
+    set timestamp ( dcraw -i -v $argv[1] | grep 'Timestamp: ' | sed 's/Timestamp: //g' )
+    echo ( date -d"$timestamp" -Iseconds | sed 's/+.*$//' )
+end
+
+function nef2jpeg
+
+    for nef in *.NEF
+        set newfile ( __get_new_image_name $nef).jpg
+        echo "$nef -> $newfile"
+        dcraw -c -w $nef | cjpeg -quality 90 -optimize > $newfile
+        # archlinux package perl-image-exiftool
+        #exiftool -tagsFromFile $nef -exif:all --subifd:all $newfile
+    end
+end
+
+function nef2webp
+
+    for nef in *.NEF
+        set newfile ( __get_new_image_name $nef).webp
+        echo "$nef -> $newfile"
+        #dcraw -c -w -T $nef | cwebp -o - -- - > $newfile
+        dcraw -c -w -T $nef > /tmp/tmp_cwebp.tiff
+        # exif extraction from tiff is not supported by cwebp
+        # -metadata exif
+        cwebp -quiet -q 90 /tmp/tmp_cwebp.tiff -o $newfile
+    end
+end
+
 
 set here (dirname (status -f))
 
