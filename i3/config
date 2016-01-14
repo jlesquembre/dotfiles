@@ -196,5 +196,5 @@ bar {
 
 #exec fish ~/.i3/set_i3_workspaces.fish
 workspace_layout tabbed
-exec urxvt -e weechat -T weechat
+#exec urxvt -e weechat -T weechat
 exec --no-startup-id i3-msg 'workspace 1 www; exec /usr/bin/chromium --force-device-scale-factor=1'
