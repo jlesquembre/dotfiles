@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-eval $(keychain --noask --quiet --eval --agents gpg,ssh)
+eval $(SHELL=/bin/bash; keychain --noask --quiet --eval --agents gpg,ssh)
 #eval $(gpg-agent --daemon --enable-ssh-support)
 
 xrdb $HOME/dotfiles/xresources
