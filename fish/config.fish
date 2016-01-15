@@ -31,6 +31,13 @@ set -x NODE_PATH $NPM_CONFIG_PREFIX/lib/node_modules
 set -x PATH ./node_modules/.bin $PATH
 
 
+# Use local python environment
+set -x PATH ./venv/bin $PATH
+function venv --description 'Virtual Python env at venv'
+    pyvenv $argv venv
+end
+
+
 # Use ruby gems
 if test -d "$HOME/.gem"
     set ruby_version (command ls $HOME/.gem/ruby | tail -1)
