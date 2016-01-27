@@ -158,9 +158,12 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Sound
-bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master 5%+"
-bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master 5%-"
-bindsym XF86AudioMute exec "amixer -D pulse sset Master toggle"
+#bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master 5%+"
+#bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master 5%-"
+#bindsym XF86AudioMute exec "amixer -D pulse sset Master toggle"
+bindsym XF86AudioRaiseVolume exec "pulseaudio-ctl up"
+bindsym XF86AudioLowerVolume exec "pulseaudio-ctl down"
+bindsym XF86AudioMute exec "pulseaudio-ctl mute"
 
 
 # Suspend / Lock
