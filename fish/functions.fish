@@ -3,6 +3,10 @@ function extract --description 'Extract archives'
     bash $HOME/.config/fish/utils.bash "extract" $argv
 end
 
+function compress_videos --description 'Compress all videos in directory'
+    bash $HOME/.config/fish/utils.bash "compress_videos" $argv
+end
+
 
 function jltar --description 'Compress a directory'
     switch (count $argv)
