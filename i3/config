@@ -161,9 +161,9 @@ bindsym $mod+r mode "resize"
 #bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master 5%+"
 #bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master 5%-"
 #bindsym XF86AudioMute exec "amixer -D pulse sset Master toggle"
-bindsym XF86AudioRaiseVolume exec "pulseaudio-ctl up"
-bindsym XF86AudioLowerVolume exec "pulseaudio-ctl down"
-bindsym XF86AudioMute exec "pulseaudio-ctl mute"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pulseaudio-ctl up; bash $HOME/dotfiles/i3/scripts/display_current_volume.sh"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pulseaudio-ctl down; bash $HOME/dotfiles/i3/scripts/display_current_volume.sh"
+bindsym XF86AudioMute exec --no-startup-id "pulseaudio-ctl mute; bash $HOME/dotfiles/i3/scripts/display_current_volume.sh"
 
 
 # Suspend / Lock
@@ -201,3 +201,6 @@ bar {
 workspace_layout tabbed
 #exec urxvt -e weechat -T weechat
 exec --no-startup-id i3-msg 'workspace 1 www; exec /usr/bin/chromium --force-device-scale-factor=1'
+
+exec --no-startup-id 'volumeicon'
+exec --no-startup-id 'volnoti'
