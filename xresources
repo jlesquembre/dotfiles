@@ -1,8 +1,8 @@
 Xft.antialias: true
 
-XTerm*faceName: Inconsolata\ for\ Powerline
-XTerm*faceSize: 14
-XTerm*faceNameDoublesize: WenQuanYi Zen Hei Mono
+!XTerm*faceName: Inconsolata\ for\ Powerline
+!XTerm*faceSize: 14
+!XTerm*faceNameDoublesize: WenQuanYi Zen Hei Mono
 
 
 ! Peaksea colors
@@ -51,7 +51,7 @@ Xcursor.theme: oxygen_w
 !URxvt*faceName: Inconsolata\ for\ Powerline
 !URxvt*faceSize: 14
 !URxvt*faceNameDoublesize: WenQuanYi Zen Hei Mono
-URxvt*font:					xft:Inconsolata\ for\ Powerline:regular:size=14
+URxvt*font:					xft:Hack:regular:size=12
 
 
 URxvt*reverseVideo:     False
