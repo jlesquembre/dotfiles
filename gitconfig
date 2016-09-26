@@ -3,6 +3,7 @@
 
 [user]
     name = José Luis Lafuente
+    signingkey = 8A3455EBE455489A
 
 [gui]
     spellingdictionary = en_US
@@ -22,3 +23,6 @@
 
 [fetch]
     prune = true
+
+[commit]
+    gpgsign = true
