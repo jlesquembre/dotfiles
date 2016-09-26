@@ -4,6 +4,7 @@
 [user]
     name = José Luis Lafuente
     signingkey = 8A3455EBE455489A
+    email = jl@lafuente.me
 
 [gui]
     spellingdictionary = en_US
