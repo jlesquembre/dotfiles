@@ -11,6 +11,7 @@
 
 [core]
     editor = /usr/bin/vim
+    pager = diff-so-fancy | less --tabs=4 -RFX
 
 [push]
     default = simple
@@ -21,6 +22,7 @@
     cloner = clone --recursive
     lasttag = describe --tags --abbrev=0
     lt = describe --tags --abbrev=0
+    patch = --no-pager diff --no-color
 
 [fetch]
     prune = true
