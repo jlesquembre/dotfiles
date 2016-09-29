@@ -253,3 +253,60 @@ function fuck --description 'Correct your previous console command'
         history --delete $fucked_up_commandd
     end
 end
+
+
+#function chpwd --on-variable PWD --description 'handler of changing $PWD'
+#  if not status --is-command-substitution ; and status --is-interactive
+#
+#    set cur_cwd (echo $PWD | sed -e "s|^$HOME|~|" -e 's|^/private||')
+#
+#    # set_color -o black
+#    # printf (printf "%*s" (tput cols)) | sed -e "s/ /\─/g";
+#    echo ""
+#    printf "%s⇢ %sEntering %s%s%s …\n" (set_color $fish_color_cwd) (set_color normal) (set_color $fish_color_cwd) $cur_cwd (set_color normal)
+#    ls
+#
+#  end
+#end
+
+
+function md --wraps mkdir -d "Create a directory and cd into it"
+  command mkdir $argv
+  if test $status = 0
+    switch $argv[(count $argv)]
+      case '-*'
+      case '*'
+        cd $argv[(count $argv)]
+        return
+    end
+  end
+end
+
+
+function server -d 'Start a HTTP server in the current dir, optionally specifying the port'
+    if test $argv[1]
+        set port $argv[1]
+    else
+        set port 8000
+    end
+
+    open "http://localhost:$port/" &
+    http-server -p "$port" .
+end
+
+
+# Navigation
+function ..    ; cd .. ; end
+function ...   ; cd ../.. ; end
+function ....  ; cd ../../.. ; end
+function ..... ; cd ../../../.. ; end
+
+# Utilities
+function c        ; pygmentize -O style=monokai -f console256 -g $argv ; end
+function g        ; git $argv ; end
+#function grep     ; command grep --color=auto $argv ; end
+alias push="git push"
+alias diskspace_report="df -P -kHl"
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias dig="dig +nocmd any +multiline +noall +answer"
+alias v="vim"

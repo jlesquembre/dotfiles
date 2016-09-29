@@ -1,0 +1,11 @@
+{
+  "name": "Global_npm_packages",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "diff-so-fancy": "^0.11.2",
+    "git-open": "^1.1.1",
+    "git-recent": "^1.0.3",
+    "http-server": "^0.9.0"
+  }
+}

@@ -20,12 +20,13 @@ set -x PATH $GOPATH/bin $PATH
 
 
 # Global npm packages
-set -x NPM_CONFIG_PREFIX $HOME/.node
-function npmg --description 'npm global'
-    npm -g --prefix $NPM_CONFIG_PREFIX $argv
-end
-set -x PATH $NPM_CONFIG_PREFIX/bin $PATH
-set -x NODE_PATH $NPM_CONFIG_PREFIX/lib/node_modules
+#set -x NPM_CONFIG_PREFIX $HOME/.node
+#function npmg --description 'npm global'
+#    npm -g --prefix $NPM_CONFIG_PREFIX $argv
+#end
+#set -x PATH $NPM_CONFIG_PREFIX/bin $PATH
+#set -x NODE_PATH $NPM_CONFIG_PREFIX/lib/node_modules
+set -x PATH $HOME/dotfiles/node_modules/.bin $PATH
 
 # Use local node packages
 set -x PATH ./node_modules/.bin $PATH
@@ -74,6 +75,9 @@ set __fish_git_prompt_showstashstate 'yes'
 set __fish_git_prompt_showupstream 'yes'
 set __fish_git_prompt_color_branch a0ff33
 #set __fish_git_prompt_color_branch 53c156
+#set __fish_git_prompt_color_dirtystate 'red'
+#set __fish_git_prompt_color_upstream_ahead 'ffb90f'
+#set __fish_git_prompt_color_upstream_behind 'blue'
 
 
 # Status Chars
