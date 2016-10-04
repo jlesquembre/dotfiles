@@ -2,7 +2,13 @@ set -x SHELL /usr/bin/fish
 set -x EDITOR vim
 set -x HOSTNAME (hostname)
 set -x PROJECT_HOME $HOME/projects
-set fish_greeting ""
+
+function fish_greeting -d "what's up, fish?"
+  set_color $fish_color_autosuggestion
+  uname -nmsr
+  uptime
+  set_color normal
+end
 
 # Until devpi issue #64 is implemented, you need to set REQUESTS_CA_BUNDLE environment variable
 # Uhm, not really a good solution, in that case this is the only CA allowed by requests
@@ -111,18 +117,42 @@ function get_nodeenv
 end
 
 
+# From https://github.com/0rax/fishline
 function fish_prompt
     # $status gets nuked as soon as something else is run, e.g. set_color
     # so it has to be saved asap.   #echo "$prompt""$git_p"
     set -l last_status $status
 
-    printf '%s%s%s%s%s @ %s%s%s in %s%s%s%s' (get_pyenv) (get_nodeenv) (set_color cyan) (whoami) (set_color normal) \
-                                           (set_color yellow) (hostname|cut -d . -f 1) (set_color normal) \
-                                           (set_color e0c060) (get_pwd) (set_color normal) (__fish_git_prompt)
+    # Powerline Glyphs
+    set FLSYM_LEFT_CLOSE "\uE0B0"
+    set BG_NORMAL 444
+    set BG_ERROR A22
+
     echo ''
+    printf '%s%s%s%s%s @ %s%s%s in ' (get_pyenv) (get_nodeenv) (set_color cyan) (whoami) (set_color normal) \
+                                     (set_color yellow) (hostname|cut -d . -f 1) (set_color normal)
+
+    if not test -w .
+		printf '%s%s ' (set_color red) ''
+	end
+
+    printf '%s%s%s%s' (set_color e0c060) (get_pwd) (set_color normal) (__fish_git_prompt)
+
+    echo ''
+
     if test $last_status = 0
-        printf '%s%s%s' (set_color green) '✔  ' (set_color normal)
+        #printf '%s%s%s' (set_color green) '✔  ' (set_color normal)
+        set_color -b $BG_NORMAL
+        printf ' → '
+        set_color $BG_NORMAL -b normal
     else
-        printf '%s%s%s' (set_color red) '✗  ' (set_color normal)
+        #printf '%s%s%s' (set_color red) '✗  ' (set_color normal)
+        set_color -b $BG_ERROR
+        printf " $last_status "
+        set_color $BG_ERROR -b normal
     end
+    printf $FLSYM_LEFT_CLOSE
+    set_color normal -b normal
+    printf " "
+
 end
