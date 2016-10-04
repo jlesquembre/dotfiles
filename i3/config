@@ -27,7 +27,7 @@ font pango:Hack 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt -e fish
+bindsym $mod+Return exec termite -e fish
 #i3-sensible-terminal
 
 # kill focused window
@@ -245,6 +245,6 @@ workspace_layout tabbed
 #exec urxvt -e weechat -T weechat
 exec --no-startup-id i3-msg 'workspace $ws1; exec /usr/bin/chromium --force-device-scale-factor=1'
 
-exec --no-startup-id "compton --no-fading-openclose"
+#exec --no-startup-id "compton --no-fading-openclose"
 exec --no-startup-id "volumeicon"
 exec --no-startup-id "volnoti"

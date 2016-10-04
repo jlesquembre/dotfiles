@@ -16,6 +16,7 @@ links["$HOME/dotfiles/gitconfig"]="$HOME/.gitconfig"
 links["$HOME/dotfiles/tigrc"]="$HOME/.tigrc"
 links["$HOME/dotfiles/pacman"]="$HOME/.config/pacman"
 links["$HOME/dotfiles/chromium-flags.conf"]="$HOME/.config/chromium-flags.conf"
+links["$HOME/dotfiles/termite.conf"]="$HOME/.config/termite/config"
 
 links["$HOME/dotfiles/ipython"]="$HOME/.ipython"
 links["$HOME/dotfiles/jupyter"]="$HOME/.jupyter"
