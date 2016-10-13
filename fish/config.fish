@@ -18,7 +18,7 @@ end
 # https://github.com/fish-shell/fish-shell/issues/1485
 # https://github.com/fish-shell/fish-shell/commit/5157ac30faf8fde5e9ea84977fdf430e01b71f96
 # Not merged in any release yet
-set fish_complete_path $fish_complete_path $__fish_datadir/vendor_completions.d
+# set fish_complete_path $fish_complete_path $__fish_datadir/vendor_completions.d
 
 # Set go variables
 set -x GOPATH $HOME/go
@@ -63,14 +63,15 @@ end
 # Some extra utilities
 . $HOME/.config/fish/functions.fish
 . $HOME/.config/fish/docker.fish
+. $HOME/.config/fish/fzf.fish
 
 # Some abbreviations
-set -x fish_user_abbreviations $fish_user_abbreviations 'gco=git checkout'
-set -x fish_user_abbreviations $fish_user_abbreviations 'gf=git fetch'
-set -x fish_user_abbreviations $fish_user_abbreviations 'gp=git pull --ff-only'
-set -x fish_user_abbreviations $fish_user_abbreviations 'gd=git branch -d'
-set -x fish_user_abbreviations $fish_user_abbreviations 'gdr=git push origin --delete'
-set -x fish_user_abbreviations $fish_user_abbreviations 'gm=git merge --ff-only'
+abbr -a gco 'git checkout'
+abbr -a gf 'git fetch'
+abbr -a gp 'git pull --ff-only'
+abbr -a gd 'git branch -d'
+abbr -a gdr 'git push origin --delete'
+abbr -a gm 'git merge --ff-only'
 
 #### A better prompt
 
