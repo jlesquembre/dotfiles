@@ -1,5 +1,7 @@
 fish/fishd.*
 fish/fish_history
+fisherman/*
+!fisherman/fishfile
 
 ranger/bookmarks
 ranger/history
