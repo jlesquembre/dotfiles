@@ -23,6 +23,8 @@ links["$HOME/dotfiles/nvim"]="$HOME/.config/nvim"
 links["$HOME/dotfiles/ipython"]="$HOME/.ipython"
 links["$HOME/dotfiles/jupyter"]="$HOME/.jupyter"
 
+mkdir -p $HOME/.config/termite
+
 # key   -> target
 # value -> link
 
