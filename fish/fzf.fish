@@ -1,7 +1,11 @@
 function _run_fzf_cmd
     set -l tempfile $argv[1]
     set -l cmd $argv[2]
-    set -l args $argv[3..-1]
+    if test (count $argv) -eq 2
+        set -l cmd 'NULL'
+    else
+        set -l args $argv[3..-1]
+    end
     eval $cmd > $tempfile
 
     set -l last_status $status
@@ -20,6 +24,8 @@ end
 
 
 function fo --description 'open file using fzf and rifle (CTRL-V for vim)'
+    # Without args, get all files
+    if test (count $argv) -eq 0; set argv '\*'; end
     set -l cmd "locate -Ai -0 $argv | fzf --read0 -0 -1 --expect=ctrl-v --header='Open file with rifle (CTRL-V for vim)'"
 
     set -l tempfile (mktemp)
@@ -45,6 +51,7 @@ end
 
 function fcd -d 'fzf cd'
     #locate -Ai -0 $argv | grep -z -vE '~$' | fzf --read0 -0 -1 > $tempfile
+    if test (count $argv) -eq 0; set argv '\*'; end
     set -l cmd "locate -Ai -0 $argv | fzf --read0 -0 -1"
 
     set -l tempfile (mktemp)
@@ -64,6 +71,7 @@ end
 
 # Not too useful
 function fcdd --description 'fzf cd (only match basename)'
+    if test (count $argv) -eq 0; set argv '\*'; end
     set -l cmd "locate -Ai -0 -b $argv | fzf --read0 -0 -1"
 
     set -l tempfile (mktemp)
@@ -82,14 +90,31 @@ end
 
 
 function fkill --description 'kill with fzf'
-    set -l cms "ps -ef | sed 1d | fzf -m | awk '{print $2}'"
+    #set -l cmd "ps -ef | sed 1d | fzf -m | awk '{print \$2}'"
+    set -l cmd "ps -ef | sed 1d | fzf -m"
 
     set -l tempfile (mktemp)
-    _run_fzf_cmd $tempfile $cmd $argv; set -l last_status $status
+    _run_fzf_cmd $tempfile $cmd; set -l last_status $status
     if test $last_status -ne 0; rm $tempfile; return $last_status
     end
 
-    kill (cat $tempfile)
+    set -l pid (cat $tempfile | tr -s ' ' | cut -d' ' -f 2)
+    set -l command (cat $tempfile | tr -s ' ' | cut -d' ' -f 8-)
+    echo "Killing command: '$command' with PID: $pid"
+    kill $pid
     rm $tempfile
 
+end
+
+
+function jj -d 'autojump with fzf'
+    set -l cmd "autojump -s | head -n -7 | sort -nr | awk '{print \$2}' | fzf +s"
+
+    set -l tempfile (mktemp)
+    _run_fzf_cmd $tempfile $cmd; set -l last_status $status
+    if test $last_status -ne 0; rm $tempfile; return $last_status
+    end
+
+    cd (cat $tempfile)
+    rm $tempfile
 end
