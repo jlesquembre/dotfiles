@@ -6,3 +6,6 @@ ranger/history
 ranger/tagged
 
 node_modules
+
+nvim/plugged/
+nvim/autoload/plug.vim

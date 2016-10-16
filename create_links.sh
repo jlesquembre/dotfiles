@@ -18,6 +18,8 @@ links["$HOME/dotfiles/chromium-flags.conf"]="$HOME/.config/chromium-flags.conf"
 links["$HOME/dotfiles/termite.conf"]="$HOME/.config/termite/config"
 links["$HOME/dotfiles/editorconfig.ini"]="$HOME/.editorconfig"
 
+links["$HOME/dotfiles/nvim"]="$HOME/.config/nvim"
+
 links["$HOME/dotfiles/ipython"]="$HOME/.ipython"
 links["$HOME/dotfiles/jupyter"]="$HOME/.jupyter"
 
