@@ -2,7 +2,7 @@ function _run_fzf_cmd
     set -l tempfile $argv[1]
     set -l cmd $argv[2]
     if test (count $argv) -eq 2
-        set -l cmd 'NULL'
+        set -l args 'NULL'
     else
         set -l args $argv[3..-1]
     end
@@ -108,7 +108,8 @@ end
 
 
 function jj -d 'autojump with fzf'
-    set -l cmd "autojump -s | head -n -7 | sort -nr | awk '{print \$2}' | fzf +s"
+    if test (count $argv) -eq 0; set argv ''; end
+    set -l cmd "autojump -s | head -n -7 | sort -nr | awk '{print \$2}' | fzf +s --query=\"$argv\""
 
     set -l tempfile (mktemp)
     _run_fzf_cmd $tempfile $cmd; set -l last_status $status
