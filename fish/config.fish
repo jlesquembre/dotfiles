@@ -1,17 +1,20 @@
+# Don't user fisherman for now, see
+# See https://github.com/fisherman/fisherman/issues/340
+
 # Ensure fisherman and plugins are installed
-if not test -f $HOME/.config/fish/functions/fisher.fish
-  echo "==> Fisherman not found.  Installing."
-  curl -sLo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
-  fisher
-end
+#if not test -f $HOME/.config/fish/functions/fisher.fish
+#  echo "==> Fisherman not found.  Installing."
+#  curl -sLo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
+#  fisher
+#end
 
-set -U fish_path $HOME/dotfiles/fisherman
-
-set fish_function_path $fish_path/functions $fish_function_path
-set fish_complete_path $fish_path/completions $fish_complete_path
-for file in $fish_path/conf.d/*.fish
-    source $file
-end
+#set -U fish_path $HOME/dotfiles/fisherman
+#
+#set fish_function_path $fish_path/functions $fish_function_path
+#set fish_complete_path $fish_path/completions $fish_complete_path
+#for file in $fish_path/conf.d/*.fish
+#    source $file
+#end
 
 
 set -x SHELL /usr/bin/fish
@@ -80,6 +83,7 @@ end
 source $HOME/.config/fish/functions.fish
 source $HOME/.config/fish/docker.fish
 source $HOME/.config/fish/fzf.fish
+source /usr/share/autojump/autojump.fish
 
 # Some abbreviations
 abbr -a gco 'git checkout'
@@ -173,7 +177,3 @@ function fish_prompt
     printf " "
 
 end
-
-
-# Fisherman (and plugins) config
-set -U Z_CMD "j"
