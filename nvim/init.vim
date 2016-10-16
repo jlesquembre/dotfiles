@@ -38,6 +38,9 @@ set showcmd                     " display incomplete commands
 "  wildmenu is set by default
 
 
+
+" Plugins (administrated by Plug) {{{ ========================================
+
 " auto-install vim-plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -59,6 +62,8 @@ Plug 'rakr/vim-one'
 
 " Navigation
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
 
 
 " Text edition
@@ -66,10 +71,11 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 "gorkunov/smartpairs.vim
-"gorkunov/smartpairs.vim
-"gorkunov/smartpairs.vim
-Plug 'cohama/lexima.vim'
+"Plug 'cohama/lexima.vim'
+Plug 'jiangmiao/auto-pairs'
 " https://github.com/Raimondi/delimitMate ???
+Plug 'tpope/vim-jdaddy'
+Plug 'tpope/vim-endwise'
 
 
 " UI
@@ -104,12 +110,10 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'HerringtonDarkholme/yats.vim'  " Typescript
 
-
-
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-jdaddy'
-
+" General utils
+Plug 'tpope/vim-dispatch'
 Plug 'editorconfig/editorconfig-vim'
+
 "Plug 'neomake/neomake' ????
 " or tcomment???
 
@@ -134,8 +138,39 @@ if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
 endif
 
 
+" }}} END Plugins
+
+
+" VIM Setup {{{ ===============================================================
+
 colorscheme base16-default-dark
 
+" Map the leader key to SPACE
+let mapleader="\<SPACE>"
+
+set relativenumber
+set number
+
+set showmatch "?????
+noremap <Leader><Space> :noh<CR>
+
+" Neovim terminal mapping
+" terminal 'normal mode'
+tmap <esc> <c-\><c-n><esc><cr>
+
+" give it a try and you will like it
+" nnoremap ; :
+" nnoremap : ;
+
+
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+"map <esc> :noh<cr>
+
+
+" END VIM Setup }}}
+" See for FZF:
+" https://github.com/junegunn/dotfiles/blob/master/vimrc#L1649-L1651
 
 " Airline {{{
 
@@ -185,18 +220,9 @@ let g:airline#extensions#tabline#tabs_label = 't'
 " }}}
 
 
-set relativenumber
-set number
-
-" Neovim terminal mapping
-" terminal 'normal mode'
-tmap <esc> <c-\><c-n><esc><cr>
-
-" give it a try and you will like it
-" nnoremap ; :
-" nnoremap : ;
 
 
-nnoremap <leader>d "_d
-vnoremap <leader>d "_d
-"map <esc> :noh<cr>
+
+
+
+
