@@ -30,7 +30,6 @@
 "  wildmenu is set by default
 
 
-
 " ============================================================================
 " Plugins (administrated by Plug) {{{
 " ============================================================================
@@ -148,6 +147,7 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
 colorscheme base16-default-dark
 
+set shell=bash  " many plugins expect bash
 set relativenumber
 set number
 set noshowmode
