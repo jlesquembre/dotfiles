@@ -1,13 +1,4 @@
 
-set termguicolors
-"let base16colorspace = 256
-
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-
-syntax enable
-set showcmd                     " display incomplete commands
-" filetype plugin indent on " Neovim default
-
 " Defaults					            *nvim-defaults*
 "
 "  Syntax highlighting is enabled by default
@@ -39,7 +30,9 @@ set showcmd                     " display incomplete commands
 
 
 
-" Plugins (administrated by Plug) {{{ ========================================
+" ============================================================================
+" Plugins (administrated by Plug) {{{
+" ============================================================================
 
 " auto-install vim-plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -61,7 +54,8 @@ Plug 'rakr/vim-one'
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Navigation
-Plug 'tpope/vim-vinegar'
+"Plug 'tpope/vim-vinegar'
+Plug 'Shougo/vimfiler.vim' | Plug 'Shougo/unite.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
 
@@ -141,17 +135,41 @@ endif
 " }}} END Plugins
 
 
-" VIM Setup {{{ ===============================================================
+" ============================================================================
+" BASIC SETTINGS {{{
+" ============================================================================
+
+
+set termguicolors
+"let base16colorspace = 256
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+
+syntax enable
 
 colorscheme base16-default-dark
 
-" Map the leader key to SPACE
-let mapleader="\<SPACE>"
-
 set relativenumber
 set number
+set noshowmode
+set showcmd                     " display incomplete commands
+set cursorline
 
-set showmatch "?????
+let mapleader="\<SPACE>"
+let maplocalleader="\<SPACE>"
+
+
+" Set augroup.
+augroup MyAutoCmd
+  autocmd!
+augroup END
+
+" }}} BASIC SETTINGS
+
+" ============================================================================
+" MAPPINGS {{{
+" ============================================================================
+
+"set showmatch "?????
 noremap <Leader><Space> :noh<CR>
 
 " Neovim terminal mapping
@@ -167,15 +185,17 @@ nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 "map <esc> :noh<cr>
 
+" }}} MAPPINGS
 
-" END VIM Setup }}}
+
 " See for FZF:
 " https://github.com/junegunn/dotfiles/blob/master/vimrc#L1649-L1651
 
+" ============================================================================
 " Airline {{{
+" ============================================================================
 
 " set laststatus=2  " Neovim default
-set noshowmode
 "let g:airline_theme='powerlineish'
 let g:airline_theme='oceanicnext'
 " let g:airline_theme='base16_default' " same as base16-default-dark
@@ -226,3 +246,62 @@ let g:airline#extensions#tabline#tabs_label = 't'
 
 
 
+" ============================================================================
+" Vimfiler {{{
+" ============================================================================
+"nmap <buffer> - :VimFilerBufferDir<CR>
+nmap - :VimFilerBufferDir<CR>
+nmap <Leader>- :VimFilerExplorer<CR>
+
+let g:vimfiler_as_default_explorer = 1
+let g:loaded_netrwPlugin = 1 " Disable netrw.vim
+
+call vimfiler#custom#profile('default', 'context', {
+      \ 'safe' : 0,
+      \ 'auto_expand' : 1,
+      \ 'parent' : 0,
+      \ })
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = ' '
+let g:vimfiler_readonly_file_icon = '✗'
+let g:vimfiler_marked_file_icon = '✓'
+
+let g:vimfiler_force_overwrite_statusline = 0
+let g:vimfiler_time_format= "%Y/%m/%d %H:%M"
+
+autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
+function! s:vimfiler_my_settings() abort "{{{
+
+  nnoremap <silent><buffer><expr> gt vimfiler#do_action('tabopen')
+  nnoremap <silent><buffer><expr> v vimfiler#do_switch_action('vsplit')
+  nnoremap <silent><buffer><expr> s vimfiler#do_switch_action('split')
+  "nmap <buffer> p <Plug>(vimfiler_quick_look)
+  nmap <buffer> <Tab> <Plug>(vimfiler_switch_to_other_window)
+
+  " move/copy/delete cursor file in one key
+  nmap <buffer> c <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_copy_file)
+  nmap <buffer> m <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_move_file)
+  nmap <buffer> d <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_delete_file)
+
+  nmap <buffer> - <Plug>(vimfiler_switch_to_parent_directory)
+
+endfunction   "}}}
+
+
+" Title string.
+"let &g:titlestring="
+"      \ %{expand('%:p:~:.')}%(%m%r%w%)
+"      \ %<\(%{WidthPart(
+"      \ fnamemodify(&filetype ==# 'vimfiler' ?
+"      \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
+"      \ &columns-len(expand('%:p:.:~')))}\) - VIM"
+"nmap <buffer> - <Plug>VinegarUp
+
+hidden files
+
+" }}}
+
+
+let g:startify_change_to_vcs_root = 1
