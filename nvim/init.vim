@@ -71,6 +71,7 @@ Plug 'jiangmiao/auto-pairs'
 " https://github.com/Raimondi/delimitMate ???
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-endwise'
+Plug 'ntpeters/vim-better-whitespace'
 
 
 " UI
@@ -152,12 +153,46 @@ set number
 set noshowmode
 set showcmd                     " display incomplete commands
 set cursorline
+set clipboard=unnamedplus  " Use "+ register
 
 let mapleader="\<SPACE>"
 let maplocalleader="\<SPACE>"
 
 
-" Set augroup.
+" Backups {{{
+
+set backup
+set swapfile
+
+let tmpvim_dir = "/tmp/nvim/"
+execute "set backupdir=".tmpvim_dir."backup/"
+execute "set undodir=".tmpvim_dir."undo/"
+execute "set directory=".tmpvim_dir."swap/"
+set shada='1000,<500,s100,h " file saved at ~/.local/share/nvim
+set viewdir=$HOME/.config/nvim/views
+
+" make this dirs if no exists previously
+function! MakeDirIfNoExists(path)
+    if !isdirectory(expand(a:path))
+        call mkdir(expand(a:path), "p")
+    endif
+endfunction
+silent! call MakeDirIfNoExists(&backupdir)
+silent! call MakeDirIfNoExists(&undodir)
+silent! call MakeDirIfNoExists(&directory)
+silent! call MakeDirIfNoExists(&viewdir)
+
+" }}}
+
+
+" Make sure you dont change logfiles
+augroup readonly_files
+    au BufNewFile,BufRead /var/log/* set readonly
+    au BufNewFile,BufRead /var/log/* set nomodifiable
+augroup END
+
+
+" Set augroup
 augroup MyAutoCmd
   autocmd!
 augroup END
@@ -168,8 +203,8 @@ augroup END
 " MAPPINGS {{{
 " ============================================================================
 
-"set showmatch "?????
 noremap <Leader><Space> :noh<CR>
+nnoremap Y y$
 
 " Neovim terminal mapping
 " terminal 'normal mode'
@@ -183,6 +218,19 @@ tmap <esc> <c-\><c-n><esc><cr>
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 "map <esc> :noh<cr>
+
+" Fast window moves
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Save as root
+cmap w!! w !sudo tee % >/dev/null<CR>:e!<CR><CR>
+command Sudow execute "w !sudo tee > /dev/null %"
+
+" Quick saving
+nmap <silent> <Leader>w :update<CR>
 
 " }}} MAPPINGS
 
@@ -215,6 +263,13 @@ let g:airline#extensions#tabline#show_close_button = 0
 "let g:airline#extensions#tabline#show_tab_nr = 1
 "let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#tabs_label = 't'
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
+
+let g:airline_symbols.maxlinenr = ''
+
 
 "let g:tablabel = "%N%{flagship#tabmodified()} %{flagship#tabcwds('shorten',',')}"
 "set laststatus=2
