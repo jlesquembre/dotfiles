@@ -1,7 +1,8 @@
-
+" See https://github.com/neovim/neovim/issues/2676
+"
 " Defaults					            *nvim-defaults*
 "
-"  Syntax highlighting is enabled by default
+"  Syntax highlighting is enabled by default (syntax enable)
 "  :filetype plugin indent on is enabled by default
 "
 "  autoindent is set by default
@@ -143,8 +144,6 @@ endif
 set termguicolors
 "let base16colorspace = 256
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-
-syntax enable
 
 colorscheme base16-default-dark
 
