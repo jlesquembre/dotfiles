@@ -5,7 +5,7 @@ declare -A links
 links["$HOME/dotfiles/fish"]="$HOME/.config/fish"
 links["$HOME/dotfiles/ranger"]="$HOME/.config/ranger"
 
-links["$HOME/dotfiles/fonts"]="$HOME/.fonts"
+links["$HOME/dotfiles/fonts"]="$HOME/.local/share/fonts"
 links["$HOME/dotfiles/i3"]="$HOME/.i3"
 
 links["$HOME/dotfiles/xsession"]="$HOME/.xsession"

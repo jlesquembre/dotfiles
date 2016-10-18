@@ -75,7 +75,7 @@ Plug 'tpope/vim-endwise'
 " UI
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'Yggdroot/indentLine'
+"Plug 'Yggdroot/indentLine'
 Plug 'ap/vim-css-color'
 Plug 'mhinz/vim-startify'
 
@@ -199,7 +199,7 @@ vnoremap <leader>d "_d
 "let g:airline_theme='powerlineish'
 let g:airline_theme='oceanicnext'
 " let g:airline_theme='base16_default' " same as base16-default-dark
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts = 1
 
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline#extensions#whitespace#enabled = 1
@@ -299,7 +299,9 @@ endfunction   "}}}
 "      \ &columns-len(expand('%:p:.:~')))}\) - VIM"
 "nmap <buffer> - <Plug>VinegarUp
 
-hidden files
+let g:vimfiler_ignore_pattern = ['^\.git$', '^\.DS_Store$']
+" Default value is ['^\.'] (dot files pattern).
+
 
 " }}}
 
