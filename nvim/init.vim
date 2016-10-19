@@ -155,6 +155,9 @@ set showcmd                     " display incomplete commands
 set cursorline
 set clipboard=unnamedplus  " Use "+ register
 
+set splitbelow
+set splitright
+
 let mapleader="\<SPACE>"
 let maplocalleader="\<SPACE>"
 
@@ -197,6 +200,8 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
+autocmd MyAutoCmd FileType help wincmd K
+
 " }}} BASIC SETTINGS
 
 " ============================================================================
@@ -226,8 +231,9 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Save as root
-cmap w!! w !sudo tee % >/dev/null<CR>:e!<CR><CR>
-command Sudow execute "w !sudo tee > /dev/null %"
+"cmap w!! w !sudo tee % >/dev/null<CR>:e!<CR><CR>
+cabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
+"command! Sudow execute "w !sudo tee > /dev/null %"
 
 " Quick saving
 nmap <silent> <Leader>w :update<CR>
@@ -235,8 +241,45 @@ nmap <silent> <Leader>w :update<CR>
 " }}} MAPPINGS
 
 
-" See for FZF:
-" https://github.com/junegunn/dotfiles/blob/master/vimrc#L1649-L1651
+
+" ============================================================================
+" FZF {{{
+" ============================================================================
+
+" File preview using Pygments
+let g:fzf_files_options = '--preview "pygmentize -O style=monokai -f console256 -g {} | head -'.&lines.'"'
+
+nnoremap <silent> <Leader>p :GFiles<CR>
+nnoremap <silent> <Leader>P :Files<CR>
+nnoremap <silent> <Leader>C        :Colors<CR>
+nnoremap <silent> <Leader><Enter>  :Buffers<CR>
+nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
+xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
+nnoremap <silent> <Leader>`        :Marks<CR>
+" nnoremap <silent> q: :History:<CR>
+" nnoremap <silent> q/ :History/<CR>
+
+"inoremap <expr> <c-x><c-t> fzf#complete('tmuxwords.rb --all-but-current --scroll 500 --min 5')
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+command! Plugs call fzf#run({
+  \ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
+  \ 'options': '--delimiter / --nth -1',
+  \ 'down':    '~30%',
+  \ 'sink':    'VimFiler'})
+
+autocmd MyAutoCmd FileType fzf setlocal nocursorline
+
+" }}}
+
 
 " ============================================================================
 " Airline {{{
@@ -328,6 +371,7 @@ let g:vimfiler_time_format= "%Y/%m/%d %H:%M"
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings() abort "{{{
 
+  setlocal cursorline
   nnoremap <silent><buffer><expr> gt vimfiler#do_action('tabopen')
   nnoremap <silent><buffer><expr> v vimfiler#do_switch_action('vsplit')
   nnoremap <silent><buffer><expr> s vimfiler#do_switch_action('split')
@@ -361,3 +405,8 @@ let g:vimfiler_ignore_pattern = ['^\.git$', '^\.DS_Store$']
 
 
 let g:startify_change_to_vcs_root = 1
+
+
+" Window chooser
+" let winnr = unite#helper#choose_window()
+" call vimfiler#util#winmove(winnr)
