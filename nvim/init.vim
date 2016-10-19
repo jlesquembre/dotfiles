@@ -49,6 +49,8 @@ Plug 'chriskempson/base16-vim'
 Plug 'mhartington/oceanic-next'
 Plug 'junegunn/seoul256.vim'
 Plug 'rakr/vim-one'
+Plug 'joshdick/onedark.vim'
+Plug 'MaxSt/FlatColor'
 
 "Plug 'ryanoasis/vim-devicons'
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -97,6 +99,7 @@ Plug 'int3/vim-extradite'
 Plug 'aliva/vim-fish'
 Plug 'stephpy/vim-yaml'
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'mitsuhiko/vim-python-combined'
 "Plug 'elzr/vim-json'
 "PLug 'evanmiller/nginx-vim-syntax'
 "PLug 'kurayama/systemd-vim-syntax'
@@ -109,6 +112,7 @@ Plug 'HerringtonDarkholme/yats.vim'  " Typescript
 
 " General utils
 Plug 'tpope/vim-dispatch'
+Plug 'radenling/vim-dispatch-neovim'
 Plug 'editorconfig/editorconfig-vim'
 
 "Plug 'neomake/neomake' ????
@@ -148,6 +152,7 @@ set termguicolors
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
 colorscheme base16-default-dark
+"colorscheme onedark
 
 set shell=bash  " many plugins expect bash
 set relativenumber
@@ -302,6 +307,7 @@ autocmd MyAutoCmd FileType fzf setlocal nocursorline
 " set laststatus=2  " Neovim default
 "let g:airline_theme='powerlineish'
 let g:airline_theme='oceanicnext'
+"let g:airline_theme='onedark'
 " let g:airline_theme='base16_default' " same as base16-default-dark
 let g:airline_powerline_fonts = 1
 
