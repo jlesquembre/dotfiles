@@ -54,15 +54,16 @@ Plug 'rakr/vim-one'
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Navigation
+Plug 'tpope/vim-repeat'
 "Plug 'tpope/vim-vinegar'
 Plug 'Shougo/vimfiler.vim' | Plug 'Shougo/unite.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
+Plug 'mhinz/vim-grepper'
 
 
 " Text edition
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 "gorkunov/smartpairs.vim
 "Plug 'cohama/lexima.vim'
@@ -240,6 +241,18 @@ cabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
 nmap <silent> <Leader>w :update<CR>
 
 " }}} MAPPINGS
+
+
+" ============================================================================
+" GREPPER {{{
+" ============================================================================
+
+"nnoremap <leader>G :Grepper -tool git<cr>
+nnoremap <leader>g :Grepper -tool rg<cr>
+"nmap gs <plug>(GrepperOperator)
+"xmap gs <plug>(GrepperOperator)
+
+" }}}
 
 
 
