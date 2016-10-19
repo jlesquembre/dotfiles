@@ -162,8 +162,8 @@ set showcmd                     " display incomplete commands
 set cursorline
 set clipboard=unnamedplus  " Use "+ register
 
-set splitbelow
-set splitright
+"set splitbelow
+"set splitright
 
 let mapleader="\<SPACE>"
 let maplocalleader="\<SPACE>"
