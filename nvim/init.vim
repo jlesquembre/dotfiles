@@ -79,6 +79,7 @@ Plug 'vim-airline/vim-airline-themes'
 "Plug 'Yggdroot/indentLine'
 Plug 'ap/vim-css-color'
 Plug 'mhinz/vim-startify'
+Plug 'vim-scripts/CursorLineCurrentWindow'
 
 
 "Plug 'bling/vim-bufferline'
@@ -338,11 +339,6 @@ let g:airline_symbols.maxlinenr = ''
 
 
 
-
-
-
-
-
 " ============================================================================
 " Vimfiler {{{
 " ============================================================================
@@ -372,6 +368,7 @@ autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings() abort "{{{
 
   setlocal cursorline
+  let w:persistent_cursorline = 1  " For compat with CursorLineCurrentWindow
   nnoremap <silent><buffer><expr> gt vimfiler#do_action('tabopen')
   nnoremap <silent><buffer><expr> v vimfiler#do_switch_action('vsplit')
   nnoremap <silent><buffer><expr> s vimfiler#do_switch_action('split')
