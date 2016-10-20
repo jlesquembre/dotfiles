@@ -109,7 +109,8 @@ Plug 'rust-lang/rust.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'HerringtonDarkholme/yats.vim'  " Typescript
-Plug 'LaTeX-Box-Team/LaTeX-Box', {'for': 'tex'}
+"Plug 'LaTeX-Box-Team/LaTeX-Box', {'for': 'tex'}
+Plug 'lervag/vimtex', {'for': 'tex'}
 
 " General utils
 Plug 'tpope/vim-dispatch'
@@ -269,11 +270,12 @@ nnoremap <leader>g :Grepper -tool rg<cr>
 " File preview using Pygments
 let g:fzf_files_options = '--preview "file -ib {} | rg binary; or pygmentize -O style=monokai -f console256 -g {} | head -'.&lines.'"'
 
-nnoremap <silent> <Leader>p       :FilesRg<CR>
-nnoremap <silent> <Leader>pp      :FilesRg<CR>
-nnoremap <silent> <Leader>pg      :GFiles<CR>
-nnoremap <silent> <Leader>pc      :Colors<CR>
+nnoremap <silent> <Leader>f       :FilesRg<CR>
+nnoremap <silent> <Leader>fp      :FilesRg<CR>
+nnoremap <silent> <Leader>fg      :GFiles<CR>
+nnoremap <silent> <Leader>fc      :Colors<CR>
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
+nnoremap <silent> <Leader>frg     :Find <C-R><C-W><CR>
 nnoremap <silent> <Leader>ag      :Ag <C-R><C-W><CR>
 nnoremap <silent> <Leader>AG      :Ag <C-R><C-A><CR>
 xnoremap <silent> <Leader>ag      y:Ag <C-R>"<CR>
@@ -296,6 +298,10 @@ command! -bang -nargs=? -complete=dir FilesRg  call fzf#vim#files(<q-args>, {
   \ 'source': 'rg  --files --hidden -g "!.git/"'
   \ },
   \ <bang>0)
+
+
+command! -bang -nargs=* Find
+  \ call fzf#vim#grep('rg --column --line-number --no-heading --color=always '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 
 
 command! Plugs call fzf#run({
@@ -431,6 +437,7 @@ let g:vimfiler_ignore_pattern = ['^\.git$', '^\.DS_Store$']
 
 let g:startify_change_to_vcs_root = 1
 
+let g:vimtex_latexmk_progname = '/home/jlle/.local/share/virtualenvs/nvr/bin/nvr'
 
 " Window chooser
 " let winnr = unite#helper#choose_window()
