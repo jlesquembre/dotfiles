@@ -109,6 +109,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'HerringtonDarkholme/yats.vim'  " Typescript
+Plug 'LaTeX-Box-Team/LaTeX-Box', {'for': 'tex'}
 
 " General utils
 Plug 'tpope/vim-dispatch'
@@ -266,16 +267,17 @@ nnoremap <leader>g :Grepper -tool rg<cr>
 " ============================================================================
 
 " File preview using Pygments
-let g:fzf_files_options = '--preview "pygmentize -O style=monokai -f console256 -g {} | head -'.&lines.'"'
+let g:fzf_files_options = '--preview "file -ib {} | rg binary; or pygmentize -O style=monokai -f console256 -g {} | head -'.&lines.'"'
 
-nnoremap <silent> <Leader>p :GFiles<CR>
-nnoremap <silent> <Leader>P :Files<CR>
-nnoremap <silent> <Leader>C        :Colors<CR>
-nnoremap <silent> <Leader><Enter>  :Buffers<CR>
-nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
-nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
-xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
-nnoremap <silent> <Leader>`        :Marks<CR>
+nnoremap <silent> <Leader>p       :FilesRg<CR>
+nnoremap <silent> <Leader>pp      :FilesRg<CR>
+nnoremap <silent> <Leader>pg      :GFiles<CR>
+nnoremap <silent> <Leader>pc      :Colors<CR>
+nnoremap <silent> <Leader><Enter> :Buffers<CR>
+nnoremap <silent> <Leader>ag      :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>AG      :Ag <C-R><C-A><CR>
+xnoremap <silent> <Leader>ag      y:Ag <C-R>"<CR>
+nnoremap <silent> <Leader>`       :Marks<CR>
 " nnoremap <silent> q: :History:<CR>
 " nnoremap <silent> q/ :History/<CR>
 
@@ -288,6 +290,13 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
+
+
+command! -bang -nargs=? -complete=dir FilesRg  call fzf#vim#files(<q-args>, {
+  \ 'source': 'rg  --files --hidden -g "!.git/"'
+  \ },
+  \ <bang>0)
+
 
 command! Plugs call fzf#run({
   \ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
