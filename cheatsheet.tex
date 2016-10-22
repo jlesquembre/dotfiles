@@ -5,6 +5,7 @@
 \usepackage{multicol}
 \usepackage{booktabs}
 \usepackage{tabu}
+\usepackage{adjustbox}
 %\usepackage{cellspace}
 %%\usepackage{multirow}
 %\usepackage{tabularx}
@@ -18,13 +19,13 @@
 \usepackage[margin=1cm]{geometry}
 \setlength{\columnsep}{1cm}
 \setlength{\columnseprule}{0.4pt}
-
+\pagenumbering{gobble}
 
     %\begin{tabu} to \textwidth {Xl}
 
 \begin{document}
   \centerline{\textbf{\Huge Command line}}\medskip
-  \begin{minipage}[t]{.47\textwidth}
+  \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
     \centerline{\Large Commands} \medskip
     \begin{tabu}{Xl}
       \textbf{md} & Create dir and cd \\
@@ -51,12 +52,13 @@
       %%\toprule
       %%\bottomrule
     \end{tabu}
-  \end{minipage}
+  \end{minipage}}%
   %\qquad{\vrule}\qquad
+  \hfil
   \vrule{}
   %\hfil
   %\vrule{}
-  \begin{minipage}[t]{.47\textwidth}
+  \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
     \centerline{\Large Terminal (Termite)}\medskip
     \begin{tabu}{Xl}
       \textbf{CTRL+SHIFT+c/v} &  copy/paste \\
@@ -79,7 +81,7 @@
       \textbf{ALT+h} &  Show man\\
       \textbf{ALT+w} &  List dir\\
     \end{tabu}
-  \end{minipage} %\hfil
+  \end{minipage}}% %\hfil
 
 
   %\begin{multicols}{2}
@@ -91,15 +93,65 @@
   %  %%  \textbf{server} & Serve current directory \\
   %  %%\end{tabularx}
 
-
   %  \columnbreak
 
   %\end{multicols}
 
-
   \newpage
 
-  Commands
-  Terminal (Termite)
-  Fish shell
+  \centerline{\textbf{\Huge File Explorer}}\medskip
+  \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
+    \begin{tabu}{Xl}
+      \multicolumn{2}{c}{\Large Ranger}\medskip \\
+      \textbf{gn} & New tab \\
+      \textbf{K} & mkdir \\
+      \textbf{.} & Toggle hidden files \\
+      \textbf{\textasciitilde} & cd \$HOME \\
+      \textbf{r} & Rename (or bulk rename) \\
+      \textbf{X} & Edit rc.conf \\
+    \end{tabu}
+  \end{minipage}}%
+  \hfil
+  \vrule{}
+  \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
+    \begin{tabu}{Xl}
+      \multicolumn{2}{c}{\Large Vimfiler}\medskip \\
+      \textbf{.} & Toggle hidden files \\
+      \textbf{d} & Delete \\
+      \textbf{r} & Rename \\
+      \textbf{m} & Move \\
+      \textbf{K} & New directory \\
+      \textbf{N} & New file \\
+      \textbf{S} & Select sort type \\
+      \textbf{-} & Open vimfiler/dir up \\
+      \textbf{<Leader> -} & Open vimfiler explorer \\
+      \textbf{o} & Expand or edit \\
+      \textbf{t / T} & Expand tree / (recursive) \\
+      \textbf{\textasciitilde} & cd \$HOME \\
+      \textbf{\&} & cd project dir \\
+      \textbf{CTRL + j} & Show history dir \\
+      \textbf{M} & Set mask (filter) \\
+      \textbf{yy} & Copy path \\
+      \textbf{gt} & Open new tab \\
+      \textbf{s} & Open split \\
+      \textbf{v} & Open vsplit \\
+      \textbf{<Tab>} & Switch (or new) window \\
+    \end{tabu}
+  \end{minipage}}%
+  %% New page template
+  %%\newpage
+  %%\centerline{\textbf{\Huge ?}}\medskip
+  %%\adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
+  %%  \begin{tabu}{Xl}
+  %%    \multicolumn{2}{c}{\Large ?}\medskip \\
+  %%    \textbf{?} & ? \\
+  %%  \end{tabu}
+  %%\end{minipage}}%
+  %%\vrule{}
+  %%\adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
+  %%  \begin{tabu}{Xl}
+  %%    \multicolumn{2}{c}{\Large ?}\medskip \\
+  %%    \textbf{?} & ? \\
+  %%  \end{tabu}
+  %%\end{minipage}}% %\hfil
 \end{document}
