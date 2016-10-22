@@ -6,6 +6,7 @@
 \usepackage{booktabs}
 \usepackage{tabu}
 \usepackage{adjustbox}
+\usepackage[table]{xcolor}
 %\usepackage{cellspace}
 %%\usepackage{multirow}
 %\usepackage{tabularx}
@@ -26,8 +27,9 @@
 \begin{document}
   \centerline{\textbf{\Huge Command line}}\medskip
   \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
-    \centerline{\Large Commands} \medskip
     \begin{tabu}{Xl}
+      \multicolumn{2}{c}{\Large Commands}\medskip \\
+      \taburowcolors{gray!20 .. white}
       \textbf{md} & Create dir and cd \\
       \textbf{server} & Serve current dir \\
       \textbf{../.../....} &  cd ../.../.... \\
@@ -59,16 +61,20 @@
   %\hfil
   %\vrule{}
   \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
-    \centerline{\Large Terminal (Termite)}\medskip
     \begin{tabu}{Xl}
+      \multicolumn{2}{c}{\Large Terminal (Termite)}\medskip \\
+      \taburowcolors{gray!20 .. white}
       \textbf{CTRL+SHIFT+c/v} &  copy/paste \\
       \textbf{CTRL+SHIFT+Space} &  Selection mode \\
       \textbf{CTRL+SHIFT+t} & New terminal  \\
       \textbf{CTRL+SHIFT+Up/Down} &  Scroll \\
       \textbf{CTRL+SHIFT+PgUp/PgDown} &  Scroll page \\
-   %% \end{tabu}
+
+      \taburowcolors 2 {white .. white}
       \bigskip \\
       \multicolumn{2}{c}{\Large Fish shell}\medskip \\
+
+      \taburowcolors{gray!20 .. white}
       \textbf{CTRL+a} & Line Start \\
       \textbf{CTRL+e} & Line End \\
       \textbf{ALT+Left/Right} & Moves 1 word \\
@@ -103,6 +109,7 @@
   \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
     \begin{tabu}{Xl}
       \multicolumn{2}{c}{\Large Ranger}\medskip \\
+      \taburowcolors{gray!15 .. white}
       \textbf{gn} & New tab \\
       \textbf{K} & mkdir \\
       \textbf{.} & Toggle hidden files \\
@@ -116,6 +123,7 @@
   \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
     \begin{tabu}{Xl}
       \multicolumn{2}{c}{\Large Vimfiler}\medskip \\
+      \taburowcolors{gray!15 .. white}
       \textbf{.} & Toggle hidden files \\
       \textbf{d} & Delete \\
       \textbf{r} & Rename \\
