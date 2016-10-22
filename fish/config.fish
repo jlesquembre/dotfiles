@@ -138,6 +138,30 @@ function get_nodeenv
 end
 
 
+fish_vi_key_bindings
+
+function fish_mode_prompt --description 'Displays the current mode'
+    # Do nothing if not in vi mode
+    if test "$fish_key_bindings" = "fish_vi_key_bindings"
+        switch $fish_bind_mode
+            case default
+                set_color --bold blue
+                echo 🅽
+            case insert
+                set_color --bold green
+                echo 🅸
+            case replace-one
+                set_color --bold red
+                echo 🆁
+            case visual
+                set_color --bold brmagenta
+                echo 🆅
+        end
+        set_color normal
+    end
+    printf '  '
+end
+
 # From https://github.com/0rax/fishline
 function fish_prompt
     # $status gets nuked as soon as something else is run, e.g. set_color
@@ -149,7 +173,6 @@ function fish_prompt
     set BG_NORMAL 444
     set BG_ERROR A22
 
-    echo ''
     printf '%s%s%s%s%s @ %s%s%s in ' (get_pyenv) (get_nodeenv) (set_color cyan) (whoami) (set_color normal) \
                                      (set_color yellow) (hostname|cut -d . -f 1) (set_color normal)
 
