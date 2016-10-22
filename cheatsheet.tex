@@ -2,13 +2,103 @@
 
 
 \usepackage{inconsolata}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{tabu}
+%\usepackage{cellspace}
+%%\usepackage{multirow}
+%\usepackage{tabularx}
+%%\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+
+%\usepackage{showframe}% http://ctan.org/pkg/showframe
+
 \renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
 \usepackage[T1]{fontenc}
 
 \usepackage[margin=1cm]{geometry}
+\setlength{\columnsep}{1cm}
+\setlength{\columnseprule}{0.4pt}
+
+
+    %\begin{tabu} to \textwidth {Xl}
 
 \begin{document}
-    \centerline{\Large Command line}
+  \centerline{\textbf{\Huge Command line}}\medskip
+  \begin{minipage}[t]{.47\textwidth}
+    \centerline{\Large Commands} \medskip
+    \begin{tabu}{Xl}
+      \textbf{md} & Create dir and cd \\
+      \textbf{server} & Serve current dir \\
+      \textbf{../.../....} &  cd ../.../.... \\
+      \textbf{c} &  Better cat \\
+      \textbf{diskspace-report} &  df -P -kHl \\
+      \textbf{g} &  git alias \\
+      \textbf{push} &  git push \\
+      \textbf{g open} &  Open repo \\
+      \textbf{g recent} &  Lastest branches \\
+      \textbf{r} &  ranger alias \\
+      \textbf{l / ll} &  Better ls \\
+      \textbf{lookbusy} &  Print random data \\
+      \textbf{myip} &  Print external ip \\
+      \textbf{dig} &  Better dig \\
+      \textbf{rp} &  ripgrep \\
+      \textbf{fo} &  fzf open \\
+      \textbf{fcd} &  fzf cd \\
+      \textbf{fcdd} &  fzf cd basename \\
+      \textbf{fkill} &  fzf kill \\
+      \textbf{j} &  autojumper \\
+      \textbf{jj} &  fzf autojumper \\
+      %%\toprule
+      %%\bottomrule
+    \end{tabu}
+  \end{minipage}
+  %\qquad{\vrule}\qquad
+  \vrule{}
+  %\hfil
+  %\vrule{}
+  \begin{minipage}[t]{.47\textwidth}
+    \centerline{\Large Terminal (Termite)}\medskip
+    \begin{tabu}{Xl}
+      \textbf{CTRL+SHIFT+c/v} &  copy/paste \\
+      \textbf{CTRL+SHIFT+Space} &  Selection mode \\
+      \textbf{CTRL+SHIFT+t} & New terminal  \\
+      \textbf{CTRL+SHIFT+Up/Down} &  Scroll \\
+      \textbf{CTRL+SHIFT+PgUp/PgDown} &  Scroll page \\
+   %% \end{tabu}
+      \bigskip \\
+      \multicolumn{2}{c}{\Large Fish shell}\medskip \\
+      \textbf{CTRL+a} & Line Start \\
+      \textbf{CTRL+e} & Line End \\
+      \textbf{ALT+Left/Right} & Moves 1 word \\
+      \textbf{CTRL+k} & Delete to end \\
+      \textbf{CTRL+u} & Delete to start \\
+      \textbf{CTRL+w} & Delete to next / \\
+      \textbf{ALT+d}  & Delete to space \\
+      \textbf{CTRL+y} & Paste \\
+      \textbf{ALT+w} &  Show help \\
+      \textbf{ALT+h} &  Show man\\
+      \textbf{ALT+w} &  List dir\\
+    \end{tabu}
+  \end{minipage} %\hfil
+
+
+  %\begin{multicols}{2}
+  %  \bigskip
+
+  %  %%\begin{tabularx}{\columnwidth}{X l}
+  %  %%%%\begin{tabularx}{\textwidth}{XX}
+  %  %%  \textbf{md} & Create dir and cd \\
+  %  %%  \textbf{server} & Serve current directory \\
+  %  %%\end{tabularx}
+
+
+  %  \columnbreak
+
+  %\end{multicols}
+
+
+  \newpage
+
   Commands
   Terminal (Termite)
   Fish shell
