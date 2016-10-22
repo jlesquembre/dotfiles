@@ -110,7 +110,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'HerringtonDarkholme/yats.vim'  " Typescript
 "Plug 'LaTeX-Box-Team/LaTeX-Box', {'for': 'tex'}
-Plug 'lervag/vimtex' " , {'for': 'tex'}
+Plug 'lervag/vimtex', {'for': 'tex'}
 
 " General utils
 Plug 'tpope/vim-dispatch'
@@ -434,16 +434,20 @@ let g:vimfiler_ignore_pattern = ['^\.git$', '^\.DS_Store$']
 
 " }}}
 
+" ============================================================================
+" Vimtex {{{
+" ============================================================================
 
 let g:startify_change_to_vcs_root = 1
 
-let g:vimtex_latexmk_progname = '/home/jlle/.local/share/virtualenvs/nvr/bin/nvr'
+let g:vimtex_latexmk_progname = '$HOME/.local/share/virtualenvs/nvr/bin/nvr'
 
 let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique @pdf\#src:@line@tex'
 let g:vimtex_view_general_options_latexmk = '--unique'
 "let g:vimtex_view_method = 'zathura'
 let g:vimtex_view_automatic = 1
+let g:vimtex_latexmk_build_dir = '/tmp/vimtext_output'
 
 let g:vimtex_quickfix_open_on_warning = 1
 "let g:vimtex_index_split_pos = 'below'
@@ -451,6 +455,8 @@ let g:vimtex_fold_enabled = 0
 let g:vimtex_format_enabled = 1
 "let g:vimtex_imaps_leader = ';'
 "let g:vimtex_complete_img_use_tail = 1
+
+" }}}
 
 " Window chooser
 " let winnr = unite#helper#choose_window()
