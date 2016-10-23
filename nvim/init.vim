@@ -211,6 +211,9 @@ augroup END
 
 autocmd MyAutoCmd FileType help wincmd K
 
+" Help NeoVim check for modified files: https://github.com/neovim/neovim/issues/2127
+autocmd BufEnter,FocusGained * checktime
+
 " }}} BASIC SETTINGS
 
 " ============================================================================
