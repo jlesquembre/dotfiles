@@ -222,6 +222,8 @@ autocmd BufEnter,FocusGained * checktime
 
 noremap <Leader><Space> :noh<CR>
 nnoremap Y y$
+cnoreabbrev Q q
+cnoreabbrev Qa qa
 
 " Neovim terminal mapping
 " terminal 'normal mode'
@@ -231,10 +233,8 @@ tmap <esc> <c-\><c-n><esc><cr>
 " nnoremap ; :
 " nnoremap : ;
 
-
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
-"map <esc> :noh<cr>
 
 " Fast window moves
 nnoremap <C-h> <C-w>h
@@ -242,13 +242,28 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Saner behavior of n and N
+nnoremap <expr> n  'Nn'[v:searchforward]
+nnoremap <expr> N  'nN'[v:searchforward]
+
+" Saner command-line history
+cnoremap <c-n>  <down>
+cnoremap <c-p>  <up>
+
+" Saner CTRL-L
+nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+
+" Quickly move current line
+nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+
 " Save as root
-"cmap w!! w !sudo tee % >/dev/null<CR>:e!<CR><CR>
-cabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
+"cnoremap w!! w !sudo tee % >/dev/null<CR>:e!<CR><CR>
+cnoreabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
 "command! Sudow execute "w !sudo tee > /dev/null %"
 
 " Quick saving
-nmap <silent> <Leader>w :update<CR>
+nnoremap <silent> <Leader>w :update<CR>
 
 " }}} MAPPINGS
 
@@ -380,8 +395,8 @@ let g:airline_symbols.maxlinenr = ''
 " Vimfiler {{{
 " ============================================================================
 "nmap <buffer> - :VimFilerBufferDir<CR>
-nmap - :VimFilerBufferDir<CR>
-nmap <Leader>- :VimFilerExplorer<CR>
+nnoremap - :VimFilerBufferDir<CR>
+nnoremap <Leader>- :VimFilerExplorer<CR>
 
 let g:vimfiler_as_default_explorer = 1
 let g:loaded_netrwPlugin = 1 " Disable netrw.vim

@@ -21,6 +21,7 @@
 \setlength{\columnsep}{1cm}
 \setlength{\columnseprule}{0.4pt}
 \pagenumbering{gobble}
+\newcommand\tabbackground{gray!20}
 
     %\begin{tabu} to \textwidth {Xl}
 
@@ -29,7 +30,7 @@
   \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
     \begin{tabu}{Xl}
       \multicolumn{2}{c}{\Large Commands}\medskip \\
-      \taburowcolors{gray!20 .. white}
+      \taburowcolors{\tabbackground .. white}
       \textbf{md} & Create dir and cd \\
       \textbf{server} & Serve current dir \\
       \textbf{../.../....} &  cd ../.../.... \\
@@ -63,7 +64,7 @@
   \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
     \begin{tabu}{Xl}
       \multicolumn{2}{c}{\Large Terminal (Termite)}\medskip \\
-      \taburowcolors{gray!20 .. white}
+      \taburowcolors{\tabbackground .. white}
       \textbf{CTRL+SHIFT+c/v} &  copy/paste \\
       \textbf{CTRL+SHIFT+Space} &  Selection mode \\
       \textbf{CTRL+SHIFT+t} & New terminal  \\
@@ -74,7 +75,7 @@
       \bigskip \\
       \multicolumn{2}{c}{\Large Fish shell}\medskip \\
 
-      \taburowcolors{gray!20 .. white}
+      \taburowcolors{\tabbackground .. white}
       \textbf{CTRL+a} & Line Start \\
       \textbf{CTRL+e} & Line End \\
       \textbf{ALT+Left/Right} & Moves 1 word \\
@@ -109,7 +110,7 @@
   \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
     \begin{tabu}{Xl}
       \multicolumn{2}{c}{\Large Ranger}\medskip \\
-      \taburowcolors{gray!15 .. white}
+      \taburowcolors{\tabbackground .. white}
       \textbf{gn} & New tab \\
       \textbf{K} & mkdir \\
       \textbf{.} & Toggle hidden files \\
@@ -123,7 +124,7 @@
   \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
     \begin{tabu}{Xl}
       \multicolumn{2}{c}{\Large Vimfiler}\medskip \\
-      \taburowcolors{gray!15 .. white}
+      \taburowcolors{\tabbackground .. white}
       \textbf{.} & Toggle hidden files \\
       \textbf{d} & Delete \\
       \textbf{r} & Rename \\
@@ -146,20 +147,49 @@
       \textbf{<Tab>} & Switch (or new) window \\
     \end{tabu}
   \end{minipage}}%
+
+  \newpage
+  \centerline{\textbf{\Huge neovim}}\medskip
+  \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
+    \begin{tabu}{Xl}
+      \multicolumn{2}{c}{\Large Command Line}\medskip \\
+      \taburowcolors{\tabbackground .. white}
+      \textbf{CTRL+p} & History previous \\
+      \textbf{CTRL+n} & History next \\
+    \end{tabu}
+  \end{minipage}}%
+  \hfil
+  \vrule{}
+  \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
+    \begin{tabu}{Xl}
+      \multicolumn{2}{c}{\Large Insert mode}\medskip \\
+      \taburowcolors{\tabbackground .. white}
+      \textbf{[e} & Move line up \\
+      \textbf{]e} & Move line down \\
+      \textbf{Leader + l} & noh and refresh \\
+      \textbf{Leader + d} & "\_d (Blackhole delete)\\
+    \end{tabu}
+  \end{minipage}}%
+
+
   %% New page template
-  %%\newpage
-  %%\centerline{\textbf{\Huge ?}}\medskip
-  %%\adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
-  %%  \begin{tabu}{Xl}
-  %%    \multicolumn{2}{c}{\Large ?}\medskip \\
-  %%    \textbf{?} & ? \\
-  %%  \end{tabu}
-  %%\end{minipage}}%
-  %%\vrule{}
-  %%\adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
-  %%  \begin{tabu}{Xl}
-  %%    \multicolumn{2}{c}{\Large ?}\medskip \\
-  %%    \textbf{?} & ? \\
-  %%  \end{tabu}
-  %%\end{minipage}}% %\hfil
+  \newpage
+  \centerline{\textbf{\Huge Title}}\medskip
+  \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
+    \begin{tabu}{Xl}
+      \multicolumn{2}{c}{\Large TitleL}\medskip \\
+      \taburowcolors{\tabbackground .. white}
+      \textbf{c1} & action \\
+    \end{tabu}
+  \end{minipage}}%
+  \hfil
+  \vrule{}
+  \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
+    \begin{tabu}{Xl}
+      \multicolumn{2}{c}{\Large TitleR}\medskip \\
+      \taburowcolors{\tabbackground .. white}
+      \textbf{c2} & action \\
+    \end{tabu}
+  \end{minipage}}%
+
 \end{document}
