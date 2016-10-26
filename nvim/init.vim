@@ -51,6 +51,7 @@ Plug 'junegunn/seoul256.vim'
 Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
 Plug 'MaxSt/FlatColor'
+Plug 'KabbAmine/yowish.vim'
 
 "Plug 'ryanoasis/vim-devicons'
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -156,7 +157,12 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 colorscheme base16-default-dark
 "colorscheme onedark
 
-set shell=bash  " many plugins expect bash
+" The fish shell is not very compatible to other shells and unexpectedly
+" breaks things that use 'shell'.
+if &shell =~# 'fish$'
+  set shell=/bin/bash
+endif
+
 set relativenumber
 set number
 set noshowmode

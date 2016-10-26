@@ -156,6 +156,11 @@
       \taburowcolors{\tabbackground .. white}
       \textbf{CTRL+p} & History previous \\
       \textbf{CTRL+n} & History next \\
+      \textbf{:m} & Move range to address \\
+      \taburowcolors 2 {white .. white}
+      \textbf{:co / :t} & Copy range to address \\
+      \multicolumn{2}{l}{Eg: :+2,+5co. / copy to current line} \\
+      \taburowcolors{\tabbackground .. white}
     \end{tabu}
   \end{minipage}}%
   \hfil
@@ -168,6 +173,14 @@
       \textbf{]e} & Move line down \\
       \textbf{Leader + l} & noh and refresh \\
       \textbf{Leader + d} & "\_d (Blackhole delete)\\
+
+      \taburowcolors 2 {white .. white}
+      \bigskip \\
+      \multicolumn{2}{c}{\Large Motions}\medskip \\
+      \taburowcolors{\tabbackground .. white}
+      \textbf{H} & Move cursor top \\
+      \textbf{M} & Move cursor middle \\
+      \textbf{L} & Move cursor bottom \\
     \end{tabu}
   \end{minipage}}%
 
