@@ -81,13 +81,9 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "Plug 'Yggdroot/indentLine'
-Plug 'ap/vim-css-color'
 Plug 'mhinz/vim-startify'
 Plug 'vim-scripts/CursorLineCurrentWindow'
 
-
-"Plug 'bling/vim-bufferline'
-" fzf, grepper, command-t
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -112,6 +108,7 @@ Plug 'mxw/vim-jsx'
 Plug 'HerringtonDarkholme/yats.vim'  " Typescript
 "Plug 'LaTeX-Box-Team/LaTeX-Box', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
 
 " General utils
 Plug 'tpope/vim-dispatch'
