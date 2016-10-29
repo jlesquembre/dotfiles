@@ -75,6 +75,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-endwise'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'tpope/vim-speeddating'
 
 
 " UI
@@ -93,10 +94,11 @@ Plug 'int3/vim-extradite'
 
 
 " Syntax
+Plug 'tpope/vim-markdown'
 Plug 'aliva/vim-fish'
 Plug 'stephpy/vim-yaml'
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'mitsuhiko/vim-python-combined'
+"Plug 'mitsuhiko/vim-python-combined'
 "Plug 'elzr/vim-json'
 "PLug 'evanmiller/nginx-vim-syntax'
 "PLug 'kurayama/systemd-vim-syntax'
@@ -108,6 +110,7 @@ Plug 'mxw/vim-jsx'
 Plug 'HerringtonDarkholme/yats.vim'  " Typescript
 "Plug 'LaTeX-Box-Team/LaTeX-Box', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
+
 Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
 
 " General utils
@@ -217,13 +220,16 @@ autocmd MyAutoCmd FileType help wincmd K
 " Help NeoVim check for modified files: https://github.com/neovim/neovim/issues/2127
 autocmd BufEnter,FocusGained * checktime
 
+" The PC is fast enough, do syntax highlight syncing from start
+autocmd BufEnter * :syntax sync fromstart
+
 " }}} BASIC SETTINGS
 
 " ============================================================================
 " MAPPINGS {{{
 " ============================================================================
 
-noremap <Leader><Space> :noh<CR>
+"noremap <Leader><Space> :noh<CR>
 nnoremap Y y$
 cnoreabbrev Q q
 cnoreabbrev Qa qa
@@ -269,6 +275,18 @@ cnoreabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
 nnoremap <silent> <Leader>w :update<CR>
 
 " }}} MAPPINGS
+
+
+
+" ============================================================================
+" VIM MARKDOWN {{{
+" ============================================================================
+
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+"let g:markdown_syntax_conceal = 0
+
+" }}}
+
 
 
 " ============================================================================
@@ -482,3 +500,17 @@ let g:vimtex_format_enabled = 1
 " Window chooser
 " let winnr = unite#helper#choose_window()
 " call vimfiler#util#winmove(winnr)
+
+
+
+" Show syntax highlighting groups for word under cursor {{{
+
+nnoremap <F10> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+" }}}
