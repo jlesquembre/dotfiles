@@ -45,13 +45,16 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 " Color schemas
-Plug 'chriskempson/base16-vim'
+"Plug 'chriskempson/base16-vim'
+Plug 'jlesquembre/base16-neovim'
 Plug 'mhartington/oceanic-next'
 Plug 'junegunn/seoul256.vim'
 Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
 Plug 'MaxSt/FlatColor'
 Plug 'KabbAmine/yowish.vim'
+Plug 'mhinz/vim-janah'
+
 
 "Plug 'ryanoasis/vim-devicons'
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -393,19 +396,19 @@ let g:airline_symbols.maxlinenr = ''
 "set showtabline=2
 "set guioptions-=e
 
-"let g:airline_mode_map = {
-"      \ '__' : '-',
-"      \ 'n'  : 'N',
-"      \ 'i'  : 'I',
-"      \ 'R'  : 'R',
-"      \ 'c'  : 'C',
-"      \ 'v'  : 'V',
-"      \ 'V'  : 'V',
-"      \ '' : 'V',
-"      \ 's'  : 'S',
-"      \ 'S'  : 'S',
-"      \ '' : 'S',
-"      \ }
+let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ '' : 'V',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ '' : 'S',
+      \ }
 
 
 " }}}
