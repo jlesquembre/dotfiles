@@ -202,7 +202,7 @@ let mapleader="\<SPACE>"
 let maplocalleader="\<SPACE>"
 
 
-" Backups {{{
+" Backups
 
 set backup
 set swapfile
@@ -224,8 +224,6 @@ silent! call MakeDirIfNoExists(&backupdir)
 silent! call MakeDirIfNoExists(&undodir)
 silent! call MakeDirIfNoExists(&directory)
 silent! call MakeDirIfNoExists(&viewdir)
-
-" }}}
 
 
 " Make sure you dont change logfiles
@@ -249,6 +247,27 @@ autocmd BufEnter,FocusGained * checktime
 autocmd BufEnter * :syntax sync fromstart
 
 " }}} BASIC SETTINGS
+
+
+" FUNCTIONS {{{
+" ============================================================================
+
+" Show syntax highlighting groups for word under cursor
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+" Window chooser
+function! ChooseWindow()
+    let winnr = unite#helper#choose_window()
+    call vimfiler#util#winmove(winnr)
+endfunc
+
+
+" }}} FUNCTIONS
 
 
 " COMMANDS {{{
@@ -311,6 +330,9 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 
 " Quick saving
 nnoremap <silent> <Leader>w :update<CR>
+
+" Show syntax highlighting groups for word under cursor
+nnoremap <F10> :call <SID>SynStack()<CR>
 
 " }}} MAPPINGS
 
@@ -467,7 +489,7 @@ let g:vimfiler_force_overwrite_statusline = 0
 let g:vimfiler_time_format= "%Y/%m/%d %H:%M"
 
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
-function! s:vimfiler_my_settings() abort "{{{
+function! s:vimfiler_my_settings() abort
 
   setlocal cursorline
   let w:persistent_cursorline = 1  " For compat with CursorLineCurrentWindow
@@ -484,7 +506,7 @@ function! s:vimfiler_my_settings() abort "{{{
 
   nmap <buffer> - <Plug>(vimfiler_switch_to_parent_directory)
 
-endfunction   "}}}
+endfunction
 
 
 " Title string.
@@ -523,23 +545,5 @@ let g:vimtex_fold_enabled = 0
 let g:vimtex_format_enabled = 1
 "let g:vimtex_imaps_leader = ';'
 "let g:vimtex_complete_img_use_tail = 1
-
-" }}}
-
-" Window chooser
-" let winnr = unite#helper#choose_window()
-" call vimfiler#util#winmove(winnr)
-
-
-
-" Show syntax highlighting groups for word under cursor {{{
-
-nnoremap <F10> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
 
 " }}}
