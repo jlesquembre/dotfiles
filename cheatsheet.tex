@@ -2,6 +2,7 @@
 
 
 \usepackage{inconsolata}
+\usepackage{makecell}
 \usepackage{multicol}
 \usepackage{booktabs}
 \usepackage{tabu}
@@ -199,6 +200,40 @@
     \end{tabu}
   \end{minipage}}%
 
+
+  %% New page template
+  \newpage
+  \centerline{\textbf{\Huge neovim plugins}}\medskip
+  \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
+      \begin{tabu}{Xl}
+      \multicolumn{2}{c}{\Large FZF}\medskip \\
+      \taburowcolors{\tabbackground .. white}
+      \textbf{<Leader>ff} & Files \\
+      \textbf{<Leader>fg} & Git files \\
+      \textbf{<Leader>fc} & Colors \\
+      \textbf{<Leader><Enter>} & Buffers \\
+      \textbf{<Leader>frg} & \makecell[l]{Current word with rg \\ Works in visual mode } \\
+      \textbf{<Leader>`} & Marks \\
+      \textbf{CTRL+c} & Close FZF \\
+      \textbf{CTRL+v} & Open vsplit \\
+      \textbf{CTRL+x} & Open split \\
+      \textbf{CTRL+t} & Open tab \\
+      \textbf{CTRL+k/j} & Move up/down \\
+      \textbf{<Tab>} & Select (quicklist) \\
+    \end{tabu}
+  \end{minipage}}%
+  \hfil
+  \vrule{}
+  \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
+    \begin{tabu}{Xl}
+      \multicolumn{2}{c}{\Large Grepper}\medskip \\
+      \taburowcolors{\tabbackground .. white}
+      \textbf{gss} & Search \\
+      \textbf{gs\{motion\}} &\makecell[l]{Search motion selection \\ Works in visual mode }  \\
+      \textbf{<Tab>} & Next tool \\
+      \textbf{CTRL+f} & \makecell[l]{Search history \\ <c-c><c-c> to cancel} \\
+    \end{tabu}
+  \end{minipage}}%
 
   %% New page template
   \newpage

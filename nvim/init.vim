@@ -349,10 +349,15 @@ let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 " GREPPER {{{
 " ============================================================================
 
-"nnoremap <leader>G :Grepper -tool git<cr>
-nnoremap <leader>g :Grepper -tool rg<cr>
-"nmap gs <plug>(GrepperOperator)
-"xmap gs <plug>(GrepperOperator)
+let g:grepper = {
+    \ 'tools': ['rg', 'git', 'grep'],
+    \ 'highlight': 0,
+    \ }
+
+nnoremap gss  :Grepper -tool rg<cr>
+nmap gs  <plug>(GrepperOperator)
+xmap gs  <plug>(GrepperOperator)
+"Better colors????
 
 " }}}
 
@@ -368,7 +373,8 @@ nnoremap <silent> <Leader>ff      :FilesRg<CR>
 nnoremap <silent> <Leader>fg      :GFiles<CR>
 nnoremap <silent> <Leader>fc      :Colors<CR>
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
-nnoremap <silent> <Leader>frg     :Find <C-R><C-W><CR>
+nnoremap <silent> <Leader>frg     :Find <C-R><C-W>
+xnoremap <silent> <Leader>frg     y:Find <C-R>"<CR>
 nnoremap <silent> <Leader>ag      :Ag <C-R><C-W><CR>
 nnoremap <silent> <Leader>AG      :Ag <C-R><C-A><CR>
 xnoremap <silent> <Leader>ag      y:Ag <C-R>"<CR>
@@ -388,7 +394,7 @@ omap <leader><tab> <plug>(fzf-maps-o)
 
 
 command! -bang -nargs=? -complete=dir FilesRg  call fzf#vim#files(<q-args>, {
-  \ 'source': 'rg  --files --hidden -g "!.git/"'
+  \ 'source': 'rg --files --hidden -g "!.git/"'
   \ },
   \ <bang>0)
 
