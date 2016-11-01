@@ -1,4 +1,4 @@
-" vim: set foldmethod=marker foldlevel=0:
+" vim: fdm=marker
 "
 "     ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
 "     ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
@@ -195,6 +195,11 @@ set showcmd                     " display incomplete commands
 set cursorline
 set clipboard=unnamedplus  " Use "+ register
 
+" Better folds
+set foldcolumn=1
+set foldmethod=marker
+set foldopen+=jump
+
 "set splitbelow
 "set splitright
 
@@ -314,8 +319,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Saner behavior of n and N
-nnoremap <silent><expr> n 'Nn'[v:searchforward] . ':call halo#run()<cr>'
-nnoremap <silent><expr> N 'nN'[v:searchforward] . ':call halo#run()<cr>'
+nnoremap <silent><expr> n 'Nn'[v:searchforward] . 'zv:call halo#run()<cr>'
+nnoremap <silent><expr> N 'nN'[v:searchforward] . 'zv:call halo#run()<cr>'
 
 " Saner command-line history
 cnoremap <c-n>  <down>
