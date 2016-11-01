@@ -17,7 +17,8 @@
 " Author: José Luis Lafuente <jl@lafuente.me>
 "
 "
-" Neovim default {{{
+" ============================================================================
+" Neovim default {{{1
 " ============================================================================
 " See https://github.com/neovim/neovim/issues/2676
 "
@@ -50,10 +51,11 @@
 "  viminfo includes "!"
 "  wildmenu is set by default
 "
-" }}} END neovim defaults
+" END Neovim defaults
 
 
-" Plugins (administrated by Plug) {{{
+" ============================================================================
+" Plugins (administrated by Plug) {{{1
 " ============================================================================
 
 " auto-install vim-plug
@@ -168,10 +170,11 @@ if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
 endif
 
 
-" }}} END Plugins
+" END Plugins
 
 
-" BASIC SETTINGS {{{
+" ============================================================================
+" BASIC SETTINGS {{{1
 " ============================================================================
 
 
@@ -251,10 +254,11 @@ autocmd BufEnter,FocusGained * checktime
 " The PC is fast enough, do syntax highlight syncing from start
 autocmd BufEnter * :syntax sync fromstart
 
-" }}} BASIC SETTINGS
+" END BASIC SETTINGS
 
 
-" FUNCTIONS {{{
+" ============================================================================
+" FUNCTIONS {{{1
 " ============================================================================
 
 " Show syntax highlighting groups for word under cursor
@@ -272,10 +276,11 @@ function! ChooseWindow()
 endfunc
 
 
-" }}} FUNCTIONS
+" END FUNCTIONS
 
 
-" COMMANDS {{{
+" ============================================================================
+" COMMANDS {{{1
 " ============================================================================
 
 cnoreabbrev Q q
@@ -292,10 +297,11 @@ cnoreabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
 "command! Sudow execute "w !sudo tee > /dev/null %"
 
 
-" }}} COMMANDS
+" END COMMANDS
 
 
-" MAPPINGS {{{
+" ============================================================================
+" MAPPINGS {{{1
 " ============================================================================
 
 "noremap <Leader><Space> :noh<CR>
@@ -337,19 +343,21 @@ nnoremap <silent> <Leader>w :update<CR>
 " Show syntax highlighting groups for word under cursor
 nnoremap <F10> :call <SID>SynStack()<CR>
 
-" }}} MAPPINGS
+" END MAPPINGS
 
 
-" VIM MARKDOWN {{{
+" ============================================================================
+" VIM MARKDOWN {{{1
 " ============================================================================
 
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 "let g:markdown_syntax_conceal = 0
 
-" }}}
+" END VIM MARKDOWN
 
 
-" GREPPER {{{
+" ============================================================================
+" GREPPER {{{1
 " ============================================================================
 
 let g:grepper = {
@@ -360,12 +368,12 @@ let g:grepper = {
 nnoremap gss  :Grepper -tool rg<cr>
 nmap gs  <plug>(GrepperOperator)
 xmap gs  <plug>(GrepperOperator)
-"Better colors????
 
-" }}}
+" END GREPPER
 
 
-" FZF {{{
+" ============================================================================
+" FZF {{{1
 " ============================================================================
 
 " File preview using Pygments
@@ -414,10 +422,11 @@ command! Plugs call fzf#run({
 
 autocmd MyAutoCmd FileType fzf setlocal nocursorline
 
-" }}}
+" END FZF
 
 
-" Airline {{{
+" ============================================================================
+" AIRLINE {{{1
 " ============================================================================
 
 " set laststatus=2  " Neovim default
@@ -470,10 +479,11 @@ let g:airline_mode_map = {
       \ }
 
 
-" }}}
+" END AIRLINE
 
 
-" Vimfiler {{{
+" ============================================================================
+" VIMFILER {{{1
 " ============================================================================
 "nmap <buffer> - :VimFilerBufferDir<CR>
 nnoremap - :VimFilerBufferDir<CR>
@@ -531,10 +541,11 @@ let g:vimfiler_ignore_pattern = ['^\.git$', '^\.DS_Store$']
 " Default value is ['^\.'] (dot files pattern).
 
 
-" }}}
+" END VIMFILER
 
 
-" Vimtex {{{
+" ============================================================================
+" VIMTEX {{{1
 " ============================================================================
 
 let g:startify_change_to_vcs_root = 1
@@ -555,4 +566,4 @@ let g:vimtex_format_enabled = 1
 "let g:vimtex_imaps_leader = ';'
 "let g:vimtex_complete_img_use_tail = 1
 
-" }}}
+" END VIMTEX
