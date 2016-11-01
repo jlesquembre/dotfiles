@@ -327,11 +327,9 @@ cnoremap <c-n>  <down>
 cnoremap <c-p>  <up>
 
 " Saner CTRL-L
-nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
-
-" Quickly move current line
-nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
-nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+nnoremap <leader>l :nohlsearch<cr>:call clearmatches()<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+" TODO remove clearmatches when this is fixed:
+" https://github.com/mhinz/vim-halo/issues/2
 
 " Quick saving
 nnoremap <silent> <Leader>w :update<CR>
