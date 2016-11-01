@@ -361,11 +361,15 @@ let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 " ============================================================================
 
 let g:grepper = {
-    \ 'tools': ['rg', 'git', 'grep'],
+    \ 'tools': ['rg_extra', 'rg', 'git', 'grep'],
     \ 'highlight': 0,
+    \ 'rg_extra':
+    \   { 'grepprg':    "rg --no-heading --vimgrep --hidden -g '!.git/' -S",
+    \     'grepformat': '%f:%l:%c:%m',
+    \     'escape':     '\^$.*+?()[]{}|' },
     \ }
 
-nnoremap gss  :Grepper -tool rg<cr>
+nnoremap gss  :Grepper<cr>
 nmap gs  <plug>(GrepperOperator)
 xmap gs  <plug>(GrepperOperator)
 

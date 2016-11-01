@@ -234,6 +234,25 @@
       \textbf{gs\{motion\}} &\makecell[l]{Search motion selection \\ Works in visual mode }  \\
       \textbf{<Tab>} & Next tool \\
       \textbf{CTRL+f} & \makecell[l]{Search history \\ <c-c><c-c> to cancel} \\
+
+      \taburowcolors 2 {white .. white}
+      \bigskip \\
+      \multicolumn{2}{c}{\Large Ripgrep (rg)}\medskip \\
+      \taburowcolors{\tabbackground .. white}
+      \textbf{--hidden} & Include hidden \\
+      \textbf{-u} & Ignore .gitignore \\
+      \textbf{-uu} & " and include hidden \\
+      \textbf{-i} & Ignore case \\
+      \textbf{-s} & Case sensitive (def) \\
+      \textbf{-S} & Smart case \\
+      \textbf{-v} & Invert matching \\
+      \textbf{-w} & Search words \\
+      \textbf{-Cx} & \makecell[l]{Show x lines before and\\after each match} \\
+      \textbf{-L} & Follow symlinks \\
+      \textbf{-g '*.ext'} & Search only glob \\
+      \textbf{-g '!*.ext'} & Exclude glob \\
+      \textbf{-tx} & Search only x files \\
+      \textbf{-Tx} & Exclude x files \\
     \end{tabu}
   \end{minipage}}%
 
