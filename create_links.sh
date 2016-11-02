@@ -17,6 +17,7 @@ links["$HOME/dotfiles/pacman"]="$HOME/.config/pacman"
 links["$HOME/dotfiles/chromium-flags.conf"]="$HOME/.config/chromium-flags.conf"
 links["$HOME/dotfiles/termite.conf"]="$HOME/.config/termite/config"
 links["$HOME/dotfiles/editorconfig.ini"]="$HOME/.editorconfig"
+links["$HOME/dotfiles/hyper.js"]="$HOME/.hyper.js"
 
 links["$HOME/dotfiles/nvim"]="$HOME/.config/nvim"
 
