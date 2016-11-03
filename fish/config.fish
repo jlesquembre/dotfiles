@@ -85,14 +85,6 @@ source $HOME/.config/fish/docker.fish
 source $HOME/.config/fish/fzf.fish
 source /usr/share/autojump/autojump.fish
 
-# Some abbreviations
-abbr -a gco 'git checkout'
-abbr -a gf 'git fetch'
-abbr -a gp 'git pull --ff-only'
-abbr -a gd 'git branch -d'
-abbr -a gdr 'git push origin --delete'
-abbr -a gm 'git merge --ff-only'
-
 #### A better prompt
 
 

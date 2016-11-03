@@ -357,6 +357,40 @@ let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 
 
 " ============================================================================
+" GIT GUTTER {{{1
+" ============================================================================
+
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+nmap <Leader>hs <Plug>GitGutterStageHunk
+nmap <Leader>hd <Plug>GitGutterUndoHunk
+nmap <Leader>hp <Plug>GitGutterPreviewHunk
+omap ih <Plug>GitGutterTextObjectInnerPending
+omap ah <Plug>GitGutterTextObjectOuterPending
+xmap ih <Plug>GitGutterTextObjectInnerVisual
+xmap ah <Plug>GitGutterTextObjectOuterVisual
+
+" END GIT GUTTER
+
+
+" ============================================================================
+" FUGITIVE {{{1
+" ============================================================================
+
+nnoremap <leader>gww :Gwrite<CR>
+" <Bar> is the pipe (|) char. Gwrite output is shown, and Gcommit is not
+" executed if there is an error with Gwrite, and alternative map is:
+" nnoremap <leader>gwc :Gwrite<CR>:Gcommit<CR>
+" but in that case we lose the Gwrite output (unless there is an error)
+nnoremap <leader>gwc :Gwrite<Bar>:Gcommit<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gp :Gpush
+"nnoremap <leader>gr :Git reset -q -- %<CR>
+
+" END FUGITIVE
+
+
+" ============================================================================
 " GREPPER {{{1
 " ============================================================================
 

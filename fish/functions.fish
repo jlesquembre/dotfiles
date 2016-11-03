@@ -315,3 +315,15 @@ alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias dig="dig +nocmd any +multiline +noall +answer"
 alias v="nvim"
 alias r="ranger"
+
+
+# Some abbreviations
+abbr -a gco 'git checkout'
+abbr -a gcon 'git checkout -b'
+abbr -a gf 'git fetch'
+abbr -a gp 'git pull --ff-only'
+abbr -a gr 'git branch -d'
+abbr -a grr 'git push origin --delete'
+abbr -a gm 'git merge --ff-only'
+abbr -a gd 'git diff'
+abbr -a gdd 'git diff --staged'
