@@ -90,7 +90,9 @@ Plug 'Shougo/vimfiler.vim' | Plug 'Shougo/unite.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
+"Plug 'justinmk/vim-sneak'
 Plug 'easymotion/vim-easymotion'
+Plug 'takac/vim-hardtime'
 
 
 " Text edition
@@ -718,3 +720,14 @@ let g:vimtex_format_enabled = 1
 "let g:vimtex_complete_img_use_tail = 1
 
 " END VIMTEX
+"
+"
+" ============================================================================
+" VIM HARDMODE {{{1
+" ============================================================================
+
+let g:hardtime_default_on = 1
+let g:hardtime_showmsg = 1
+let g:hardtime_ignore_quickfix = 1
+
+" END HARDMODE
