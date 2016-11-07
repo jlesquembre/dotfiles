@@ -90,6 +90,7 @@ Plug 'Shougo/vimfiler.vim' | Plug 'Shougo/unite.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
+Plug 'easymotion/vim-easymotion'
 
 
 " Text edition
@@ -344,6 +345,118 @@ nnoremap <silent> <Leader>w :update<CR>
 nnoremap <F10> :call <SID>SynStack()<CR>
 
 " END MAPPINGS
+
+
+" ============================================================================
+" VIM EASYMOTION {{{1
+" ============================================================================
+
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_use_smartsign_us = 1
+let g:EasyMotion_move_highlight = 0
+let g:EasyMotion_startofline = 0
+"let g:EasyMotion_use_upper = 1
+"let g:EasyMotion_keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ;'
+
+nmap s; <Plug>(easymotion-next)
+nmap s, <Plug>(easymotion-prev)
+
+"s
+nmap s <Plug>(easymotion-overwin-f)
+nmap ss <Plug>(easymotion-overwin-f)
+xmap ss <Plug>(easymotion-bd-f)
+omap yy <Plug>(easymotion-bd-f)
+
+" f
+nmap sf <Plug>(easymotion-f)
+xmap sf <Plug>(easymotion-f)
+omap yf <Plug>(easymotion-f)
+
+" F
+nmap sF <Plug>(easymotion-F)
+xmap sF <Plug>(easymotion-F)
+omap yF <Plug>(easymotion-F)
+
+" t
+nmap st <Plug>(easymotion-t)
+xmap st <Plug>(easymotion-t)
+omap yt <Plug>(easymotion-t)
+
+" T
+nmap sT <Plug>(easymotion-T)
+xmap sT <Plug>(easymotion-T)
+omap yT <Plug>(easymotion-T)
+
+" w
+nmap sw <Plug>(easymotion-w)
+xmap sw <Plug>(easymotion-w)
+omap yw <Plug>(easymotion-w)
+
+" W
+nmap sW <Plug>(easymotion-W)
+xmap sW <Plug>(easymotion-W)
+omap yW <Plug>(easymotion-W)
+
+" b
+nmap sb <Plug>(easymotion-b)
+xmap sb <Plug>(easymotion-b)
+omap yb <Plug>(easymotion-b)
+
+" B
+nmap sB <Plug>(easymotion-B)
+xmap sB <Plug>(easymotion-B)
+omap yB <Plug>(easymotion-B)
+
+" e
+nmap se <Plug>(easymotion-e)
+xmap se <Plug>(easymotion-e)
+omap ye <Plug>(easymotion-e)
+
+" E
+nmap sE <Plug>(easymotion-E)
+xmap sE <Plug>(easymotion-E)
+omap yE <Plug>(easymotion-E)
+
+" ge
+nmap sge <Plug>(easymotion-ge)
+xmap sge <Plug>(easymotion-ge)
+omap yge <Plug>(easymotion-ge)
+
+" gE
+nmap sgE <Plug>(easymotion-gE)
+xmap sgE <Plug>(easymotion-gE)
+omap ygE <Plug>(easymotion-gE)
+
+" j
+nmap sj <Plug>(easymotion-j)
+xmap sj <Plug>(easymotion-j)
+omap yj <Plug>(easymotion-j)
+
+" k
+nmap sk <Plug>(easymotion-k)
+xmap sk <Plug>(easymotion-k)
+omap yk <Plug>(easymotion-k)
+
+" n
+nmap sn <Plug>(easymotion-n)
+xmap sn <Plug>(easymotion-n)
+omap yn <Plug>(easymotion-n)
+
+" N
+nmap sN <Plug>(easymotion-N)
+xmap sN <Plug>(easymotion-N)
+omap yN <Plug>(easymotion-N)
+
+map  s/ <Plug>(easymotion-sn)
+omap y/ <Plug>(easymotion-tn)
+
+nmap <leader>j <Plug>(easymotion-overwin-line)
+xmap <leader>j <Plug>(easymotion-bd-jk)
+omap <leader>j <Plug>(easymotion-bd-jk)
+
+
+" END EASYMOTION
 
 
 " ============================================================================
