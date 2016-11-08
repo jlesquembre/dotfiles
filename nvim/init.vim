@@ -196,6 +196,9 @@ endif
 
 set relativenumber
 set number
+set tildeop
+set ignorecase
+set smartcase
 set noshowmode
 set showcmd                     " display incomplete commands
 set cursorline
@@ -727,7 +730,7 @@ let g:vimtex_format_enabled = 1
 " ============================================================================
 
 let g:hardtime_default_on = 1
-let g:hardtime_showmsg = 1
+let g:hardtime_showmsg = 0
 let g:hardtime_ignore_quickfix = 1
 
 " END HARDMODE
