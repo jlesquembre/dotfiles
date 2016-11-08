@@ -353,11 +353,50 @@
   \vrule{}
   \adjustbox{valign=t}{\begin{minipage}{.47\textwidth}
     \begin{tabu}{Xl}
-      \multicolumn{2}{c}{\Large TitleR}\medskip \\
+      \multicolumn{2}{c}{\Large unimpaired}\medskip \\
+      \multicolumn{2}{c}{next/prev}\medskip \\
       \taburowcolors{\tabbackground .. white}
-      \textbf{c2} & action \\
+      \textbf{]/[ a} & Next/prev arg list \\
+      \textbf{]/[ A} & First/last arg list \\
+      \textbf{]/[ b} & Next/prev buffer \\
+      \textbf{]/[ B} & First/last buffer \\
+      \textbf{]/[ l} & Next/prev loc list \\
+      \textbf{]/[ L} & First/last loc list \\
+      \textbf{]/[ CTRL+L} & Next/prev file loc list \\
+      \textbf{]/[ q} & Next/prev quicklist \\
+      \textbf{]/[ Q} & First/last quicklist \\
+      \textbf{]/[ CTRL+Q} & Next/prev file quicklist \\
+      \textbf{]/[ t} & Next/prev tab \\
+      \textbf{]/[ T} & First/last tab \\
+      \textbf{]/[ f} & Next/prev file in dir \\
+      \textbf{]/[ n} & Next/prev SCM conflit \\
+
+      \taburowcolors 2 {white .. white}\medskip \\
+      \multicolumn{2}{c}{Line operation} \\
+      \taburowcolors{\tabbackground .. white}
+      \textbf{]/[ <Space>} & Insert empty line\\
+      \textbf{]/[ e} & Exchange current line\\
+
+      \taburowcolors 2 {white .. white}\medskip \\
+      \multicolumn{2}{c}{Toogle options} \\
+      \taburowcolors{\tabbackground .. white}
+      \textbf{cob} & background \\
+      \textbf{coc} & cursorline \\
+      \textbf{cod} & diff \\
+      \textbf{coh} & hlsearch \\
+      \textbf{coi} & ignorecase \\
+      \textbf{col} & list \\
+      \textbf{con} & number \\
+      \textbf{cor} & relativenumber \\
+      \textbf{cos} & spell \\
+      \textbf{cou} & cursorcolumn \\
+      \textbf{cov} & virtualedit \\
+      \textbf{cow} & wrap \\
+      \textbf{cox} & cursorline cursorcolumn \\
     \end{tabu}
   \end{minipage}}%
+
+
   %% New page template
   \newpage
   \centerline{\textbf{\Huge Title}}\medskip
