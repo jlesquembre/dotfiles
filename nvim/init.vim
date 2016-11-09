@@ -368,93 +368,93 @@ nmap s; <Plug>(easymotion-next)
 nmap s, <Plug>(easymotion-prev)
 
 "s
-nmap s <Plug>(easymotion-overwin-f)
+nmap s <Nop>
 nmap ss <Plug>(easymotion-overwin-f)
 xmap ss <Plug>(easymotion-bd-f)
-omap yy <Plug>(easymotion-bd-f)
+omap uu <Plug>(easymotion-bd-f)
 
 " f
 nmap sf <Plug>(easymotion-f)
 xmap sf <Plug>(easymotion-f)
-omap yf <Plug>(easymotion-f)
+omap uf <Plug>(easymotion-f)
 
 " F
 nmap sF <Plug>(easymotion-F)
 xmap sF <Plug>(easymotion-F)
-omap yF <Plug>(easymotion-F)
+omap uF <Plug>(easymotion-F)
 
 " t
 nmap st <Plug>(easymotion-t)
 xmap st <Plug>(easymotion-t)
-omap yt <Plug>(easymotion-t)
+omap ut <Plug>(easymotion-t)
 
 " T
 nmap sT <Plug>(easymotion-T)
 xmap sT <Plug>(easymotion-T)
-omap yT <Plug>(easymotion-T)
+omap uT <Plug>(easymotion-T)
 
 " w
 nmap sw <Plug>(easymotion-w)
 xmap sw <Plug>(easymotion-w)
-omap yw <Plug>(easymotion-w)
+omap uw <Plug>(easymotion-w)
 
 " W
 nmap sW <Plug>(easymotion-W)
 xmap sW <Plug>(easymotion-W)
-omap yW <Plug>(easymotion-W)
+omap uW <Plug>(easymotion-W)
 
 " b
 nmap sb <Plug>(easymotion-b)
 xmap sb <Plug>(easymotion-b)
-omap yb <Plug>(easymotion-b)
+omap ub <Plug>(easymotion-b)
 
 " B
 nmap sB <Plug>(easymotion-B)
 xmap sB <Plug>(easymotion-B)
-omap yB <Plug>(easymotion-B)
+omap uB <Plug>(easymotion-B)
 
 " e
 nmap se <Plug>(easymotion-e)
 xmap se <Plug>(easymotion-e)
-omap ye <Plug>(easymotion-e)
+omap ue <Plug>(easymotion-e)
 
 " E
 nmap sE <Plug>(easymotion-E)
 xmap sE <Plug>(easymotion-E)
-omap yE <Plug>(easymotion-E)
+omap uE <Plug>(easymotion-E)
 
 " ge
 nmap sge <Plug>(easymotion-ge)
 xmap sge <Plug>(easymotion-ge)
-omap yge <Plug>(easymotion-ge)
+omap uge <Plug>(easymotion-ge)
 
 " gE
 nmap sgE <Plug>(easymotion-gE)
 xmap sgE <Plug>(easymotion-gE)
-omap ygE <Plug>(easymotion-gE)
+omap ugE <Plug>(easymotion-gE)
 
 " j
 nmap sj <Plug>(easymotion-j)
 xmap sj <Plug>(easymotion-j)
-omap yj <Plug>(easymotion-j)
+omap uj <Plug>(easymotion-j)
 
 " k
 nmap sk <Plug>(easymotion-k)
 xmap sk <Plug>(easymotion-k)
-omap yk <Plug>(easymotion-k)
+omap uk <Plug>(easymotion-k)
 
 " n
 nmap sn <Plug>(easymotion-n)
 xmap sn <Plug>(easymotion-n)
-omap yn <Plug>(easymotion-n)
+omap un <Plug>(easymotion-n)
 
 " N
 nmap sN <Plug>(easymotion-N)
 xmap sN <Plug>(easymotion-N)
-omap yN <Plug>(easymotion-N)
+omap uN <Plug>(easymotion-N)
 
 map  s/ <Plug>(easymotion-sn)
-omap y/ <Plug>(easymotion-tn)
+omap u/ <Plug>(easymotion-tn)
 
 nmap <leader>j <Plug>(easymotion-overwin-line)
 xmap <leader>j <Plug>(easymotion-bd-jk)
@@ -501,6 +501,7 @@ nnoremap <leader>gww :Gwrite<CR>
 " nnoremap <leader>gwc :Gwrite<CR>:Gcommit<CR>
 " but in that case we lose the Gwrite output (unless there is an error)
 nnoremap <leader>gwc :Gwrite<Bar>:Gcommit<CR>
+nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gp :Gpush
 "nnoremap <leader>gr :Git reset -q -- %<CR>
@@ -729,7 +730,7 @@ let g:vimtex_format_enabled = 1
 " VIM HARDMODE {{{1
 " ============================================================================
 
-let g:hardtime_default_on = 1
+let g:hardtime_default_on = 0
 let g:hardtime_showmsg = 0
 let g:hardtime_ignore_quickfix = 1
 
