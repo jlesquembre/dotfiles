@@ -324,6 +324,11 @@ tmap <esc> <c-\><c-n><esc><cr>
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 
+" Fast quit
+nnoremap <leader>qq :q<cr>
+nnoremap <leader>qa :qa<cr>
+nnoremap <leader>qw :x<cr>
+
 " Fast window moves
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
