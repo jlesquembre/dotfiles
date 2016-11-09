@@ -115,6 +115,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'vim-scripts/CursorLineCurrentWindow'
 Plug 'mhinz/vim-halo'
+Plug 'haya14busa/vim-operator-flashy' | Plug 'kana/vim-operator-user'
 
 
 " Git
@@ -311,7 +312,6 @@ cnoreabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
 " ============================================================================
 
 "noremap <Leader><Space> :noh<CR>
-nnoremap Y y$
 
 " Neovim terminal mapping
 " terminal 'normal mode'
@@ -743,3 +743,13 @@ let g:hardtime_ignore_quickfix = 1
 let g:AutoPairsMapSpace=0
 
 " END AUTOPAIRS
+
+
+" ============================================================================
+" OPERATOR FLASHY {{{1
+" ============================================================================
+
+map y <Plug>(operator-flashy)
+nmap Y <Plug>(operator-flashy)$
+
+" END OPERATOR FLASHY
