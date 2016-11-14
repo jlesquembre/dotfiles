@@ -10,7 +10,7 @@
     spellingdictionary = en_US
 
 [core]
-    editor = /usr/bin/vim
+    editor = /usr/bin/nvim
     pager = diff-so-fancy | less --tabs=4 -RFX
 
 [push]
