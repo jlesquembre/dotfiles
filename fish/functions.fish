@@ -318,6 +318,7 @@ alias r="ranger"
 
 
 # Some abbreviations
+abbr -a gcl 'git clone'
 abbr -a gco 'git checkout'
 abbr -a gcon 'git checkout -b'
 abbr -a gf 'git fetch'
