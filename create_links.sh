@@ -20,6 +20,7 @@ links["$HOME/dotfiles/editorconfig.ini"]="$HOME/.editorconfig"
 links["$HOME/dotfiles/hyper.js"]="$HOME/.hyper.js"
 
 links["$HOME/dotfiles/nvim"]="$HOME/.config/nvim"
+links["$HOME/dotfiles/npmrc"]="$HOME/.npmrc"
 
 links["$HOME/dotfiles/ipython"]="$HOME/.ipython"
 links["$HOME/dotfiles/jupyter"]="$HOME/.jupyter"

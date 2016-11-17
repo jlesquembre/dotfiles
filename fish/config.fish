@@ -44,13 +44,7 @@ set -x GOPATH $HOME/go
 set -x PATH $GOPATH/bin $PATH
 
 
-# Global npm packages
-#set -x NPM_CONFIG_PREFIX $HOME/.node
-#function npmg --description 'npm global'
-#    npm -g --prefix $NPM_CONFIG_PREFIX $argv
-#end
-#set -x PATH $NPM_CONFIG_PREFIX/bin $PATH
-#set -x NODE_PATH $NPM_CONFIG_PREFIX/lib/node_modules
+# Instead of global npm packages, use a local one and add it to PATH
 set -x PATH $HOME/dotfiles/node_modules/.bin $PATH
 
 # Use local node packages
