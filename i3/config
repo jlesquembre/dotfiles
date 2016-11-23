@@ -27,7 +27,7 @@ font pango:Hack 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite -e fish
+bindsym $mod+Return exec "SHELL=/usr/bin/fish termite"
 #i3-sensible-terminal
 
 # kill focused window
