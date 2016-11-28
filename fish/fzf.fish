@@ -127,3 +127,17 @@ function jj -d 'autojump with fzf'
     cd (cat $tempfile)
     rm $tempfile
 end
+
+
+function fp -d 'pew workon with fzf'
+    if test (count $argv) -eq 0; set argv ''; end
+    set -l cmd "ls $HOME/.local/share/virtualenvs | fzf --query=\"$argv\""
+
+    set -l tempfile (mktemp)
+    _run_fzf_cmd $tempfile $cmd; set -l last_status $status
+    if test $last_status -ne 0; rm $tempfile; return $last_status
+    end
+
+    pew workon (cat $tempfile)
+    rm $tempfile
+end
