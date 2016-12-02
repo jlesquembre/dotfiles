@@ -96,12 +96,13 @@ Plug 'takac/vim-hardtime'
 
 
 " Text edition
-Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-commentary'
 "gorkunov/smartpairs.vim
 "Plug 'cohama/lexima.vim'
 Plug 'jiangmiao/auto-pairs'
-" https://github.com/Raimondi/delimitMate ???
+"Plug 'Raimondi/delimitMate' ???
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-endwise'
 Plug 'ntpeters/vim-better-whitespace'
@@ -358,6 +359,26 @@ nnoremap <F10> :call <SID>SynStack()<CR>
 
 
 " ============================================================================
+" VIM SANDWICH {{{1
+" ============================================================================
+
+
+let g:sandwich_no_default_key_mappings = 1
+nmap s <Nop>
+xmap s <Nop>
+
+nmap <leader>sa <Plug>(operator-sandwich-add)
+xmap <leader>sa <Plug>(operator-sandwich-add)
+
+nmap <leader>sd <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+nmap <leader>sdd <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
+nmap <leader>sr <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+nmap <leader>srr <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
+
+" END SANDWICH
+
+
+" ============================================================================
 " VIM EASYMOTION {{{1
 " ============================================================================
 
@@ -376,90 +397,90 @@ nmap s, <Plug>(easymotion-prev)
 nmap s <Nop>
 nmap ss <Plug>(easymotion-overwin-f)
 xmap ss <Plug>(easymotion-bd-f)
-omap uu <Plug>(easymotion-bd-f)
+omap ss <Plug>(easymotion-bd-f)
 
 " f
 nmap sf <Plug>(easymotion-f)
 xmap sf <Plug>(easymotion-f)
-omap uf <Plug>(easymotion-f)
+omap sf <Plug>(easymotion-f)
 
 " F
 nmap sF <Plug>(easymotion-F)
 xmap sF <Plug>(easymotion-F)
-omap uF <Plug>(easymotion-F)
+omap sF <Plug>(easymotion-F)
 
 " t
 nmap st <Plug>(easymotion-t)
 xmap st <Plug>(easymotion-t)
-omap ut <Plug>(easymotion-t)
+omap st <Plug>(easymotion-t)
 
 " T
 nmap sT <Plug>(easymotion-T)
 xmap sT <Plug>(easymotion-T)
-omap uT <Plug>(easymotion-T)
+omap sT <Plug>(easymotion-T)
 
 " w
 nmap sw <Plug>(easymotion-w)
 xmap sw <Plug>(easymotion-w)
-omap uw <Plug>(easymotion-w)
+omap sw <Plug>(easymotion-w)
 
 " W
 nmap sW <Plug>(easymotion-W)
 xmap sW <Plug>(easymotion-W)
-omap uW <Plug>(easymotion-W)
+omap sW <Plug>(easymotion-W)
 
 " b
 nmap sb <Plug>(easymotion-b)
 xmap sb <Plug>(easymotion-b)
-omap ub <Plug>(easymotion-b)
+omap sb <Plug>(easymotion-b)
 
 " B
 nmap sB <Plug>(easymotion-B)
 xmap sB <Plug>(easymotion-B)
-omap uB <Plug>(easymotion-B)
+omap sB <Plug>(easymotion-B)
 
 " e
 nmap se <Plug>(easymotion-e)
 xmap se <Plug>(easymotion-e)
-omap ue <Plug>(easymotion-e)
+omap se <Plug>(easymotion-e)
 
 " E
 nmap sE <Plug>(easymotion-E)
 xmap sE <Plug>(easymotion-E)
-omap uE <Plug>(easymotion-E)
+omap sE <Plug>(easymotion-E)
 
 " ge
 nmap sge <Plug>(easymotion-ge)
 xmap sge <Plug>(easymotion-ge)
-omap uge <Plug>(easymotion-ge)
+omap sge <Plug>(easymotion-ge)
 
 " gE
 nmap sgE <Plug>(easymotion-gE)
 xmap sgE <Plug>(easymotion-gE)
-omap ugE <Plug>(easymotion-gE)
+omap sgE <Plug>(easymotion-gE)
 
 " j
 nmap sj <Plug>(easymotion-j)
 xmap sj <Plug>(easymotion-j)
-omap uj <Plug>(easymotion-j)
+omap sj <Plug>(easymotion-j)
 
 " k
 nmap sk <Plug>(easymotion-k)
 xmap sk <Plug>(easymotion-k)
-omap uk <Plug>(easymotion-k)
+omap sk <Plug>(easymotion-k)
 
 " n
 nmap sn <Plug>(easymotion-n)
 xmap sn <Plug>(easymotion-n)
-omap un <Plug>(easymotion-n)
+omap sn <Plug>(easymotion-n)
 
 " N
 nmap sN <Plug>(easymotion-N)
 xmap sN <Plug>(easymotion-N)
-omap uN <Plug>(easymotion-N)
+omap sN <Plug>(easymotion-N)
 
 map  s/ <Plug>(easymotion-sn)
-omap u/ <Plug>(easymotion-tn)
+omap s/ <Plug>(easymotion-tn)
 
 nmap <leader>j <Plug>(easymotion-overwin-line)
 xmap <leader>j <Plug>(easymotion-bd-jk)
@@ -755,6 +776,7 @@ let g:AutoPairsMapSpace=0
 " OPERATOR FLASHY {{{1
 " ============================================================================
 
+let g:operator#flashy#flash_time = 600
 map y <Plug>(operator-flashy)
 nmap Y <Plug>(operator-flashy)$
 
