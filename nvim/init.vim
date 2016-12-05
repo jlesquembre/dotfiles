@@ -206,6 +206,7 @@ set noshowmode
 set showcmd                     " display incomplete commands
 set cursorline
 set clipboard=unnamedplus  " Use "+ register
+set inccommand=split
 
 " Better folds
 set foldcolumn=1
