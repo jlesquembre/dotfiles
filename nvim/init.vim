@@ -116,7 +116,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'vim-scripts/CursorLineCurrentWindow'
 Plug 'mhinz/vim-halo'
-Plug 'haya14busa/vim-operator-flashy' | Plug 'kana/vim-operator-user'
+"Plug 'haya14busa/vim-operator-flashy' | Plug 'kana/vim-operator-user'
+Plug 'machakann/vim-highlightedyank'
 
 
 " Git
@@ -363,17 +364,23 @@ nnoremap <F10> :call <SID>SynStack()<CR>
 " ============================================================================
 
 
-let g:sandwich_no_default_key_mappings = 1
 nmap s <Nop>
 xmap s <Nop>
 
-nmap <leader>sa <Plug>(operator-sandwich-add)
-xmap <leader>sa <Plug>(operator-sandwich-add)
+"let g:sandwich_no_default_key_mappings = 1
+"
+onoremap <SID>line :normal! ^vg_<CR>
+nmap sa <Plug>(operator-sandwich-add)
+nmap sal <Plug>(operator-sandwich-add)<SID>line
 
-nmap <leader>sd <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
-nmap <leader>sdd <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
-nmap <leader>sr <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
-nmap <leader>srr <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
+nmap sdd <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
+nmap srr <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
+
+" select the nearest surrounded text automatically
+xmap iss <Plug>(textobj-sandwich-auto-i)
+xmap ass <Plug>(textobj-sandwich-auto-a)
+omap iss <Plug>(textobj-sandwich-auto-i)
+omap ass <Plug>(textobj-sandwich-auto-a)
 
 " END SANDWICH
 
@@ -776,8 +783,14 @@ let g:AutoPairsMapSpace=0
 " OPERATOR FLASHY {{{1
 " ============================================================================
 
-let g:operator#flashy#flash_time = 600
-map y <Plug>(operator-flashy)
-nmap Y <Plug>(operator-flashy)$
+"let g:operator#flashy#flash_time = 600
+"map y <Plug>(operator-flashy)
+"nmap Y <Plug>(operator-flashy)$
+
+let g:highlightedyank_highlight_duration = 600
+map y <Plug>(highlightedyank)
+map Y <Plug>(highlightedyank)$
+
+hi HighlightedyankRegion cterm=reverse gui=reverse
 
 " END OPERATOR FLASHY
