@@ -107,6 +107,7 @@ Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-endwise'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-speeddating'
+Plug 'bfredl/nvim-miniyank'
 
 
 " UI
@@ -788,10 +789,25 @@ let g:AutoPairsMapSpace=0
 "map y <Plug>(operator-flashy)
 "nmap Y <Plug>(operator-flashy)$
 
-let g:highlightedyank_highlight_duration = 600
+let g:highlightedyank_highlight_duration = 500
 map y <Plug>(highlightedyank)
 map Y <Plug>(highlightedyank)$
 
 hi HighlightedyankRegion cterm=reverse gui=reverse
 
 " END OPERATOR FLASHY
+
+
+
+" ============================================================================
+" MINIYANK  {{{1
+" ============================================================================
+map p <Plug>(miniyank-autoput)
+map P <Plug>(miniyank-autoPut)
+map <leader>p <Plug>(miniyank-cycle)
+
+"map <Leader>pc <Plug>(miniyank-tochar)
+"map <Leader>pl <Plug>(miniyank-toline)
+"map <Leader>pb <Plug>(miniyank-toblock)
+
+" END MINIYANK
