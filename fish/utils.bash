@@ -50,11 +50,12 @@ function compress_videos(){
 
     # shopt -s nocaseglob -> case insensitive match
 
-    for path in $(shopt -s nocaseglob; ls *.{mp4,mts} 2> /dev/null)
+    # See http://unix.stackexchange.com/a/9499
+    find . -type f \( -iname "*.mp4" -or -iname "*.mts" \) -print0 | while IFS= read -r -d '' path
     do
       # file=$(basename $path)
-      filename=${path##*/}
-      videoname=${filename%.*}
+      filename="${path##*/}"
+      videoname="${filename%.*}"
 
       newvideo=$( ffprobe ${filename} 2>&1 | grep -i creation_time | head -1 | cut -d: -f2- | date +"%Y-%m-%d_%H:%M:%S" -f -; exit ${PIPESTATUS[1]} )
       if [[ $? != 0 ]]; then
@@ -68,10 +69,10 @@ function compress_videos(){
       then
         echo "$newvideo already exists, skiping"
       else
-        #ffmpeg -i $filename -c:v libx265 -preset medium -x265-params crf=23 -c:a libopus -b:a 160k "${videoname}_medium_23.mkv"
-        #ffmpeg -i $filename -c:v libx265 -preset medium -x265-params crf=23 -c:a copy "${videoname}_medium_23_audio_original.mkv"
-        #ffmpeg -i $filename -c:v libx265 -preset medium -x265-params crf=20 -c:a libopus -b:a 160k "${videoname}_medium_20.mkv"
-        ffmpeg -i $filename -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k "${newvideo}"
+        #ffmpeg -i "${filename}" -c:v libx265 -preset medium -x265-params crf=23 -c:a libopus -b:a 160k "${videoname}_medium_23.mkv"
+        #ffmpeg -i "${filename}" -c:v libx265 -preset medium -x265-params crf=23 -c:a copy "${videoname}_medium_23_audio_original.mkv"
+        #ffmpeg -i "${filename}" -c:v libx265 -preset medium -x265-params crf=20 -c:a libopus -b:a 160k "${videoname}_medium_20.mkv"
+        ffmpeg -i "${filename}" -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k "${newvideo}"
       fi
 
     done
