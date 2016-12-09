@@ -3,9 +3,43 @@ function extract --description 'Extract archives'
     bash $HOME/.config/fish/utils.bash "extract" $argv
 end
 
-function compress_videos --description 'Compress all videos in directory'
-    bash $HOME/.config/fish/utils.bash "compress_videos" $argv
+#function compress_videos --description 'Compress all videos in directory'
+#    bash $HOME/.config/fish/utils.bash "compress_videos" $argv
+#end
+
+function compress_videos --description 'Find and compress videos'
+
+    switch (count $argv)
+        case 0
+            set use_time 0
+        case 1
+
+            if test $argv[1] = "use_time"
+                set use_time 1
+            else
+                echo 'Only valid argument is "use_time"'
+                return 1
+            end
+        case '*'
+            echo 'To many arguments'
+            return 1
+    end
+
+    for path in ( find (pwd) -type f \( -iname "*.mp4" -or -iname "*.mts" \)  )
+        set -l dirname ( dirname "$path" )
+        set -l name ( basename "$path"  | rev | cut -d. -f2- | rev )
+
+        if test $use_time -eq 1
+            set newname ( ffprobe "$path" 2>&1 | grep -i creation_time | head -1 | cut -d: -f2- | date +"%Y-%m-%d_%H:%M:%S" -f - )
+        else
+            set newname ( echo "$name")
+        end
+
+        set -l new_file ( echo "$dirname/$newname.mkv")
+        echo "ffmpeg -i '$path' -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k '$new_file'"
+    end
 end
+
 
 
 function jltar --description 'Compress a directory'

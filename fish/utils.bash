@@ -72,7 +72,7 @@ function compress_videos(){
         #ffmpeg -i "${filename}" -c:v libx265 -preset medium -x265-params crf=23 -c:a libopus -b:a 160k "${videoname}_medium_23.mkv"
         #ffmpeg -i "${filename}" -c:v libx265 -preset medium -x265-params crf=23 -c:a copy "${videoname}_medium_23_audio_original.mkv"
         #ffmpeg -i "${filename}" -c:v libx265 -preset medium -x265-params crf=20 -c:a libopus -b:a 160k "${videoname}_medium_20.mkv"
-        ffmpeg -i "${filename}" -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k "${newvideo}"
+        echo "ffmpeg -i '${filename}' -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k '${newvideo}'"
       fi
 
     done
