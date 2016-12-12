@@ -34,13 +34,18 @@ function compress_videos --description 'Find and compress videos'
         else
             set newname ( echo "$name")
         end
+        set -l fps (ffprobe -v error -select_streams v:0 -show_entries stream=avg_frame_rate -of default=noprint_wrappers=1:nokey=1 $path)
 
         set -l new_file ( echo "$dirname/$newname.mkv")
 
         set cmd 'ffmpeg'
         if test -e "$new_file"; set cmd "#$cmd"; end
+        if test $fps != '25/1'; set cmd "$cmd -r $fps"; end
 
-        echo "$cmd -i '$path' -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k '$new_file'"
+        set -l escaped_path (echo "$path" | tr "'" "_")
+        set -l escaped_new_file (echo "$new_file" | tr "'" "_")
+
+        echo "$cmd -i '$escaped_path' -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k '$escaped_new_file'"
     end
 end
 
