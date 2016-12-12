@@ -35,10 +35,11 @@ function compress_videos --description 'Find and compress videos'
             set newname ( echo "$name")
         end
 
+        set -l new_file ( echo "$dirname/$newname.mkv")
+
         set cmd 'ffmpeg'
         if test -e "$new_file"; set cmd "#$cmd"; end
 
-        set -l new_file ( echo "$dirname/$newname.mkv")
         echo "$cmd -i '$path' -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k '$new_file'"
     end
 end
