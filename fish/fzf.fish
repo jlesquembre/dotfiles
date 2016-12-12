@@ -131,7 +131,7 @@ end
 
 function fp -d 'pew workon with fzf'
     if test (count $argv) -eq 0; set argv ''; end
-    set -l cmd "ls $HOME/.local/share/virtualenvs | fzf --query=\"$argv\""
+    set -l cmd "ls $HOME/.local/share/virtualenvs | fzf -1 --query=\"$argv\""
 
     set -l tempfile (mktemp)
     _run_fzf_cmd $tempfile $cmd; set -l last_status $status
