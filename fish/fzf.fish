@@ -1,4 +1,9 @@
-set fzf_preview_all '--preview "file -ib {} | rg binary | rg -v inode/ ^ /tmp/null; or pygmentize -O style=monokai -f console256 -g {} ^ /dev/null; or tree -C {} | head -200"'
+set fzf_preview_all '--preview "if test -d {};\
+                                    tree -C {} | head -200;\
+                                else;\
+                                    file -ib {} | rg binary ^ /tmp/null; or highlight -O ansi {} ^ /dev/null | head -200;\
+                                end;"'
+
 set fzf_preview_dir '--preview "tree -C {} | head -200"'
 
 set -x FZF_CTRL_T_OPTS $fzf_preview_all

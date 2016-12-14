@@ -196,6 +196,7 @@ colorscheme base16-default-dark
 " breaks things that use 'shell'.
 if &shell =~# 'fish$'
   set shell=/bin/bash
+  let $SHELL='/bin/bash'
 endif
 
 set relativenumber
@@ -568,8 +569,8 @@ xmap gs  <plug>(GrepperOperator)
 " FZF {{{1
 " ============================================================================
 
-" File preview using Pygments
-let g:fzf_files_options = '--preview "file -ib {} | rg binary; or pygmentize -O style=monokai -f console256 -g {} | head -'.&lines.'"'
+" File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
+let g:fzf_files_options = '--preview "(file -ib {} | rg binary || highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
 
 nnoremap <silent> <Leader>f       :FilesRg<CR>
 nnoremap <silent> <Leader>ff      :FilesRg<CR>
