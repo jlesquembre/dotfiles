@@ -8,7 +8,9 @@ module.exports = {
 
     // terminal cursor background color (hex)
     cursorColor: '#d8d8d8',
-    cursorShape: 'BLOCK', // BLOCK, UNDERLINE or BEAM
+
+    // `BEAM` for |, `UNDERLINE` for _, `BLOCK` for █
+    cursorShape: 'BLOCK',
 
     // color of the text
     foregroundColor: '#d8d8d8',
@@ -72,11 +74,25 @@ module.exports = {
     // if left empty, your system's login shell will be used by default
     shell: '/usr/bin/fish',
 
+    // for setting shell arguments (i.e. for using interactive shellArgs: ['-i'])
+    // by default ['--login'] will be used
+    //shellArgs: ['--login'],
+    shellArgs: [],
 
-    // If true, selected text will automatically be copied to the clipboard
-    clearSelection: true,
+    // for environment variables
+    env: {},
 
-    // for advanced config flags please refer to https://hyperterm.org/#cfg
+    // set to false for no bell
+    //bell: 'SOUND',
+    bell: false,
+
+    // if true, selected text will automatically be copied to the clipboard
+    copyOnSelect: true,
+
+    // URL to custom bell
+    // bellSoundURL: 'http://example.com/bell.mp3',
+
+    // for advanced config flags please refer to https://hyper.is/#cfg
   },
 
   // a list of plugins to fetch and install from npm
@@ -86,13 +102,12 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyperlinks',
-    'hyperterm-cursor',
-    'hyperterm-blink',
+    'hyper-blink',
+    'hyperlinks'
   ],
 
   // in development, you can create a directory under
-  // `~/.hyperterm_plugins/local/` and include it here
+  // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
   localPlugins: []
 };
