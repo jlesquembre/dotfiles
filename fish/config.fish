@@ -25,7 +25,7 @@ set -x PROJECT_HOME $HOME/projects
 function fish_greeting -d "what's up, fish?"
   set_color $fish_color_autosuggestion
   uname -nmsr
-  uptime
+  w
   set_color normal
 end
 
@@ -124,7 +124,7 @@ function get_nodeenv
 end
 
 
-fish_vi_key_bindings
+#fish_vi_key_bindings
 
 function fish_mode_prompt --description 'Displays the current mode'
     # Do nothing if not in vi mode
@@ -144,8 +144,12 @@ function fish_mode_prompt --description 'Displays the current mode'
                 echo 🆅
         end
         set_color normal
+        printf '  '
     end
-    printf '  '
+end
+
+function fish_user_key_bindings
+    bind \cc 'commandline ""'
 end
 
 # From https://github.com/0rax/fishline
