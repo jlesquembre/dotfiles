@@ -42,8 +42,8 @@ function compress_videos --description 'Find and compress videos'
         if test -e "$new_file"; set cmd "#$cmd"; end
         if test $fps != '25/1'; set cmd "$cmd -r $fps"; end
 
-        set -l escaped_path (echo "$path" | tr "'" "_")
-        set -l escaped_new_file (echo "$new_file" | tr "'" "_")
+        set -l escaped_path (echo "$path" | sed "s/'/\\\'/g")
+        set -l escaped_new_file (echo "$new_file" | sed "s/'/\\\'/g")
 
         echo "$cmd -i '$escaped_path' -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k '$escaped_new_file'"
     end
