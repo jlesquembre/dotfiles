@@ -359,6 +359,13 @@ nnoremap <silent> <Leader>w :update<CR>
 " Show syntax highlighting groups for word under cursor
 nnoremap <F10> :call <SID>SynStack()<CR>
 
+
+" Quick breakpoints
+au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
+au FileType javascript map <silent> <leader>b odebugger;<esc>
+au FileType javascript map <silent> <leader>B Odebugger;<esc>
+
 " END MAPPINGS
 
 
