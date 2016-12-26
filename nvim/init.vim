@@ -152,6 +152,27 @@ Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'tpope/vim-projectionist'
+
+" Clojure
+"Plug 'kovisoft/paredit',    { 'for': 'clojure' }
+"Plug 'guns/vim-sexp'
+"Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'guns/vim-clojure-static'
+Plug 'guns/vim-clojure-highlight'
+Plug 'neovim/node-host', { 'dir': '~/.config/nvim/plugged/node-host', 'do': 'yarn install' }
+Plug 'clojure-vim/nvim-parinfer.js', {'do': ':UpdateRemotePlugins'}
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+"Plug 'hkupty/acid.nvim', {'do':':UpdateRemotePlugins'}
+"Plug 'hkupty/iron.nvim', {'do':':UpdateRemotePlugins'}
+"Plug 'tpope/vim-classpath'
+"Plug 'tpope/vim-salve'
+
+"Plug 'guns/vim-slamhound'
+"Plug 'junegunn/vim-easy-align'
+
 
 "Plug 'neomake/neomake' ????
 " or tcomment???
@@ -827,3 +848,38 @@ map <leader>p <Plug>(miniyank-cycle)
 "map <Leader>pb <Plug>(miniyank-toblock)
 
 " END MINIYANK
+
+" ============================================================================
+" CLOJURE {{{1
+" ============================================================================
+fun! DisableAutopairs()
+    " If variable autopairs_loaded doesn't exit, the plugin will be loaded
+    let b:autopairs_loaded = 0
+    let b:autopairs_enabled = 0
+endfun
+
+augroup clojure
+  autocmd FileType lisp,clojure,scheme RainbowParentheses
+  autocmd FileType lisp,clojure,scheme call DisableAutopairs()
+"  autocmd FileType lisp,clojure,scheme
+"        \ nnoremap <buffer> <leader>a[ vi[<c-v>$:EasyAlign\ g/^\S/<cr>gv=
+"  autocmd FileType lisp,clojure,scheme
+"        \ nnoremap <buffer> <leader>a{ vi{<c-v>$:EasyAlign\ g/^\S/<cr>gv=
+"  autocmd FileType lisp,clojure,scheme
+"        \ nnoremap <buffer> <leader>a( vi(<c-v>$:EasyAlign\ g/^\S/<cr>gv=
+"  autocmd FileType lisp,clojure,scheme
+"        \ nnoremap <buffer> <leader>rq :silent update<bar>Require!<cr>
+"  autocmd FileType lisp,clojure,scheme
+"        \ nnoremap <buffer> <leader>rt :silent update<bar>RunTests<cr>
+augroup END
+"
+"let g:clojure_maxlines = 60
+"
+"let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', '^match$']
+"
+"" let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+"
+"au FileType clojure xnoremap <buffer> <Enter> :Eval<CR>
+"au FileType clojure nmap <buffer> <Enter> cpp
+
+" END CLOJURE
