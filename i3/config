@@ -182,8 +182,8 @@ bindsym $mod+Shift+b exec "i3lock -c 000000"
 #bindsym $mod+Shift+b exec "i3lock -f -r 7 -s 20"
 
 # Poweroff
-bindsym $mod+Shift+p exec "systemctl poweroff"
-bindsym $mod+Shift+o exec "systemctl reboot"
+bindsym $mod+Shift+p exec "zenity --question --text 'Poweroff the system\nAre you sure?' && systemctl poweroff"
+bindsym $mod+Shift+o exec "zenity --question --text 'Reboot the system\nAre you sure?' && systemctl reboot"
 
 
 set $base00 #101218
