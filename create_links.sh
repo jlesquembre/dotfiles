@@ -25,6 +25,8 @@ links["$HOME/dotfiles/npmrc"]="$HOME/.npmrc"
 links["$HOME/dotfiles/ipython"]="$HOME/.ipython"
 links["$HOME/dotfiles/jupyter"]="$HOME/.jupyter"
 
+links["$HOME/dotfiles/lein"]="$HOME/.lein"
+
 mkdir -p $HOME/.config/termite
 
 # key   -> target
