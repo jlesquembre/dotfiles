@@ -154,6 +154,7 @@ Plug 'radenling/vim-dispatch-neovim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'tpope/vim-projectionist'
+Plug 'neomake/neomake'
 
 " Clojure
 "Plug 'kovisoft/paredit',    { 'for': 'clojure' }
@@ -883,3 +884,20 @@ augroup END
 "au FileType clojure nmap <buffer> <Enter> cpp
 
 " END CLOJURE
+
+
+" ============================================================================
+" NEOMAKE {{{1
+" ============================================================================
+
+
+autocmd! BufWritePost * Neomake
+au FileType javascript nnoremap <silent> <leader>nn :silent !standard --fix %<cr>:e<cr>:Neomake<cr>
+
+let g:neomake_javascript_enabled_makers = ['standard']
+
+let g:neomake_echo_current_error = 0
+let g:neomake_open_list = 2
+
+
+" END NEOMAKE
