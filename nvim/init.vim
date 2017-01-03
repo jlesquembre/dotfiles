@@ -891,11 +891,29 @@ augroup END
 " ============================================================================
 
 
+function! GetEslintrc()
+    if filereadable(getcwd() . '/.eslintrc.js')
+        return (getcwd() . '/.eslintrc.js')
+    elseif filereadable(getcwd() . '/.eslintrc.json')
+        return (getcwd() . '/.eslintrc.json')
+    else
+        return expand('~/dotfiles/eslintrc.js')
+    endif
+endfunction
+
+function! EslintMaker()
+    let maker = neomake#makers#ft#javascript#eslint_d()
+    let maker.args = ['-f', 'compact', '-c', GetEslintrc()]
+    return maker
+endfunction
+
+
 autocmd! BufWritePost * Neomake
-au FileType javascript nnoremap <silent> <leader>nn :silent !standard --fix %<cr>:e<cr>:Neomake<cr>
+au FileType javascript nnoremap <silent><expr> <leader>nn
+    \ ':silent !eslint_d -c ' . GetEslintrc() . ' --fix %<cr>:e<cr>:Neomake<cr>'
 
-let g:neomake_javascript_enabled_makers = ['standard']
-
+let g:neomake_javascript_eslint_d_maker = EslintMaker()
+let g:neomake_javascript_enabled_makers = ['eslint_d']
 let g:neomake_echo_current_error = 0
 let g:neomake_open_list = 2
 
