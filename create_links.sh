@@ -26,6 +26,7 @@ links["$HOME/dotfiles/ipython"]="$HOME/.ipython"
 links["$HOME/dotfiles/jupyter"]="$HOME/.jupyter"
 
 links["$HOME/dotfiles/lein"]="$HOME/.lein"
+links["$HOME/dotfiles/chrome-dev-flags.conf"]="$HOME/.config/chrome-dev-flags.conf"
 
 mkdir -p $HOME/.config/termite
 
