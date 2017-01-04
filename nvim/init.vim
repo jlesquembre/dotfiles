@@ -145,6 +145,7 @@ Plug 'mxw/vim-jsx'
 Plug 'HerringtonDarkholme/yats.vim'  " Typescript
 "Plug 'LaTeX-Box-Team/LaTeX-Box', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'PotatoesMaster/i3-vim-syntax'
 
 Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
 
