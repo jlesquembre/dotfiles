@@ -222,6 +222,7 @@ if &shell =~# 'fish$'
   let $SHELL='/bin/bash'
 endif
 
+set hidden
 set relativenumber
 set number
 set tildeop
