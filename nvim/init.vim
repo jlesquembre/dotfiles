@@ -125,6 +125,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
 Plug 'int3/vim-extradite'
 
 
@@ -392,6 +393,21 @@ au FileType javascript map <silent> <leader>B Odebugger;<esc>
 
 " END MAPPINGS
 
+" ============================================================================
+" VIM STARTIFY {{{1
+" ============================================================================
+
+let g:startify_change_to_vcs_root = 1
+
+" END STARTIFY
+
+" ============================================================================
+" VIM ROOTER {{{1
+" ============================================================================
+
+let g:rooter_silent_chdir = 1
+
+" END ROOTER
 
 " ============================================================================
 " VIM SANDWICH {{{1
@@ -779,8 +795,6 @@ let g:vimfiler_ignore_pattern = ['^\.git$', '^\.DS_Store$']
 " ============================================================================
 " VIMTEX {{{1
 " ============================================================================
-
-let g:startify_change_to_vcs_root = 1
 
 let g:vimtex_latexmk_progname = '$HOME/.local/share/virtualenvs/nvr/bin/nvr'
 
