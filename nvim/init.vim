@@ -115,7 +115,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "Plug 'Yggdroot/indentLine'
 Plug 'mhinz/vim-startify'
-Plug 'vim-scripts/CursorLineCurrentWindow'
 Plug 'mhinz/vim-halo'
 "Plug 'haya14busa/vim-operator-flashy' | Plug 'kana/vim-operator-user'
 Plug 'machakann/vim-highlightedyank'
@@ -290,6 +289,10 @@ autocmd BufEnter,FocusGained * checktime
 
 " The PC is fast enough, do syntax highlight syncing from start
 autocmd BufEnter * :syntax sync fromstart
+
+" Only use cursorline for current window
+autocmd WinEnter,FocusGained * setlocal cursorline
+autocmd WinLeave,FocusLost   * setlocal nocursorline
 
 " END BASIC SETTINGS
 
@@ -668,8 +671,6 @@ command! Plugs call fzf#run({
   \ 'down':    '~30%',
   \ 'sink':    'VimFiler'})
 
-autocmd MyAutoCmd FileType fzf setlocal nocursorline
-
 " END FZF
 
 
@@ -758,8 +759,6 @@ let g:vimfiler_time_format= "%Y/%m/%d %H:%M"
 autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings() abort
 
-  setlocal cursorline
-  let w:persistent_cursorline = 1  " For compat with CursorLineCurrentWindow
   nnoremap <silent><buffer><expr> gt vimfiler#do_action('tabopen')
   nnoremap <silent><buffer><expr> v vimfiler#do_switch_action('vsplit')
   nnoremap <silent><buffer><expr> s vimfiler#do_switch_action('split')
