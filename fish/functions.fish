@@ -110,59 +110,13 @@ function jldtar --description 'Decrypts a tar file'
 end
 
 
-function aur_build --description 'Builds a package from the AUR'
-    switch (count $argv)
-        case 1
-            set aur_url "https://aur.archlinux.org/packages"
-            set name $argv[1]
-            set directory (echo $name | cut -c -2)
-            set tar_file $name.tar.gz
-
-            set tgz_url "$aur_url/$directory/$name/$tar_file"
-
-            wget $tgz_url
-            if test $status -ne 0
-                echo "'$name' was not found in the AUR repository"
-                return 1
-            end
-
-            if test -d $name
-                rm -r $name
-            end
-
-            tar -xzf $tar_file
-            cd $name
-            makepkg
-
-            set packages (command ls *.tar.xz)
-            mv *.tar.xz ..
-
-            cd ..
-            rm $tar_file
-
-            echo ""
-            echo "To install run:"
-            for package in $packages
-                echo "sudo pacman -U $package"
-            end
-            echo ""
-
-        case 0
-            echo 'Provide a valid AUR package as argument'
-            echo 'Usage: aur_build [AUR_PAKAGE_NAME]'
-            return 1
-
-        case '*'
-            echo 'Too many arguments!'
-            echo 'Usage: aur_build [AUR_PAKAGE_NAME]'
-            return 1
-    end
-end
-
-
 function jlmakepkg --description 'Archlinux package build utility'
     mkdir -p /tmp/makepkg/_src
     makepkg -f PKGDEST=$HOME/aur SRCDEST=/tmp/makepkg/_src BUILDDIR=/tmp/makepkg
+    set -l last_status $status
+    if test $last_status -ne 0
+        return $last_status
+    end
     set packages (command ls ./*.tar.xz)
     if [ "$argv" != 'NODELETE' ]
         rm $packages
@@ -170,11 +124,11 @@ function jlmakepkg --description 'Archlinux package build utility'
 end
 
 
-function aur4_build --description 'Builds a package from the AUR4'
+function aur_build --description 'Builds a package from the AUR'
     switch (count $argv)
         case 1
             set name $argv[1]
-            set aur_url "ssh://aur@aur4.archlinux.org/"{$name}".git"
+            set aur_url "ssh://aur@aur.archlinux.org/"{$name}".git"
             set git_dir $HOME/aur/$name
 
             git ls-remote --exit-code $aur_url > /dev/null
@@ -195,6 +149,10 @@ function aur4_build --description 'Builds a package from the AUR4'
 
             #fish subshell
             fish -c "cd $git_dir; jlmakepkg NODELETE"
+            set -l last_status $status
+            if test $last_status -ne 0
+                return $last_status
+            end
             set packages (command ls $git_dir/*.tar.xz)
 
             rm -rf /tmp/makepkg/
