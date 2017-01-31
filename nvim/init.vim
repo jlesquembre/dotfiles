@@ -165,7 +165,9 @@ Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-clojure-highlight'
 Plug 'neovim/node-host', { 'dir': '~/.config/nvim/plugged/node-host', 'do': 'yarn install' }
 Plug 'clojure-vim/nvim-parinfer.js', {'do': ':UpdateRemotePlugins'}
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'clojure-vim/neovim-client', { 'for': 'clojure' }
+Plug 'jebberjeb/clojure-socketrepl.nvim', { 'for': 'clojure' }
 
 "Plug 'hkupty/acid.nvim', {'do':':UpdateRemotePlugins'}
 "Plug 'hkupty/iron.nvim', {'do':':UpdateRemotePlugins'}
@@ -897,6 +899,19 @@ augroup END
 "
 "au FileType clojure xnoremap <buffer> <Enter> :Eval<CR>
 "au FileType clojure nmap <buffer> <Enter> cpp
+
+
+command StartREPL :call jobstart("boot -i \"(do (require 'clojure.core.server) ((resolve 'clojure.core.server/start-server) {:port 5555 :name :repl :accept 'clojure.core.server/repl}))\" wait")
+
+autocmd MyAutoCmd FileType clojure call s:clojure_settings()
+function! s:clojure_settings() abort
+  nnoremap <silent><buffer> K :Doc
+  nnoremap <silent><buffer> <leader>cs :StartREPL<cr>
+  nnoremap <silent><buffer> <leader>ca :Connect<cr>
+  nnoremap <silent><buffer> <leader>ce :EvalCode<cr>
+  nnoremap <silent><buffer> <leader>cc :EvalCode<cr>
+  nnoremap <silent><buffer> <leader>cb :EvalBuffer<cr>
+endfunction
 
 " END CLOJURE
 
