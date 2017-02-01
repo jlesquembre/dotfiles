@@ -156,6 +156,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'tpope/vim-projectionist'
 Plug 'neomake/neomake'
+Plug 'sbdchd/neoformat'
 
 " Clojure
 "Plug 'kovisoft/paredit',    { 'for': 'clojure' }
@@ -175,10 +176,7 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 "Plug 'guns/vim-slamhound'
 "Plug 'junegunn/vim-easy-align'
 
-
-"Plug 'neomake/neomake' ????
 " or tcomment???
-
 
 "Plug 'tpope/vim-flagship'????
 "https://github.com/Valloric/MatchTagAlways ???
@@ -902,7 +900,7 @@ augroup END
 
 
 " ============================================================================
-" NEOMAKE {{{1
+" NEOMAKE / NEOFORMAT {{{1
 " ============================================================================
 
 
@@ -922,15 +920,42 @@ function! EslintMaker()
     return maker
 endfunction
 
-
-autocmd! BufWritePost * Neomake
-au FileType javascript nnoremap <silent><expr> <leader>nn
-    \ ':silent !eslint_d -c ' . GetEslintrc() . ' --fix %<cr>:e<cr>:Neomake<cr>'
-
 let g:neomake_javascript_eslint_d_maker = EslintMaker()
 let g:neomake_javascript_enabled_makers = ['eslint_d']
 let g:neomake_echo_current_error = 0
 let g:neomake_open_list = 2
 
+if executable('prettier')
+    autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
+endif
+
+let g:neoformat_try_formatprg = 1
+
+augroup on_vim_enter
+  autocmd!
+  autocmd VimEnter * call OnVimEnter()
+augroup END
+
+" Called after plugins have loaded
+function! g:OnVimEnter()
+  "augroup neoformat_autosave
+  "  autocmd!
+  "  if exists(':Neoformat')
+  "    " Run automatically before saving for supported filetypes
+  "    echom 'Setting up neoformat'
+  "    autocmd BufWritePre *.js Neoformat
+  "  endif
+  "augroup END
+
+  augroup neomake_automake
+    autocmd!
+    if exists(':Neomake')
+      " Check for lint errors on open & write for supported filetypes
+      autocmd BufReadPost,BufWritePost *.js,*.sh Neomake
+    endif
+  augroup END
+endfunction
+
+" END NEOMAKE / NEOFORMAT
 
 " END NEOMAKE
