@@ -853,9 +853,17 @@ hi HighlightedyankRegion cterm=reverse gui=reverse
 " ============================================================================
 " MINIYANK  {{{1
 " ============================================================================
-map p <Plug>(miniyank-autoput)
-map P <Plug>(miniyank-autoPut)
-map <leader>p <Plug>(miniyank-cycle)
+
+" Use normal and visual remap, see:
+" https://github.com/bfredl/nvim-miniyank/issues/8
+nnoremap p <Plug>(miniyank-autoput)
+xnoremap p <Plug>(miniyank-autoput)
+
+nnoremap P <Plug>(miniyank-autoPut)
+xnoremap P <Plug>(miniyank-autoPut)
+
+nnoremap <leader>p <Plug>(miniyank-cycle)
+xnoremap <leader>p <Plug>(miniyank-cycle)
 
 "map <Leader>pc <Plug>(miniyank-tochar)
 "map <Leader>pl <Plug>(miniyank-toline)
@@ -957,5 +965,3 @@ function! g:OnVimEnter()
 endfunction
 
 " END NEOMAKE / NEOFORMAT
-
-" END NEOMAKE
