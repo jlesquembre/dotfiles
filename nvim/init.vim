@@ -146,6 +146,7 @@ Plug 'HerringtonDarkholme/yats.vim'  " Typescript
 "Plug 'LaTeX-Box-Team/LaTeX-Box', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'lifepillar/pgsql.vim'
 
 Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
 
@@ -318,6 +319,13 @@ endfunc
 
 " END FUNCTIONS
 
+" ============================================================================
+" SYNTAX {{{1
+" ============================================================================
+
+let g:sql_type_default = 'pgsql'
+
+" END SYNTAX
 
 " ============================================================================
 " COMMANDS {{{1
