@@ -961,14 +961,14 @@ augroup END
 
 " Called after plugins have loaded
 function! g:OnVimEnter()
-  "augroup neoformat_autosave
-  "  autocmd!
-  "  if exists(':Neoformat')
-  "    " Run automatically before saving for supported filetypes
-  "    echom 'Setting up neoformat'
-  "    autocmd BufWritePre *.js Neoformat
-  "  endif
-  "augroup END
+  augroup neoformat_autosave
+    autocmd!
+    if exists(':Neoformat')
+      " Run automatically before saving for supported filetypes
+      echom 'Setting up neoformat'
+      autocmd BufWritePre *.js Neoformat
+    endif
+  augroup END
 
   augroup neomake_automake
     autocmd!
