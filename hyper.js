@@ -1,7 +1,7 @@
 module.exports = {
   config: {
     // default font size in pixels for all tabs
-    fontSize: 15,
+    fontSize: 17,
 
     // font family with optional fallbacks
     fontFamily: 'Hack, Menlo, "DejaVu Sans Mono", "Lucida Console", monospace',
@@ -89,6 +89,15 @@ module.exports = {
     // if true, selected text will automatically be copied to the clipboard
     copyOnSelect: true,
 
+    showHamburgerMenu: true,
+
+    showWindowControls: false,
+
+    //modifierKeys: {
+    //  cmdIsMeta: false,
+    //  altIsMeta: false,
+    //}
+
     // URL to custom bell
     // bellSoundURL: 'http://example.com/bell.mp3',
 
@@ -103,7 +112,13 @@ module.exports = {
   //   `project#1.0.1`
   plugins: [
     'hyper-blink',
-    'hyperlinks'
+    'hyperlinks',
+    'hypercwd',
+    'hyperterm-alternatescroll',
+    'hyper-statusline',
+    //'hyperpunk',
+    //'hyperpower',
+    //'hyperterm-retro',
   ],
 
   // in development, you can create a directory under
