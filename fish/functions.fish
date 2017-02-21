@@ -21,7 +21,7 @@ function compress_videos --description 'Find and compress videos'
                 return 1
             end
         case '*'
-            echo 'To many arguments'
+            echo 'Too many arguments'
             return 1
     end
 
