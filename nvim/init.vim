@@ -362,6 +362,9 @@ tmap <esc> <c-\><c-n><esc><cr>
 " nnoremap ; :
 " nnoremap : ;
 
+"nmap <leader>w <C-w>
+nnoremap <leader>w <C-w>
+
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 
@@ -390,7 +393,7 @@ nnoremap <leader>l :nohlsearch<cr>:call clearmatches()<cr>:diffupdate<cr>:syntax
 " https://github.com/mhinz/vim-halo/issues/2
 
 " Quick saving
-nnoremap <silent> <Leader>w :update<CR>
+nnoremap <silent> <Leader>s :update<CR>
 
 " Show syntax highlighting groups for word under cursor
 nnoremap <F10> :call <SID>SynStack()<CR>
