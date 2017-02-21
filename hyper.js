@@ -116,6 +116,8 @@ module.exports = {
     'hypercwd',
     'hyperterm-alternatescroll',
     'hyper-statusline',
+    'hyper-tab-icons',
+    //'hyper-tabs-enhanced',
     //'hyperpunk',
     //'hyperpower',
     //'hyperterm-retro',
