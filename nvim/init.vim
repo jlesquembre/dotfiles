@@ -147,6 +147,7 @@ Plug 'HerringtonDarkholme/yats.vim'  " Typescript
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'lifepillar/pgsql.vim'
+Plug 'LnL7/vim-nix'
 
 Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
 
