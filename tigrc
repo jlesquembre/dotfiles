@@ -87,3 +87,5 @@ color   tree.directory         221     default
 #   LINE(PALETTE_4, "", COLOR_DEFAULT, COLOR_DEFAULT, 0), \
 #   LINE(PALETTE_5, "", COLOR_WHITE, COLOR_DEFAULT, 0), \
 #   LINE(PALETTE_6, "", COLOR_RED, )
+#
+set main-options = -n 1000
