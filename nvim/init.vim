@@ -956,6 +956,13 @@ function! EslintMaker()
     return maker
 endfunction
 
+
+let g:neomake_sphinx_maker = {
+    \ 'exe': 'make',
+    \ 'args': ['html'],
+    \ 'errorformat': '%f:%l:%c: %m',
+    \ }
+
 let g:neomake_javascript_eslint_d_maker = EslintMaker()
 let g:neomake_javascript_enabled_makers = ['eslint_d']
 let g:neomake_echo_current_error = 0
@@ -991,5 +998,8 @@ function! g:OnVimEnter()
     endif
   augroup END
 endfunction
+
+autocmd! BufWritePost *.rst Neomake
+autocmd! BufWritePost *.rst Neomake! sphinx
 
 " END NEOMAKE / NEOFORMAT
