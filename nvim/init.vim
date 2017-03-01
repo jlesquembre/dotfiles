@@ -602,6 +602,7 @@ nnoremap <leader>gww :Gwrite<CR>
 nnoremap <leader>gwc :Gwrite<Bar>:Gcommit<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gcc :Gcommit<CR>
 nnoremap <leader>gp :Gpush<CR>
 "nnoremap <leader>gr :Git reset -q -- %<CR>
 
