@@ -309,6 +309,7 @@ function c        ; pygmentize -O style=monokai -f console256 -g $argv ; end
 function g        ; git $argv ; end
 function lookbusy ; cat /dev/urandom | hexdump -C | grep --color "ca fe" ; end
 function srg      ; nvim -c "Grepper -jump -highlight -query '$argv'" ; end
+function passgen -d 'Alias for pwgen' ; pwgen $argv; end;
 #function grep     ; command grep --color=auto $argv ; end
 alias push="git push"
 alias diskspace_report="df -P -kHl"
