@@ -3,16 +3,25 @@
 
 {
 
+  hardware.opengl.driSupport32Bit = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  #boot.blacklistedKernelModules = [ "nouveau" ];
+  #boot.kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
+  #boot.vesa = false;
+
+  #hardware.opengl.enable = true;
+  #hardware.opengl.driSupport32Bit = true;
+  #services.xserver.videoDrivers = [ "nvidia" "vesa" ];
 
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
   # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/sdc"; # or "nodev" for efi only
+  boot.loader.grub.device = "/dev/sdc";
+
   boot.loader.grub.extraEntries = ''
 menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-ed50fb2d-5e65-4ced-8229-fa83dffc8e8e' {
   if [ x$feature_all_video_module = xy ]; then
@@ -55,5 +64,6 @@ menuentry 'Windows 7 (loader) (on /dev/sda1)' --class windows --class os $menuen
 }
 
 '';
+
 
 }
