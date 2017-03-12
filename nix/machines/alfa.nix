@@ -15,6 +15,17 @@
   #services.xserver.videoDrivers = [ "nvidia" "vesa" ];
 
 
+  #fileSystems."/tmp" = {
+  #  device = "tmpfs";
+  #  fsType = "tmpfs";
+  #  neededForBoot = true;
+  #};
+  fileSystems."/data" =
+    { device = "/dev/disk/by-uuid/ed73e8a3-4a43-4545-b464-c62e31e2b097";
+      fsType = "ext4";
+    };
+
+
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;

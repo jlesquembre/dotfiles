@@ -20,6 +20,9 @@ rec
   networking.hostName = "${hostName}";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  # mount /tmp on tmpfs
+  boot.tmpOnTmpfs = true;
+
   # Select internationalisation properties.
   i18n = {
   #   consoleFont = "Lat2-Terminus16";
