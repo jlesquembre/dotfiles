@@ -42,6 +42,7 @@ local function read_file(path)
     if not file then return nil end
     local content = file:read "*a" -- *a or *all reads the whole file
     file:close()
+    if content == nil then return nil end
     return trim(content)
 end
 
@@ -58,6 +59,7 @@ local function get_interfaces()
       -- Show info only if up
       if isUp == "up" then
         local speed = read_file("/sys/class/net/"..name.."/speed")
+        if speed == nil then speed = "??" end
         interfaces[#interfaces+1] = name .. conky_parse(" ${addr "..name.."}") .. " (" .. speed .. "Mb/s)"
       end
     end
