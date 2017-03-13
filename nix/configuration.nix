@@ -34,6 +34,8 @@ rec
   time.timeZone = "Europe/Vienna";
 
   nixpkgs.config.allowUnfree = true;
+
+  nix.useSandbox = true;
   nix.nixPath = [ 
     "nixpkgs=/etc/nixos/nixpkgs"
     "nixos-config=/etc/nixos/configuration.nix"
@@ -47,6 +49,7 @@ rec
     vim
     neovim
     gitAndTools.gitFull
+    gitAndTools.diff-so-fancy
     tig
     ranger
     termite
@@ -62,14 +65,13 @@ rec
     upower
     i3lock
     rofi
-    conky
+    # conky
     gnupg
     pass
-    lua
-    lua52Packages.luastdlib
     pciutils
     glxinfo
     ripgrep
+    sqlite
   ];
 
   # List services that you want to enable:
