@@ -5,6 +5,7 @@ card main {
 card top {
   into ~
 
+  .i3
   .gitconfig
   .tigrc
   .hyper.js

@@ -73,6 +73,8 @@ rec
     ripgrep
     sqlite
     super-user-spark
+    tree
+    fzf
   ];
 
   # List services that you want to enable:
