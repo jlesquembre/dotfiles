@@ -13,6 +13,7 @@ card top {
   #.gtkrc-2.0
   .xsession
   editorconfig.ini -> .editorconfig
+  rofi.conf -> .config/rofi/config
   termite.conf -> .config/termite/config
   nixpkgs_local -> .nixpkgs
 
