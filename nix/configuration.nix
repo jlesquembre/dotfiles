@@ -36,10 +36,10 @@ rec
   nixpkgs.config.allowUnfree = true;
 
   nix.useSandbox = true;
-  nix.nixPath = [ 
+  nix.nixPath = [
     "nixpkgs=/etc/nixos/nixpkgs"
     "nixos-config=/etc/nixos/configuration.nix"
-   ]; 
+   ];
   #[ "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "/nix/var/nix/profiles/per-user/root/channels" ]
 
   # List packages installed in system profile. To search by name, run:
@@ -72,6 +72,7 @@ rec
     glxinfo
     ripgrep
     sqlite
+    super-user-spark
   ];
 
   # List services that you want to enable:
