@@ -1,6 +1,6 @@
 # Don't limit yourself to fish, use cool bash script too
 function extract --description 'Extract archives'
-    bash $HOME/.config/fish/utils.bash "extract" $argv
+    bash $HOME/.config/fish/functions_extra/utils.bash "extract" $argv
 end
 
 #function compress_videos --description 'Compress all videos in directory'

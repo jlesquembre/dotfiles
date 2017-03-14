@@ -74,9 +74,9 @@ end
 
 
 # Some extra utilities
-source $HOME/.config/fish/functions.fish
-source $HOME/.config/fish/docker.fish
-source $HOME/.config/fish/fzf.fish
+for fish_file in $HOME/.config/fish/functions_extra/*.fish
+    source $fish_file
+end
 source /usr/share/autojump/autojump.fish
 
 #### A better prompt

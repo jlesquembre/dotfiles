@@ -1,0 +1,49 @@
+card main {
+  spark card top
+}
+
+card top {
+  into ~
+
+  .gitconfig
+  .tigrc
+  .hyper.js
+  .npmrc
+  #.gtkrc-2.0
+  .xsession
+  editorconfig.ini -> .editorconfig
+  termite.conf -> .config/termite/config
+  nixpkgs_local -> .nixpkgs
+
+  {
+    into .config
+
+    chromium-flags.conf
+    chrome-dev-flags.conf
+  }
+
+  {
+    into .config/nvim
+    outof nvim
+
+    init.vim
+  }
+
+  {
+    into .config/ranger
+    outof ranger
+
+    rc.conf
+    rifle.conf
+  }
+
+  {
+    into .config/fish
+    outof fish
+
+    config.fish
+    functions
+    functions_extra
+  }
+
+}
