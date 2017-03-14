@@ -1,9 +1,0 @@
-[submodule "fish/extras/sack"]
-	path = fish/extras/sack
-	url = https://github.com/garaud/sack.git
-[submodule "fish/extras/blackbox"]
-	path = fish/extras/blackbox
-	url = https://github.com/StackExchange/blackbox.git
-[submodule "jupyter/extras/RISE"]
-	path = jupyter/extras/RISE
-	url = git@github.com:damianavila/RISE.git
