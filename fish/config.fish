@@ -17,7 +17,7 @@
 #end
 
 
-set -x SHELL /usr/bin/fish
+set -x SHELL (which fish)
 set -x EDITOR nvim
 set -x HOSTNAME (hostname)
 set -x PROJECT_HOME $HOME/projects
@@ -41,11 +41,15 @@ end
 
 # Set go variables
 set -x GOPATH $HOME/go
-set -x PATH $GOPATH/bin $PATH
+if test -e $GOPATH/bin
+    set -x PATH $GOPATH/bin $PATH
+end
 
 
 # Instead of global npm packages, use a local one and add it to PATH
-set -x PATH $HOME/dotfiles/node_modules/.bin $PATH
+if test -e $HOME/dotfiles/node_modules/.bin
+    set -x PATH $HOME/dotfiles/node_modules/.bin $PATH
+end
 
 # Use local node packages
 set -x PATH ./node_modules/.bin $PATH
@@ -77,7 +81,11 @@ end
 for fish_file in $HOME/.config/fish/functions_extra/*.fish
     source $fish_file
 end
-source /usr/share/autojump/autojump.fish
+if test -e /usr/share/autojump/autojump.fish
+    source /usr/share/autojump/autojump.fish
+else
+    source (autojump-share)/autojump.fish
+end
 
 #### A better prompt
 

@@ -221,8 +221,8 @@ colorscheme base16-default-dark
 " The fish shell is not very compatible to other shells and unexpectedly
 " breaks things that use 'shell'.
 if &shell =~# 'fish$'
-  set shell=/bin/bash
-  let $SHELL='/bin/bash'
+  set shell=bash
+  let $SHELL='bash'
 endif
 
 set hidden
