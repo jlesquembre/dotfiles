@@ -75,6 +75,11 @@ rec
     super-user-spark
     tree
     fzf
+    python35Packages.pygments
+    volnoti
+    volumeicon
+    xorg.xkbcomp
+    gnome3.zenity
   ];
 
   # List services that you want to enable:
