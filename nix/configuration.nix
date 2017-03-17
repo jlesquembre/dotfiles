@@ -80,6 +80,12 @@ rec
     volumeicon
     xorg.xkbcomp
     gnome3.zenity
+    httpie
+    python
+    python3
+    gnumake
+    gcc6
+    nodejs-7_x
   ];
 
   # List services that you want to enable:
