@@ -22,8 +22,8 @@
 
     /*
     Creates a collection package, now we can be install/update local packages by running:
-    nix-env -iA nixpkgs.all  # accessed by attribute thus faster
-    nix-env -i all
+    nix-env -irA nixpkgs.all  # accessed by attribute thus faster
+    nix-env -ir all
     */
     all = with pkgs; buildEnv {  # pkgs is your overriden set of packages itself
       name = "all";
