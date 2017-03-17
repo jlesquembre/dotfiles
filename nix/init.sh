@@ -8,14 +8,14 @@ nixpkgs_dir="${HOME}/nixpkgs"
 #fi
 
 if [[ ! -e "$nixpkgs_dir" ]]   ; then
-  echo "git clone git://github.com/jlesquembre/nixpkgs.git ${nixpkgs_dir}"
-  git clone git://github.com/jlesquembre/nixpkgs.git ${nixpkgs_dir}
+  echo "git clone git@github.com:jlesquembre/nixpkgs.git ${nixpkgs_dir}"
+  git clone git@github.com:jlesquembre/nixpkgs.git ${nixpkgs_dir}
 
-  echo "git -C ${nixpkgs_dir} remote add upstream git://github.com/NixOS/nixpkgs.git"
-  git -C ${nixpkgs_dir} remote add upstream git://github.com/NixOS/nixpkgs.git
+  echo "git -C ${nixpkgs_dir} remote add upstream https://github.com/NixOS/nixpkgs.git"
+  git -C ${nixpkgs_dir} remote add upstream https://github.com/NixOS/nixpkgs.git
 
-  echo "git -C ${nixpkgs_dir} remote add channels git://github.com/NixOS/nixpkgs-channels.git"
-  git -C ${nixpkgs_dir} remote add channels git://github.com/NixOS/nixpkgs-channels.git
+  echo "git -C ${nixpkgs_dir} remote add channels https://github.com/NixOS/nixpkgs-channels.git"
+  git -C ${nixpkgs_dir} remote add channels https://github.com/NixOS/nixpkgs-channels.git
 
   echo "git -C ${nixpkgs_dir} fetch --all"
   git -C ${nixpkgs_dir} fetch --all
