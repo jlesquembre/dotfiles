@@ -9,6 +9,8 @@ module.exports = {
     // terminal cursor background color (hex)
     cursorColor: '#d8d8d8',
 
+    cursorBlink: true,
+
     // `BEAM` for |, `UNDERLINE` for _, `BLOCK` for █
     cursorShape: 'BLOCK',
 
@@ -111,11 +113,11 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyper-blink',
+    //'hyper-blink',
     'hyperlinks',
-    'hypercwd',
-    'hyperterm-alternatescroll',
-    'hyper-statusline',
+    //'hypercwd',
+    //'hyperterm-alternatescroll',
+    //'hyper-statusline',
     'hyper-tab-icons',
     //'hyper-tabs-enhanced',
     //'hyperpunk',
