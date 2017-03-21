@@ -75,12 +75,14 @@ in rec
     gnumake
     gnupg
     graphicsmagick
+    highlight
     httpie
     hyper
     i3lock
     keychain
     libicns
     libstdcxx5
+    lsof
     lzma
     mpv
     neovim neovim-remote
