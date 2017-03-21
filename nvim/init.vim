@@ -400,12 +400,22 @@ nnoremap <silent> <Leader>s :update<CR>
 " Show syntax highlighting groups for word under cursor
 nnoremap <F10> :call <SID>SynStack()<CR>
 
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
+
+" move to beginning/end of line
+nnoremap <silent> <Leader>b ^
+nnoremap <silent> <Leader>e $
 
 " Quick breakpoints
-au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
-au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
-au FileType javascript map <silent> <leader>b odebugger;<esc>
-au FileType javascript map <silent> <leader>B Odebugger;<esc>
+au FileType python map <silent> <leader><leader>b oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader><leader>B Oimport ipdb; ipdb.set_trace()<esc>
+au FileType javascript map <silent> <leader><leader>b odebugger;<esc>
+au FileType javascript map <silent> <leader><leader>B Odebugger;<esc>
+
+" highlight last inserted text
+nnoremap gV `[v`]
 
 " END MAPPINGS
 
