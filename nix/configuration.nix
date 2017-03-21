@@ -76,7 +76,6 @@ in rec
     gnupg
     graphicsmagick
     highlight
-    httpie
     hyper
     i3lock
     keychain
@@ -112,6 +111,9 @@ in rec
     xorg.xkbcomp
     yarn
     #pkgs-unstable.hyper
+
+    # dev tools
+    httpstat httplab httpie wuzz
   ];
 
   # List services that you want to enable:
