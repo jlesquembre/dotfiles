@@ -56,59 +56,64 @@ in rec
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    wget
-    vim
-    neovim
-    gitAndTools.gitFull
-    gitAndTools.diff-so-fancy
-    tig
-    ranger
-    termite
-    chromium
-    fish
     atool
-    file
-    keychain
-    rsync
     autojump
-    vlc
-    mpv
-    upower
-    i3lock
-    rofi
+    breeze-gtk breeze-icons breeze-qt5
     # conky
-    gnupg
-    pass
-    pciutils
+    chromium
+    docker_compose
+    electron
+    file
+    firefox
+    fish
+    fzf
+    gcc6
+    gitAndTools.diff-so-fancy
+    gitAndTools.gitFull
     glxinfo
+    gnome3.zenity
+    gnumake
+    gnupg
+    graphicsmagick
+    httpie
+    hyper
+    i3lock
+    keychain
+    libicns
+    libstdcxx5
+    lzma
+    mpv
+    neovim neovim-remote
+    nodejs-7_x
+    notify-osd
+    pass
+    pavucontrol
+    #plasma-integration plasma-nm plasma-pa plasma-workspace plasma5.systemsettings
+    pciutils
+    python
+    python3 python35Packages.pygments python35Packages.ipython python35Packages.neovim
+    ranger
     ripgrep
+    rofi
+    rsync
     sqlite
     super-user-spark
+    termite
+    tig
     tree
-    fzf
-    python35Packages.pygments
+    upower
+    vim
+    vlc
     volnoti
     volumeicon
+    wget
     xorg.xkbcomp
-    gnome3.zenity
-    httpie
-    python
-    python3
-    gnumake
-    gcc6
-    libstdcxx5
-    nodejs-7_x
-    electron
     yarn
-    libicns
-    graphicsmagick
-    lzma
-    hyper
-
     #pkgs-unstable.hyper
   ];
 
   # List services that you want to enable:
+  virtualisation.docker.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -124,9 +129,11 @@ in rec
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.windowManager.default = "i3";
   services.xserver.windowManager.i3.enable = true;
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.kdm.enable = true;
-  # services.xserver.desktopManager.kde4.enable = true;
+
+  services.xserver.desktopManager.plasma5.enable = true;
+
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.jlle = {
