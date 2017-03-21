@@ -58,7 +58,7 @@ in rec
   environment.systemPackages = with pkgs; [
     atool
     autojump
-    breeze-gtk breeze-icons breeze-qt5
+    breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
     # conky
     chromium
     docker_compose
@@ -104,7 +104,7 @@ in rec
     upower
     vim
     vlc
-    volnoti
+    # volnoti
     volumeicon
     wget
     xorg.xkbcomp

@@ -171,9 +171,10 @@ bindsym $mod+r mode "resize"
 #bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master 5%+"
 #bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master 5%-"
 #bindsym XF86AudioMute exec "amixer -D pulse sset Master toggle"
-bindsym XF86AudioRaiseVolume exec --no-startup-id "pulseaudio-ctl up; bash $HOME/dotfiles/i3/scripts/display_current_volume.sh"
-bindsym XF86AudioLowerVolume exec --no-startup-id "pulseaudio-ctl down; bash $HOME/dotfiles/i3/scripts/display_current_volume.sh"
-bindsym XF86AudioMute exec --no-startup-id "pulseaudio-ctl mute; bash $HOME/dotfiles/i3/scripts/display_current_volume.sh"
+
+#bindsym XF86AudioRaiseVolume exec --no-startup-id "pulseaudio-ctl up; bash $HOME/dotfiles/i3/scripts/display_current_volume.sh"
+#bindsym XF86AudioLowerVolume exec --no-startup-id "pulseaudio-ctl down; bash $HOME/dotfiles/i3/scripts/display_current_volume.sh"
+#bindsym XF86AudioMute exec --no-startup-id "pulseaudio-ctl mute; bash $HOME/dotfiles/i3/scripts/display_current_volume.sh"
 
 
 # Suspend / Lock

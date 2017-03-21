@@ -15,6 +15,7 @@ card top {
   editorconfig.ini -> .editorconfig
   rofi.conf -> .config/rofi/config
   termite.conf -> .config/termite/config
+  volumeicon -> .config/volumeicon/volumeicon
   nixpkgs_local -> .nixpkgs
 
   {
