@@ -4,9 +4,20 @@
 
 { config, pkgs, lib, ... }:
 
-let hostName = "${lib.fileContents ./hostname}";
-in
-rec
+let
+
+  hostName = "${lib.fileContents ./hostname}";
+
+  # bleeding edge
+  #pkgs-unstable = import (fetchTarball https://github.com/nixos/nixpkgs/archive/master.tar.gz) {};
+
+  # unstable channel
+  #channel-unstable = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz) {};
+
+  # specific commit
+  # pkgs-58d44a3 = import (fetchTarball https://github.com/nixos/nixpkgs/archive/58d44a3.tar.gz) {};
+
+in rec
 {
 
 
@@ -85,7 +96,16 @@ rec
     python3
     gnumake
     gcc6
+    libstdcxx5
     nodejs-7_x
+    electron
+    yarn
+    libicns
+    graphicsmagick
+    lzma
+    hyper
+
+    #pkgs-unstable.hyper
   ];
 
   # List services that you want to enable:

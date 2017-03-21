@@ -11,7 +11,7 @@ card top {
   .hyper.js
   .npmrc
   #.gtkrc-2.0
-  .xsession
+  .xprofile
   editorconfig.ini -> .editorconfig
   rofi.conf -> .config/rofi/config
   termite.conf -> .config/termite/config
