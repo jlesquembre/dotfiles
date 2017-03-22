@@ -29,7 +29,6 @@ in rec
     ];
 
   networking.hostName = "${hostName}";
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # mount /tmp on tmpfs
   boot.tmpOnTmpfs = true;
@@ -78,6 +77,8 @@ in rec
     highlight
     hyper
     i3lock
+    pkgs.boot
+    jdk clojure leiningen
     keychain
     libicns
     libstdcxx5
@@ -85,14 +86,14 @@ in rec
     lzma
     mpv
     neovim neovim-remote
+    nix-repl
     nodejs-7_x
     notify-osd
     pass
     pavucontrol
-    #plasma-integration plasma-nm plasma-pa plasma-workspace plasma5.systemsettings
     pciutils
     python
-    python3 python35Packages.pygments python35Packages.ipython python35Packages.neovim
+    python3
     ranger
     ripgrep
     rofi
@@ -114,7 +115,14 @@ in rec
 
     # dev tools
     httpstat httplab httpie wuzz
-  ];
+  ]
+  ++ (with pkgs.python35Packages; [
+    ipython
+    neovim
+    pygments
+    youtube-dl
+  ])
+  ;
 
   # List services that you want to enable:
   virtualisation.docker.enable = true;

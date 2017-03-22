@@ -49,4 +49,20 @@ card top {
     functions_extra
   }
 
+  {
+    into .boot
+    outof boot
+
+    boot.properties
+    profile.boot
+  }
+
+  {
+    into .lein
+    outof lein
+
+    profiles.clj
+    src
+  }
+
 }
