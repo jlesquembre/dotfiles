@@ -234,7 +234,7 @@ set smartcase
 set noshowmode
 set showcmd                     " display incomplete commands
 set cursorline
-set clipboard=unnamedplus  " Use "+ register
+set clipboard+=unnamedplus  " Use "+ register
 set inccommand=split
 
 " Better folds
