@@ -81,6 +81,7 @@ in rec
     jdk clojure leiningen
     keychain
     libicns
+    libffi
     libstdcxx5
     lsof
     lzma
@@ -109,6 +110,7 @@ in rec
     # volnoti
     volumeicon
     wget
+    xclip
     xorg.xkbcomp
     yarn
     #pkgs-unstable.hyper
@@ -120,6 +122,7 @@ in rec
     ipython
     neovim
     pygments
+    virtualenv
     youtube-dl
   ])
   ;
