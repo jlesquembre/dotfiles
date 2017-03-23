@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-eval $(SHELL=bash; keychain --noask --quiet --eval --agents gpg,ssh)
+#eval $(SHELL=bash; keychain --noask --quiet --eval --agents gpg,ssh)
 #eval $(gpg-agent --daemon --enable-ssh-support)
 
 # Load modified map keyboard
@@ -10,5 +10,9 @@ setxkbmap -I ~/dotfiles/xkb isodev -print | xkbcomp -w 3 -I$HOME/dotfiles/xkb - 
 xset -b
 
 if [ "$XDG_CURRENT_DESKTOP" == "i3" ]; then
+  export XDG_CURRENT_DESKTOP="KDE"
+fi
+
+if [ "$XDG_SESSION_DESKTOP" == "none + i3" ]; then
   export XDG_CURRENT_DESKTOP="KDE"
 fi
