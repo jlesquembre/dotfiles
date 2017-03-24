@@ -91,6 +91,7 @@ in rec
     nix-repl
     nodejs-7_x
     notify-osd
+    openssl
     pass
     pavucontrol
     pciutils
