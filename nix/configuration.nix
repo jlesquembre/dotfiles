@@ -97,6 +97,7 @@ in rec
     pciutils
     python
     python3
+    pwgen
     ranger
     ripgrep
     rofi
