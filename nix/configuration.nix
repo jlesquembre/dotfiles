@@ -69,6 +69,7 @@ in rec
     gcc6
     gitAndTools.diff-so-fancy
     gitAndTools.gitFull
+    gitAndTools.transcrypt
     glxinfo
     gnome3.zenity
     gnumake
@@ -105,6 +106,7 @@ in rec
     tig
     tree
     upower
+    #(pkgs.xdg_utils.override { mimiSupport = true; })
     vim
     vlc
     # volnoti
@@ -124,6 +126,9 @@ in rec
     pygments
     virtualenv
     youtube-dl
+  ])
+  ++ (with pkgs.kdeApplications; [
+    okular
   ])
   ;
 
