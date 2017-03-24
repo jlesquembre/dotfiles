@@ -21,6 +21,7 @@ set -x SHELL (which fish)
 set -x EDITOR nvim
 set -x HOSTNAME (hostname)
 set -x PROJECT_HOME $HOME/projects
+set -x BROWSER chromium
 
 function fish_greeting -d "what's up, fish?"
   set_color $fish_color_autosuggestion
