@@ -78,6 +78,8 @@ Plug 'joshdick/onedark.vim'
 Plug 'MaxSt/FlatColor'
 Plug 'KabbAmine/yowish.vim'
 Plug 'mhinz/vim-janah'
+Plug 'dracula/vim'
+Plug 'liuchengxu/space-vim-dark'
 
 
 "Plug 'ryanoasis/vim-devicons'
@@ -118,6 +120,7 @@ Plug 'mhinz/vim-startify'
 Plug 'mhinz/vim-halo'
 "Plug 'haya14busa/vim-operator-flashy' | Plug 'kana/vim-operator-user'
 Plug 'machakann/vim-highlightedyank'
+"Plug 'itchyny/vim-cursorword'
 
 
 " Git
