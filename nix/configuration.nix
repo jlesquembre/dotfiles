@@ -67,6 +67,7 @@ in rec
     fish
     fzf
     gcc6
+    ghc
     gitAndTools.diff-so-fancy
     gitAndTools.gitFull
     gitAndTools.transcrypt
@@ -103,6 +104,7 @@ in rec
     rofi
     rsync
     sqlite
+    stack
     super-user-spark
     termite
     tig
@@ -131,6 +133,9 @@ in rec
   ])
   ++ (with pkgs.kdeApplications; [
     okular
+  ])
+  ++ (with haskellPackages; [
+    gitHUD
   ])
   ;
 

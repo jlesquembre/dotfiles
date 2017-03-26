@@ -1,0 +1,119 @@
+# Lines beginning with a '#' in the first column are comments
+#
+# The file contains a list of key - value pairs, separated by an equal "=" sign
+# Careful, all spaces are meaningful
+# There generally should not be any before or after the equal "=" sign
+#
+# Githud puts spaces inbetween every "section" of the prompt.
+# Generally, you should not put any spaces at the end yourself
+#
+# Empty lines are ignored.
+# Lines that are not understood by githud are silently ignored
+#
+# Colors are from [Black, Red, Green, Yellow, Blue, Magenta, Cyan, White, NoColor]
+# NoColor is a special keyword to remove any specific color and use the
+# terminal foreground color
+#
+# Intensities are from [Vivid, Dull]
+#
+# The show_part_xxx key tell githud whether to display this part of the prompt
+# It takes a boolean value [True, False]
+#
+# The following values are the defaults.
+# Uncomment one and change it to obtain a different prompt
+#
+#
+# The following character is a better repo indicator to me but needs the
+# powerline patched font https://github.com/powerline/fonts
+# it's not a default anymore
+# Don't use it unless it displays a nice fork symbol
+# git_repo_indicator= 
+#
+# ------------------------------------------------------
+# ---------------------- DEFAULTS ----------------------
+# ------------------------------------------------------
+#
+# --
+show_part_repo_indicator=False
+git_repo_indicator=
+# show_part_repo_indicator=True
+# git_repo_indicator=ᚴ
+#
+# --
+# show_part_merge_branch_commits_diff=True
+# no_tracked_upstream_text=upstream
+# no_tracked_upstream_text_color=Red
+# no_tracked_upstream_text_intensity=Vivid
+# no_tracked_upstream_indicator=⚡
+# no_tracked_upstream_indicator_color=Red
+# no_tracked_upstream_indicator_intensity=Vivid
+#
+# merge_branch_commits_indicator=𝘮
+# merge_branch_commits_pull_prefix=→
+# merge_branch_commits_push_prefix=←
+# merge_branch_commits_push_pull_infix=⇄
+# -------------------------------------------------------------------------------------------
+# The following config controls the conditional rendering of the merge-branch part of the
+# prompt. The condition is based on the branch name.
+# This is typically useful for branches which content is not linked to the rest of the repo
+# like the gh-pages branch that github uses for building static websites
+#
+# If the orphan branch was created properly though (git branch --orphan gh-pages)
+# gitHUD will autodetect that it is orphan and not show this part of the prompt automatically
+# -------------------------------------------------------------------------------------------
+# merge_branch_ignore_branches=gh-pages,
+#
+# --
+# show_part_local_branch=True
+# local_branch_prefix=[
+# local_branch_suffix=]
+local_branch_color=Cyan
+local_branch_intensity=Vivid
+# local_detached_prefix=detached@
+# local_detached_color=Yellow
+# local_detached_intensity=Vivid
+#
+# --
+# show_part_commits_to_origin=True
+# local_commits_push_suffix=↑
+# local_commits_push_suffix_color=Green
+# local_commits_push_suffix_intensity=Vivid
+# local_commits_pull_suffix=↓
+# local_commits_pull_suffix_color=Red
+# local_commits_pull_suffix_intensity=Vivid
+# local_commits_push_pull_infix=⥯
+# local_commits_push_pull_infix_color=Green
+# local_commits_push_pull_infix_intensity=Vivid
+#
+# --
+# show_part_local_changes_state=True
+# change_index_add_suffix=A
+# change_index_add_suffix_color=Green
+# change_index_add_suffix_intensity=Vivid
+# change_index_mod_suffix=M
+# change_index_mod_suffix_color=Green
+# change_index_mod_suffix_intensity=Vivid
+# change_index_del_suffix=D
+# change_index_del_suffix_color=Green
+# change_index_del_suffix_intensity=Vivid
+# change_renamed_suffix=R
+# change_renamed_suffix_color=Green
+# change_renamed_suffix_intensity=Vivid
+# change_local_add_suffix=A
+# change_local_add_suffix_color=White
+# change_local_add_suffix_intensity=Vivid
+# change_local_mod_suffix=M
+# change_local_mod_suffix_color=Red
+# change_local_mod_suffix_intensity=Vivid
+# change_local_del_suffix=D
+# change_local_del_suffix_color=Red
+# change_local_del_suffix_intensity=Vivid
+# change_conflicted_suffix=C
+# change_conflicted_suffix_color=Green
+# change_conflicted_suffix_intensity=Vivid
+#
+# --
+# show_part_stashes=True
+# stash_suffix=≡
+# stash_suffix_color=Green
+# stash_suffix_intensity=Vivid
