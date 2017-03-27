@@ -62,6 +62,7 @@ in rec
     chromium
     docker_compose
     electron
+    Fabric
     file
     firefox
     fish
