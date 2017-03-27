@@ -32,6 +32,8 @@ echo "Next steps:"
 echo "sudo mv $nixos_conf ${nixos_conf}.original"
 echo "sudo ln -s ${HOME}/dotfiles/nix/configuration.nix ${nixos_conf}"
 echo "sudo ln -s ${nixpkgs_dir} /etc/nixos/nixpkgs"
+# Channels are used only for command-not-found command
+echo "sudo nix-channel --add https://nixos.org/channels/nixos-unstable"
 
 echo "ln -s ${nixpkgs_dir} ~/.nix-defexpr/nixpkgs"
 # channels_root -> /nix/var/nix/profiles/per-user/root/channels/
