@@ -55,7 +55,6 @@ in rec
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    atool
     autojump
     breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
     # conky
@@ -69,9 +68,6 @@ in rec
     fzf
     gcc6
     ghc
-    gitAndTools.diff-so-fancy
-    gitAndTools.gitFull
-    gitAndTools.transcrypt
     glxinfo
     gnome3.zenity
     gnumake
@@ -80,15 +76,12 @@ in rec
     highlight
     hyper
     i3lock
-    pkgs.boot
-    jdk clojure leiningen
     keychain
     libicns
     libffi
     libstdcxx5
     lsof
     lzma
-    mpv
     neovim neovim-remote
     nix-repl
     nodejs-7_x
@@ -97,6 +90,7 @@ in rec
     pass
     pavucontrol
     pciutils
+    #plasma-integration
     python
     python3
     pwgen
@@ -108,22 +102,33 @@ in rec
     stack
     super-user-spark
     termite
-    tig
     tree
     upower
     #(pkgs.xdg_utils.override { mimiSupport = true; })
     vim
-    vlc
     # volnoti
     volumeicon
     wget
     xclip
     xorg.xkbcomp
+    #xorg.xcursorthemes
     yarn
     #pkgs-unstable.hyper
 
     # dev tools
     httpstat httplab httpie wuzz
+
+    # compress tools
+    atool zip unzip p7zip
+
+    # audio/video tools
+    ffmpeg-full mpv vlc x265 libopus opusfile opusTools
+
+    # git tools
+    gitAndTools.gitFull gitAndTools.diff-so-fancy gitAndTools.transcrypt tig
+
+    # JDK tools
+    jdk clojure leiningen pkgs.boot
   ]
   ++ (with pkgs.python35Packages; [
     ipython
