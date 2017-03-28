@@ -72,6 +72,7 @@ in rec
     gnome3.zenity
     gnumake
     gnupg
+    go
     graphicsmagick
     highlight
     hyper
