@@ -116,7 +116,7 @@ in rec
     #pkgs-unstable.hyper
 
     # dev tools
-    httpstat httplab httpie wuzz
+    httpstat httplab httpie wuzz dnsutils tcpdump
 
     # compress tools
     atool zip unzip p7zip
@@ -150,6 +150,16 @@ in rec
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  # DNS configuration
+  networking.networkmanager.insertNameservers = ["127.0.0.1"];
+  services.dnsmasq.enable = true;
+  # For dnscrypt use:
+  #services.dnsmasq.servers = [ "127.0.0.1#43" ];
+  services.dnsmasq.servers = [ "8.8.8.8" "8.8.4.4" "208.67.222.222" "208.67.220.220" ];
+  services.dnsmasq.extraConfig = ''
+address=/.local/127.0.0.1
+'';
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
