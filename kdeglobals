@@ -1,0 +1,20 @@
+[$Version]
+update_info=fonts_global.upd:Fonts_Global
+
+[Appmenu Style]
+Style=InApplication
+
+[General]
+BrowserApplication[$e]=chromium.desktop
+
+[KDE]
+ShowIconsInMenuItems=true
+ShowIconsOnPushButtons=true
+widgetStyle=breeze
+
+[Toolbar style]
+ToolButtonStyle=TextBesideIcon
+ToolButtonStyleOtherToolbars=TextBesideIcon
+
+[WM]
+FakeEntryToKeepThisGroup=true

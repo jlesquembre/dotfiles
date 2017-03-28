@@ -24,6 +24,7 @@ card top {
 
     chromium-flags.conf
     chrome-dev-flags.conf
+    kdeglobals
   }
 
   {
