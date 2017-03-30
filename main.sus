@@ -18,6 +18,7 @@ card top {
   termite.conf -> .config/termite/config
   volumeicon -> .config/volumeicon/volumeicon
   nixpkgs_local -> .nixpkgs
+  xmonad.hs -> .xmonad/xmonad.hs
 
   {
     into .config

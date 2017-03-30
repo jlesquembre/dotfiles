@@ -103,6 +103,7 @@ in rec
     stack
     super-user-spark
     termite
+    tmux
     tree
     upower
     #(pkgs.xdg_utils.override { mimiSupport = true; })
@@ -171,8 +172,12 @@ address=/.local/127.0.0.1
   services.xserver.xkbOptions = "eurosign:e";
 
   services.xserver.displayManager.lightdm.enable = true;
+
   services.xserver.windowManager.default = "i3";
   services.xserver.windowManager.i3.enable = true;
+
+  services.xserver.windowManager.xmonad.enable = true;
+  services.xserver.windowManager.xmonad.enableContribAndExtras = true;
 
   services.xserver.desktopManager.plasma5.enable = true;
 
