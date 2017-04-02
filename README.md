@@ -15,3 +15,19 @@ spark check main.sus
 ```
 spark deploy -r main.sus
 ```
+
+
+# NixOS install
+
+
+Check if there is an user and is on `wheel` group:
+
+```
+extraGroups = [ "wheel" ];
+```
+
+
+```
+wget http://bit.do/jlnix -O init.sh
+bash init.sh
+```

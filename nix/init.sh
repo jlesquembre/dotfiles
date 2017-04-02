@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -e
 
 nixos_conf="/etc/nixos/configuration.nix"
 nixpkgs_dir="${HOME}/nixpkgs"
@@ -26,23 +28,40 @@ if [[ ! -e "$nixpkgs_dir" ]]   ; then
   git -C ${nixpkgs_dir} checkout -b local channels/nixos-unstable
   echo ""
   echo ""
+
+
+  ##### SUDO commands
+  echo "sudo mv $nixos_conf ${nixos_conf}.original"
+  sudo mv $nixos_conf ${nixos_conf}.original
+  echo ""
+
+  echo "sudo ln -s ${HOME}/dotfiles/nix/configuration.nix ${nixos_conf}"
+  sudo ln -s ${HOME}/dotfiles/nix/configuration.nix ${nixos_conf}
+  echo ""
+
+  echo "sudo ln -s ${nixpkgs_dir} /etc/nixos/nixpkgs"
+  sudo ln -s ${nixpkgs_dir} /etc/nixos/nixpkgs
+  echo ""
+
+  # Channels are used only for command-not-found command
+  echo "sudo nix-channel --add https://nixos.org/channels/nixos-unstable"
+  sudo nix-channel --add https://nixos.org/channels/nixos-unstable
+  echo ""
+
+  ##### Regular user commands
+  echo "ln -s ${nixpkgs_dir} ~/.nix-defexpr/nixpkgs"
+  ln -s ${nixpkgs_dir} ~/.nix-defexpr/nixpkgs
+
+  # channels_root -> /nix/var/nix/profiles/per-user/root/channels/
+  echo "rm ~/.nix-defexpr/channels_root"
+  rm ~/.nix-defexpr/channels_root
+
 fi
 
 echo "Next steps:"
-echo "sudo mv $nixos_conf ${nixos_conf}.original"
-echo "sudo ln -s ${HOME}/dotfiles/nix/configuration.nix ${nixos_conf}"
-echo "sudo ln -s ${nixpkgs_dir} /etc/nixos/nixpkgs"
-# Channels are used only for command-not-found command
-echo "sudo nix-channel --add https://nixos.org/channels/nixos-unstable"
-
-echo "ln -s ${nixpkgs_dir} ~/.nix-defexpr/nixpkgs"
-# channels_root -> /nix/var/nix/profiles/per-user/root/channels/
-echo "rm ~/.nix-defexpr/channels_root"
-
-
 echo ""
 echo "Create hostname at ${HOME}/dotfiles/nix/hostname"
 
 echo ""
 echo "After it run:"
-echo "nixos-rebuild switch"
+echo "nixos-rebuild switch --upgrade"
