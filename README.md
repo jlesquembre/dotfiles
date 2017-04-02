@@ -30,4 +30,6 @@ extraGroups = [ "wheel" ];
 ```
 wget http://bit.do/jlnix -O init.sh
 bash init.sh
+nix-env -ir all
+spark deploy -r main.sus
 ```

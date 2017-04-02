@@ -10,6 +10,9 @@ nixpkgs_dir="${HOME}/nixpkgs"
 #fi
 
 if [[ ! -e "$nixpkgs_dir" ]]   ; then
+  echo "git clone git@github.com:jlesquembre/dotfiles.git ${HOME}/dotfiles"
+  git clone git@github.com:jlesquembre/dotfiles.git ${HOME}/dotfiles
+
   echo "git clone git@github.com:jlesquembre/nixpkgs.git ${nixpkgs_dir}"
   git clone git@github.com:jlesquembre/nixpkgs.git ${nixpkgs_dir}
 
