@@ -100,6 +100,7 @@ in rec
     rofi
     rsync
     sqlite
+    sshfs-fuse
     stack
     super-user-spark
     termite
