@@ -99,6 +99,7 @@ in rec
     ripgrep
     rofi
     rsync
+    sox soxr
     sqlite
     sshfs-fuse
     stack
@@ -136,6 +137,7 @@ in rec
   ++ (with pkgs.python35Packages; [
     ipython
     neovim
+    pgcli
     pygments
     virtualenv
     youtube-dl
