@@ -91,6 +91,8 @@ in rec
     pass
     pavucontrol
     pciutils
+    pdftk xpdf
+    texlive.combined.scheme-full
     #plasma-integration
     python
     python3
