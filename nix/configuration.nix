@@ -59,6 +59,7 @@ in rec
     breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
     # conky
     chromium
+    google-chrome-dev
     docker_compose
     electron
     Fabric
@@ -108,6 +109,7 @@ in rec
     super-user-spark
     termite
     tmux
+    transmission
     tree
     upower
     #(pkgs.xdg_utils.override { mimiSupport = true; })
