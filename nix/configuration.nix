@@ -86,7 +86,6 @@ in rec
     lzma
     neovim neovim-remote
     nix-repl
-    nodejs-7_x
     notify-osd
     openssl
     pass
@@ -120,8 +119,10 @@ in rec
     xclip
     xorg.xkbcomp
     #xorg.xcursorthemes
-    yarn
     #pkgs-unstable.hyper
+
+    # JS
+    nodejs-7_x yarn
 
     # dev tools
     httpstat httplab httpie wuzz dnsutils tcpdump
@@ -138,6 +139,9 @@ in rec
     # JDK tools
     jdk clojure leiningen pkgs.boot
   ]
+  ++ (with pkgs.nodePackages; [
+    node2nix
+  ])
   ++ (with pkgs.python35Packages; [
     ipython
     neovim
