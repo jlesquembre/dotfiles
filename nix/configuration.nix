@@ -68,7 +68,6 @@ in rec
     fish
     fzf
     gcc6
-    ghc
     glxinfo
     gnome3.zenity
     gnumake
@@ -104,7 +103,6 @@ in rec
     sox soxr
     sqlite
     sshfs-fuse
-    stack
     super-user-spark
     termite
     tmux
@@ -154,7 +152,9 @@ in rec
     okular
   ])
   ++ (with haskellPackages; [
+    ghc
     gitHUD
+    stack
   ])
   ;
 

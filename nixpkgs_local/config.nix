@@ -23,6 +23,16 @@
       luaCairoSupport = false;
     };
 
+
+    #customHaskellEnv = pkgs.haskell.packages.ghc802.ghcWithPackages
+    customHaskellEnv = pkgs.haskellPackages.ghcWithPackages
+                       (haskellPackages: with haskellPackages; [
+                         # libraries
+                         parsec QuickCheck
+                         # tools
+                         #cabal-install haskintex
+                       ]);
+
     /*
     Creates a collection package, now we can be install/update local packages by running:
     nix-env -irA nixpkgs.all  # accessed by attribute thus faster
@@ -37,6 +47,7 @@
         #httpstat
         #httplab
         #wuzz
+        customHaskellEnv
         conky
       ];
     };
