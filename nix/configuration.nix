@@ -135,7 +135,7 @@ in rec
     gitAndTools.gitFull gitAndTools.diff-so-fancy gitAndTools.transcrypt tig
 
     # JDK tools
-    jdk clojure leiningen pkgs.boot
+    jdk visualvm clojure leiningen pkgs.boot
   ]
   ++ (with pkgs.nodePackages; [
     node2nix
@@ -201,7 +201,7 @@ address=/.local/127.0.0.1
     isNormalUser = true;
     home = "/home/jlle";
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" ];
   };
 
   fonts = {
