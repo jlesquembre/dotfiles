@@ -44,9 +44,6 @@
       name = "all";
       paths = [
         # hello_jl
-        #httpstat
-        #httplab
-        #wuzz
         customHaskellEnv
         conky
       ];

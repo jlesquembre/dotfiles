@@ -131,14 +131,20 @@ in rec
     # audio/video tools
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
 
-    # git tools
-    gitAndTools.gitFull gitAndTools.diff-so-fancy gitAndTools.transcrypt tig
-
     # JDK tools
     jdk visualvm clojure leiningen pkgs.boot
   ]
+  ++ (with pkgs.gitAndTools; [
+    diff-so-fancy
+    git-open
+    git-recent
+    gitFull
+    tig
+    transcrypt
+  ])
   ++ (with pkgs.nodePackages; [
     node2nix
+    prettier
   ])
   ++ (with pkgs.python35Packages; [
     ipython
