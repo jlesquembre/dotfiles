@@ -110,6 +110,7 @@ Plug 'tpope/vim-endwise'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-speeddating'
 Plug 'bfredl/nvim-miniyank'
+Plug 'tweekmonster/headlines.vim'
 
 
 " UI
@@ -1017,3 +1018,12 @@ autocmd! BufWritePost *.rst Neomake
 autocmd! BufWritePost *.rst Neomake! sphinx
 
 " END NEOMAKE / NEOFORMAT
+
+" ============================================================================
+" HEADLINES {{{1
+" ============================================================================
+
+let g:headlines_key= '<leader><leader>h'
+let g:headlines_height= 22
+
+" HEADLINES
