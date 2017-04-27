@@ -133,6 +133,9 @@ in rec
 
     # JDK tools
     jdk visualvm clojure leiningen pkgs.boot
+
+    # DB utils
+    libmysql postgresql
   ]
   ++ (with pkgs.gitAndTools; [
     diff-so-fancy
