@@ -984,7 +984,7 @@ let g:neomake_echo_current_error = 0
 let g:neomake_open_list = 2
 
 if executable('prettier')
-    autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
+    autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma\ es5
 endif
 
 let g:neoformat_try_formatprg = 1
