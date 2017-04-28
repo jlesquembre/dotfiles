@@ -939,7 +939,7 @@ command StartREPL :call jobstart("boot -i \"(do (require 'clojure.core.server) (
 
 autocmd MyAutoCmd FileType clojure call s:clojure_settings()
 function! s:clojure_settings() abort
-  nnoremap <silent><buffer> K :Doc
+  nnoremap <silent><buffer> K :Doc<cr>
   nnoremap <silent><buffer> <leader>cs :StartREPL<cr>
   nnoremap <silent><buffer> <leader>ca :Connect<cr>
   nnoremap <silent><buffer> <leader>ce :EvalCode<cr>
