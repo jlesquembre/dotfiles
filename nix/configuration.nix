@@ -172,6 +172,9 @@ in rec
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  programs.ssh.extraConfig = ''
+    AddKeysToAgent yes
+  '';
 
   # DNS configuration
   networking.networkmanager.insertNameservers = ["127.0.0.1"];
