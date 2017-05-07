@@ -23,6 +23,12 @@
       luaCairoSupport = false;
     };
 
+    customOkular = pkgs.writeScriptBin "okular" ''
+      #!/usr/bin/env bash
+      export XDG_CURRENT_DESKTOP=KDE
+      exec ${pkgs.okular}/bin/okular "$@"
+    '';
+
 
     #customHaskellEnv = pkgs.haskell.packages.ghc802.ghcWithPackages
     customHaskellEnv = pkgs.haskellPackages.ghcWithPackages
@@ -46,6 +52,7 @@
         # hello_jl
         customHaskellEnv
         conky
+        customOkular
       ];
     };
 

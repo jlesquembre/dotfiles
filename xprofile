@@ -14,7 +14,7 @@ if [ "$XDG_CURRENT_DESKTOP" == "i3" ]; then
 fi
 
 # nixos settings
-if [ "$XDG_SESSION_DESKTOP" == "none + i3" ]; then
+if [ "$XDG_SESSION_DESKTOP" == "none+i3" ]; then
   export XDG_CURRENT_DESKTOP="KDE"
   # force xdg-open to use kde-open5, see (which xdg-open)
   export KDE_SESSION_VERSION=5
