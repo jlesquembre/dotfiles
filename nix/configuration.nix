@@ -93,6 +93,7 @@ in rec
     pdftk xpdf
     texlive.combined.scheme-full
     #plasma-integration
+    purescript
     python
     python3
     pwgen
@@ -115,6 +116,7 @@ in rec
     volumeicon
     wget
     xclip
+    xfce.xfce4-screenshooter
     xorg.xkbcomp
     #xorg.xcursorthemes
     #pkgs-unstable.hyper
@@ -146,6 +148,7 @@ in rec
     transcrypt
   ])
   ++ (with pkgs.nodePackages; [
+    bower
     node2nix
     prettier
   ])
