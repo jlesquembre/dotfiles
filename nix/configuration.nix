@@ -71,7 +71,11 @@ in rec
     glxinfo
     gnome3.zenity
     gnumake
-    gnupg
+
+    # installs gnupg 2, but symlinks gpg to gpg2
+    # gnupg installs the same version, but doesn't create the symlink
+    gnupg1compat
+
     go
     graphicsmagick
     highlight
@@ -83,7 +87,6 @@ in rec
     libstdcxx5
     lsof
     lzma
-    neovim neovim-remote
     nix-repl
     notify-osd
     openssl
@@ -111,7 +114,6 @@ in rec
     tree
     upower
     #(pkgs.xdg_utils.override { mimiSupport = true; })
-    vim
     # volnoti
     volumeicon
     wget
@@ -120,6 +122,9 @@ in rec
     xorg.xkbcomp
     #xorg.xcursorthemes
     #pkgs-unstable.hyper
+
+    # editors
+    neovim neovim-remote vim vscode
 
     # JS
     nodejs-7_x yarn
