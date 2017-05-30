@@ -142,7 +142,7 @@ in rec
     jdk visualvm clojure leiningen pkgs.boot
 
     # DB utils
-    libmysql postgresql
+    libmysql postgresql pgcli
   ]
   ++ (with pkgs.gitAndTools; [
     diff-so-fancy
@@ -157,10 +157,9 @@ in rec
     node2nix
     prettier
   ])
-  ++ (with pkgs.python35Packages; [
+  ++ (with pkgs.python36Packages; [
     ipython
     neovim
-    pgcli
     pygments
     virtualenv
     youtube-dl
