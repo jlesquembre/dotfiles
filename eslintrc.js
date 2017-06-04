@@ -1,13 +1,17 @@
 module.exports = {
     "extends": [
-      "standard",
+      "eslint:recommended",
       "prettier",
     ],
     "plugins": [
-        "standard",
         "promise"
     ],
-    //"rules": {
-    //  "comma-dangle": [ 2, "always-multiline" ]
-    //}
+    "rules": {
+      "no-console": 0,
+    },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+  }
 };
