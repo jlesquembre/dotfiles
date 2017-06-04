@@ -164,8 +164,9 @@ Plug 'radenling/vim-dispatch-neovim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'tpope/vim-projectionist'
-Plug 'neomake/neomake'
-Plug 'sbdchd/neoformat'
+"Plug 'neomake/neomake'
+"Plug 'sbdchd/neoformat'
+Plug 'w0rp/ale'
 
 " Clojure
 "Plug 'kovisoft/paredit',    { 'for': 'clojure' }
@@ -957,67 +958,66 @@ endfunction
 " ============================================================================
 
 
-function! GetEslintrc()
-    if filereadable(getcwd() . '/.eslintrc.js')
-        return (getcwd() . '/.eslintrc.js')
-    elseif filereadable(getcwd() . '/.eslintrc.json')
-        return (getcwd() . '/.eslintrc.json')
-    else
-        return expand('~/dotfiles/eslintrc.js')
-    endif
-endfunction
-
-function! EslintMaker()
-    let maker = neomake#makers#ft#javascript#eslint_d()
-    let maker.args = ['-f', 'compact', '-c', GetEslintrc()]
-    return maker
-endfunction
-
-
-let g:neomake_sphinx_maker = {
-    \ 'exe': 'make',
-    \ 'args': ['html'],
-    \ 'errorformat': '%f:%l:%c: %m',
-    \ }
-
-let g:neomake_javascript_eslint_d_maker = EslintMaker()
-let g:neomake_javascript_enabled_makers = ['eslint_d']
-let g:neomake_echo_current_error = 0
-let g:neomake_open_list = 2
-
-if executable('prettier')
-    autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma\ es5
-endif
-
-let g:neoformat_try_formatprg = 1
-
-augroup on_vim_enter
-  autocmd!
-  autocmd VimEnter * call OnVimEnter()
-augroup END
-
-" Called after plugins have loaded
-function! g:OnVimEnter()
-  augroup neoformat_autosave
-    autocmd!
-    if exists(':Neoformat')
-      " Run automatically before saving for supported filetypes
-      echom 'Setting up neoformat'
-      autocmd BufWritePre *.js Neoformat
-    endif
-  augroup END
-
-  augroup neomake_automake
-    autocmd!
-    if exists(':Neomake')
-      " Check for lint errors on open & write for supported filetypes
-      autocmd BufReadPost,BufWritePost *.js,*.sh Neomake
-    endif
-  augroup END
-endfunction
-
-autocmd! BufWritePost *.rst Neomake
-autocmd! BufWritePost *.rst Neomake! sphinx
+"function! GetEslintrc()
+"    if filereadable(getcwd() . '/.eslintrc.js')
+"        return (getcwd() . '/.eslintrc.js')
+"    elseif filereadable(getcwd() . '/.eslintrc.json')
+"        return (getcwd() . '/.eslintrc.json')
+"    else
+"        return expand('~/dotfiles/eslintrc.js')
+"    endif
+"endfunction
+"
+"function! EslintMaker()
+"    let maker = neomake#makers#ft#javascript#eslint_d()
+"    let maker.args = ['-f', 'compact', '-c', GetEslintrc()]
+"    return maker
+"endfunction
+"
+"
+"let g:neomake_sphinx_maker = {
+"    \ 'exe': 'make',
+"    \ 'args': ['html'],
+"    \ 'errorformat': '%f:%l:%c: %m',
+"    \ }
+"
+"let g:neomake_javascript_enabled_makers = ['eslint_d']
+"let g:neomake_echo_current_error = 0
+"let g:neomake_open_list = 2
+"
+"if executable('prettier')
+"    autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma\ es5
+"endif
+"
+"let g:neoformat_try_formatprg = 1
+"
+"augroup on_vim_enter
+"  autocmd!
+"  autocmd VimEnter * call OnVimEnter()
+"augroup END
+"
+"" Called after plugins have loaded
+"function! g:OnVimEnter()
+"  augroup neoformat_autosave
+"    autocmd!
+"    if exists(':Neoformat')
+"      " Run automatically before saving for supported filetypes
+"      echom 'Setting up neoformat'
+"      autocmd BufWritePre *.js Neoformat
+"    endif
+"  augroup END
+"
+"  augroup neomake_automake
+"    autocmd!
+"    if exists(':Neomake')
+"      " Check for lint errors on open & write for supported filetypes
+"      autocmd BufReadPost,BufWritePost *.js,*.sh Neomake
+"    endif
+"  augroup END
+"endfunction
+"
+"autocmd! BufWritePost *.rst Neomake
+"autocmd! BufWritePost *.rst Neomake! sphinx
 
 " END NEOMAKE / NEOFORMAT
 
@@ -1029,3 +1029,31 @@ let g:headlines_key= '<leader><leader>h'
 let g:headlines_height= 22
 
 " HEADLINES
+
+
+" ============================================================================
+" ALE {{{1
+" ============================================================================
+
+
+let g:ale_javascript_prettier_executable = 'prettier'
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
+let g:ale_javascript_eslint_executable = 'eslint_d'
+
+"let g:ale_linters = {
+"\   'javascript': ['eslint_d'],
+"\}
+
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   'python': [
+\       'remove_trailing_lines',
+\       'isort',
+\       'autopep8',
+\   ],
+\   'javascript':[ 'prettier' ]
+\
+\}
+
+
+" ALE
