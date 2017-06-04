@@ -118,7 +118,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "Plug 'Yggdroot/indentLine'
 Plug 'mhinz/vim-startify'
-Plug 'mhinz/vim-halo'
+"Plug 'mhinz/vim-halo'
 "Plug 'haya14busa/vim-operator-flashy' | Plug 'kana/vim-operator-user'
 Plug 'machakann/vim-highlightedyank'
 "Plug 'itchyny/vim-cursorword'
@@ -389,8 +389,10 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Saner behavior of n and N
-nnoremap <silent><expr> n 'Nn'[v:searchforward] . 'zv:call halo#run()<cr>'
-nnoremap <silent><expr> N 'nN'[v:searchforward] . 'zv:call halo#run()<cr>'
+"nnoremap <silent><expr> n 'Nn'[v:searchforward] . 'zv:call halo#run()<cr>'
+"nnoremap <silent><expr> N 'nN'[v:searchforward] . 'zv:call halo#run()<cr>'
+nnoremap <silent><expr> n 'Nn'[v:searchforward]
+nnoremap <silent><expr> N 'nN'[v:searchforward]
 
 " Saner command-line history
 cnoremap <c-n>  <down>
