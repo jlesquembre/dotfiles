@@ -70,6 +70,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Color schemas
 "Plug 'chriskempson/base16-vim'
+"Plug '~/projects/base16-neovim'
 Plug 'jlesquembre/base16-neovim'
 Plug 'mhartington/oceanic-next'
 Plug 'junegunn/seoul256.vim'
@@ -130,6 +131,7 @@ Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'int3/vim-extradite'
+"Plug 'lambdalisue/gina.vim'
 
 
 " Syntax
@@ -218,9 +220,11 @@ endif
 " ============================================================================
 
 
-set termguicolors
-"let base16colorspace = 256
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+"set termguicolors
+let base16colorspace=256
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+\,a:blinkwait700-blinkoff400-blinkon250-Cursor
+\,sm:block-blinkwait175-blinkoff150-blinkon175
 
 colorscheme base16-default-dark
 "colorscheme onedark
@@ -245,7 +249,7 @@ set clipboard+=unnamedplus  " Use "+ register
 set inccommand=split
 
 " Better folds
-set foldcolumn=1
+"set foldcolumn=1
 set foldmethod=marker
 set foldopen+=jump
 
