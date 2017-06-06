@@ -93,6 +93,7 @@ Plug 'Shougo/vimfiler.vim' | Plug 'Shougo/unite.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
+Plug 'dyng/ctrlsf.vim'
 "Plug 'justinmk/vim-sneak'
 Plug 'easymotion/vim-easymotion'
 Plug 'takac/vim-hardtime'
@@ -174,7 +175,7 @@ Plug 'w0rp/ale'
 "Plug 'kovisoft/paredit',    { 'for': 'clojure' }
 "Plug 'guns/vim-sexp'
 "Plug 'tpope/vim-sexp-mappings-for-regular-people'
-Plug 'guns/vim-clojure-static'
+"Plug 'guns/vim-clojure-static'
 Plug 'guns/vim-clojure-highlight'
 Plug 'neovim/node-host', { 'dir': '~/.config/nvim/plugged/node-host', 'do': 'yarn install' }
 Plug 'clojure-vim/nvim-parinfer.js', {'do': ':UpdateRemotePlugins'}
@@ -219,12 +220,12 @@ endif
 " BASIC SETTINGS {{{1
 " ============================================================================
 
-
-"set termguicolors
-let base16colorspace=256
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-\,a:blinkwait700-blinkoff400-blinkon250-Cursor
-\,sm:block-blinkwait175-blinkoff150-blinkon175
+set termguicolors
+"let base16colorspace=256
+"set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+"\,sm:block-blinkwait175-blinkoff150-blinkon175
+"\,a:blinkwait700-blinkoff400-blinkon250-Cursor
+"\,n-v-c:blinkwait700-blinkoff400-blinkon250
 
 colorscheme base16-default-dark
 "colorscheme onedark
