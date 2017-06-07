@@ -171,6 +171,12 @@ Plug 'tpope/vim-projectionist'
 "Plug 'sbdchd/neoformat'
 Plug 'w0rp/ale'
 
+" Autocompletion
+Plug 'roxma/nvim-completion-manager'
+Plug 'roxma/nvim-cm-tern',  {'do': 'yarn install'}
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'othree/csscomplete.vim'
+
 " Clojure
 "Plug 'kovisoft/paredit',    { 'for': 'clojure' }
 "Plug 'guns/vim-sexp'
@@ -1064,3 +1070,23 @@ let g:ale_fixers = {
 
 
 " ALE
+
+
+" ============================================================================
+" NVIM COMPLETION MANAGER {{{1
+" ============================================================================
+
+
+" Disable it
+"let g:cm_smart_enable = 0
+
+"set shortmess+=c
+
+" hide the menu and also start a new line
+"inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+" Use tab to select the popup menu
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" NVIM COMPLETION MANAGER
