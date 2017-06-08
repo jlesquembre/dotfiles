@@ -1053,21 +1053,26 @@ let g:ale_javascript_prettier_executable = 'prettier'
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
 let g:ale_javascript_eslint_executable = 'eslint_d'
 
+let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', 'virtualenv']
+
 "let g:ale_linters = {
 "\   'javascript': ['eslint_d'],
 "\}
 
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = ['js']
+
 let g:ale_fixers = {
 \   'python': [
 \       'remove_trailing_lines',
 \       'isort',
-\       'autopep8',
+\       'yapf',
 \   ],
 \   'javascript':[ 'prettier' ]
 \
 \}
 
+
+map <silent> <leader>g :ALEFix<cr>
 
 " ALE
 
