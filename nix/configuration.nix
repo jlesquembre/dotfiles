@@ -127,7 +127,7 @@ in rec
     neovim neovim-remote vim vscode
 
     # JS
-    nodejs-7_x yarn
+    nodejs-8_x yarn
 
     # dev tools
     httpstat httplab httpie wuzz dnsutils tcpdump
