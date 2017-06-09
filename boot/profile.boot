@@ -1,3 +1,15 @@
+(require 'boot.repl)
+
+(swap! boot.repl/*default-dependencies*
+       concat '[[cider/cider-nrepl "0.14.0"]
+                [refactor-nrepl "2.3.1"]
+                [cljfmt "0.5.6"]
+                [slamhound "1.5.5"]])
+
+(swap! boot.repl/*default-middleware*
+       concat '[cider.nrepl/cider-middleware
+                refactor-nrepl.middleware/wrap-refactor])
+
 (deftask proto
   "Proto REPL profile
    boot proto repl"
@@ -25,9 +37,12 @@
   []
   (require 'boot.repl)
   (swap! @(resolve 'boot.repl/*default-dependencies*)
-         concat '[[org.clojure/tools.nrepl "0.2.12"]
+         concat '[[org.clojure/tools.nrepl "0.2.13"]
+                  [org.clojure/tools.namespace "0.3.0-alpha4"]
                   [cider/cider-nrepl "0.14.0"]
-                  [refactor-nrepl "2.2.0"]])
+                  [refactor-nrepl "2.3.1"]
+                  [cljfmt "0.5.6"]
+                  [slamhound "1.5.5"]])
   (swap! @(resolve 'boot.repl/*default-middleware*)
          concat '[cider.nrepl/cider-middleware
                   refactor-nrepl.middleware/wrap-refactor])

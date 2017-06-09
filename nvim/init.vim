@@ -181,13 +181,16 @@ Plug 'othree/csscomplete.vim'
 "Plug 'kovisoft/paredit',    { 'for': 'clojure' }
 "Plug 'guns/vim-sexp'
 "Plug 'tpope/vim-sexp-mappings-for-regular-people'
-"Plug 'guns/vim-clojure-static'
-Plug 'guns/vim-clojure-highlight'
+Plug 'guns/vim-clojure-highlight' | Plug 'guns/vim-clojure-static'
 Plug 'neovim/node-host', { 'dir': '~/.config/nvim/plugged/node-host', 'do': 'yarn install' }
 Plug 'clojure-vim/nvim-parinfer.js', {'do': ':UpdateRemotePlugins'}
-"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-Plug 'clojure-vim/neovim-client', { 'for': 'clojure' }
-Plug 'jebberjeb/clojure-socketrepl.nvim', { 'for': 'clojure' }
+
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+"Plug 'clojure-vim/neovim-client', { 'for': 'clojure' }
+"Plug 'jebberjeb/clojure-socketrepl.nvim', { 'for': 'clojure' }
+
+Plug 'guns/vim-slamhound'
+Plug 'venantius/vim-cljfmt'
 
 "Plug 'hkupty/acid.nvim', {'do':':UpdateRemotePlugins'}
 "Plug 'hkupty/iron.nvim', {'do':':UpdateRemotePlugins'}
@@ -436,6 +439,9 @@ au FileType javascript map <silent> <leader><leader>B Odebugger;<esc>
 
 " highlight last inserted text
 nnoremap gV `[v`]
+
+" open file under cursor in a new vertical split
+nnoremap gf :vertical wincmd f<cr>
 
 " END MAPPINGS
 
@@ -920,6 +926,9 @@ xmap <leader>p <Plug>(miniyank-cycle)
 " ============================================================================
 " CLOJURE {{{1
 " ============================================================================
+
+let g:clojure_align_multiline_strings = 1
+
 fun! DisableAutopairs()
     " If variable autopairs_loaded doesn't exit, the plugin will be loaded
     let b:autopairs_loaded = 0
@@ -940,28 +949,41 @@ augroup clojure
 "  autocmd FileType lisp,clojure,scheme
 "        \ nnoremap <buffer> <leader>rt :silent update<bar>RunTests<cr>
 augroup END
-"
+
+
 "let g:clojure_maxlines = 60
-"
+
 "let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', '^match$']
-"
+
 "" let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
-"
+
 "au FileType clojure xnoremap <buffer> <Enter> :Eval<CR>
 "au FileType clojure nmap <buffer> <Enter> cpp
 
+nnoremap <leader>cn :Slamhound<cr>
+nnoremap <silent> <leader>cm :ParinferToggleMode<cr>
 
-command StartREPL :call jobstart("boot -i \"(do (require 'clojure.core.server) ((resolve 'clojure.core.server/start-server) {:port 5555 :name :repl :accept 'clojure.core.server/repl}))\" wait")
+" if socketrepl is active
+if exists('g:socket_repl_plugin_ready')
+    command StartREPL :call jobstart("boot -i \"(do (require 'clojure.core.server) ((resolve 'clojure.core.server/start-server) {:port 5555 :name :repl :accept 'clojure.core.server/repl}))\" wait")
 
-autocmd MyAutoCmd FileType clojure call s:clojure_settings()
-function! s:clojure_settings() abort
-  nnoremap <silent><buffer> K :Doc<cr>
-  nnoremap <silent><buffer> <leader>cs :StartREPL<cr>
-  nnoremap <silent><buffer> <leader>ca :Connect<cr>
-  nnoremap <silent><buffer> <leader>ce :EvalCode<cr>
-  nnoremap <silent><buffer> <leader>cc :EvalCode<cr>
-  nnoremap <silent><buffer> <leader>cb :EvalBuffer<cr>
-endfunction
+    function! s:clojure_socketrepl_settings() abort
+      nnoremap <silent><buffer> K :Doc<cr>
+      nnoremap <silent><buffer> <leader>cs :StartREPL<cr>
+      nnoremap <silent><buffer> <leader>ca :Connect<cr>
+      nnoremap <silent><buffer> <leader>ce :EvalCode<cr>
+      nnoremap <silent><buffer> <leader>cc :EvalCode<cr>
+      nnoremap <silent><buffer> <leader>cb :EvalBuffer<cr>
+    endfunction
+    autocmd MyAutoCmd FileType clojure call s:clojure_socketrepl_settings()
+else
+    function! s:clojure_fireplace_settings() abort
+      nmap <silent><buffer> <leader>cc cpp
+    endfunction
+    autocmd MyAutoCmd FileType clojure call s:clojure_fireplace_settings()
+
+endif
+
 
 " END CLOJURE
 
