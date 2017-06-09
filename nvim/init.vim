@@ -1081,7 +1081,10 @@ let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', 'virtualenv']
 "\   'javascript': ['eslint_d'],
 "\}
 
-let g:ale_fix_on_save = ['js']
+let g:ale_pattern_options = {
+\   '\.min.js$': {'ale_enabled': 0},
+\   '\.js$': {'ale_fix_on_save': 1}
+\}
 
 let g:ale_fixers = {
 \   'python': [
