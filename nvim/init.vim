@@ -984,6 +984,18 @@ else
 
 endif
 
+" https://github.com/adzerk-oss/boot-cljs-repl#vim-fireplace
+command! PiggieBoot :Piggieback (adzerk.boot-cljs-repl/repl-env)
+
+"let g:is_piggieboot_running == 1
+"function! StartPiggieBootIfNotRunning()
+"    let l:p_dir = expand('<sfile>:p:h')
+"    if g:is_piggieboot_running == 0 && exists(l:p_dir . '/build.boot')
+"        echo 'Starting PiggieBoot...'
+"        execute 'PiggieBoot'
+"        let g:is_piggieboot_running == 1
+"    endif
+"endfunction
 
 " END CLOJURE
 
