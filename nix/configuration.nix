@@ -104,6 +104,7 @@ in rec
     ripgrep
     rofi
     rsync
+    simplescreenrecorder
     sox soxr
     sqlite
     sshfs-fuse
@@ -148,6 +149,7 @@ in rec
     diff-so-fancy
     git-open
     git-recent
+    gitRemoteGcrypt
     gitFull
     tig
     transcrypt
