@@ -55,10 +55,14 @@ in rec
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    abcde
     autojump
     breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
     # conky
     chromium
+    clementine
+    #mpd cantata
+    #mopidy mopidy-musicbox-webclient mopidy-moped mopidy-mopify
     google-chrome-dev
     docker_compose
     electron
@@ -81,9 +85,10 @@ in rec
     highlight
     hyper
     i3lock
+    k3b
     keychain
-    libicns
     libffi
+    libicns
     libstdcxx5
     lsof
     lzma
@@ -222,7 +227,7 @@ address=/.local/127.0.0.1
     isNormalUser = true;
     home = "/home/jlle";
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" "docker" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" ];
   };
 
   fonts = {
