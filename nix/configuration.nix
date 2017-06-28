@@ -83,6 +83,7 @@ in rec
     go
     graphicsmagick
     highlight
+    htop
     hyper
     i3lock
     k3b
