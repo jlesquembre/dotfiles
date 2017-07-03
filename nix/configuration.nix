@@ -119,6 +119,7 @@ in rec
     tmux
     transmission
     tree
+    udevil
     upower
     #(pkgs.xdg_utils.override { mimiSupport = true; })
     # volnoti
@@ -218,6 +219,8 @@ address=/.local/127.0.0.1
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
 
   services.xserver.desktopManager.plasma5.enable = true;
+
+  services.devmon.enable = true;
 
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull;

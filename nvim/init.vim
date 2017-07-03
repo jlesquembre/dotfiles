@@ -190,7 +190,7 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 "Plug 'jebberjeb/clojure-socketrepl.nvim', { 'for': 'clojure' }
 
 Plug 'guns/vim-slamhound'
-Plug 'venantius/vim-cljfmt'
+"Plug 'venantius/vim-cljfmt'
 
 "Plug 'hkupty/acid.nvim', {'do':':UpdateRemotePlugins'}
 "Plug 'hkupty/iron.nvim', {'do':':UpdateRemotePlugins'}
