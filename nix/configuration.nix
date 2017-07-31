@@ -225,6 +225,7 @@ address=/.local/127.0.0.1
   services.xserver.desktopManager.plasma5.enable = true;
 
   services.devmon.enable = true;
+  services.udev.packages = with pkgs; [ libu2f-host ];
 
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
