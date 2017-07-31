@@ -192,6 +192,10 @@ in rec
     AddKeysToAgent yes
   '';
 
+  # Enable GnuPG agent with SSH support
+  programs.gnupg.agent.enable = true;
+  programs.gnupg.agent.enableSSHSupport = true;
+
   # DNS configuration
   networking.networkmanager.insertNameservers = ["127.0.0.1"];
   services.dnsmasq.enable = true;
