@@ -658,9 +658,9 @@ let g:magit_default_fold_level=2
 " ============================================================================
 
 let g:grepper = {
-    \ 'tools': ['rg_extra', 'rg', 'git', 'grep'],
+    \ 'tools': ['rgextra', 'rg', 'git', 'grep'],
     \ 'highlight': 0,
-    \ 'rg_extra':
+    \ 'rgextra':
     \   { 'grepprg':    "rg --no-heading --vimgrep --hidden -g '!.git/' -S",
     \     'grepformat': '%f:%l:%c:%m',
     \     'escape':     '\^$.*+?()[]{}|' },
