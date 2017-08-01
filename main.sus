@@ -69,4 +69,11 @@ card top {
     src
   }
 
+  {
+    into .gnupg
+    outof gnupg
+
+    gpg-agent.conf
+  }
+
 }
