@@ -182,7 +182,11 @@ Plug 'othree/csscomplete.vim'
 "Plug 'guns/vim-sexp'
 "Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'guns/vim-clojure-highlight' | Plug 'guns/vim-clojure-static'
-Plug 'neovim/node-host', { 'dir': '~/.config/nvim/plugged/node-host', 'do': 'yarn install' }
+
+"TODO pin to commit until node-host is merged into core neovim, see:
+" https://github.com/neovim/node-host/pull/27#issuecomment-317672178
+Plug 'neovim/node-host', { 'dir': '~/.config/nvim/plugged/node-host', 'do': 'yarn install', 'commit': '0c116cb3b48af7' }
+
 Plug 'clojure-vim/nvim-parinfer.js', {'do': ':UpdateRemotePlugins'}
 
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
