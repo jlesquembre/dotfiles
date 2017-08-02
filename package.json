@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "eslint-config-prettier": "^2.1.1",
+    "eslint-config-prettier": "^2.3.0",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint_d": "^4.2.5",
-    "http-server": "^0.10.0"
+    "eslint_d": "^5.0.0",
+    "http-server": "^0.10.0",
+    "pulp": "^11.0.0"
   }
 }
