@@ -53,6 +53,7 @@
         customHaskellEnv
         conky
         customOkular
+        nix-index
       ];
     };
 

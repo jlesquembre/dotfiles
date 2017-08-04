@@ -94,7 +94,6 @@ in rec
     libstdcxx5
     lsof
     lzma
-    nix-index
     nix-repl
     notify-osd
     ntfs3g
