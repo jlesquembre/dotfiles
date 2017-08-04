@@ -83,6 +83,7 @@ in rec
 
     go
     graphicsmagick
+    gwenview
     highlight
     htop
     hyper
@@ -126,6 +127,7 @@ in rec
     #(pkgs.xdg_utils.override { mimiSupport = true; })
     # volnoti
     volumeicon
+    w3m
     wget
     xclip
     xfce.xfce4-screenshooter
