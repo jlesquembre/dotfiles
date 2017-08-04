@@ -66,6 +66,7 @@ in rec
     google-chrome-dev
     docker_compose
     electron
+    exa
     Fabric
     file
     firefox
@@ -93,8 +94,10 @@ in rec
     libstdcxx5
     lsof
     lzma
+    nix-index
     nix-repl
     notify-osd
+    ntfs3g
     openssl
     pass
     pavucontrol
