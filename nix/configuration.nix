@@ -123,6 +123,7 @@ in rec
     transmission
     tree
     udevil
+    unrar
     upower
     #(pkgs.xdg_utils.override { mimiSupport = true; })
     # volnoti
