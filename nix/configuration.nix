@@ -95,6 +95,7 @@ in rec
     libstdcxx5
     lsof
     lzma
+    mcomix
     nix-repl
     notify-osd
     ntfs3g
