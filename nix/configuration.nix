@@ -157,6 +157,9 @@ in rec
 
     # DB utils
     libmysql postgresql pgcli
+
+    # Digital currencies
+    electrum monero
   ]
   ++ (with pkgs.gitAndTools; [
     diff-so-fancy
