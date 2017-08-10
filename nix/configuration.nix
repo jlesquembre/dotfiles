@@ -159,7 +159,7 @@ in rec
     libmysql postgresql pgcli
 
     # Digital currencies
-    electrum monero
+    electrum monero go-ethereum altcoins.bitcoin-classic
   ]
   ++ (with pkgs.gitAndTools; [
     diff-so-fancy
