@@ -76,11 +76,7 @@ in rec
     glxinfo
     gnome3.zenity
     gnumake
-
-    # installs gnupg 2, but symlinks gpg to gpg2
-    # gnupg installs the same version, but doesn't create the symlink
-    gnupg1compat
-
+    gnupg
     go
     graphicsmagick
     gwenview
