@@ -8,6 +8,8 @@ let
 
   hostName = "${lib.fileContents ./hostname}";
 
+  customNginx = (./nginx + "/${hostName}.nix");
+
   # bleeding edge
   #pkgs-unstable = import (fetchTarball https://github.com/nixos/nixpkgs/archive/master.tar.gz) {};
 
@@ -22,11 +24,13 @@ in rec
 
 
   imports =
-    [ # Include the results of the hardware scan.
+    [ ./nginx/common.nix
+      # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       # Import machine-specific configuration files.
       (./machines + "/${hostName}.nix")
-    ];
+    ]
+    ++ lib.optional (builtins.pathExists customNginx) customNginx;
 
   networking.hostName = "${hostName}";
 
@@ -92,6 +96,7 @@ in rec
     lsof
     lzma
     mcomix
+    nginxMainline
     nix-repl
     notify-osd
     ntfs3g
