@@ -30,7 +30,7 @@ function compress_videos --description 'Find and compress videos'
         set -l name ( basename "$path"  | rev | cut -d. -f2- | rev )
 
         if test $use_time -eq 1
-            set newname ( ffprobe "$path" 2>&1 | grep -i creation_time | head -1 | cut -d: -f2- | date +"%Y-%m-%d_%H:%M:%S" -f - )
+            set newname ( ffprobe "$path" 2>&1 | grep -i creation_time | head -1 | cut -d: -f2- | date +"%Y-%m-%d_%H_%M_%S" -f - )
         else
             set newname ( echo "$name")
         end
