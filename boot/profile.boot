@@ -1,14 +1,14 @@
 (require 'boot.repl)
 
-(swap! boot.repl/*default-dependencies*
-       concat '[[cider/cider-nrepl "0.14.0"]
-                [refactor-nrepl "2.3.1"]
-                [cljfmt "0.5.6"]
-                [slamhound "1.5.5"]])
+;(swap! boot.repl/*default-dependencies*
+;       concat '[[cider/cider-nrepl "0.15.0"]])
+                ;[refactor-nrepl "2.3.1"]
+                ;[cljfmt "0.5.6"]
+                ;[slamhound "1.5.5"]])
 
-(swap! boot.repl/*default-middleware*
-       concat '[cider.nrepl/cider-middleware
-                refactor-nrepl.middleware/wrap-refactor])
+;(swap! boot.repl/*default-middleware*
+;       concat '[cider.nrepl/cider-middleware])
+;                refactor-nrepl.middleware/wrap-refactor])
 
 (deftask proto
   "Proto REPL profile
@@ -32,18 +32,29 @@
 
 
 (deftask cider
-  "CIDER profile
-  boot cider repl"
+  "CIDER repl
+  boot cider"
   []
   (require 'boot.repl)
   (swap! @(resolve 'boot.repl/*default-dependencies*)
          concat '[[org.clojure/tools.nrepl "0.2.13"]
                   [org.clojure/tools.namespace "0.3.0-alpha4"]
-                  [cider/cider-nrepl "0.14.0"]
+                  [cider/cider-nrepl "0.15.1-SNAPSHOT"]
                   [refactor-nrepl "2.3.1"]
-                  [cljfmt "0.5.6"]
+                  ;[cljfmt "0.5.6"]
                   [slamhound "1.5.5"]])
   (swap! @(resolve 'boot.repl/*default-middleware*)
          concat '[cider.nrepl/cider-middleware
                   refactor-nrepl.middleware/wrap-refactor])
-  identity)
+  (repl))
+
+
+(deftask cider-extra
+  "CIDER repl with core.async cljs-ajax
+  boot cider-extra"
+  []
+  (require 'boot.repl)
+  (swap! @(resolve 'boot.repl/*default-dependencies*)
+         concat '[[org.clojure/core.async "0.3.443"]
+                  [cljs-ajax "0.7.1"]])
+  (cider))
