@@ -83,6 +83,9 @@ bindsym $mod+e layout toggle split
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
+for_window [title="^pinentry$"] floating enable
+
+
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
