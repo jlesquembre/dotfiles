@@ -132,6 +132,7 @@ in rec
     volumeicon
     w3m
     wget
+    whois
     xclip
     xfce.xfce4-screenshooter
     xorg.xkbcomp
