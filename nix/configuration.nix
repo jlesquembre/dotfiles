@@ -96,6 +96,7 @@ in rec
     lsof
     lzma
     mcomix
+    neofetch
     nginxMainline
     nix-repl
     notify-osd

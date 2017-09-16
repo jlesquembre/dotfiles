@@ -24,10 +24,7 @@ set -x PROJECT_HOME $HOME/projects
 set -x BROWSER chromium
 
 function fish_greeting -d "what's up, fish?"
-  set_color $fish_color_autosuggestion
-  uname -nmsr
-  w
-  set_color normal
+    neofetch
 end
 
 # Until devpi issue #64 is implemented, you need to set REQUESTS_CA_BUNDLE environment variable
