@@ -134,6 +134,7 @@ in rec
     w3m
     wget
     whois
+    wireshark
     xclip
     xfce.xfce4-screenshooter
     xorg.xkbcomp
@@ -242,13 +243,15 @@ address=/.local/127.0.0.1
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
+  programs.wireshark.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.jlle = {
     description = "Jose Luis";
     isNormalUser = true;
     home = "/home/jlle";
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" ];
   };
 
   fonts = {
