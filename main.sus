@@ -20,6 +20,7 @@ card top {
   volumeicon -> .config/volumeicon/volumeicon
   nixpkgs_local -> .nixpkgs
   xmonad.hs -> .xmonad/xmonad.hs
+  init.el -> .emacs.d/init.el
 
   {
     into .config

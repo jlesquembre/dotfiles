@@ -10,6 +10,8 @@ let
 
   customNginx = (./nginx + "/${hostName}.nix");
 
+  customEmacs = (import ./emacs.nix { inherit pkgs; });
+
   # bleeding edge
   #pkgs-unstable = import (fetchTarball https://github.com/nixos/nixpkgs/archive/master.tar.gz) {};
 
@@ -142,7 +144,7 @@ in rec
     #pkgs-unstable.hyper
 
     # editors
-    neovim neovim-remote vim vscode
+    neovim neovim-remote vim vscode customEmacs
 
     # JS
     nodejs-8_x yarn
