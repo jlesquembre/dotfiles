@@ -170,6 +170,8 @@ Plug 'tpope/vim-projectionist'
 "Plug 'neomake/neomake'
 "Plug 'sbdchd/neoformat'
 Plug 'w0rp/ale'
+Plug 'kassio/neoterm'
+Plug 'metakirby5/codi.vim'
 
 " Autocompletion
 Plug 'roxma/nvim-completion-manager'
@@ -179,15 +181,16 @@ Plug 'othree/csscomplete.vim'
 
 " Clojure
 "Plug 'kovisoft/paredit',    { 'for': 'clojure' }
-"Plug 'guns/vim-sexp'
-"Plug 'tpope/vim-sexp-mappings-for-regular-people'
-Plug 'guns/vim-clojure-highlight' | Plug 'guns/vim-clojure-static'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'guns/vim-clojure-highlight' " | Plug 'guns/vim-clojure-static'
 
 "TODO pin to commit until node-host is merged into core neovim, see:
 " https://github.com/neovim/node-host/pull/27#issuecomment-317672178
 Plug 'neovim/node-host', { 'dir': '~/.config/nvim/plugged/node-host', 'do': 'yarn install', 'commit': '0c116cb3b48af7' }
 
 Plug 'clojure-vim/nvim-parinfer.js', {'do': ':UpdateRemotePlugins'}
+Plug 'clojure-vim/async-clj-omni'
 
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 "Plug 'clojure-vim/neovim-client', { 'for': 'clojure' }
@@ -201,7 +204,6 @@ Plug 'guns/vim-slamhound'
 "Plug 'tpope/vim-classpath'
 "Plug 'tpope/vim-salve'
 
-"Plug 'guns/vim-slamhound'
 "Plug 'junegunn/vim-easy-align'
 
 " or tcomment???
@@ -446,6 +448,10 @@ nnoremap gV `[v`]
 
 " open file under cursor in a new vertical split
 nnoremap gf :vertical wincmd f<cr>
+
+" Faster exit insert mode
+inoremap <c-space> <esc>
+inoremap <c-j> <esc>
 
 " END MAPPINGS
 
@@ -943,6 +949,10 @@ xmap <leader>p <Plug>(miniyank-cycle)
 " CLOJURE {{{1
 " ============================================================================
 
+"let g:sexp_filetypes = ''
+let g:sexp_enable_insert_mode_mappings = 0
+let g:sexp_insert_after_wrap = 0
+
 let g:clojure_align_multiline_strings = 1
 
 fun! DisableAutopairs()
@@ -979,6 +989,14 @@ augroup END
 nnoremap <leader>cn :Slamhound<cr>
 nnoremap <silent> <leader>cm :ParinferToggleMode<cr>
 
+" It's not possible to remap CTRL-M in insert mode, see
+" :h index -> see list of vim mappings
+" :h key-notation
+nnoremap <silent> <c-h> :ParinferToggleMode<cr>
+vnoremap <silent> <c-h> <esc>:ParinferToggleMode<cr>gv
+inoremap <silent> <c-h> <c-o>:ParinferToggleMode<cr>
+
+
 " if socketrepl is active
 if exists('g:socket_repl_plugin_ready')
     command StartREPL :call jobstart("boot -i \"(do (require 'clojure.core.server) ((resolve 'clojure.core.server/start-server) {:port 5555 :name :repl :accept 'clojure.core.server/repl}))\" wait")
@@ -995,6 +1013,10 @@ if exists('g:socket_repl_plugin_ready')
 else
     function! s:clojure_fireplace_settings() abort
       nmap <silent><buffer> <leader>cc cpp
+      nnoremap <buffer> crr :Require<cr>
+      nnoremap <buffer> cra :Require!<cr>
+      nnoremap <buffer> <leader>cr :T boot cider<cr>
+      nnoremap <buffer> <leader>crr :T boot cider-extra<cr>
     endfunction
     autocmd MyAutoCmd FileType clojure call s:clojure_fireplace_settings()
 
@@ -1148,3 +1170,40 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " NVIM COMPLETION MANAGER
+
+
+" ============================================================================
+" NEOTERM / CODI {{{1
+" ============================================================================
+
+let g:neoterm_position = 'vertical'
+"let g:neoterm_shell = 'fish'
+
+let g:codi#rightsplit = 0
+let g:codi#rightalign = 1
+
+nnoremap <silent> <Leader>tt :Ttoggle<cr>
+nnoremap <silent> <Leader>tl :call neoterm#clear()<cr>
+
+nnoremap <silent> <Leader>tff :TREPLSendFile<cr>
+nnoremap <silent> <Leader>ts :TREPLSendLine<cr>
+vnoremap <silent> <Leader>ts :TREPLSendSelection<cr>
+
+function! s:neoterm_extra_maps() abort
+  " Don't add on these filetypes
+  if &ft =~ 'clojure\|clojurescript'
+    return
+  endif
+  nnoremap <buffer><silent> cpp :TREPLSendLine<cr>
+  vnoremap <buffer><silent> cp  :TREPLSendSelection<cr>
+
+  " Toggle codi
+  nnoremap <buffer> cpi :Codi!!<cr>
+endfunction
+
+augroup neoterm_add_extra_maps
+  autocmd!
+  autocmd BufNewFile,BufReadPost * call s:neoterm_extra_maps()
+augroup END
+
+" NEOTERM / CODI

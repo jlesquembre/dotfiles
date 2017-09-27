@@ -39,7 +39,7 @@
   (swap! @(resolve 'boot.repl/*default-dependencies*)
          concat '[[org.clojure/tools.nrepl "0.2.13"]
                   [org.clojure/tools.namespace "0.3.0-alpha4"]
-                  [cider/cider-nrepl "0.15.1-SNAPSHOT"]
+                  [cider/cider-nrepl "0.15.1"]
                   [refactor-nrepl "2.3.1"]
                   ;[cljfmt "0.5.6"]
                   [slamhound "1.5.5"]])

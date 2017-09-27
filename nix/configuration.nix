@@ -21,6 +21,22 @@ let
   # specific commit
   # pkgs-58d44a3 = import (fetchTarball https://github.com/nixos/nixpkgs/archive/58d44a3.tar.gz) {};
 
+  customVscode = pkgs.vscode-with-extensions.override {
+    # When the extension is already available in the default extensions set.
+    vscodeExtensions = with pkgs.vscode-extensions; [
+      bbenoist.Nix
+    ]
+    # Concise version from the vscode market place when not available in the default set.
+    ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "vim";
+        publisher = "vscodevim";
+        version = "0.10.1";
+        sha256 = "1ihmq5g9r290rjqqv4g9jfssqvjcr9n1mywmvrd9ii6zx72d3va1";
+      }
+    ];
+  };
+
 in rec
 {
 
@@ -144,7 +160,7 @@ in rec
     #pkgs-unstable.hyper
 
     # editors
-    neovim neovim-remote vim vscode customEmacs
+    neovim neovim-remote vim customVscode customEmacs
 
     # JS
     nodejs-8_x yarn
