@@ -157,7 +157,7 @@ in rec
     xfce.xfce4-screenshooter
     xorg.xkbcomp
     #xorg.xcursorthemes
-    #pkgs-unstable.hyper
+    zathura
 
     # editors
     neovim neovim-remote vim customVscode customEmacs
