@@ -14,8 +14,12 @@ if [ "$XDG_CURRENT_DESKTOP" == "i3" ]; then
 fi
 
 # nixos settings
-if [ "$XDG_SESSION_DESKTOP" == "none+i3" ]; then
-  export XDG_CURRENT_DESKTOP="KDE"
-  # force xdg-open to use kde-open5, see (which xdg-open)
-  export KDE_SESSION_VERSION=5
-fi
+#if [ "$XDG_SESSION_DESKTOP" == "none+i3" ]; then
+#  export XDG_CURRENT_DESKTOP="KDE"
+#  # force xdg-open to use kde-open5, see (which xdg-open)
+#  export KDE_SESSION_VERSION=5
+#fi
+
+# http://catern.com/2014/12/20/plain-text-configuration-gnome.html
+# to find more settings see dconf-editor
+#cat ~/dotfiles/gtk-3.0/user.conf | dconf load /

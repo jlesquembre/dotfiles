@@ -96,7 +96,7 @@ in rec
     fzf
     gcc6
     glxinfo
-    gnome3.zenity
+    gnome3.zenity gnome3.dconf gnome3.dconf-editor
     gnumake
     gnupg
     go
