@@ -957,8 +957,9 @@ let g:clojure_align_multiline_strings = 1
 
 fun! DisableAutopairs()
     " If variable autopairs_loaded doesn't exit, the plugin will be loaded
-    let b:autopairs_loaded = 0
-    let b:autopairs_enabled = 0
+    " let b:autopairs_loaded = 0
+    " let b:autopairs_enabled = 0
+    let b:AutoPairs = {'"':'"'}
 endfun
 
 augroup clojure
@@ -1015,8 +1016,8 @@ else
       nmap <silent><buffer> <leader>cc cpp
       nnoremap <buffer> crr :Require<cr>
       nnoremap <buffer> cra :Require!<cr>
-      nnoremap <buffer> <leader>cr :T boot cider<cr>
-      nnoremap <buffer> <leader>crr :T boot cider-extra<cr>
+      nnoremap <buffer> <leader>cr :T boot cider
+      " nnoremap <buffer> <leader>crr :T boot cider-extra
     endfunction
     autocmd MyAutoCmd FileType clojure call s:clojure_fireplace_settings()
 
