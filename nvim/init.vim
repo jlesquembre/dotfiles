@@ -184,7 +184,7 @@ Plug 'othree/csscomplete.vim'
 "Plug 'kovisoft/paredit',    { 'for': 'clojure' }
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
-Plug 'guns/vim-clojure-highlight' " | Plug 'guns/vim-clojure-static'
+Plug 'guns/vim-clojure-highlight' | Plug 'guns/vim-clojure-static'
 
 "TODO pin to commit until node-host is merged into core neovim, see:
 " https://github.com/neovim/node-host/pull/27#issuecomment-317672178
