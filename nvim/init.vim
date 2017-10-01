@@ -124,6 +124,7 @@ Plug 'mhinz/vim-startify'
 "Plug 'haya14busa/vim-operator-flashy' | Plug 'kana/vim-operator-user'
 Plug 'machakann/vim-highlightedyank'
 "Plug 'itchyny/vim-cursorword'
+Plug 'henrik/vim-indexed-search'
 
 
 " Git
