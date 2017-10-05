@@ -128,7 +128,6 @@ in rec
     #plasma-integration
     purescript
     python
-    python3
     pwgen
     ranger
     ripgrep
@@ -197,6 +196,13 @@ in rec
     node2nix
     prettier
   ])
+
+  # Extra packages added to the global python environment, see
+  # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.md#installing-python-and-packages
+  ++ (with pkgs; [(python3.withPackages(ps: with ps; [
+    jupyter
+  ]))])
+
   ++ (with pkgs.python36Packages; [
     ipython
     neovim
