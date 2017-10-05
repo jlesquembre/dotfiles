@@ -38,6 +38,16 @@
                          # tools
                          #cabal-install haskintex
                        ]);
+    nodeEnv = buildEnv {
+        name = "nodeEnv";
+        paths = [ nodejs-8_x ] ++ (with nodePackages; [
+          #babel
+          replem
+          npm2nix
+          coffee-script
+          #jsonlint
+          ]);
+    };
 
     /*
     Creates a collection package, now we can be install/update local packages by running:
