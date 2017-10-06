@@ -392,6 +392,9 @@ tmap <esc> <c-\><c-n><esc><cr>
 " nnoremap ; :
 " nnoremap : ;
 
+" Make yank more logical
+map Y y$
+
 "nmap <leader>w <C-w>
 nnoremap <leader>w <C-w>
 
@@ -909,7 +912,7 @@ let g:AutoPairsMapSpace=0
 
 
 " ============================================================================
-" OPERATOR FLASHY {{{1
+" HIGHLIGHTED YANK (OPERATOR FLASHY) {{{1
 " ============================================================================
 
 "let g:operator#flashy#flash_time = 600
@@ -917,8 +920,9 @@ let g:AutoPairsMapSpace=0
 "nmap Y <Plug>(operator-flashy)$
 
 let g:highlightedyank_highlight_duration = 500
-map y <Plug>(highlightedyank)
-map Y <Plug>(highlightedyank)$
+" Not required on neovim
+" map y <Plug>(highlightedyank)
+" map Y <Plug>(highlightedyank)$
 
 hi HighlightedyankRegion cterm=reverse gui=reverse
 
