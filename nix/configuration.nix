@@ -90,6 +90,7 @@ in rec
     electron
     exa
     Fabric
+    fd
     file
     firefox
     fish
