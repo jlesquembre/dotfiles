@@ -36,13 +36,14 @@
   boot cider"
   []
   (require 'boot.repl)
-  (swap! @(resolve 'boot.repl/*default-dependencies*)
-         concat '[[org.clojure/tools.nrepl "0.2.13"]
-                  [org.clojure/tools.namespace "0.3.0-alpha4"]
-                  [cider/cider-nrepl "0.15.1"]
-                  [refactor-nrepl "2.3.1"]
-                  ;[cljfmt "0.5.6"]
-                  [slamhound "1.5.5"]])
+  (set-env!
+    :dependencies
+    #(into % '[[org.clojure/tools.nrepl "0.2.13"]
+               [org.clojure/tools.namespace "0.3.0-alpha4"]
+               [cider/cider-nrepl "0.15.1"]
+               [refactor-nrepl "2.3.1"]
+               ;[cljfmt "0.5.6"]
+               [slamhound "1.5.5"]]))
   (swap! @(resolve 'boot.repl/*default-middleware*)
          concat '[cider.nrepl/cider-middleware
                   refactor-nrepl.middleware/wrap-refactor])
@@ -53,8 +54,10 @@
   "CIDER repl with core.async cljs-ajax
   boot cider-extra"
   []
-  (require 'boot.repl)
-  (swap! @(resolve 'boot.repl/*default-dependencies*)
-         concat '[[org.clojure/core.async "0.3.443"]
-                  [cljs-ajax "0.7.1"]])
+  (set-env!
+    :dependencies
+    #(into % '[[org.clojure/core.async "0.3.443"]
+               [cljs-ajax "0.7.2"]
+               [criterium "0.4.4"]
+               [com.rpl/specter "1.0.3"]]))
   (cider))
