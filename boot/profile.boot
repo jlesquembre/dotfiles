@@ -61,3 +61,19 @@
                [criterium "0.4.4"]
                [com.rpl/specter "1.0.3"]]))
   (cider))
+
+
+(deftask check-sources []
+  (set-env!
+    :dependencies
+    #(into % '[[tolitius/boot-check "RELEASE"]]))
+    ; :source-paths #{"src" "test"})
+
+  (require '[tolitius.boot-check :as check])
+  (let [with-yagni (resolve 'check/with-yagni)
+        with-kibit (resolve 'check/with-kibit)]
+    (comp
+      (with-yagni)
+      (with-kibit))))
+      ; (check/with-eastwood)
+      ; (check/with-bikeshed)))
