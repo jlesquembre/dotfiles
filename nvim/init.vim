@@ -386,7 +386,7 @@ cnoreabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
 
 " Neovim terminal mapping
 " terminal 'normal mode'
-tmap <esc> <c-\><c-n><esc><cr>
+tmap <esc> <c-\><c-n>
 
 " give it a try and you will like it
 " nnoremap ; :
@@ -454,9 +454,13 @@ nnoremap gV `[v`]
 " open file under cursor in a new vertical split
 nnoremap gf :vertical wincmd f<cr>
 
-" Faster exit insert mode
+" Faster esc
 inoremap <c-space> <esc>
-inoremap <c-j> <esc>
+vnoremap <c-space> <esc>
+onoremap <c-space> <esc>
+cnoremap <c-space> <c-c>
+nnoremap <c-space> <esc>
+"inoremap <c-j> <esc>
 
 " Search and replace
 nnoremap <Leader>rr :%s//g<Left><Left>
@@ -1070,9 +1074,9 @@ nnoremap <silent> <leader>cm :ParinferToggleMode<cr>
 " It's not possible to remap CTRL-M in insert mode, see
 " :h index -> see list of vim mappings
 " :h key-notation
-nnoremap <silent> <c-h> :ParinferToggleMode<cr>
-vnoremap <silent> <c-h> <esc>:ParinferToggleMode<cr>gv
-inoremap <silent> <c-h> <c-o>:ParinferToggleMode<cr>
+nnoremap <silent> <c-j> :ParinferToggleMode<cr>
+vnoremap <silent> <c-j> <esc>:ParinferToggleMode<cr>gv
+inoremap <silent> <c-j> <c-o>:ParinferToggleMode<cr>
 
 
 " if socketrepl is active
@@ -1262,7 +1266,9 @@ let g:codi#rightalign = 1
 
 nnoremap <silent> <Leader>tt :Ttoggle<cr>
 nnoremap <silent> <Leader>tl :call neoterm#clear()<cr>
+nnoremap <Leader>tk :Tclose!
 
+" REPL maps
 nnoremap <silent> <Leader>tff :TREPLSendFile<cr>
 nnoremap <silent> <Leader>ts :TREPLSendLine<cr>
 vnoremap <silent> <Leader>ts :TREPLSendSelection<cr>
