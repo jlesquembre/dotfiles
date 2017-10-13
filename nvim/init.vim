@@ -413,11 +413,12 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <leader>wt <C-w>T
 
+" Not needed, provided by vim-indexed-search plugin
 " Saner behavior of n and N
-"nnoremap <silent><expr> n 'Nn'[v:searchforward] . 'zv:call halo#run()<cr>'
-"nnoremap <silent><expr> N 'nN'[v:searchforward] . 'zv:call halo#run()<cr>'
-nnoremap <silent><expr> n 'Nn'[v:searchforward]
-nnoremap <silent><expr> N 'nN'[v:searchforward]
+" nnoremap <silent><expr> n 'Nn'[v:searchforward] . 'zv:call halo#run()<cr>'
+" nnoremap <silent><expr> N 'nN'[v:searchforward] . 'zv:call halo#run()<cr>'
+" nnoremap <silent><expr> n 'Nn'[v:searchforward]
+" nnoremap <silent><expr> N 'nN'[v:searchforward]
 
 " Saner command-line history
 cnoremap <c-n>  <down>
