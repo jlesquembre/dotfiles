@@ -83,6 +83,7 @@ in rec
     # conky
     chromium
     clementine
+    cmatrix
     #mpd cantata
     #mopidy mopidy-musicbox-webclient mopidy-moped mopidy-mopify
     google-chrome-dev
