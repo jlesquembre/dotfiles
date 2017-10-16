@@ -51,6 +51,7 @@ in rec
     ++ lib.optional (builtins.pathExists customNginx) customNginx;
 
   networking.hostName = "${hostName}";
+  # networking.firewall.enable = false;
 
   # mount /tmp on tmpfs
   boot.tmpOnTmpfs = true;
