@@ -82,6 +82,7 @@ in rec
     autojump
     breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
     # conky
+    cheat
     chromium
     clementine
     cmatrix
@@ -128,6 +129,7 @@ in rec
     pciutils
     pdftk xpdf
     texlive.combined.scheme-full
+    tldr
     #plasma-integration
     purescript
     python
