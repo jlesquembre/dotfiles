@@ -1259,6 +1259,30 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " NEOTERM / CODI {{{1
 " ============================================================================
 
+" See :h :map-operator
+function! SendToNeoterm(type, ...)
+  let sel_save = &selection
+  let &selection = "inclusive"
+  let reg_save = @@
+
+  if a:0  " Invoked from Visual mode, use '< and '> marks.
+    silent exe "normal! `<" . a:type . "`>y"
+  elseif a:type == 'line'
+    silent exe "normal! '[V']y"
+  elseif a:type == 'block'
+    silent exe "normal! `[\<C-V>`]y"
+  else
+    silent exe "normal! `[v`]y"
+  endif
+
+  " echomsg strlen(substitute(@@, '[^ ]', '', 'g'))
+  call neoterm#do(@@)
+
+  let &selection = sel_save
+  let @@ = reg_save
+endfunction
+
+
 let g:neoterm_position = 'vertical'
 "let g:neoterm_shell = 'fish'
 
@@ -1271,7 +1295,8 @@ nnoremap <Leader>tk :Tclose!
 
 " REPL maps
 nnoremap <silent> <Leader>tff :TREPLSendFile<cr>
-nnoremap <silent> <Leader>ts :TREPLSendLine<cr>
+nnoremap <silent> <Leader>tss :TREPLSendLine<cr>
+nnoremap <silent> <Leader>ts :set opfunc=SendToNeoterm<CR>g@
 vnoremap <silent> <Leader>ts :TREPLSendSelection<cr>
 
 function! s:neoterm_extra_maps() abort
