@@ -160,7 +160,7 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'lifepillar/pgsql.vim'
 Plug 'LnL7/vim-nix'
 Plug 'cespare/vim-toml'
-Plug 'raichoo/purescript-vim'
+Plug 'purescript-contrib/purescript-vim'
 
 Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
 
