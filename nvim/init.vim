@@ -130,6 +130,7 @@ Plug 'fszymanski/ListToggle.vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
