@@ -125,6 +125,7 @@ Plug 'mhinz/vim-startify'
 Plug 'machakann/vim-highlightedyank'
 "Plug 'itchyny/vim-cursorword'
 Plug 'henrik/vim-indexed-search'
+Plug 'fszymanski/ListToggle.vim'
 
 
 " Git
@@ -1317,3 +1318,16 @@ augroup neoterm_add_extra_maps
 augroup END
 
 " NEOTERM / CODI
+
+
+" ============================================================================
+" LISTTOGGLE {{{1
+" ============================================================================
+
+let g:listtoggle_no_maps = 1
+
+nmap <Leader>x <Plug>ListToggleQuickfixListToggle
+" nmap <Leader>l <Plug>ListToggleLocationListToggle
+
+
+" LISTTOGGLE
