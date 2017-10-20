@@ -120,12 +120,16 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "Plug 'Yggdroot/indentLine'
 Plug 'mhinz/vim-startify'
-"Plug 'mhinz/vim-halo'
+Plug 'mhinz/vim-halo'
 "Plug 'haya14busa/vim-operator-flashy' | Plug 'kana/vim-operator-user'
 Plug 'machakann/vim-highlightedyank'
-"Plug 'itchyny/vim-cursorword'
-Plug 'henrik/vim-indexed-search'
 Plug 'fszymanski/ListToggle.vim'
+"Plug 'itchyny/vim-cursorword'
+
+" TODO index search plugins will be natively supported by vim, see:
+" https://github.com/vim/vim/issues/453
+Plug 'henrik/vim-indexed-search'
+" Plug 'google/vim-searchindex'
 
 
 " Git
@@ -417,19 +421,24 @@ nnoremap <leader>wt <C-w>T
 
 " Not needed, provided by vim-indexed-search plugin
 " Saner behavior of n and N
-" nnoremap <silent><expr> n 'Nn'[v:searchforward] . 'zv:call halo#run()<cr>'
-" nnoremap <silent><expr> N 'nN'[v:searchforward] . 'zv:call halo#run()<cr>'
 " nnoremap <silent><expr> n 'Nn'[v:searchforward]
 " nnoremap <silent><expr> N 'nN'[v:searchforward]
+" nnoremap <silent><expr> n 'Nn'[v:searchforward] . 'zv:call halo#run()<cr>'
+" nnoremap <silent><expr> N 'nN'[v:searchforward] . 'zv:call halo#run()<cr>'
+let g:indexed_search_mappings = 0
+nmap / <Plug>(indexed-search-/)
+nmap ? <Plug>(indexed-search-?)
+nmap * <Plug>(indexed-search-*)
+nmap # <Plug>(indexed-search-#)
+noremap <silent><expr> n 'Nn'[v:searchforward] . ':ShowSearchIndex<CR>zv:call halo#run()<cr>'
+noremap <silent><expr> N 'nN'[v:searchforward] . ':ShowSearchIndex<CR>zv:call halo#run()<cr>'
 
 " Saner command-line history
 cnoremap <c-n>  <down>
 cnoremap <c-p>  <up>
 
 " Saner CTRL-L
-nnoremap <leader>l :nohlsearch<cr>:call clearmatches()<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
-" TODO remove clearmatches when this is fixed:
-" https://github.com/mhinz/vim-halo/issues/2
+nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 
 " Quick saving
 nnoremap <silent> <Leader>s :update<CR>
