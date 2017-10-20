@@ -59,6 +59,7 @@
     #(into % '[[org.clojure/core.async "0.3.443"]
                [cljs-ajax "0.7.2"]
                [criterium "0.4.4"]
+               [com.taoensso/tufte "1.1.2"]
                [com.rpl/specter "1.0.3"]]))
   (cider))
 
