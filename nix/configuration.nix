@@ -68,6 +68,27 @@ in rec
 
   nixpkgs.config.allowUnfree = true;
 
+  # custom packages
+  nixpkgs.overlays = [
+    (self: super: {
+
+      conky = super.conky.override {
+        lua = self.lua5_3;
+        luaImlib2Support = false;
+        luaCairoSupport = false;
+      };
+
+      okular = super.kdeApplications.okular.overrideDerivation (old: {
+        nativeBuildInputs = old.nativeBuildInputs ++ [ super.makeWrapper ];
+        fixupPhase = ''
+          mv $out/bin/okular $out/bin/okular-unwrapped
+          makeWrapper $out/bin/okular-unwrapped $out/bin/okular --set XDG_CURRENT_DESKTOP KDE
+          '';
+        });
+
+    })
+  ];
+
   nix.useSandbox = true;
   nix.nixPath = [
     "nixpkgs=/etc/nixos/nixpkgs"
@@ -81,7 +102,7 @@ in rec
     abcde
     autojump
     breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
-    # conky
+    conky
     cheat
     chromium
     clementine
@@ -123,6 +144,7 @@ in rec
     nix-repl
     notify-osd
     ntfs3g
+    okular
     openssl
     pass
     pavucontrol
@@ -156,7 +178,6 @@ in rec
     w3m
     wget
     whois
-    wireshark
     xclip
     xfce.xfce4-screenshooter
     xorg.xkbcomp
@@ -205,19 +226,22 @@ in rec
   # Extra packages added to the global python environment, see
   # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.md#installing-python-and-packages
   ++ (with pkgs; [(python3.withPackages(ps: with ps; [
+    ipython
     jupyter
+    pygments
   ]))])
 
   ++ (with pkgs.python36Packages; [
-    ipython
+    glances
+    # ipython
     neovim
-    pygments
+    # pygments
     virtualenv
     youtube-dl
   ])
-  ++ (with pkgs.kdeApplications; [
-    okular
-  ])
+  # ++ (with pkgs.kdeApplications; [
+  #   okular
+  # ])
   ++ (with haskellPackages; [
     ghc
     gitHUD
@@ -273,6 +297,8 @@ address=/.local/127.0.0.1
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
   programs.wireshark.enable = true;
+  programs.wireshark.package = pkgs.wireshark-qt;
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.jlle = {

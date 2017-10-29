@@ -61,8 +61,8 @@
       paths = [
         # hello_jl
         customHaskellEnv
-        conky
-        customOkular
+        # conky
+        # customOkular
         nix-index
       ];
     };
