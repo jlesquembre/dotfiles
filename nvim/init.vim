@@ -729,11 +729,11 @@ nnoremap <silent> <Leader>ff      :FilesRg<CR>
 nnoremap <silent> <Leader>fg      :GFiles<CR>
 nnoremap <silent> <Leader>fc      :Colors<CR>
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
-nnoremap <silent> <Leader>frg     :Find <C-R><C-W>
-xnoremap <silent> <Leader>frg     y:Find <C-R>"<CR>
-nnoremap <silent> <Leader>ag      :Ag <C-R><C-W><CR>
-nnoremap <silent> <Leader>AG      :Ag <C-R><C-A><CR>
-xnoremap <silent> <Leader>ag      y:Ag <C-R>"<CR>
+nnoremap <silent> <Leader>fr     :Find <C-R><C-W>
+xnoremap <silent> <Leader>fr     y:Find <C-R>"<CR>
+" nnoremap <silent> <Leader>ag      :Ag <C-R><C-W><CR>
+" nnoremap <silent> <Leader>AG      :Ag <C-R><C-A><CR>
+" xnoremap <silent> <Leader>ag      y:Ag <C-R>"<CR>
 nnoremap <silent> <Leader>`       :Marks<CR>
 " nnoremap <silent> q: :History:<CR>
 " nnoremap <silent> q/ :History/<CR>
@@ -805,6 +805,7 @@ let g:airline#extensions#tabline#show_close_button = 0
 "let g:airline#extensions#tabline#show_tab_nr = 1
 "let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#tabs_label = 't'
+let g:airline#extensions#ale#enabled = 1
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -1215,8 +1216,8 @@ let g:headlines_height= 22
 " ============================================================================
 
 
-let g:ale_javascript_prettier_executable = 'prettier'
-let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
+let g:ale_javascript_prettier_executable = 'prettier_d'
+let g:ale_javascript_prettier_options = '--trailing-comma es5'
 let g:ale_javascript_eslint_executable = 'eslint_d'
 
 let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', 'virtualenv']
@@ -1241,7 +1242,9 @@ let g:ale_fixers = {
 \}
 
 
-map <silent> <leader>g :ALEFix<cr>
+map <silent> <leader>af :ALEFix<cr>
+nmap <silent> <leader>ak <Plug>(ale_previous_wrap)
+nmap <silent> <leader>aj <Plug>(ale_next_wrap)
 
 " ALE
 
