@@ -43,6 +43,7 @@
                [cider/cider-nrepl "0.15.1"]
                [refactor-nrepl "2.3.1"]
                ;[cljfmt "0.5.6"]
+               ; [expound "0.3.1"]
                [slamhound "1.5.5"]]))
   (swap! @(resolve 'boot.repl/*default-middleware*)
          concat '[cider.nrepl/cider-middleware
@@ -60,7 +61,9 @@
                [cljs-ajax "0.7.2"]
                [criterium "0.4.4"]
                [com.taoensso/tufte "1.1.2"]
-               [com.rpl/specter "1.0.3"]]))
+               [com.rpl/specter "1.0.4"]]))
+               ; [rewrite-clj "0.6.0"]
+               ; [zprint "0.4.3"]]))
   (cider))
 
 
