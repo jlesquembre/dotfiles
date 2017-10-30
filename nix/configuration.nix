@@ -78,13 +78,13 @@ in rec
         luaCairoSupport = false;
       };
 
-      okular = super.kdeApplications.okular.overrideDerivation (old: {
-        nativeBuildInputs = old.nativeBuildInputs ++ [ super.makeWrapper ];
-        fixupPhase = ''
-          mv $out/bin/okular $out/bin/okular-unwrapped
-          makeWrapper $out/bin/okular-unwrapped $out/bin/okular --set XDG_CURRENT_DESKTOP KDE
-          '';
-        });
+      # okular = super.kdeApplications.okular.overrideDerivation (old: {
+      #   nativeBuildInputs = old.nativeBuildInputs ++ [ super.makeWrapper ];
+      #   fixupPhase = ''
+      #     mv $out/bin/okular $out/bin/okular-unwrapped
+      #     makeWrapper $out/bin/okular-unwrapped $out/bin/okular --set XDG_CURRENT_DESKTOP KDE
+      #     '';
+      #   });
 
     })
   ];
@@ -101,7 +101,7 @@ in rec
   environment.systemPackages = with pkgs; [
     abcde
     autojump
-    breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
+    # breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
     conky
     cheat
     chromium
@@ -154,7 +154,7 @@ in rec
     pdftk xpdf
     texlive.combined.scheme-full
     tldr
-    #plasma-integration
+    arc-theme paper-icon-theme
     purescript
     python
     pwgen
@@ -290,7 +290,7 @@ address=/.local/127.0.0.1
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
 
-  services.xserver.desktopManager.plasma5.enable = true;
+  # services.xserver.desktopManager.plasma5.enable = true;
 
   services.devmon.enable = true;
   services.udev.packages = with pkgs; [ libu2f-host ];
