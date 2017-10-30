@@ -149,6 +149,8 @@ in rec
     pass
     pavucontrol
     pciutils
+    php
+    php71Packages.composer
     pdftk xpdf
     texlive.combined.scheme-full
     tldr
