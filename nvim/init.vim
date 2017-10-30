@@ -1228,7 +1228,9 @@ let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', 'virtualenv']
 
 let g:ale_pattern_options = {
 \   '\.min.js$': {'ale_enabled': 0},
-\   '\.js$': {'ale_fix_on_save': 1}
+\   '\.js$'    : {'ale_fix_on_save': 1},
+\   '\.json$'  : {'ale_fix_on_save': 1},
+\   '\.css$'   : {'ale_fix_on_save': 1},
 \}
 
 let g:ale_fixers = {
@@ -1237,7 +1239,9 @@ let g:ale_fixers = {
 \       'isort',
 \       'yapf',
 \   ],
-\   'javascript':[ 'prettier' ]
+\   'javascript':[ 'prettier' ],
+\   'json'      :[ 'prettier' ],
+\   'css'       :[ 'prettier' ],
 \
 \}
 
