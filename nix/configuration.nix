@@ -142,7 +142,7 @@ in rec
     neofetch
     nginxMainline
     nix-repl
-    notify-osd
+    notify-osd libnotify
     ntfs3g
     okular
     openssl
