@@ -81,7 +81,8 @@ for fish_file in $HOME/.config/fish/functions_extra/*.fish
 end
 if test -e /usr/share/autojump/autojump.fish
     source /usr/share/autojump/autojump.fish
-else
+end
+if type -q autojump-share
     source (autojump-share)/autojump.fish
 end
 
@@ -156,6 +157,15 @@ end
 
 function fish_user_key_bindings
     bind \cc 'commandline ""'
+    if type -q fzf-share
+        source (fzf-share)/key-bindings.fish
+        fzf_key_bindings
+
+        bind \cj fzf-cd-widget
+        if bind -M insert > /dev/null 2>&1
+            bind -M insert \cj fzf-cd-widget
+        end
+    end
 end
 
 # From https://github.com/0rax/fishline
