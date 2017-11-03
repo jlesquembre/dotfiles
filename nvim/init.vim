@@ -170,6 +170,7 @@ Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
 
 " General utils
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-eunuch'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/rainbow_parentheses.vim'
