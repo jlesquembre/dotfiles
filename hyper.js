@@ -7,50 +7,50 @@ module.exports = {
     fontFamily: 'Hack, Menlo, "DejaVu Sans Mono", "Lucida Console", monospace',
 
     // terminal cursor background color (hex)
-    cursorColor: '#d8d8d8',
+    cursorColor: "#d8d8d8",
 
     cursorBlink: true,
 
     // `BEAM` for |, `UNDERLINE` for _, `BLOCK` for █
-    cursorShape: 'BLOCK',
+    cursorShape: "BLOCK",
 
     // color of the text
-    foregroundColor: '#d8d8d8',
+    foregroundColor: "#d8d8d8",
 
     // terminal background color
-    backgroundColor: '#181818',
+    backgroundColor: "#181818",
 
     // border color (window, tabs)
-    borderColor: '#333',
+    borderColor: "#333",
 
     // custom css to embed in the main window
-    css: '',
+    css: "",
 
     // custom css to embed in the terminal window
-    termCSS: '',
+    termCSS: "",
 
     // custom padding (css format, i.e.: `top right bottom left`)
-    padding: '0px 0px',
+    padding: "0px 0px",
 
     // some color overrides. see http://bit.ly/29k1iU2 for
     // the full list
     colors: [
-      '#181818',
-      '#ab4642',
-      '#a1b56c',
-      '#f7ca88',
-      '#7cafc2',
-      '#ba8baf',
-      '#86c1b9',
-      '#d8d8d8',
-      '#585858',
-      '#ab4642',
-      '#a1b56c',
-      '#f7ca88',
-      '#7cafc2',
-      '#ba8baf',
-      '#86c1b9',
-      '#f8f8f8',
+      "#181818",
+      "#ab4642",
+      "#a1b56c",
+      "#f7ca88",
+      "#7cafc2",
+      "#ba8baf",
+      "#86c1b9",
+      "#d8d8d8",
+      "#585858",
+      "#ab4642",
+      "#a1b56c",
+      "#f7ca88",
+      "#7cafc2",
+      "#ba8baf",
+      "#86c1b9",
+      "#f8f8f8",
 
       // Default colors:
       //'#000000',
@@ -69,12 +69,11 @@ module.exports = {
       //'#cc00ff',
       //'#00ffff',
       //'#ffffff'
-
     ],
 
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
     // if left empty, your system's login shell will be used by default
-    shell: 'fish',
+    shell: "fish",
 
     // for setting shell arguments (i.e. for using interactive shellArgs: ['-i'])
     // by default ['--login'] will be used
@@ -114,11 +113,11 @@ module.exports = {
   //   `project#1.0.1`
   plugins: [
     //'hyper-blink',
-    'hyperlinks',
+    "hyperlinks",
     //'hypercwd',
     //'hyperterm-alternatescroll',
     //'hyper-statusline',
-    'hyper-tab-icons',
+    "hyper-tab-icons",
     //'hyper-tabs-enhanced',
     //'hyperpunk',
     //'hyperpower',
@@ -128,5 +127,5 @@ module.exports = {
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
-  localPlugins: []
+  localPlugins: [],
 };
