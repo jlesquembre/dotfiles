@@ -77,7 +77,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'MaxSt/FlatColor'
 Plug 'KabbAmine/yowish.vim'
 Plug 'mhinz/vim-janah'
-Plug 'dracula/vim'
+" Plug 'dracula/vim'
 Plug 'liuchengxu/space-vim-dark'
 
 
@@ -249,9 +249,6 @@ set termguicolors
 "\,a:blinkwait700-blinkoff400-blinkon250-Cursor
 "\,n-v-c:blinkwait700-blinkoff400-blinkon250
 
-colorscheme base16-default-dark
-"colorscheme onedark
-
 " The fish shell is not very compatible to other shells and unexpectedly
 " breaks things that use 'shell'.
 if &shell =~# 'fish$'
@@ -333,6 +330,76 @@ autocmd WinLeave,FocusLost   * setlocal nocursorline
 
 " END BASIC SETTINGS
 
+" ============================================================================
+" COLORSCHEMA {{{1
+" ============================================================================
+
+function! s:rgb2color(r,g,b)
+  " Convert 80% -> 204, 100% -> 255, etc.
+  let rgb = map( [a:r,a:g,a:b], 'v:val =~ "%$" ? ( 255 * v:val ) / 100 : v:val' )
+  return printf( '%02x%02x%02x', rgb[0], rgb[1], rgb[2] )
+endfunction
+function! s:hex2rgb(color)
+  let color = tolower(a:color)
+  let r = str2nr(printf( '0x%s', color[0:1] ), 16)
+  let g = str2nr(printf( '0x%s', color[2:3] ), 16)
+  let b = str2nr(printf( '0x%s', color[4:5] ), 16)
+  return [r, g, b]
+endfunction
+function! s:mixcolors(colorA, colorB, ...)
+  let colorA = s:hex2rgb(a:colorA)
+  let colorB = s:hex2rgb(a:colorB)
+
+  let factorA = a:0 > 0 ? a:1 : 0.6
+  let factorB = 1 - factorA
+
+  let r = float2nr((colorA[0] * factorA + colorB[0] * factorB) / 2)
+  let g = float2nr((colorA[1] * factorA + colorB[1] * factorB) / 2)
+  let b = float2nr((colorA[2] * factorA + colorB[2] * factorB) / 2)
+  return s:rgb2color(r, g, b)
+endfunction
+
+
+function! g:Base16_customize() abort
+  call Base16hi("MatchParen",    g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold,italic", "")
+  call Base16hi("CursorLineNr",  g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold", "")
+  call Base16hi("QuickFixLine",  g:base16_gui00, g:base16_gui09, g:base16_cterm00, g:base16_cterm09, "none", "")
+  call Base16hi("PMenu",         g:base16_gui04, g:base16_gui01, g:base16_cterm04, g:base16_cterm01, "none", "")
+  call Base16hi("PMenuSel",      g:base16_gui01, g:base16_gui04, g:base16_cterm01, g:base16_cterm04, "", "")
+
+  " Diff
+  let s:guiDiffAdd = s:mixcolors(g:base16_gui00, g:base16_gui0B, 0.3)
+  let s:guiDiffDelete = s:mixcolors(g:base16_gui00, g:base16_gui08)
+  let s:guiDiffChange = s:mixcolors(g:base16_gui00, g:base16_gui0D, 0.3)
+  let s:guiDiffText = s:mixcolors(g:base16_gui00, g:base16_gui08, 0.2)
+  call Base16hi("DiffAdd",      "none", s:guiDiffAdd,  "none", s:guiDiffAdd, "", "")
+  call Base16hi("DiffChange",   "none", s:guiDiffChange,  "none", s:guiDiffChange, "", "")
+  call Base16hi("DiffDelete",   g:base16_gui08, g:base16_gui00,  g:base16_cterm08, g:base16_cterm00, "", "")
+  call Base16hi("DiffText",     "none", s:guiDiffText,  "none", s:guiDiffText, "", "")
+
+  " Quickfix list window
+  call Base16hi("qfFileName", g:base16_gui0B, "", g:base16_cterm0B, "", "", "")
+  call Base16hi("qfLineNr", g:base16_gui03, g:base16_gui01, g:base16_cterm03, g:base16_cterm01, "", "")
+  call Base16hi("qfSeparator", g:base16_gui05, g:base16_gui00, g:base16_cterm05, g:base16_cterm00, "", "")
+
+  " Vim syntax
+  call Base16hi("vimCommand",   g:base16_gui0E, "", g:base16_cterm0E, "", "", "")
+  call Base16hi("vimUserCommand",   g:base16_gui0E, "", g:base16_cterm0E, "", "", "")
+  call Base16hi("vimMap",   g:base16_gui0E, "", g:base16_cterm0E, "", "", "")
+  call Base16hi("vimLet",   g:base16_gui0E, "", g:base16_cterm0E, "", "", "")
+  call Base16hi("vimSet",   g:base16_gui0E, "", g:base16_cterm0E, "", "", "")
+
+endfunction
+
+augroup on_change_colorschema
+  autocmd!
+  autocmd ColorScheme * call g:Base16_customize()
+augroup END
+
+colorscheme base16-default-dark
+"colorscheme onedark
+
+" END COLORSCHEMA
 
 " ============================================================================
 " FUNCTIONS {{{1
