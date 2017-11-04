@@ -113,6 +113,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-speeddating'
 Plug 'bfredl/nvim-miniyank'
 Plug 'tweekmonster/headlines.vim'
+Plug 'machakann/vim-swap'
 
 
 " UI
