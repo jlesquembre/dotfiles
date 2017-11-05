@@ -146,16 +146,17 @@ in rec
     ntfs3g
     okular
     openssl
+    paper-icon-theme arc-theme
     pass
     pavucontrol
     pciutils
+    pdftk xpdf
     php
     php71Packages.composer
-    pdftk xpdf
+    proselint
+    purescript
     texlive.combined.scheme-full
     tldr
-    arc-theme paper-icon-theme
-    purescript
     python
     pwgen
     ranger
