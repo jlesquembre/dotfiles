@@ -229,6 +229,7 @@ in rec
   # Extra packages added to the global python environment, see
   # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.md#installing-python-and-packages
   ++ (with pkgs; [(python3.withPackages(ps: with ps; [
+    cookiecutter
     ipython
     jupyter
     pygments
