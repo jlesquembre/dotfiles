@@ -69,7 +69,7 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 " Color schemas
-"Plug 'chriskempson/base16-vim'
+" Plug 'chriskempson/base16-vim'
 "Plug '~/projects/base16-neovim'
 Plug 'jlesquembre/base16-neovim'
 Plug 'mhartington/oceanic-next'
@@ -113,7 +113,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-speeddating'
 Plug 'bfredl/nvim-miniyank'
 Plug 'tweekmonster/headlines.vim'
-Plug 'machakann/vim-swap'
+" Plug 'machakann/vim-swap'
 
 
 " UI
