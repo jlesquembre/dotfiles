@@ -69,9 +69,7 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 " Color schemas
-" Plug 'chriskempson/base16-vim'
-"Plug '~/projects/base16-neovim'
-Plug 'jlesquembre/base16-neovim'
+Plug 'chriskempson/base16-vim'
 Plug 'mhartington/oceanic-next'
 Plug 'junegunn/seoul256.vim'
 Plug 'rakr/vim-one'
