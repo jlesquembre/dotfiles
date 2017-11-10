@@ -111,6 +111,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-speeddating'
 Plug 'bfredl/nvim-miniyank'
 Plug 'tweekmonster/headlines.vim'
+Plug 'jlesquembre/rst-tables.nvim', {'do': ':UpdateRemotePlugins'}
 " Plug 'machakann/vim-swap'
 
 
