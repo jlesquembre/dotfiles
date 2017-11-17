@@ -113,6 +113,7 @@ Plug 'bfredl/nvim-miniyank'
 Plug 'tweekmonster/headlines.vim'
 Plug 'jlesquembre/rst-tables.nvim', {'do': ':UpdateRemotePlugins'}
 " Plug 'machakann/vim-swap'
+Plug 'mattn/emmet-vim'
 
 
 " UI
@@ -1418,3 +1419,22 @@ nmap <Leader>x <Plug>ListToggleQuickfixListToggle
 
 
 " LISTTOGGLE
+
+
+" ============================================================================
+" EMMET {{{1
+" ============================================================================
+
+let g:user_emmet_install_global = 0
+
+augroup AutoEmmet
+  autocmd!
+  autocmd FileType html,css EmmetInstall
+  " https://github.com/mattn/emmet-vim/issues/168#issuecomment-35853346
+  autocmd FileType html,css imap <expr> <tab>
+    \ pumvisible() ? "\<C-n>" :
+    \ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
+    \ "\<tab>"
+augroup END
+
+" EMMET
