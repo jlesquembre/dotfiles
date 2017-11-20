@@ -1,5 +1,0 @@
-{
- "argv": [ "bash", "../config/kernels/ijs/ijs.sh",  "{connection_file}" ],
- "display_name": "Javascript",
- "language": "javascript"
-}
