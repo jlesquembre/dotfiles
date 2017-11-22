@@ -308,27 +308,29 @@ silent! call MakeDirIfNoExists(&viewdir)
 
 " Make sure you dont change logfiles
 augroup readonly_files
-    au BufNewFile,BufRead /var/log/* set readonly
-    au BufNewFile,BufRead /var/log/* set nomodifiable
+  autocmd!
+  autocmd BufNewFile,BufRead /var/log/* set readonly
+  autocmd BufNewFile,BufRead /var/log/* set nomodifiable
 augroup END
 
 
 " Set augroup
-augroup MyAutoCmd
+" See https://vi.stackexchange.com/a/9458/2660
+augroup user_augroup
   autocmd!
 augroup END
 
-autocmd MyAutoCmd FileType help wincmd K
+autocmd user_augroup FileType help wincmd K
 
 " Help NeoVim check for modified files: https://github.com/neovim/neovim/issues/2127
-autocmd BufEnter,FocusGained * checktime
+autocmd user_augroup BufEnter,FocusGained * checktime
 
 " The PC is fast enough, do syntax highlight syncing from start
-autocmd BufEnter * :syntax sync fromstart
+autocmd user_augroup BufEnter * :syntax sync fromstart
 
 " Only use cursorline for current window
-autocmd WinEnter,FocusGained * setlocal cursorline
-autocmd WinLeave,FocusLost   * setlocal nocursorline
+autocmd user_augroup WinEnter,FocusGained * setlocal cursorline
+autocmd user_augroup WinLeave,FocusLost   * setlocal nocursorline
 
 " END BASIC SETTINGS
 
@@ -524,10 +526,13 @@ nnoremap <silent> <Leader>b ^
 nnoremap <silent> <Leader>e $
 
 " Quick breakpoints
-au FileType python map <silent> <leader><leader>b oimport ipdb; ipdb.set_trace()<esc>
-au FileType python map <silent> <leader><leader>B Oimport ipdb; ipdb.set_trace()<esc>
-au FileType javascript map <silent> <leader><leader>b odebugger;<esc>
-au FileType javascript map <silent> <leader><leader>B Odebugger;<esc>
+augroup AutoBreakpoint
+  autocmd!
+  autocmd FileType python map <silent> <leader><leader>b oimport ipdb; ipdb.set_trace()<esc>
+  autocmd FileType python map <silent> <leader><leader>B Oimport ipdb; ipdb.set_trace()<esc>
+  autocmd FileType javascript map <silent> <leader><leader>b odebugger;<esc>
+  autocmd FileType javascript map <silent> <leader><leader>B Odebugger;<esc>
+augroup END
 
 " highlight last inserted text
 nnoremap gV `[v`]
@@ -931,7 +936,7 @@ let g:vimfiler_marked_file_icon = '✓'
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimfiler_time_format= "%Y/%m/%d %H:%M"
 
-autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
+autocmd user_augroup FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings() abort
 
   nnoremap <silent><buffer><expr> gt vimfiler#do_action('tabopen')
@@ -1126,6 +1131,7 @@ fun! DisableAutopairs()
 endfun
 
 augroup clojure
+  autocmd!
   autocmd FileType lisp,clojure,scheme RainbowParentheses
   autocmd FileType lisp,clojure,scheme call DisableAutopairs()
 "  autocmd FileType lisp,clojure,scheme
@@ -1173,7 +1179,7 @@ if exists('g:socket_repl_plugin_ready')
       nnoremap <silent><buffer> <leader>cc :EvalCode<cr>
       nnoremap <silent><buffer> <leader>cb :EvalBuffer<cr>
     endfunction
-    autocmd MyAutoCmd FileType clojure call s:clojure_socketrepl_settings()
+    autocmd user_augroup FileType clojure call s:clojure_socketrepl_settings()
 else
     function! s:clojure_fireplace_settings() abort
       nmap <silent><buffer> <leader>cc cpp
@@ -1182,7 +1188,7 @@ else
       nnoremap <buffer> <leader>cr :T boot cider
       " nnoremap <buffer> <leader>crr :T boot cider-extra
     endfunction
-    autocmd MyAutoCmd FileType clojure call s:clojure_fireplace_settings()
+    autocmd user_augroup FileType clojure call s:clojure_fireplace_settings()
 
 endif
 
