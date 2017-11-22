@@ -424,6 +424,42 @@ function! ChooseWindow()
 endfunc
 
 
+function! s:strip(str)
+python << EOF
+import vim
+result = vim.eval("a:str").strip(" \t\n\r\f\v'\"")
+vim.command("return '{}'".format(result))
+EOF
+endfunction
+
+function! FormatLink(format)
+  let l:link = s:strip(getline('.'))
+  " let l:ext = expand('%:e')
+
+  let l:title = system('wget -qO- '. shellescape(l:link) . ' | gawk -v IGNORECASE=1 -v RS=''</title'' ''RT{gsub(/.*<title[^>]*>/,"");print;exit}'' ')
+  let l:title = s:strip(l:title)
+  let l:title = substitute(l:title, '\s\+-\?\s\+\(youtube\|google\)$', '', 'gi')
+
+  if a:format == ''
+    let l:format = expand('%:e')
+  else
+    let l:format = a:format
+  endif
+
+  echo l:format
+  " if (index(['md'], l:ext) >= 0) || a:format == 'md'
+  if (index(['md'], l:format) >= 0)
+    let l:newline = '[' . l:title . '](' . l:link . ')'
+  else
+    let l:newline = '`' . l:title . ' <' . l:link . '>`_'
+  endif
+
+  call setline('.', l:newline)
+  normal 0
+
+endfunction
+
+
 " END FUNCTIONS
 
 " ============================================================================
@@ -558,6 +594,10 @@ vnoremap <Leader>rr :s//g<Left><Left>
 nnoremap <Leader>rq :cfdo %s/\<<C-r><C-w>\>//g \| update<C-Left><C-Left><Left><Left><Left>
 " Undo previous action
 nnoremap <Leader>ru :cfdo undo \| update
+
+nnoremap <Leader>u :call FormatLink('')<cr>
+" nnoremap <Leader>um :call FormatLink('md')<cr>
+" nnoremap <Leader>ur :call FormatLink('rst')<cr>
 
 
 " END MAPPINGS
