@@ -434,11 +434,10 @@ endfunction
 
 function! FormatLink(format)
   let l:link = s:strip(getline('.'))
-  " let l:ext = expand('%:e')
 
   let l:title = system('wget -qO- '. shellescape(l:link) . ' | gawk -v IGNORECASE=1 -v RS=''</title'' ''RT{gsub(/.*<title[^>]*>/,"");print;exit}'' ')
-  let l:title = s:strip(l:title)
-  let l:title = substitute(l:title, '\s\+-\?\s\+\(youtube\|google\)$', '', 'gi')
+  let b:title = s:strip(l:title)
+  let l:title = substitute(b:title, '\v\s+[\-\|]\s+\p+$', '', 'gi')
 
   if a:format == ''
     let l:format = expand('%:e')
@@ -446,8 +445,6 @@ function! FormatLink(format)
     let l:format = a:format
   endif
 
-  echo l:format
-  " if (index(['md'], l:ext) >= 0) || a:format == 'md'
   if (index(['md'], l:format) >= 0)
     let l:newline = '[' . l:title . '](' . l:link . ')'
   else
@@ -456,6 +453,8 @@ function! FormatLink(format)
 
   call setline('.', l:newline)
   normal 0
+
+  echomsg 'Original title (saved on b:title): ' . b:title
 
 endfunction
 
@@ -595,7 +594,7 @@ nnoremap <Leader>rq :cfdo %s/\<<C-r><C-w>\>//g \| update<C-Left><C-Left><Left><L
 " Undo previous action
 nnoremap <Leader>ru :cfdo undo \| update
 
-nnoremap <Leader>u :call FormatLink('')<cr>
+nnoremap <silent> <Leader>u :call FormatLink('')<cr>
 " nnoremap <Leader>um :call FormatLink('md')<cr>
 " nnoremap <Leader>ur :call FormatLink('rst')<cr>
 
