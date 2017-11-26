@@ -22,6 +22,7 @@ set -x EDITOR nvim
 set -x HOSTNAME (hostname)
 set -x PROJECT_HOME $HOME/projects
 set -x BROWSER chromium
+set -x MANPAGER "nvim -c 'set ft=man' -"
 
 function fish_greeting -d "what's up, fish?"
     neofetch
