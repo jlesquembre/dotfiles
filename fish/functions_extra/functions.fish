@@ -25,7 +25,7 @@ function compress_videos --description 'Find and compress videos'
             return 1
     end
 
-    for path in ( find (pwd) -type f \( -iname "*.mp4" -or -iname "*.mts" \)  )
+    for path in ( find (pwd) -type f \( -iname "*.mp4" -or -iname "*.mts" -or -iname "*.webm" \)  )
         set -l dirname ( dirname "$path" )
         set -l name ( basename "$path"  | rev | cut -d. -f2- | rev )
 
