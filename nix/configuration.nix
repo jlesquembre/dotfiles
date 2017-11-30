@@ -139,6 +139,7 @@ in rec
     lsof
     lzma
     mcomix
+    mediainfo
     neofetch
     nginxMainline
     nix-repl
