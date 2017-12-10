@@ -425,10 +425,12 @@ endfunc
 
 
 function! s:strip(str)
-python << EOF
+python3 << EOF
 import vim
-result = vim.eval("a:str").strip(" \t\n\r\f\v'\"")
-vim.command("return '{}'".format(result))
+from html import unescape
+# replace non-breaking space, see https://stackoverflow.com/a/38010708/799785
+result = unescape(vim.eval("a:str")).strip(" \t\n\r\f\v'\"").replace("\xa0", " ")
+vim.command('return "{}"'.format(result))
 EOF
 endfunction
 
