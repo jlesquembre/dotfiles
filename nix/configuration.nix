@@ -206,6 +206,9 @@ in rec
     # JDK tools
     jdk visualvm clojure leiningen pkgs.boot
 
+    # Rust
+    rustc cargo rustfmt
+
     # DB utils
     libmysql postgresql pgcli
 

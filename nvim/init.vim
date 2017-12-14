@@ -1347,6 +1347,7 @@ let g:ale_pattern_options = {
 \   '\.js$'    : {'ale_fix_on_save': 1},
 \   '\.json$'  : {'ale_fix_on_save': 1},
 \   '\.css$'   : {'ale_fix_on_save': 1},
+\   '\.rs$'    : {'ale_fix_on_save': 1},
 \}
 
 let g:ale_fixers = {
@@ -1358,6 +1359,7 @@ let g:ale_fixers = {
 \   'javascript':[ 'prettier' ],
 \   'json'      :[ 'prettier' ],
 \   'css'       :[ 'prettier' ],
+\   'rust'      :[ 'rustfmt' ],
 \
 \}
 
