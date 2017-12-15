@@ -1362,7 +1362,6 @@ let g:ale_fixers = {
 \   'json'      :[ 'prettier' ],
 \   'css'       :[ 'prettier' ],
 \   'rust'      :[ 'rustfmt' ],
-\
 \}
 
 
