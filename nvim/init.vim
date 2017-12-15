@@ -429,8 +429,10 @@ python3 << EOF
 import vim
 from html import unescape
 # replace non-breaking space, see https://stackoverflow.com/a/38010708/799785
-result = unescape(vim.eval("a:str")).strip(" \t\n\r\f\v'\"").replace("\xa0", " ")
-vim.command('return "{}"'.format(result))
+result = unescape(vim.eval("a:str")).strip().replace("\xa0", " ")
+if (result.startswith('"') and result.endswith('"')) or (result.startswith("'") and result.endswith("'")):
+    result = result[1:-1]
+vim.command('return "{}"'.format(result.replace('"', '\\"')))
 EOF
 endfunction
 
