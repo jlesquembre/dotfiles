@@ -502,7 +502,9 @@ cnoreabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
 
 " Neovim terminal mapping
 " terminal 'normal mode'
-tmap <esc> <c-\><c-n>
+tnoremap <Esc> <C-\><C-n>
+tnoremap <M-[> <C-\><C-n>
+tnoremap <C-v><Esc> <Esc>
 
 " give it a try and you will like it
 " nnoremap ; :
@@ -523,10 +525,27 @@ nnoremap <leader>qa :qa<cr>
 nnoremap <leader>qw :x<cr>
 
 " Fast window moves
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" Terminal mode:
+tnoremap <C-h> <c-\><c-n><c-w>h
+tnoremap <C-j> <c-\><c-n><c-w>j
+tnoremap <C-k> <c-\><c-n><c-w>k
+tnoremap <C-l> <c-\><c-n><c-w>l
+tnoremap <C-w> <c-\><c-n><c-w>
+" Insert mode:
+inoremap <C-h> <Esc><c-w>h
+inoremap <C-j> <Esc><c-w>j
+inoremap <C-k> <Esc><c-w>k
+inoremap <C-l> <Esc><c-w>l
+" Visual mode:
+vnoremap <C-h> <Esc><c-w>h
+vnoremap <C-j> <Esc><c-w>j
+vnoremap <C-k> <Esc><c-w>k
+vnoremap <C-l> <Esc><c-w>l
+" Normal mode:
+nnoremap <C-h> <c-w>h
+nnoremap <C-j> <c-w>j
+nnoremap <C-k> <c-w>k
+nnoremap <C-l> <c-w>l
 nnoremap <leader>wt <C-w>T
 
 " Not needed, provided by vim-indexed-search plugin
