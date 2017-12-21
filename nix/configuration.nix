@@ -156,11 +156,10 @@ in rec
     php71Packages.composer
     proselint
     purescript
-    texlive.combined.scheme-full
-    tldr
-    python
     pwgen
+    python
     ranger
+    recoll
     ripgrep
     rofi
     rsync
@@ -170,6 +169,8 @@ in rec
     sshfs-fuse
     super-user-spark
     termite
+    texlive.combined.scheme-full
+    tldr
     tmux
     transmission
     tree
@@ -204,7 +205,7 @@ in rec
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
 
     # JDK tools
-    jdk visualvm clojure leiningen pkgs.boot
+    jdk visualvm clojure leiningen pkgs.boot joker
 
     # Rust
     rustc cargo rustfmt
@@ -251,6 +252,8 @@ in rec
   #   okular
   # ])
   ++ (with haskellPackages; [
+    cabal-install
+    cabal2nix
     ghc
     gitHUD
     stack
