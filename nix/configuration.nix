@@ -196,7 +196,7 @@ in rec
     nodejs-8_x yarn
 
     # dev tools
-    httpstat httplab httpie wuzz dnsutils tcpdump
+    httpstat httplab httpie wuzz dnsutils tcpdump socat
 
     # compress tools
     atool zip unzip p7zip
