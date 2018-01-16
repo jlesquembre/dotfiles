@@ -1256,6 +1256,8 @@ endif
 
 " https://github.com/adzerk-oss/boot-cljs-repl#vim-fireplace
 command! PiggieBoot :Piggieback (adzerk.boot-cljs-repl/repl-env)
+" (shadow.cljs.devtools.api/nrepl-select :app)
+command! PiggieShadow :Piggieback :app
 
 "let g:is_piggieboot_running == 1
 "function! StartPiggieBootIfNotRunning()
