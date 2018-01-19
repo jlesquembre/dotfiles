@@ -40,7 +40,7 @@
     :dependencies
     #(into % '[[org.clojure/tools.nrepl "0.2.13"]
                [org.clojure/tools.namespace "0.3.0-alpha4"]
-               [cider/cider-nrepl "0.15.1"]
+               [cider/cider-nrepl "0.16.0"]
                [refactor-nrepl "2.3.1"]
                ;[cljfmt "0.5.6"]
                ; [expound "0.3.1"]
@@ -58,10 +58,11 @@
   (set-env!
     :dependencies
     #(into % '[[org.clojure/core.async "0.3.443"]
-               [cljs-ajax "0.7.2"]
+               [cljs-ajax "0.7.3"]
                [criterium "0.4.4"]
                [com.taoensso/tufte "1.1.2"]
-               [com.rpl/specter "1.0.4"]]))
+               [com.rpl/specter "1.1.0"]
+               [com.cognitect/transit-clj "0.8.300"]]))
                ; [rewrite-clj "0.6.0"]
                ; [zprint "0.4.3"]]))
   (cider))
