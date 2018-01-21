@@ -62,11 +62,11 @@ set -x PATH ./node_modules/.bin $PATH
 #end
 
 
-# Use ruby gems
-if test -d "$HOME/.gem"
-    set ruby_version (command ls $HOME/.gem/ruby | tail -1)
-    set -x PATH $PATH "$HOME/.gem/ruby/$ruby_version/bin"
-end
+# # Use ruby gems
+# if test -d "$HOME/.gem"
+#     set ruby_version (command ls $HOME/.gem/ruby | tail -1)
+#     set -x PATH $PATH "$HOME/.gem/ruby/$ruby_version/bin"
+# end
 
 
 # Virtual node functions
