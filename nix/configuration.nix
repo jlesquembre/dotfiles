@@ -18,6 +18,9 @@ let
   # unstable channel
   #channel-unstable = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz) {};
 
+  # latest stable channel
+  channel-17_09 = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-17.09.tar.gz) {};
+
   # specific commit
   # pkgs-58d44a3 = import (fetchTarball https://github.com/nixos/nixpkgs/archive/58d44a3.tar.gz) {};
 
@@ -152,10 +155,10 @@ in rec
     pavucontrol
     pciutils
     pdftk xpdf
-    php
-    php71Packages.composer
+    # php
+    # php71Packages.composer
     proselint
-    purescript
+    # purescript
     pwgen
     python
     ranger
@@ -167,7 +170,7 @@ in rec
     sox soxr
     sqlite
     sshfs-fuse
-    super-user-spark
+    # super-user-spark
     termite
     texlive.combined.scheme-full
     tldr
@@ -214,7 +217,7 @@ in rec
     libmysql postgresql pgcli
 
     # Digital currencies
-    electrum monero go-ethereum altcoins.bitcoin-classic
+    electrum monero go-ethereum
   ]
   ++ (with pkgs.gitAndTools; [
     diff-so-fancy
@@ -233,16 +236,17 @@ in rec
 
   # Extra packages added to the global python environment, see
   # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.md#installing-python-and-packages
-  ++ (with pkgs; [(python3.withPackages(ps: with ps; [
-    cookiecutter
-    ipython
-    jupyter
-    pygments
-  ]))])
+  # ++ (with pkgs; [(python3.withPackages(ps: with ps; [
+    # cookiecutter
+    # ipython
+    # jupyter
+    # pygments
+  # ]))])
 
   ++ (with pkgs.python36Packages; [
+    cookiecutter
     glances
-    # ipython
+    ipython
     neovim
     # pygments
     virtualenv
@@ -257,6 +261,10 @@ in rec
     ghc
     gitHUD
     stack
+    stack2nix
+  ])
+  ++ (with channel-17_09; [
+    super-user-spark
   ])
   ;
 
