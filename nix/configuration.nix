@@ -75,6 +75,10 @@ in rec
   nixpkgs.overlays = [
     (self: super: {
 
+      polybar = super.polybar.override {
+        i3Support = true;
+      };
+
       conky = super.conky.override {
         lua = self.lua5_3;
         luaImlib2Support = false;
@@ -105,7 +109,7 @@ in rec
     abcde
     autojump
     # breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
-    conky
+    # conky
     cheat
     chromium
     clementine
@@ -133,7 +137,7 @@ in rec
     highlight
     htop
     hyper
-    i3lock
+    i3lock i3status-rust
     k3b
     keychain
     libffi

@@ -225,7 +225,8 @@ bar {
         #    statusline #ADD8E6
         #}
         #workspace_buttons no
-        status_command conky -c ~/.i3/conkyrc
+        # status_command conky -c ~/.i3/conkyrc
+        status_command i3status-rs  ~/dotfiles/i3/i3status-rs_config.toml
         colors {
            separator $base03
            background $base01

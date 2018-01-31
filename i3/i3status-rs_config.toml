@@ -1,0 +1,77 @@
+[theme]
+name = "slick"
+[theme.overrides]
+separator = ""
+idle_bg = "#1f222d"
+idle_fg = "#ffffff"
+
+[icons]
+name = "awesome"
+# [icons.overrides]
+# cogs = ""
+# bat = " | | "
+# bat_full = " |X| "
+# bat_charging = " |^| "
+# bat_discharging = " |v| "
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 20
+
+[[block]]
+block = "memory"
+display_type = "memory"
+# format_mem = "{Mup}%"
+format_mem = "{Mug}GB/{MTg}GB ({Mup}%)"
+format_swap = "{SUp}%"
+
+[[block]]
+block = "cpu"
+interval = 1
+
+[[block]]
+block = "temperature"
+collapsed = false
+interval = 5
+
+# [[block]]
+# block = "load"
+# interval = 1
+# format = "{1m}"
+
+[[block]]
+block = "net"
+device = "wlp2s0"
+ssid = true
+ip = true
+bitrate = true
+speed_up = false
+speed_down = false
+graph_up = false
+interval = 5
+
+[[block]]
+block = "net"
+device = "eno1"
+ip = true
+speed_up = false
+speed_down = false
+graph_up = false
+interval = 5
+
+[[block]]
+block = "battery"
+interval = 10
+# show = "both"
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %d/%m %R"
