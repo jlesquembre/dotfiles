@@ -9,21 +9,22 @@ end
 
 function compress_videos --description 'Find and compress videos'
 
-    switch (count $argv)
-        case 0
-            set use_time 0
-        case 1
+    set use_time 0
+    set low_res 0
 
-            if test $argv[1] = "use_time"
-                set use_time 1
-            else
-                echo 'Only valid argument is "use_time"'
-                return 1
-            end
-        case '*'
-            echo 'Too many arguments'
+    for item in $argv
+        switch "$item"
+          case "use_time"
+            set use_time 1
+          case "low_res"
+            set low_res 1
+          case '*'
+            echo 'Only valid arguments are "use_time" and "low_res"'
             return 1
+        end
     end
+
+    # echo "Use time -> $use_time -- Low res -> $low_res"
 
     for path in ( find (pwd) -type f \( -iname "*.mp4" -or -iname "*.mts" -or -iname "*.webm" \)  )
         set -l dirname ( dirname "$path" )
@@ -45,7 +46,11 @@ function compress_videos --description 'Find and compress videos'
         set -l escaped_path (echo "$path" | sed "s/'/\\\'/g")
         set -l escaped_new_file (echo "$new_file" | sed "s/'/\\\'/g")
 
-        echo "$cmd -i '$escaped_path' -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k '$escaped_new_file'"
+        if test $low_res -eq 1
+          echo "$cmd -i '$escaped_path' -c:v libx265 -preset placebo -x265-params crf=32 -c:a libopus -b:a 128k '$escaped_new_file'"
+        else
+          echo "$cmd -i '$escaped_path' -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k '$escaped_new_file'"
+        end
     end
 end
 
