@@ -310,6 +310,13 @@ address=/.local/127.0.0.1
 
   # services.xserver.desktopManager.plasma5.enable = true;
 
+  # Use dconf-editor to see all settings, or see:
+  # https://github.com/GNOME/gtk/blob/master/gtk/org.gtk.Settings.FileChooser.gschema.xml
+  services.xserver.desktopManager.gnome3.extraGSettingsOverrides = ''
+[org.gtk.Settings.FileChooser]
+sort-directories-first=true
+'';
+
   services.devmon.enable = true;
   services.udev.packages = with pkgs; [ libu2f-host ];
 
