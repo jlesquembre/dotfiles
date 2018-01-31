@@ -19,7 +19,7 @@ let
   #channel-unstable = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz) {};
 
   # latest stable channel
-  channel-17_09 = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-17.09.tar.gz) {};
+  # channel-17_09 = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-17.09.tar.gz) {};
 
   # specific commit
   # pkgs-58d44a3 = import (fetchTarball https://github.com/nixos/nixpkgs/archive/58d44a3.tar.gz) {};
@@ -119,7 +119,7 @@ in rec
     Fabric
     fd
     file
-    firefox
+    firefox-bin
     fish
     fzf
     gcc6
@@ -155,10 +155,10 @@ in rec
     pavucontrol
     pciutils
     pdftk xpdf
-    # php
-    # php71Packages.composer
+    php
+    php71Packages.composer
     proselint
-    # purescript
+    purescript
     pwgen
     python
     ranger
@@ -166,11 +166,10 @@ in rec
     ripgrep
     rofi
     rsync
-    simplescreenrecorder
     sox soxr
     sqlite
     sshfs-fuse
-    # super-user-spark
+    super-user-spark
     termite
     texlive.combined.scheme-full
     tldr
@@ -187,10 +186,12 @@ in rec
     wget
     whois
     xclip
-    xfce.xfce4-screenshooter
     xorg.xkbcomp
     #xorg.xcursorthemes
     zathura
+
+    # screenshot utils
+    flameshot simplescreenrecorder xfce.xfce4-screenshooter
 
     # editors
     neovim neovim-remote vim customVscode customEmacs
@@ -263,9 +264,9 @@ in rec
     stack
     stack2nix
   ])
-  ++ (with channel-17_09; [
-    super-user-spark
-  ])
+  # ++ (with channel-17_09; [
+  #   super-user-spark
+  # ])
   ;
 
   # List services that you want to enable:
