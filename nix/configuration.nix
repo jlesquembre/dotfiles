@@ -152,7 +152,7 @@ in rec
     nix-repl
     notify-osd libnotify
     ntfs3g
-    okular
+    # okular
     openssl
     paper-icon-theme arc-theme
     pass
