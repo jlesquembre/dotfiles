@@ -297,6 +297,7 @@ alias dig="dig +nocmd any +multiline +noall +answer"
 alias getip="getent hosts"
 alias v="nvim"
 alias r="ranger"
+alias cljs='clj -Sdeps "{:deps {org.clojure/clojurescript {:mvn/version \"1.9.946\"}}}" -m cljs.repl.node'
 
 
 # Some abbreviations
