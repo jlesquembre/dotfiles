@@ -253,7 +253,7 @@ in rec
     glances
     ipython
     neovim
-    # pygments
+    pygments
     virtualenv
     youtube-dl
   ])
