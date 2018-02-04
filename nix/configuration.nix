@@ -288,6 +288,10 @@ in rec
 
   # DNS configuration
   networking.networkmanager.insertNameservers = ["127.0.0.1"];
+  # Don't use dns server provided by dhcp server
+  networking.dhcpcd.extraConfig = ''
+nohook resolv.conf
+'';
   services.dnsmasq.enable = true;
   # For dnscrypt use:
   #services.dnsmasq.servers = [ "127.0.0.1#43" ];
