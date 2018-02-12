@@ -1213,7 +1213,9 @@ augroup END
 
 "let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', '^match$']
 
-"" let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+let g:rainbow#blacklist = ['#'.g:base16_gui04, '#'.g:base16_gui05, '#'.g:base16_gui06, '#'.g:base16_gui07, '#'.g:base16_gui0E]
+" let g:rainbow#max_level = 16
 
 "au FileType clojure xnoremap <buffer> <Enter> :Eval<CR>
 "au FileType clojure nmap <buffer> <Enter> cpp
