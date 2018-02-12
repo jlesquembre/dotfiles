@@ -162,7 +162,7 @@ in rec
     php
     php71Packages.composer
     proselint
-    purescript
+    # purescript
     pwgen
     python
     ranger
