@@ -325,6 +325,10 @@ address=/.local/127.0.0.1
 sort-directories-first=true
 '';
 
+  programs.bash.enableCompletion = true;
+  programs.fish.enable = true;
+  programs.fish.vendor.completions.enable = true;
+
   services.devmon.enable = true;
   services.udev.packages = with pkgs; [ libu2f-host ];
 
