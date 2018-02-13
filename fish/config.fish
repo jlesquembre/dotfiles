@@ -159,7 +159,7 @@ end
 function fish_user_key_bindings
     bind \cc 'commandline ""'
     if type -q fzf-share
-        source (fzf-share)/key-bindings.fish
+        # source (fzf-share)/key-bindings.fish
         fzf_key_bindings
 
         bind \cj fzf-cd-widget
