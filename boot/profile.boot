@@ -41,10 +41,10 @@
     #(into % '[[org.clojure/tools.nrepl "0.2.13"]
                [org.clojure/tools.namespace "0.3.0-alpha4"]
                [cider/cider-nrepl "0.16.0"]
-               [refactor-nrepl "2.3.1"]
+               [refactor-nrepl "2.4.0-SNAPSHOT"]]))
                ;[cljfmt "0.5.6"]
                ; [expound "0.3.1"]
-               [slamhound "1.5.5"]]))
+               ; [slamhound "1.5.5"]]))
   (swap! @(resolve 'boot.repl/*default-middleware*)
          concat '[cider.nrepl/cider-middleware
                   refactor-nrepl.middleware/wrap-refactor])
