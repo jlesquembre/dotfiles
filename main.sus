@@ -17,6 +17,7 @@ card top {
   editorconfig.ini -> .editorconfig
   rofi.conf -> .config/rofi/config
   termite.conf -> .config/termite/config
+  kitty.conf -> .config/kitty/kitty.conf
   volumeicon -> .config/volumeicon/volumeicon
   nixpkgs_local -> .nixpkgs
   xmonad.hs -> .xmonad/xmonad.hs
