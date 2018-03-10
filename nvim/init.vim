@@ -74,7 +74,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'junegunn/seoul256.vim'
 Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
-Plug 'MaxSt/FlatColor'
+Plug 'challenger-deep-theme/vim'
 Plug 'KabbAmine/yowish.vim'
 Plug 'mhinz/vim-janah'
 " Plug 'dracula/vim'
@@ -194,11 +194,8 @@ Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'guns/vim-clojure-highlight' | Plug 'guns/vim-clojure-static'
 
-"TODO pin to commit until node-host is merged into core neovim, see:
-" https://github.com/neovim/node-host/pull/27#issuecomment-317672178
-Plug 'neovim/node-host', { 'dir': '~/.config/nvim/plugged/node-host', 'do': 'yarn install', 'commit': '0c116cb3b48af7' }
 
-Plug 'clojure-vim/nvim-parinfer.js', {'do': ':UpdateRemotePlugins'}
+Plug 'clojure-vim/nvim-parinfer.js', {'do': 'lein do npm install'}
 Plug 'clojure-vim/async-clj-omni'
 
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
@@ -269,6 +266,7 @@ set showcmd                     " display incomplete commands
 set cursorline
 set clipboard+=unnamedplus  " Use "+ register
 set inccommand=split
+set updatetime=100 " Also used for the CursorHold autocommand
 
 " Better folds
 "set foldcolumn=1
