@@ -41,7 +41,9 @@
     #(into % '[[org.clojure/tools.nrepl "0.2.13"]
                [org.clojure/tools.namespace "0.3.0-alpha4"]
                [cider/cider-nrepl "0.16.0"]
-               [refactor-nrepl "2.4.0-SNAPSHOT"]]))
+               [refactor-nrepl "2.4.0-SNAPSHOT"]
+               [jonase/eastwood "0.2.5" :exclusions [org.clojure/clojure]]
+               [jonase/kibit "0.1.6" :exclusions [org.clojure/clojure]]]))
                ;[cljfmt "0.5.6"]
                ; [expound "0.3.1"]
                ; [slamhound "1.5.5"]]))

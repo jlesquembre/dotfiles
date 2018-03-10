@@ -197,6 +197,7 @@ Plug 'guns/vim-clojure-highlight' | Plug 'guns/vim-clojure-static'
 
 Plug 'clojure-vim/nvim-parinfer.js', {'do': 'lein do npm install'}
 Plug 'clojure-vim/async-clj-omni'
+Plug 'humorless/vim-kibit'
 
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 "Plug 'clojure-vim/neovim-client', { 'for': 'clojure' }
