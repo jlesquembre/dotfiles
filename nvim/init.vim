@@ -81,7 +81,7 @@ Plug 'mhinz/vim-janah'
 Plug 'liuchengxu/space-vim-dark'
 
 
-"Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons'
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Navigation

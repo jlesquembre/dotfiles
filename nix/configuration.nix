@@ -321,6 +321,8 @@ address=/.local/127.0.0.1
 
   # Use dconf-editor to see all settings, or see:
   # https://github.com/GNOME/gtk/blob/master/gtk/org.gtk.Settings.FileChooser.gschema.xml
+  # environment.extraOutputsToInstall = ["dev"];
+  # services.xserver.desktopManager.gnome3.enable = true;
   services.xserver.desktopManager.gnome3.extraGSettingsOverrides = ''
 [org.gtk.Settings.FileChooser]
 sort-directories-first=true
@@ -354,18 +356,19 @@ sort-directories-first=true
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
       corefonts
+      dejavu_fonts
+      font-awesome-ttf
+      freefont_ttf
       hack-font
       inconsolata
-      ubuntu_font_family
-      unifont
+      nerdfonts
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
-      ttf_bitstream_vera
-      dejavu_fonts
-      freefont_ttf
       powerline-fonts
-      font-awesome-ttf
+      ttf_bitstream_vera
+      ubuntu_font_family
+      unifont
     ];
   };
 
