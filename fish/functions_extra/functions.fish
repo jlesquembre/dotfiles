@@ -254,6 +254,11 @@ end
 #  end
 #end
 
+function clone --description "clone something, cd into it. install it."
+  git clone --depth=1 $argv[1]
+  cd (basename $argv[1] | sed 's/.git$//')
+  # yarn install
+end
 
 function md --wraps mkdir -d "Create a directory and cd into it"
   command mkdir -p $argv
@@ -265,6 +270,10 @@ function md --wraps mkdir -d "Create a directory and cd into it"
         return
     end
   end
+end
+
+function sudo!!
+  eval sudo $history[1]
 end
 
 
@@ -298,7 +307,7 @@ function passgen -d 'Alias for pwgen' ; pwgen $argv; end;
 alias push="git push"
 alias diskspace_report="df -P -kHl"
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias dig="dig +nocmd any +multiline +noall +answer"
+alias dig-short="dig +nocmd any +multiline +noall +answer"
 alias getip="getent hosts"
 alias v="nvim"
 alias r="ranger"
