@@ -158,6 +158,7 @@ end
 
 function fish_user_key_bindings
     bind \cc 'commandline ""'
+    bind \cs 'fssh'
     if type -q fzf-share
         # source (fzf-share)/key-bindings.fish
         fzf_key_bindings

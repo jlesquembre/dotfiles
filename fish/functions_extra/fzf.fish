@@ -6,9 +6,35 @@ set fzf_preview_all '--preview "if test -d {};\
 
 set fzf_preview_dir '--preview "tree -C {} | head -200"'
 
+set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow'
+set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -x FZF_CTRL_T_OPTS $fzf_preview_all
+
+set -x FZF_ALT_C_COMMAND "fd -t d . $HOME"
 set -x FZF_ALT_C_OPTS $fzf_preview_dir
+
 set -x FZF_CTRL_R_OPTS '--preview "echo {}" --preview-window down:3:hidden --bind "?:toggle-preview"'
+
+# function fshow
+#   git log --graph --color=always \
+#       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$argv" | \
+#   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+#       --bind "ctrl-m:execute:
+#                 (grep -o '[a-f0-9]\{7\}' | head -1 |
+#                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+#                 {}
+# FZF-EOF"
+# end
+
+function fssh -d "Fuzzy-find ssh host"
+  set -q FZF_TMUX_HEIGHT; or set FZF_TMUX_HEIGHT 20%
+    begin
+      set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT +m"
+      rg --ignore-case '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2 | eval (__fzfcmd) -q '(commandline)' | read -l result
+      and commandline -- "ssh $result"
+    end
+    commandline -f repaint
+end
 
 
 function _run_fzf_cmd
