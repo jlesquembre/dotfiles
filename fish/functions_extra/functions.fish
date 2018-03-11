@@ -289,6 +289,12 @@ function server -d 'Start a HTTP server in the current dir, optionally specifyin
 end
 
 
+function nixcd -d 'cd to nix store executable'
+  cd (dirname (readlink -f (command -s $argv[1])) | sed 's/bin$//')
+end
+complete --command nixcd -f --arguments '(__fish_complete_command)'
+
+
 # Navigation
 function ..    ; cd .. ; end
 function ...   ; cd ../.. ; end
