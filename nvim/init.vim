@@ -859,8 +859,9 @@ xmap gs  <plug>(GrepperOperator)
 " File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
 let g:fzf_files_options = '--preview "(file -ib {} | rg binary || highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
 
-nnoremap <silent> <Leader>f       :FilesRg<CR>
-nnoremap <silent> <Leader>ff      :FilesRg<CR>
+nnoremap <silent> <Leader>f       :FilesFd<CR>
+nnoremap <silent> <Leader>ff      :FilesFd<CR>
+nnoremap <silent> <Leader>fa      :FilesFdAll<CR>
 nnoremap <silent> <Leader>fg      :GFiles<CR>
 nnoremap <silent> <Leader>fc      :Colors<CR>
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
@@ -884,11 +885,15 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
 
-command! -bang -nargs=? -complete=dir FilesRg  call fzf#vim#files(<q-args>, {
-  \ 'source': 'rg --files --hidden -g "!.git/"'
+command! -bang -nargs=? -complete=dir FilesFd call fzf#vim#files(<q-args>, {
+  \ 'source': 'fd --hidden --follow --exclude ".git"'
   \ },
   \ <bang>0)
 
+command! -bang -nargs=? -complete=dir FilesFdAll call fzf#vim#files(<q-args>, {
+  \ 'source': 'fd --hidden --follow --no-ignore'
+  \ },
+  \ <bang>0)
 
 command! -bang -nargs=* Find
   \ call fzf#vim#grep('rg --column --line-number --no-heading --color=always '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
