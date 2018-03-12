@@ -1189,17 +1189,22 @@ let g:sexp_insert_after_wrap = 0
 
 let g:clojure_align_multiline_strings = 1
 
-fun! DisableAutopairs()
-    " If variable autopairs_loaded doesn't exit, the plugin will be loaded
-    " let b:autopairs_loaded = 0
-    " let b:autopairs_enabled = 0
-    let b:AutoPairs = {'"':'"'}
+fun! LispCustomSettings()
+  " If variable autopairs_loaded doesn't exit, the plugin will be loaded
+  " let b:autopairs_loaded = 0
+  " let b:autopairs_enabled = 0
+  execute 'RainbowParentheses'
+  let b:AutoPairs = {'"':'"'}
+  " setlocal iskeyword-=/
+  " nnoremap <Plug>FireplaceK :<C-R>=<SID>K()<CR><CR>
+  " nnoremap <silent> <Plug>FireplaceDjump :<C-U>exe <SID>Edit('edit')<CR>
+  " nnoremap <silent> <Plug>FireplaceDsplit :<C-U>exe <SID>Edit('split')<CR>
+  " nnoremap <silent> <Plug>FireplaceDtabjump :<C-U>exe <SID>Edit('tabedit')<CR>
 endfun
 
 augroup clojure
   autocmd!
-  autocmd FileType lisp,clojure,scheme RainbowParentheses
-  autocmd FileType lisp,clojure,scheme call DisableAutopairs()
+  autocmd FileType lisp,clojure,scheme call LispCustomSettings()
 "  autocmd FileType lisp,clojure,scheme
 "        \ nnoremap <buffer> <leader>a[ vi[<c-v>$:EasyAlign\ g/^\S/<cr>gv=
 "  autocmd FileType lisp,clojure,scheme
