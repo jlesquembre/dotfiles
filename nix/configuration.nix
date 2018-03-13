@@ -136,7 +136,6 @@ in rec
     gwenview
     highlight
     htop
-    hyper
     i3lock i3status-rust
     k3b
     keychain
@@ -148,6 +147,7 @@ in rec
     lzma
     mcomix
     mediainfo
+    ncurses.dev # infocmp and more utils
     neofetch
     nginxMainline
     nix-repl
@@ -163,7 +163,7 @@ in rec
     php
     php71Packages.composer
     proselint
-    # purescript
+    purescript
     pwgen
     python
     ranger
@@ -175,7 +175,6 @@ in rec
     sqlite
     sshfs-fuse
     super-user-spark
-    termite
     texlive.combined.scheme-full
     tldr
     tmux
@@ -195,6 +194,9 @@ in rec
     #xorg.xcursorthemes
     zathura
 
+    # terminals
+    hyper kitty termite
+
     # screenshot utils
     flameshot simplescreenrecorder xfce.xfce4-screenshooter
 
@@ -205,7 +207,7 @@ in rec
     nodejs-8_x yarn
 
     # dev tools
-    httpstat httplab httpie wuzz dnsutils tcpdump socat
+    httpstat httplab httpie wuzz dnsutils tcpdump socat postman
 
     # compress tools
     atool zip unzip p7zip
