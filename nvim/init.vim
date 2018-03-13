@@ -545,7 +545,12 @@ nnoremap <C-h> <c-w>h
 nnoremap <C-j> <c-w>j
 nnoremap <C-k> <c-w>k
 nnoremap <C-l> <c-w>l
+
 nnoremap <leader>wt <C-w>T
+nnoremap <leader>wh <C-w>H
+nnoremap <leader>wj <C-w>J
+nnoremap <leader>wk <C-w>K
+nnoremap <leader>wl <C-w>L
 
 " Not needed, provided by vim-indexed-search plugin
 " Saner behavior of n and N
@@ -1195,6 +1200,15 @@ fun! LispCustomSettings()
   " let b:autopairs_enabled = 0
   execute 'RainbowParentheses'
   let b:AutoPairs = {'"':'"'}
+
+  " It's not possible to remap CTRL-M in insert mode, see
+  " :h index -> see list of vim mappings
+  " :h key-notation
+  nnoremap <silent> <c-j> :ParinferToggleMode<cr>
+  vnoremap <silent> <c-j> <esc>:ParinferToggleMode<cr>gv
+  inoremap <silent> <c-j> <c-o>:ParinferToggleMode<cr>
+  nnoremap <silent> <leader>cm :ParinferToggleMode<cr>
+
   " setlocal iskeyword-=/
   " nnoremap <Plug>FireplaceK :<C-R>=<SID>K()<CR><CR>
   " nnoremap <silent> <Plug>FireplaceDjump :<C-U>exe <SID>Edit('edit')<CR>
@@ -1230,15 +1244,6 @@ let g:rainbow#blacklist = ['#'.g:base16_gui04, '#'.g:base16_gui05, '#'.g:base16_
 "au FileType clojure nmap <buffer> <Enter> cpp
 
 nnoremap <leader>cn :Slamhound<cr>
-nnoremap <silent> <leader>cm :ParinferToggleMode<cr>
-
-" It's not possible to remap CTRL-M in insert mode, see
-" :h index -> see list of vim mappings
-" :h key-notation
-nnoremap <silent> <c-j> :ParinferToggleMode<cr>
-vnoremap <silent> <c-j> <esc>:ParinferToggleMode<cr>gv
-inoremap <silent> <c-j> <c-o>:ParinferToggleMode<cr>
-
 
 " if socketrepl is active
 if exists('g:socket_repl_plugin_ready')
