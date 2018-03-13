@@ -139,7 +139,6 @@ in rec
     i3lock i3status-rust
     k3b
     keychain
-    kitty
     libffi
     libicns
     libstdcxx5

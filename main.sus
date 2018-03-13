@@ -52,7 +52,6 @@ card top {
     outof fish
 
     config.fish
-    functions
     functions_extra
   }
 
