@@ -590,10 +590,10 @@ nnoremap <silent> <Leader>e $
 " Quick breakpoints
 augroup AutoBreakpoint
   autocmd!
-  autocmd FileType python map <silent> <leader><leader>b oimport ipdb; ipdb.set_trace()<esc>
-  autocmd FileType python map <silent> <leader><leader>B Oimport ipdb; ipdb.set_trace()<esc>
-  autocmd FileType javascript map <silent> <leader><leader>b odebugger;<esc>
-  autocmd FileType javascript map <silent> <leader><leader>B Odebugger;<esc>
+  autocmd FileType python map <silent><buffer> <leader><leader>b oimport ipdb; ipdb.set_trace()<esc>
+  autocmd FileType python map <silent><buffer> <leader><leader>B Oimport ipdb; ipdb.set_trace()<esc>
+  autocmd FileType javascript map <silent><buffer> <leader><leader>b odebugger;<esc>
+  autocmd FileType javascript map <silent><buffer> <leader><leader>B Odebugger;<esc>
 augroup END
 
 " highlight last inserted text
@@ -1204,16 +1204,18 @@ fun! LispCustomSettings()
   " It's not possible to remap CTRL-M in insert mode, see
   " :h index -> see list of vim mappings
   " :h key-notation
-  nnoremap <silent> <c-j> :ParinferToggleMode<cr>
-  vnoremap <silent> <c-j> <esc>:ParinferToggleMode<cr>gv
-  inoremap <silent> <c-j> <c-o>:ParinferToggleMode<cr>
-  nnoremap <silent> <leader>cm :ParinferToggleMode<cr>
+  nnoremap <silent><buffer> <c-n> :ParinferToggleMode<cr>
+  vnoremap <silent><buffer> <c-n> <esc>:ParinferToggleMode<cr>gv
+  inoremap <silent><buffer> <c-n> <c-o>:ParinferToggleMode<cr>
+  nnoremap <silent><buffer> <leader>cm :ParinferToggleMode<cr>
 
   " setlocal iskeyword-=/
   " nnoremap <Plug>FireplaceK :<C-R>=<SID>K()<CR><CR>
   " nnoremap <silent> <Plug>FireplaceDjump :<C-U>exe <SID>Edit('edit')<CR>
   " nnoremap <silent> <Plug>FireplaceDsplit :<C-U>exe <SID>Edit('split')<CR>
   " nnoremap <silent> <Plug>FireplaceDtabjump :<C-U>exe <SID>Edit('tabedit')<CR>
+
+  nnoremap <buffer> <leader>cn :Slamhound<cr>
 endfun
 
 augroup clojure
@@ -1242,8 +1244,6 @@ let g:rainbow#blacklist = ['#'.g:base16_gui04, '#'.g:base16_gui05, '#'.g:base16_
 
 "au FileType clojure xnoremap <buffer> <Enter> :Eval<CR>
 "au FileType clojure nmap <buffer> <Enter> cpp
-
-nnoremap <leader>cn :Slamhound<cr>
 
 " if socketrepl is active
 if exists('g:socket_repl_plugin_ready')
@@ -1405,6 +1405,8 @@ let g:ale_fixers = {
 map <silent> <leader>af :ALEFix<cr>
 nmap <silent> <leader>ak <Plug>(ale_previous_wrap)
 nmap <silent> <leader>aj <Plug>(ale_next_wrap)
+nmap <silent> [w <Plug>(ale_previous_wrap)
+nmap <silent> ]w <Plug>(ale_next_wrap)
 
 " ALE
 
@@ -1513,12 +1515,56 @@ nmap <Leader>x <Plug>ListToggleQuickfixListToggle
 " ============================================================================
 
 let g:user_emmet_install_global = 0
+" let g:user_emmet_leader_key='<C-n>'
+
+let g:user_emmet_expandabbr_key = '<C-n>n'
+let g:user_emmet_expandword_key = '<C-n>;'
+let g:user_emmet_update_tag = '<C-n>u'
+let g:user_emmet_balancetaginward_key = '<C-n>d'
+let g:user_emmet_balancetagoutward_key = '<C-n>D'
+" let g:user_emmet_next_key = '<C-n>n'
+" let g:user_emmet_prev_key = '<C-n>N'
+let g:user_emmet_imagesize_key = '<C-n>i'
+let g:user_emmet_togglecomment_key = '<C-n>/'
+let g:user_emmet_splitjointag_key = '<C-n>j'
+let g:user_emmet_removetag_key = '<C-n>k'
+let g:user_emmet_anchorizeurl_key = '<C-n>a'
+let g:user_emmet_anchorizesummary_key = '<C-n>A'
+let g:user_emmet_mergelines_key = '<C-n>m'
+let g:user_emmet_codepretty_key = '<C-n>c'
+
+function! s:emmet_configuration() abort
+  execute 'EmmetInstall'
+  nmap   <C-n><C-n> <C-n>n
+  imap   <C-n><C-n> <C-n>n
+  vmap   <C-n><C-n> <C-n>n
+
+  nmap   <C-n><C-u> <C-n>u
+  imap   <C-n><C-u> <C-n>u
+  vmap   <C-n><C-u> <C-n>u
+
+  nmap   <C-n><C-m> <C-n>m
+  imap   <C-n><C-m> <C-n>m
+  vmap   <C-n><C-m> <C-n>m
+
+  nmap   <C-n><C-k> <C-n>k
+  imap   <C-n><C-k> <C-n>k
+  vmap   <C-n><C-k> <C-n>k
+
+  nmap   <C-n><C-j> <C-n>j
+  imap   <C-n><C-j> <C-n>j
+  vmap   <C-n><C-j> <C-n>j
+
+  nmap   <C-n><C-a> <C-n>a
+  imap   <C-n><C-a> <C-n>a
+  vmap   <C-n><C-a> <C-n>a
+endfunction
 
 augroup AutoEmmet
   autocmd!
-  autocmd FileType html,css EmmetInstall
+  autocmd FileType html,css,javascript call s:emmet_configuration()
   " https://github.com/mattn/emmet-vim/issues/168#issuecomment-35853346
-  autocmd FileType html,css imap <expr> <tab>
+  autocmd FileType html imap <expr> <tab>
     \ pumvisible() ? "\<C-n>" :
     \ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
     \ "\<tab>"
