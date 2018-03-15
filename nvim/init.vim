@@ -74,10 +74,10 @@ Plug 'mhartington/oceanic-next'
 Plug 'junegunn/seoul256.vim'
 Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
-Plug 'challenger-deep-theme/vim'
+Plug 'challenger-deep-theme/vim', {'as': 'challenger-deep-theme'}
 Plug 'KabbAmine/yowish.vim'
 Plug 'mhinz/vim-janah'
-" Plug 'dracula/vim'
+" Plug 'dracula/vim', {'as': 'dracula-colorscheme'}
 Plug 'liuchengxu/space-vim-dark'
 
 
