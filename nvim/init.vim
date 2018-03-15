@@ -910,6 +910,13 @@ command! Plugs call fzf#run({
   \ 'down':    '~30%',
   \ 'sink':    'VimFiler'})
 
+augroup fzf_custom
+  autocmd!
+  autocmd FileType fzf tnoremap <buffer> <C-j> <C-n>
+  autocmd FileType fzf tnoremap <buffer> <C-k> <C-p>
+augroup END
+
+
 " END FZF
 
 
