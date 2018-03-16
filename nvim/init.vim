@@ -157,7 +157,8 @@ Plug 'Matt-Deacalion/vim-systemd-syntax'
 Plug 'rust-lang/rust.vim'
 "PLug 'wting/rust.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'HerringtonDarkholme/yats.vim'  " Typescript
 "Plug 'LaTeX-Box-Team/LaTeX-Box', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
@@ -369,6 +370,7 @@ function! g:Base16_customize() abort
   call Base16hi("QuickFixLine",  g:base16_gui00, g:base16_gui09, g:base16_cterm00, g:base16_cterm09, "none", "")
   call Base16hi("PMenu",         g:base16_gui04, g:base16_gui01, g:base16_cterm04, g:base16_cterm01, "none", "")
   call Base16hi("PMenuSel",      g:base16_gui01, g:base16_gui04, g:base16_cterm01, g:base16_cterm04, "", "")
+  " call Base16hi("jsxTag",      g:base16_gui09, "", g:base16_cterm09, "", "", "")
 
   " Diff
   let s:guiDiffAdd = s:mixcolors(g:base16_gui00, g:base16_gui0B, 0.3)
