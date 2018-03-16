@@ -162,7 +162,6 @@ in rec
     php
     php71Packages.composer
     proselint
-    purescript
     pwgen
     python
     ranger
@@ -216,6 +215,9 @@ in rec
 
     # JDK tools
     jdk visualvm clojure leiningen pkgs.boot joker
+
+    # purescript
+    purescript psc-package nodePackages.pulp
 
     # Rust
     rustc cargo rustfmt
