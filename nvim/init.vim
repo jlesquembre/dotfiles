@@ -140,6 +140,8 @@ Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'int3/vim-extradite'
+Plug 'junegunn/gv.vim'
+" Plug 'gregsexton/gitv', {'on': ['Gitv']}
 " Plug 'lambdalisue/gina.vim'
 
 
@@ -832,6 +834,15 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gcc :Gcommit<CR>
 nnoremap <leader>gp :Gpush<CR>
 "nnoremap <leader>gr :Git reset -q -- %<CR>
+nnoremap <leader>gll :GV!<CR>
+nnoremap <leader>gla :GV<CR>
+
+augroup open_folds_gitlog
+  autocmd!
+  autocmd Syntax git setlocal foldmethod=syntax
+  autocmd Syntax git normal zR
+augroup END
+
 
 " END FUGITIVE
 
@@ -932,7 +943,7 @@ augroup END
 " ============================================================================
 
 let g:better_whitespace_filetypes_blacklist = [
-\ 'magit',
+\ 'git', 'magit',
 \ 'diff', 'gitcommit', 'unite', 'qf', 'help'
 \ ]
 
