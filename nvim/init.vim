@@ -140,7 +140,7 @@ Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'int3/vim-extradite'
-"Plug 'lambdalisue/gina.vim'
+" Plug 'lambdalisue/gina.vim'
 
 
 " Syntax
@@ -370,6 +370,11 @@ function! g:Base16_customize() abort
   call Base16hi("QuickFixLine",  g:base16_gui00, g:base16_gui09, g:base16_cterm00, g:base16_cterm09, "none", "")
   call Base16hi("PMenu",         g:base16_gui04, g:base16_gui01, g:base16_cterm04, g:base16_cterm01, "none", "")
   call Base16hi("PMenuSel",      g:base16_gui01, g:base16_gui04, g:base16_cterm01, g:base16_cterm04, "", "")
+
+  " vimagit / diff colors
+  call Base16hi("titleEntry", g:base16_gui0D, "", g:base16_cterm0D, "", "bold", "")
+  call Base16hi("fileEntry",  g:base16_gui0E, "", g:base16_cterm0E, "", "bold", "")
+  call Base16hi("DiffLine",   g:base16_gui03, "", g:base16_cterm03, "", "", "")
   " call Base16hi("jsxTag",      g:base16_gui09, "", g:base16_cterm09, "", "", "")
 
   " Diff
