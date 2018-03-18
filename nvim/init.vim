@@ -184,6 +184,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'w0rp/ale'
 Plug 'kassio/neoterm'
 Plug 'metakirby5/codi.vim'
+Plug 'mhinz/vim-sayonara'
 
 " Autocompletion
 Plug 'roxma/nvim-completion-manager'
@@ -526,11 +527,6 @@ nnoremap <leader>w <C-w>
 
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
-
-" Fast quit
-nnoremap <leader>qq :q<cr>
-nnoremap <leader>qa :qa<cr>
-nnoremap <leader>qw :x<cr>
 
 " Fast window moves
 " Terminal mode:
@@ -1598,3 +1594,18 @@ augroup AutoEmmet
 augroup END
 
 " EMMET
+
+" ============================================================================
+" SAYONARA {{{1
+" ============================================================================
+
+let g:sayonara_confirm_quit = 0
+
+nnoremap <leader>q :Sayonara<cr>
+nnoremap <leader>Q :Sayonara!<cr>
+
+" nnoremap <leader>qq :q<cr>
+" nnoremap <leader>qa :qa<cr>
+" nnoremap <leader>qw :x<cr>
+
+" SAYONARA
