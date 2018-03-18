@@ -949,6 +949,11 @@ let g:better_whitespace_filetypes_blacklist = [
 " AIRLINE {{{1
 " ============================================================================
 
+augroup disable_whitespace_check
+  autocmd!
+  execute 'autocmd FileType '.join(g:better_whitespace_filetypes_blacklist, ','). ' let b:airline_whitespace_disabled = 1'
+augroup END
+
 " set laststatus=2  " Neovim default
 "let g:airline_theme='powerlineish'
 let g:airline_theme='oceanicnext'
