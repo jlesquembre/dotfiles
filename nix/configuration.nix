@@ -208,7 +208,7 @@ in rec
     httpstat httplab httpie wuzz dnsutils tcpdump socat postman
 
     # compress tools
-    atool zip unzip p7zip
+    atool zip unzip p7zip dpkg
 
     # audio/video tools
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
