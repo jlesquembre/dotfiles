@@ -849,6 +849,11 @@ augroup END
 let g:magit_show_magit_mapping='<leader>gm'
 let g:magit_default_fold_level=2
 
+augroup vimagit_custom
+  autocmd!
+  autocmd User VimagitEnterCommit startinsert
+augroup END
+
 " END
 
 " ============================================================================
