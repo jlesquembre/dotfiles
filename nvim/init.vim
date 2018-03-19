@@ -1490,9 +1490,8 @@ function! SendToNeoterm(type, ...)
 endfunction
 
 
-" let g:neoterm_position = 'vertical'
 let g:neoterm_autoscroll = 1
-let g:neoterm_tnew_mod = 'botright'
+let g:neoterm_default_mod ='botright'
 let g:neoterm_size = 'v'
 "let g:neoterm_shell = 'fish'
 
