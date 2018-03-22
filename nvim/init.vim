@@ -1549,47 +1549,48 @@ nmap <Leader>x <Plug>ListToggleQuickfixListToggle
 let g:user_emmet_install_global = 0
 " let g:user_emmet_leader_key='<C-n>'
 
-let g:user_emmet_expandabbr_key = '<C-n>n'
-let g:user_emmet_expandword_key = '<C-n>;'
-let g:user_emmet_update_tag = '<C-n>u'
-let g:user_emmet_balancetaginward_key = '<C-n>d'
-let g:user_emmet_balancetagoutward_key = '<C-n>D'
-" let g:user_emmet_next_key = '<C-n>n'
-" let g:user_emmet_prev_key = '<C-n>N'
-let g:user_emmet_imagesize_key = '<C-n>i'
-let g:user_emmet_togglecomment_key = '<C-n>/'
-let g:user_emmet_splitjointag_key = '<C-n>j'
-let g:user_emmet_removetag_key = '<C-n>k'
-let g:user_emmet_anchorizeurl_key = '<C-n>a'
-let g:user_emmet_anchorizesummary_key = '<C-n>A'
-let g:user_emmet_mergelines_key = '<C-n>m'
-let g:user_emmet_codepretty_key = '<C-n>c'
+" let g:user_emmet_expandabbr_key = '<A-n>n'
+" let g:user_emmet_expandword_key = '<A-n>;'
+" let g:user_emmet_update_tag = '<A-n>u'
+" let g:user_emmet_balancetaginward_key = '<A-n>d'
+" let g:user_emmet_balancetagoutward_key = '<A-n>D'
+" " let g:user_emmet_next_key = '<A-n>n'
+" " let g:user_emmet_prev_key = '<A-n>N'
+" let g:user_emmet_imagesize_key = '<A-n>i'
+" let g:user_emmet_togglecomment_key = '<A-n>/'
+" let g:user_emmet_splitjointag_key = '<A-n>j'
+" let g:user_emmet_removetag_key = '<A-n>k'
+" let g:user_emmet_anchorizeurl_key = '<A-n>a'
+" let g:user_emmet_anchorizesummary_key = '<A-n>A'
+" let g:user_emmet_mergelines_key = '<A-n>m'
+" let g:user_emmet_codepretty_key = '<A-n>c'
 
 function! s:emmet_configuration() abort
   execute 'EmmetInstall'
-  nmap   <C-n><C-n> <C-n>n
-  imap   <C-n><C-n> <C-n>n
-  vmap   <C-n><C-n> <C-n>n
 
-  nmap   <C-n><C-u> <C-n>u
-  imap   <C-n><C-u> <C-n>u
-  vmap   <C-n><C-u> <C-n>u
+  imap <buffer> <A-n><A-n> <C-y><plug>(emmet-expand-abbr)
+  nmap <buffer> <A-n><A-n> <plug>(emmet-expand-abbr)
+  vmap <buffer> <A-n><A-n> <plug>(emmet-expand-abbr)
 
-  nmap   <C-n><C-m> <C-n>m
-  imap   <C-n><C-m> <C-n>m
-  vmap   <C-n><C-m> <C-n>m
+  nmap <buffer> <A-n><A-u> <C-y><plug>(emmet-update-tag)
+  imap <buffer> <A-n><A-u> <plug>(emmet-update-tag)
+  vmap <buffer> <A-n><A-u> <plug>(emmet-update-tag)
 
-  nmap   <C-n><C-k> <C-n>k
-  imap   <C-n><C-k> <C-n>k
-  vmap   <C-n><C-k> <C-n>k
+  nmap <buffer> <A-n><A-m> <plug>(emmet-merge-lines)
+  imap <buffer> <A-n><A-m> <plug>(emmet-merge-lines)
+  vmap <buffer> <A-n><A-m> <plug>(emmet-merge-lines)
 
-  nmap   <C-n><C-j> <C-n>j
-  imap   <C-n><C-j> <C-n>j
-  vmap   <C-n><C-j> <C-n>j
+  nmap <buffer> <A-n><A-k> <plug>(emmet-remove-tag)
+  imap <buffer> <A-n><A-k> <plug>(emmet-remove-tag)
+  vmap <buffer> <A-n><A-k> <plug>(emmet-remove-tag)
 
-  nmap   <C-n><C-a> <C-n>a
-  imap   <C-n><C-a> <C-n>a
-  vmap   <C-n><C-a> <C-n>a
+  nmap <buffer> <A-n><A-j> <plug>(emmet-split-join-tag)
+  imap <buffer> <A-n><A-j> <plug>(emmet-split-join-tag)
+  vmap <buffer> <A-n><A-j> <plug>(emmet-split-join-tag)
+
+  nmap <buffer> <A-n><A-a> <plug>(emmet-anchorize-url)
+  imap <buffer> <A-n><A-a> <plug>(emmet-anchorize-url)
+  vmap <buffer> <A-n><A-a> <plug>(emmet-anchorize-url)
 endfunction
 
 augroup AutoEmmet
