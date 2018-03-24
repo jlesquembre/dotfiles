@@ -402,6 +402,9 @@ function! g:Base16_customize() abort
   call Base16hi("vimLet",   g:base16_gui0E, "", g:base16_cterm0E, "", "", "")
   call Base16hi("vimSet",   g:base16_gui0E, "", g:base16_cterm0E, "", "", "")
 
+  call Base16hi("ALEErrorSign",   g:base16_gui08, g:base16_gui01, "", "", "", "")
+  call Base16hi("ALEWarningSign",   g:base16_gui09, g:base16_gui01, "", "", "", "")
+
 endfunction
 
 augroup on_change_colorschema
@@ -564,10 +567,10 @@ nnoremap <leader>wl <C-w>L
 " nnoremap <silent><expr> n 'Nn'[v:searchforward] . 'zv:call halo#run()<cr>'
 " nnoremap <silent><expr> N 'nN'[v:searchforward] . 'zv:call halo#run()<cr>'
 let g:indexed_search_mappings = 0
-nmap / <Plug>(indexed-search-/)
-nmap ? <Plug>(indexed-search-?)
-nmap * <Plug>(indexed-search-*)
-nmap # <Plug>(indexed-search-#)
+" nmap / <Plug>(indexed-search-/)
+" nmap ? <Plug>(indexed-search-?)
+" nmap * <Plug>(indexed-search-*)
+" nmap # <Plug>(indexed-search-#)
 noremap <silent><expr> n 'Nn'[v:searchforward] . ':ShowSearchIndex<CR>zv:call halo#run()<cr>'
 noremap <silent><expr> N 'nN'[v:searchforward] . ':ShowSearchIndex<CR>zv:call halo#run()<cr>'
 
@@ -1401,6 +1404,8 @@ let g:headlines_height= 22
 " ALE {{{1
 " ============================================================================
 
+let g:ale_sign_error = '⬥'
+let g:ale_sign_warning = '⬥'
 
 let g:ale_javascript_prettier_executable = 'prettier_d'
 let g:ale_javascript_prettier_options = '--trailing-comma es5'
