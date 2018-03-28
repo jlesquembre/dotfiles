@@ -1407,9 +1407,9 @@ let g:headlines_height= 22
 let g:ale_sign_error = '⬥'
 let g:ale_sign_warning = '⬥'
 
-let g:ale_javascript_prettier_executable = 'prettier_d'
-let g:ale_javascript_prettier_options = '--trailing-comma es5'
-let g:ale_javascript_eslint_executable = 'eslint_d'
+" let g:ale_javascript_prettier_executable = 'prettier_d'
+" let g:ale_javascript_prettier_options = '--trailing-comma es5'
+" let g:ale_javascript_eslint_executable = 'eslint_d'
 
 let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', 'virtualenv']
 
