@@ -602,6 +602,9 @@ augroup AutoBreakpoint
   autocmd FileType python map <silent><buffer> <leader><leader>B Oimport ipdb; ipdb.set_trace()<esc>
   autocmd FileType javascript map <silent><buffer> <leader><leader>b odebugger;<esc>
   autocmd FileType javascript map <silent><buffer> <leader><leader>B Odebugger;<esc>
+
+  autocmd FileType clojure map <silent><buffer> <leader><leader>b o(require '[hugin.dbg :as dbg])<cr>(comment)<esc>
+  autocmd FileType clojure map <silent><buffer> <leader><leader>B O(require '[hugin.dbg :as dbg])<cr>(comment)<esc>
 augroup END
 
 " highlight last inserted text
