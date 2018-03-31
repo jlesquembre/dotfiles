@@ -167,6 +167,7 @@ in rec
     ranger
     recoll
     ripgrep
+    rlwrap
     rofi
     rsync
     sox soxr
