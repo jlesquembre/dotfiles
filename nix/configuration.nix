@@ -146,6 +146,7 @@ in rec
     lzma
     mcomix
     mediainfo
+    mmv
     ncurses.dev # infocmp and more utils
     neofetch
     nginxMainline
