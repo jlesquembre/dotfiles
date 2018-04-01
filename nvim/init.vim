@@ -916,7 +916,7 @@ omap <leader><tab> <plug>(fzf-maps-o)
 
 
 command! -bang -nargs=? -complete=dir FilesFd call fzf#vim#files(<q-args>, {
-  \ 'source': 'fd --hidden --follow --exclude ".git"'
+  \ 'source': 'fd --hidden --follow --exclude ".git" --type file --type symlink'
   \ },
   \ <bang>0)
 
