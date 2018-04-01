@@ -64,6 +64,13 @@ card top {
   }
 
   {
+    into .clojure
+    outof clojure
+
+    deps.edn
+  }
+
+  {
     into .lein
     outof lein
 

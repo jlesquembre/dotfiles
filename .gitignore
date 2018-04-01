@@ -10,3 +10,4 @@ node_modules
 nvim/plugged/
 nvim/autoload/plug.vim
 boot/cache/
+clojure/.cpcache
