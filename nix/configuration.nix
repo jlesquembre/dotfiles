@@ -301,7 +301,19 @@ nohook resolv.conf
   services.dnsmasq.enable = true;
   # For dnscrypt use:
   #services.dnsmasq.servers = [ "127.0.0.1#43" ];
-  services.dnsmasq.servers = [ "8.8.8.8" "8.8.4.4" "208.67.222.222" "208.67.220.220" ];
+  services.dnsmasq.servers = [
+    # Cloudflare
+    "1.1.1.1"
+    "1.0.0.1"
+
+    # OpenDNS
+    "208.67.222.222"
+    "208.67.220.220"
+
+    # Google
+    "8.8.8.8"
+    "8.8.4.4"
+  ];
   services.dnsmasq.extraConfig = ''
 address=/.local/127.0.0.1
 '';
