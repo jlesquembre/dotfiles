@@ -199,7 +199,8 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'guns/vim-clojure-highlight' | Plug 'guns/vim-clojure-static'
 
 
-Plug 'clojure-vim/nvim-parinfer.js', {'do': 'lein do npm install'}
+" Plug 'clojure-vim/nvim-parinfer.js', {'do': 'lein do npm install'}
+Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --manifest-path=cparinfer/Cargo.toml --release'}
 Plug 'clojure-vim/async-clj-omni'
 Plug 'humorless/vim-kibit'
 
