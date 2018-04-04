@@ -124,7 +124,8 @@ Plug 'mhinz/vim-startify'
 Plug 'mhinz/vim-halo'
 "Plug 'haya14busa/vim-operator-flashy' | Plug 'kana/vim-operator-user'
 Plug 'machakann/vim-highlightedyank'
-Plug 'fszymanski/ListToggle.vim'
+" Plug 'fszymanski/ListToggle.vim'
+Plug 'milkypostman/vim-togglelist'
 "Plug 'itchyny/vim-cursorword'
 
 " TODO index search plugins will be natively supported by vim, see:
@@ -185,6 +186,8 @@ Plug 'w0rp/ale'
 Plug 'kassio/neoterm'
 Plug 'metakirby5/codi.vim'
 Plug 'mhinz/vim-sayonara'
+Plug 'semanser/vim-outdated-plugins'
+Plug 'yssl/QFEnter'
 
 " Autocompletion
 Plug 'roxma/nvim-completion-manager'
@@ -1539,16 +1542,18 @@ augroup END
 
 
 " ============================================================================
-" LISTTOGGLE {{{1
+" TOGGLELIST (prev: LISTTOGGLE) {{{1
 " ============================================================================
 
-let g:listtoggle_no_maps = 1
+let g:toggle_list_no_mappings = 1
+nnoremap <script> <silent> <leader>x :call ToggleQuickfixList()<CR>
 
-nmap <Leader>x <Plug>ListToggleQuickfixListToggle
+" let g:listtoggle_no_maps = 1
+" nmap <Leader>x <Plug>ListToggleQuickfixListToggle
 " nmap <Leader>l <Plug>ListToggleLocationListToggle
 
 
-" LISTTOGGLE
+" TOGGLELIST (prev: LISTTOGGLE)
 
 
 " ============================================================================
@@ -1628,3 +1633,15 @@ nnoremap <leader>Q :Sayonara!<cr>
 " nnoremap <leader>qw :x<cr>
 
 " SAYONARA
+
+
+" ============================================================================
+" QFENTER {{{1
+" ============================================================================
+
+let g:qfenter_keymap = {}
+let g:qfenter_keymap.vopen = ['<C-v>']
+let g:qfenter_keymap.hopen = ['<C-x>']
+let g:qfenter_keymap.topen = ['<C-t>']
+
+" QFENTER
