@@ -30,7 +30,7 @@ function fssh -d "Fuzzy-find ssh host"
   set -q FZF_TMUX_HEIGHT; or set FZF_TMUX_HEIGHT 20%
     begin
       set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT +m"
-      rg --ignore-case '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2 | eval (__fzfcmd) -q '(commandline)' | read -l result
+      rg --ignore-case '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2- | tr ' ' '\n' | eval (__fzfcmd) -q '(commandline)' | read -l result
       and commandline -- "ssh $result"
     end
     commandline -f repaint
