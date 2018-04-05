@@ -147,6 +147,7 @@ Plug 'junegunn/gv.vim'
 
 
 " Syntax
+Plug 'tpope/vim-git'
 Plug 'tpope/vim-markdown'
 Plug 'aliva/vim-fish'
 Plug 'stephpy/vim-yaml'
