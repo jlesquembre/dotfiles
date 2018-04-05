@@ -18,7 +18,7 @@
     followTags = true
 
 [alias]
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short --all
     clog = !bash $HOME/dotfiles/scripts/git_changelog.sh
     cloner = clone --recursive
     lasttag = describe --tags --abbrev=0
