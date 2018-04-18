@@ -225,7 +225,7 @@ in rec
     rustc cargo rustfmt
 
     # DB utils
-    libmysql mariadb.client postgresql pgcli
+    libmysql mariadb.client postgresql pgcli pspg
 
     # Digital currencies
     electrum monero go-ethereum

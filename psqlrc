@@ -1,0 +1,13 @@
+-- vi: ft=pgsql
+
+-- \pset linestyle 'unicode'
+-- \pset border 2
+\setenv PAGER 'pspg -s 6'
+
+-- \pset null '¤'
+-- \pset null '(null)'
+
+-- \pset unicode_border_linestyle single
+-- \pset unicode_column_linestyle single
+-- \pset unicode_header_linestyle double
+
