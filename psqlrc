@@ -1,13 +1,36 @@
 -- vi: ft=pgsql
 
--- \pset linestyle 'unicode'
--- \pset border 2
+\set QUIET 1
+
 \setenv PAGER 'pspg -s 6'
+\set PROMPT1 '%[%033[1m%]%M %n@%/%R%[%033[0m%]%# '
+\set PROMPT2 '[more] %R > '
 
--- \pset null '¤'
--- \pset null '(null)'
+\pset null '¤'
+\pset border 2
+\pset linestyle 'unicode'
+\pset unicode_border_linestyle single
+\pset unicode_column_linestyle single
+\pset unicode_header_linestyle double
 
--- \pset unicode_border_linestyle single
--- \pset unicode_column_linestyle single
--- \pset unicode_header_linestyle double
+-- Show how long each query takes to execute
+\timing
 
+-- Use best available output format
+\x auto
+
+-- Verbose error reports.
+\set VERBOSITY verbose
+
+-- Use a separate history file per-database.
+\set HISTFILE ~/.psql_history- :DBNAME
+
+-- If a command is run more than once in a row, only store it once in the
+-- history.
+\set HISTCONTROL ignoredups
+
+-- Autocomplete keywords (like SELECT) in upper-case, even if you started
+-- typing them in lower case.
+\set COMP_KEYWORD_CASE upper
+
+\unset QUIET
