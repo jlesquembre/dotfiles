@@ -145,6 +145,9 @@ Plug 'junegunn/gv.vim'
 " Plug 'gregsexton/gitv', {'on': ['Gitv']}
 " Plug 'lambdalisue/gina.vim'
 
+" DB
+Plug 'lifepillar/pgsql.vim'
+Plug 'tpope/vim-dadbod'
 
 " Syntax
 Plug 'tpope/vim-git'
@@ -167,7 +170,6 @@ Plug 'HerringtonDarkholme/yats.vim'  " Typescript
 "Plug 'LaTeX-Box-Team/LaTeX-Box', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'PotatoesMaster/i3-vim-syntax'
-Plug 'lifepillar/pgsql.vim'
 Plug 'LnL7/vim-nix'
 Plug 'cespare/vim-toml'
 Plug 'purescript-contrib/purescript-vim'
@@ -177,6 +179,7 @@ Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
 " General utils
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-dotenv'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -482,13 +485,6 @@ endfunction
 
 " END FUNCTIONS
 
-" ============================================================================
-" SYNTAX {{{1
-" ============================================================================
-
-let g:sql_type_default = 'pgsql'
-
-" END SYNTAX
 
 " ============================================================================
 " COMMANDS {{{1
@@ -1524,7 +1520,7 @@ vnoremap <silent> <Leader>ts :TREPLSendSelection<cr>
 
 function! s:neoterm_extra_maps() abort
   " Don't add on these filetypes
-  if &ft =~ 'clojure\|clojurescript'
+  if &ft =~ 'clojure\|clojurescript\|sql'
     return
   endif
   nnoremap <buffer><silent> cpp :TREPLSendLine<cr>
@@ -1646,3 +1642,38 @@ let g:qfenter_keymap.hopen = ['<C-x>']
 let g:qfenter_keymap.topen = ['<C-t>']
 
 " QFENTER
+
+
+" ============================================================================
+" SQL {{{1
+" ============================================================================
+
+let g:sql_type_default = 'pgsql'
+
+function! GetSQL()
+  " if line starts with \, get only the line, else the paragraph
+  " query saved in s register
+  if getline('.') =~ '^\s*\\'
+    execute 'normal "syy'
+  else
+    execute 'normal "syip'
+  endif
+
+  " remove comments ( {-} is the same as * but uses
+  " the shortest match first algorithm)
+  let @s = substitute(@s, '--.\{-}\n', '', 'g')
+  " replace newlines with spaces
+  let @s = substitute(@s, '\n', ' ', 'g')
+
+endfunction
+
+augroup AutoSQL
+  autocmd!
+  autocmd FileType sql nnoremap <buffer> cpp :call GetSQL()<CR>:DB <C-R>s<CR>
+  autocmd BufReadPost *.dbout let g:last_dadbod_file = expand('%:p')
+augroup END
+
+nnoremap <expr> <Leader>z ':DB g:db = ' . DotenvGet('DATABASE_URL') . '<cr>'
+
+
+" END SQL
