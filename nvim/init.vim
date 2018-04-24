@@ -1648,6 +1648,23 @@ let g:qfenter_keymap.topen = ['<C-t>']
 " SQL {{{1
 " ============================================================================
 
+
+" Airline SQL helpers
+function! AirlineDBConnName()
+  let dbconn = get(b:, 'dbconn', get(g:, 'dbconn'))
+  if empty(dbconn)
+    return ''
+  endif
+  return '[' . split(dbconn, '=')[0] . ']'
+endfunction
+function! AirlineDB(...)
+  if &filetype == 'sql'
+    let w:airline_section_x = g:airline_section_x . '%{AirlineDBConnName()}'
+  endif
+endfunction
+call airline#add_statusline_func('AirlineDB')
+
+
 let g:sql_type_default = 'pgsql'
 
 function! GetSQL()
@@ -1667,13 +1684,47 @@ function! GetSQL()
 
 endfunction
 
+function! s:get_dbs()
+  return values(map(DotenvRead(), {key, val -> key . '=' . val}))
+endfunction
+
+function! ConnectToDb(db)
+  if exists('g:db')
+    let s:scope = 'b:db'
+    let b:dbconn = a:db
+  else
+    let s:scope = 'g:db'
+    let g:dbconn = a:db
+  endif
+  execute 'DB '. s:scope . ' = ' . split(a:db,'=')[1]
+
+endfunction
+
+command! DBConnection call fzf#run({
+  \ 'source':  s:get_dbs(),
+  \ 'down':    '~30%',
+  \ 'sink':    function('ConnectToDb')})
+
+function! GetCurrentDbUrl()
+  for dict in [w:, t:, b:, g:]
+    if has_key(dict, 'db') && !empty(dict.db)
+      return dict.db
+    endif
+  endfor
+endfunction
+
 augroup AutoSQL
   autocmd!
   autocmd FileType sql nnoremap <buffer> cpp :call GetSQL()<CR>:DB <C-R>s<CR>
+  autocmd FileType sql vnoremap <buffer> cpp :DB<CR>
   autocmd BufReadPost *.dbout let g:last_dadbod_file = expand('%:p')
+  autocmd TermOpen *.dbout nnoremap <silent> <buffer> q :close<cr>
+  autocmd TermOpen *.dbout tnoremap <silent> <buffer> q <C-\><C-n>:close<cr>
+  autocmd TermOpen *.dbout startinsert
 augroup END
 
-nnoremap <expr> <Leader>z ':DB g:db = ' . DotenvGet('DATABASE_URL') . '<cr>'
-
-
+nnoremap <Leader>zz :DBConnection<cr>
+nnoremap <expr> <Leader>zd ':!pg_dump ' . GetCurrentDbUrl() . ' > '
+nnoremap <expr> <Leader>zs ':echo "Current DB URL -> ' . GetCurrentDbUrl() . '"<cr>'
+nnoremap <Leader>zm :tabnew \| call termopen('pspg -s 6 -f <C-R>=g:last_dadbod_file<CR>')<cr>
 " END SQL
