@@ -280,6 +280,7 @@ set cursorline
 set clipboard+=unnamedplus  " Use "+ register
 set inccommand=split
 set updatetime=100 " Also used for the CursorHold autocommand
+set previewheight=15
 
 " Better folds
 "set foldcolumn=1
@@ -1648,6 +1649,7 @@ let g:qfenter_keymap.topen = ['<C-t>']
 " SQL {{{1
 " ============================================================================
 
+" Use previewheight to set default preview window size
 
 " Airline SQL helpers
 function! AirlineDBConnName()
@@ -1727,4 +1729,6 @@ nnoremap <Leader>zz :DBConnection<cr>
 nnoremap <expr> <Leader>zd ':!pg_dump ' . GetCurrentDbUrl() . ' > '
 nnoremap <expr> <Leader>zs ':echo "Current DB URL -> ' . GetCurrentDbUrl() . '"<cr>'
 nnoremap <Leader>zm :tabnew \| call termopen('pspg -s 6 -f <C-R>=g:last_dadbod_file<CR>')<cr>
+
+
 " END SQL
