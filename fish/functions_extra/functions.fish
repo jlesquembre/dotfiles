@@ -295,6 +295,42 @@ end
 complete --command nixcd -f --arguments '(__fish_complete_command)'
 
 
+function git_delete_merged
+  set branches_to_die (git branch --no-color --merged origin/master | grep -v '\smaster$')
+  echo "Local branches to be deleted:"
+  echo "$branches_to_die"
+
+  set remote_branches_to_die (git branch --no-color --remote --merged origin/master | grep -v '\smaster$' | grep -v '\/master$' | grep -v "origin\/HEAD" | grep -v "origin\/master")
+  echo "Remote branches to be deleted:"
+  echo "$remote_branches_to_die"
+
+  echo ""
+  echo "Enter Y to confirm"
+
+  read confirm
+
+  if test $confirm = "Y"
+
+    for branch in $branches_to_die
+      git branch -d (string trim $branch)
+    end
+
+    for branch in $remote_branches_to_die
+      git branch -rd (string trim $branch)
+    end
+
+    echo ""
+    echo "Pruning all remotes"
+    git remote | xargs -n 1 git remote prune
+
+  else
+    echo "Cancel!"
+    return 1
+  end
+end
+
+
+
 # Navigation
 function ..    ; cd .. ; end
 function ...   ; cd ../.. ; end
@@ -337,6 +373,7 @@ abbr -a gd 'git diff'
 abbr -a gdd 'git diff --staged'
 abbr -a gsd 'git stash show -p'
 abbr -a gs 'git status'
+abbr -a grm 'git_delete_merged'
 abbr -a drm 'docker system prune --all --volumes'
 abbr -a cljs 'clj -m cljs.main'
 abbr -a cljo 'clj -Aoutdated'
