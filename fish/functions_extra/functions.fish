@@ -296,13 +296,16 @@ complete --command nixcd -f --arguments '(__fish_complete_command)'
 
 
 function git_delete_merged
-  set branches_to_die (git branch --no-color --merged origin/master | grep -v '\smaster$')
+  set branches_to_die (git branch --no-color --merged origin/master | rg -v '\smaster$' | rg -v '\slocal$' | rg -v '^\*')
   echo "Local branches to be deleted:"
-  echo "$branches_to_die"
+  printf '%s\n'  $branches_to_die
+  echo ""
 
-  set remote_branches_to_die (git branch --no-color --remote --merged origin/master | grep -v '\smaster$' | grep -v '\/master$' | grep -v "origin\/HEAD" | grep -v "origin\/master")
+  set remote_branches_to_die (git branch --no-color --remotes --merged origin/master | \
+                              rg -v '\smaster$' | rg -v '/master$' | rg -v 'origin/HEAD' | rg -v 'origin/master' | \
+                              rg -v '/local' | rg --color never '\sorigin/' )
   echo "Remote branches to be deleted:"
-  echo "$remote_branches_to_die"
+  printf '%s\n' $remote_branches_to_die
 
   echo ""
   echo "Enter Y to confirm"
@@ -316,8 +319,10 @@ function git_delete_merged
     end
 
     for branch in $remote_branches_to_die
-      git branch -rd (string trim $branch)
+      git push origin --delete (string trim $branch | sed "s/origin\///")
+      # set -l remote_names $remote_names (string trim $branch | sed "s/origin\///")
     end
+    # git push origin --delete $remote_names
 
     echo ""
     echo "Pruning all remotes"
