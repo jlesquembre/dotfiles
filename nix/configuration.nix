@@ -151,6 +151,7 @@ in rec
     neofetch
     nginxMainline
     nix-repl
+    nix-serve
     notify-osd libnotify
     ntfs3g
     # okular
