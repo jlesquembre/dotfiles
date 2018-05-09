@@ -194,10 +194,11 @@ Plug 'semanser/vim-outdated-plugins'
 Plug 'yssl/QFEnter'
 
 " Autocompletion
-Plug 'roxma/nvim-completion-manager'
-Plug 'roxma/nvim-cm-tern',  {'do': 'yarn install'}
+" Plug 'roxma/nvim-completion-manager'
+" Plug 'roxma/nvim-cm-tern',  {'do': 'yarn install'}
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-Plug 'othree/csscomplete.vim'
+" Plug 'othree/csscomplete.vim'
 
 " Clojure
 "Plug 'kovisoft/paredit',    { 'for': 'clojure' }
@@ -1468,6 +1469,8 @@ nmap <silent> ]w <Plug>(ale_next_wrap)
 " Use tab to select the popup menu
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
 
 " NVIM COMPLETION MANAGER
 
