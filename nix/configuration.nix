@@ -96,6 +96,12 @@ in rec
     })
   ];
 
+  # nix.binaryCaches = [
+  #   "http://192.168.1.199:8080"
+  #   # "https://cache.nixos.org/"
+  # ];
+  # nix.requireSignedBinaryCaches = false;
+  nix.trustedUsers = [ "root" "jlle" ];
   nix.useSandbox = true;
   nix.nixPath = [
     "nixpkgs=/etc/nixos/nixpkgs"
