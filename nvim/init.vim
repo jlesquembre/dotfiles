@@ -192,6 +192,7 @@ Plug 'metakirby5/codi.vim'
 Plug 'mhinz/vim-sayonara'
 Plug 'semanser/vim-outdated-plugins'
 Plug 'yssl/QFEnter'
+Plug 'junegunn/vim-peekaboo'
 
 " Autocompletion
 " Plug 'roxma/nvim-completion-manager'
