@@ -1682,6 +1682,8 @@ function! GetSQL()
     execute 'normal "syip'
   endif
 
+  " remove multiline comments
+  let @s = substitute(@s, '/\*.*\*/', '', 'g')
   " remove comments ( {-} is the same as * but uses
   " the shortest match first algorithm)
   let @s = substitute(@s, '--.\{-}\n', '', 'g')
