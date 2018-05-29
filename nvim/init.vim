@@ -1687,8 +1687,10 @@ function! GetSQL()
   " remove comments ( {-} is the same as * but uses
   " the shortest match first algorithm)
   let @s = substitute(@s, '--.\{-}\n', '', 'g')
+  "remove empty lines
+  let @s = substitute(@s, '\s\+\n', '', 'g')
   " replace newlines with spaces
-  let @s = substitute(@s, '\n', ' ', 'g')
+  let @s = substitute(@s, '\n\+', ' ', 'g')
 
 endfunction
 
