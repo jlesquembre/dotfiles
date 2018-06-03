@@ -390,6 +390,9 @@ sort-directories-first=true
       noto-fonts-cjk
       noto-fonts-emoji
       powerline-fonts
+      roboto
+      roboto-mono
+      roboto-slab
       ttf_bitstream_vera
       ubuntu_font_family
       unifont
