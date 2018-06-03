@@ -147,6 +147,7 @@ in rec
     keychain
     libffi
     libicns
+    libreoffice-fresh
     libstdcxx5
     lsof
     lzma
