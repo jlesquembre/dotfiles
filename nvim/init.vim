@@ -225,7 +225,7 @@ Plug 'guns/vim-slamhound'
 "Plug 'tpope/vim-classpath'
 "Plug 'tpope/vim-salve'
 
-"Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align'
 
 " or tcomment???
 
@@ -1747,3 +1747,15 @@ nnoremap <Leader>zm :tabnew \| call termopen('pspg -s 6 -f <C-R>=g:last_dadbod_f
 
 
 " END SQL
+
+
+" ============================================================================
+" EASY-ALIGN {{{1
+" ============================================================================
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" END EASY-ALIGN
