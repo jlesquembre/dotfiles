@@ -235,6 +235,10 @@ in rec
     # DB utils
     libmysql mariadb.client postgresql100 pgcli pspg
 
+    # kubernetes
+    minikube kubectl kubernetes-helm
+    virtualbox
+
     # Digital currencies
     electrum monero go-ethereum
   ]
@@ -289,6 +293,10 @@ in rec
 
   # List services that you want to enable:
   virtualisation.docker.enable = true;
+
+  virtualisation.virtualbox.host = {
+    enable = true;
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
