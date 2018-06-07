@@ -173,6 +173,7 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'LnL7/vim-nix'
 Plug 'cespare/vim-toml'
 Plug 'purescript-contrib/purescript-vim'
+Plug 'google/vim-jsonnet'
 
 Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
 
