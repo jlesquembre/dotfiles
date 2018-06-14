@@ -1745,6 +1745,7 @@ nnoremap <Leader>zz :DBConnection<cr>
 nnoremap <expr> <Leader>zd ':!pg_dump ' . GetCurrentDbUrl() . ' > '
 nnoremap <expr> <Leader>zs ':echo "Current DB URL -> ' . GetCurrentDbUrl() . '"<cr>'
 nnoremap <Leader>zm :tabnew \| call termopen('pspg -s 6 -f <C-R>=g:last_dadbod_file<CR>')<cr>
+nnoremap <Leader>zr :r <C-R>=g:last_dadbod_file<cr><cr>
 
 
 " END SQL
@@ -1758,5 +1759,8 @@ nnoremap <Leader>zm :tabnew \| call termopen('pspg -s 6 -f <C-R>=g:last_dadbod_f
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+xnoremap <Leader>a<space> :EasyAlign \ <cr>
+nmap <Leader>a<space> <Plug>(EasyAlign)ab <Nop>
 
 " END EASY-ALIGN
