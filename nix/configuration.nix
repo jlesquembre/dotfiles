@@ -342,10 +342,10 @@ address=/.local/127.0.0.1
   # https://github.com/GNOME/gtk/blob/master/gtk/org.gtk.Settings.FileChooser.gschema.xml
   # environment.extraOutputsToInstall = ["dev"];
   # services.xserver.desktopManager.gnome3.enable = true;
-  services.xserver.desktopManager.gnome3.extraGSettingsOverrides = ''
-[org.gtk.Settings.FileChooser]
-sort-directories-first=true
-'';
+  # services.xserver.desktopManager.gnome3.extraGSettingsOverrides = ''
+# [org.gtk.Settings.FileChooser]
+# sort-directories-first=true
+# '';
 
   programs.bash.enableCompletion = true;
   programs.fish.enable = true;

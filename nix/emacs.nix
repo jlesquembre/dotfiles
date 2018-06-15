@@ -23,7 +23,8 @@ in
     # rainbow-delimiters smartparens
     evil-surround evil-indent-textobject evil-cleverparens avy undo-tree
     helm
-    magit git-timemachine
+    magit
+    # git-timemachine
     # /* LaTeX */ auctex helm-bibtex cdlatex
     # markdown-mode
     # flycheck
