@@ -152,7 +152,7 @@ Plug 'tpope/vim-dadbod'
 " Syntax
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-markdown'
-Plug 'aliva/vim-fish'
+Plug 'dag/vim-fish'
 Plug 'stephpy/vim-yaml'
 Plug 'mustache/vim-mustache-handlebars'
 "Plug 'mitsuhiko/vim-python-combined'
@@ -199,7 +199,19 @@ Plug 'junegunn/vim-peekaboo'
 " Plug 'roxma/nvim-completion-manager'
 " Plug 'roxma/nvim-cm-tern',  {'do': 'yarn install'}
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/context_filetype.vim'
+" Plug 'Shougo/neopairs.vim'
+Plug 'Shougo/echodoc.vim'
+Plug 'Shougo/neoinclude.vim'
+
+Plug 'ponko2/deoplete-fish'
+Plug 'carlitux/deoplete-ternjs'
+Plug 'Shougo/neco-vim'
+
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 " Plug 'othree/csscomplete.vim'
 
 " Clojure
@@ -1460,7 +1472,7 @@ nmap <silent> ]w <Plug>(ale_next_wrap)
 
 
 " ============================================================================
-" NVIM COMPLETION MANAGER {{{1
+" DEOPLETE {{{1
 " ============================================================================
 
 
@@ -1475,13 +1487,38 @@ nmap <silent> ]w <Plug>(ale_next_wrap)
 " Use tab to select the popup menu
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 
-" disable the preview window feature.
-set completeopt-=preview
+let g:deoplete#sources#ternjs#docs = 1
+let g:deoplete#sources#ternjs#types = 1
 
-" NVIM COMPLETION MANAGER
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#enable_force_overwrite = 1
+
+" disable the preview window feature.
+" set completeopt-=preview
+set splitbelow
+" autocmd CompleteDone * silent! pclose!
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+
+let g:LanguageClient_serverCommands = {
+    \ 'css':  ['css-languageserver', '--stdio'],
+    \ 'html': ['html-languageserver', '--stdio'],
+    \ }
+    " \ 'javascript': ['javascript-typescript-stdio'],
+    " \ 'rust':           ['rustup', 'run', 'nightly', 'rls'],
+    " \ 'python':         ['pyls'],
+    " \ 'sh': ['bash-language-server', 'start'],
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" DEOPLETE
 
 
 " ============================================================================
@@ -1617,15 +1654,15 @@ function! s:emmet_configuration() abort
   vmap <buffer> <A-n><A-a> <plug>(emmet-anchorize-url)
 endfunction
 
-augroup AutoEmmet
-  autocmd!
-  autocmd FileType html,css,javascript call s:emmet_configuration()
-  " https://github.com/mattn/emmet-vim/issues/168#issuecomment-35853346
-  autocmd FileType html imap <expr> <tab>
-    \ pumvisible() ? "\<C-n>" :
-    \ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
-    \ "\<tab>"
-augroup END
+" augroup AutoEmmet
+"   autocmd!
+"   autocmd FileType html,css,javascript call s:emmet_configuration()
+"   " https://github.com/mattn/emmet-vim/issues/168#issuecomment-35853346
+"   autocmd FileType html imap <expr> <tab>
+"     \ pumvisible() ? "\<C-n>" :
+"     \ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
+"     \ "\<tab>"
+" augroup END
 
 " EMMET
 

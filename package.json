@@ -7,10 +7,14 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint_d": "^5.0.0",
     "http-server": "^0.10.0",
+    "javascript-typescript-langserver": "^2.9.3",
     "neovim": "^3.5.2",
     "polymer-cli": "^1.5.7",
     "prettier": "^1.7.4",
     "prettier_d": "^5.7.3",
-    "pulp": "^11.0.0"
+    "pulp": "^11.0.0",
+    "tern": "^0.21.0",
+    "vscode-css-languageserver-bin": "^1.4.0",
+    "vscode-html-languageserver-bin": "^1.4.0"
   }
 }
