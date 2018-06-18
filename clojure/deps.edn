@@ -11,8 +11,12 @@
 
 {:deps {org.clojure/clojurescript {:mvn/version "1.10.238"}}
 
- :aliases {:outdated {:extra-deps {olical/depot {:mvn/version "1.1.0"}}
-                      :main-opts ["-m" "depot.outdated.main"]}}}
+ :aliases {:outdated  {:extra-deps {olical/depot {:mvn/version "1.1.0"}}
+                       :main-opts ["-m" "depot.outdated.main"]}
+
+           :find-deps {:extra-deps {find-deps {:git/url "https://github.com/hagmonk/find-deps"
+                                               :sha     "7abc8bba589955fce702b3c87fa28f7a61533ba5"}}
+                       :main-opts  ["-m" "find-deps.core"]}}}
   ;; Paths
   ;;   Directories in the current project to include in the classpath
 
