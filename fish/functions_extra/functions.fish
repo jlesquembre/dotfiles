@@ -358,7 +358,6 @@ alias dig-short="dig +nocmd any +multiline +noall +answer"
 alias getip="getent hosts"
 alias v="nvim"
 alias r="ranger"
-alias cljs='clj -Sdeps "{:deps {org.clojure/clojurescript {:mvn/version \"1.9.946\"}}}" -m cljs.repl.node'
 
 
 # Some abbreviations
@@ -380,5 +379,17 @@ abbr -a gsd 'git stash show -p'
 abbr -a gs 'git status'
 abbr -a grm 'git_delete_merged'
 abbr -a drm 'docker system prune --all --volumes'
+
+
+# clj aliasses
+alias   cljs_repl='clj -m cljs.repl.node'
+abbr -a cljs_repl 'clj -m cljs.repl.node'
+
+alias   cljs='clj -m cljs.main'
 abbr -a cljs 'clj -m cljs.main'
-abbr -a cljo 'clj -Aoutdated'
+
+alias   clj_outdated='clj -A:outdated'
+abbr -a clj_outdated 'clj -A:outdated'
+
+alias   clj_rebel 'clj -A:rebel'
+abbr -a clj_rebel 'clj -A:rebel'
