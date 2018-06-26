@@ -1491,6 +1491,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 
+call deoplete#custom#var('file', 'force_completion_length', 0)
+
 let g:deoplete#sources#ternjs#docs = 1
 let g:deoplete#sources#ternjs#types = 1
 
