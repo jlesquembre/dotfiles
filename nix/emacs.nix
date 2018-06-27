@@ -43,4 +43,12 @@ in
     # /* Maxima */ pkgs.maxima
     # visual-fill-column
     # melpaStablePackages.idris-mode helm-idris
-  ])
+  ]
+  ++ (with epkgs.melpaPackages; [
+    # use more recent (unstable) versions
+
+    # clj-refactor slime
+    # cljsbuild-mode clojars
+    clojure-mode cider
+    parinfer
+  ]))
