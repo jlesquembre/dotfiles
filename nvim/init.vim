@@ -1492,6 +1492,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 
 call deoplete#custom#var('file', 'force_completion_length', 0)
+call deoplete#custom#var('file', 'enable_buffer_path', v:true)
 
 let g:deoplete#sources#ternjs#docs = 1
 let g:deoplete#sources#ternjs#types = 1
