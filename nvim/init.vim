@@ -1491,7 +1491,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 
-call deoplete#custom#var('file', 'force_completion_length', 0)
+call deoplete#custom#var('file', 'force_completion_length', 1)
 call deoplete#custom#var('file', 'enable_buffer_path', v:true)
 
 let g:deoplete#sources#ternjs#docs = 1
@@ -1501,10 +1501,10 @@ let g:echodoc#enable_at_startup = 1
 let g:echodoc#enable_force_overwrite = 1
 
 " disable the preview window feature.
-" set completeopt-=preview
-set splitbelow
+set completeopt-=preview
+" set splitbelow
 " autocmd CompleteDone * silent! pclose!
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 
 let g:LanguageClient_serverCommands = {
