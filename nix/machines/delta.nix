@@ -27,7 +27,7 @@
   networking.wireless.userControlled.enable = true;
   networking.wireless.networks = import ../wireless-networks.nix {};
   environment.systemPackages = [
-    pkgs.cudatoolkit
+    # pkgs.cudatoolkit
     pkgs.wpa_supplicant_gui
   ];
 

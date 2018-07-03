@@ -134,7 +134,6 @@ in rec
     libffi
     libicns
     libreoffice-fresh
-    libstdcxx5
     lsof
     lzma
     mcomix
@@ -184,6 +183,7 @@ in rec
     wget
     whois
     xclip
+    xonsh
     xorg.xkbcomp
     #xorg.xcursorthemes
     zathura
@@ -201,7 +201,7 @@ in rec
     nodejs yarn
 
     # dev tools
-    httpstat httplab httpie wuzz dnsutils tcpdump socat postman
+    httpstat httplab httpie wuzz dnsutils tcpdump socat # postman
 
     # compress tools
     atool zip unzip p7zip dpkg
@@ -269,8 +269,8 @@ in rec
     cabal2nix
     ghc
     gitHUD
-    stack
-    stack2nix
+    # stack
+    # stack2nix
   ])
   # ++ (with channel-17_09; [
   #   super-user-spark
