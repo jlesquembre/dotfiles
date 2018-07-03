@@ -208,10 +208,10 @@ Plug 'ponko2/deoplete-fish'
 Plug 'carlitux/deoplete-ternjs'
 Plug 'Shougo/neco-vim'
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
 " Plug 'othree/csscomplete.vim'
 
 " Clojure
@@ -1494,6 +1494,12 @@ let g:deoplete#enable_smart_case = 1
 call deoplete#custom#var('file', 'force_completion_length', 1)
 call deoplete#custom#var('file', 'enable_buffer_path', v:true)
 
+call deoplete#custom#option('keyword_patterns', {
+    \ 'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
+    \})
+
+call deoplete#custom#source('async_clj', 'rank', 500)
+
 let g:deoplete#sources#ternjs#docs = 1
 let g:deoplete#sources#ternjs#types = 1
 
@@ -1507,19 +1513,19 @@ set completeopt-=preview
 " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 
-let g:LanguageClient_serverCommands = {
-    \ 'css':  ['css-languageserver', '--stdio'],
-    \ 'html': ['html-languageserver', '--stdio'],
-    \ }
-    " \ 'javascript': ['javascript-typescript-stdio'],
-    " \ 'rust':           ['rustup', 'run', 'nightly', 'rls'],
-    " \ 'python':         ['pyls'],
-    " \ 'sh': ['bash-language-server', 'start'],
+" let g:LanguageClient_serverCommands = {
+"     \ 'css':  ['css-languageserver', '--stdio'],
+"     \ 'html': ['html-languageserver', '--stdio'],
+"     \ }
+"     " \ 'javascript': ['javascript-typescript-stdio'],
+"     " \ 'rust':           ['rustup', 'run', 'nightly', 'rls'],
+"     " \ 'python':         ['pyls'],
+"     " \ 'sh': ['bash-language-server', 'start'],
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " DEOPLETE
 
