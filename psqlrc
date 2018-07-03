@@ -17,7 +17,7 @@
 \timing
 
 -- Use best available output format
-\x auto
+\x off
 
 -- Verbose error reports.
 \set VERBOSITY verbose
