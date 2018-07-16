@@ -1300,6 +1300,31 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 let g:rainbow#blacklist = ['#'.g:base16_gui04, '#'.g:base16_gui05, '#'.g:base16_gui06, '#'.g:base16_gui07, '#'.g:base16_gui0E]
 " let g:rainbow#max_level = 16
 
+" let g:rainbow#colors = {
+" \   'dark': [
+" \     ['yellow',  'orange1'     ],
+" \     ['green',   'yellow1'     ],
+" \     ['cyan',    'greenyellow' ],
+" \     ['magenta', 'green1'      ],
+" \     ['red',     'springgreen1'],
+" \     ['yellow',  'cyan1'       ],
+" \     ['green',   'slateblue1'  ],
+" \     ['cyan',    'magenta1'    ],
+" \     ['magenta', 'purple1'     ]
+" \   ],
+" \   'light': [
+" \     ['darkyellow',  'orangered3'    ],
+" \     ['darkgreen',   'orange2'       ],
+" \     ['blue',        'yellow3'       ],
+" \     ['darkmagenta', 'olivedrab4'    ],
+" \     ['red',         'green4'        ],
+" \     ['darkyellow',  'paleturquoise3'],
+" \     ['darkgreen',   'deepskyblue4'  ],
+" \     ['blue',        'darkslateblue' ],
+" \     ['darkmagenta', 'darkviolet'    ]
+" \   ]
+" \ }
+
 "au FileType clojure xnoremap <buffer> <Enter> :Eval<CR>
 "au FileType clojure nmap <buffer> <Enter> cpp
 
