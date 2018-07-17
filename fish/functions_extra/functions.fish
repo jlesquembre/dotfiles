@@ -391,5 +391,5 @@ abbr -a cljs 'clj -m cljs.main'
 alias   clj_outdated='clj -A:outdated'
 abbr -a clj_outdated 'clj -A:outdated'
 
-alias   clj_rebel 'clj -A:rebel'
-abbr -a clj_rebel 'clj -A:rebel'
+alias   clj_rebel 'clojure -A:rebel'
+abbr -a clj_rebel 'clojure -A:rebel'
