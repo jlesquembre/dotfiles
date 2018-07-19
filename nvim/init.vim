@@ -608,6 +608,9 @@ nnoremap <F10> :call <SID>SynStack()<CR>
 nnoremap j gj
 nnoremap k gk
 
+" tab map
+nnoremap <leader>gn :tabnew<cr>
+
 " move to beginning/end of line
 nnoremap <silent> <Leader>b ^
 nnoremap <silent> <Leader>e $
