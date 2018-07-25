@@ -1755,6 +1755,10 @@ call airline#add_statusline_func('AirlineDB')
 
 let g:sql_type_default = 'pgsql'
 
+" Disable default vim SQL autocompletion
+let g:loaded_sql_completion = 1
+let g:omni_sql_no_default_maps = 1
+
 function! GetSQL()
   " if line starts with \, get only the line, else the paragraph
   " query saved in s register
