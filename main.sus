@@ -23,6 +23,7 @@ card top {
   nixpkgs_local -> .nixpkgs
   xmonad.hs -> .xmonad/xmonad.hs
   init.el -> .emacs.d/init.el
+  joker.edn -> .joker
 
   {
     into .config
