@@ -1475,6 +1475,7 @@ let g:ale_pattern_options = {
 \   '\.json$'  : {'ale_fix_on_save': 1},
 \   '\.css$'   : {'ale_fix_on_save': 1},
 \   '\.rs$'    : {'ale_fix_on_save': 1},
+\   '\.joker$' : {'ale_linters': []},
 \}
 
 let g:ale_fixers = {
