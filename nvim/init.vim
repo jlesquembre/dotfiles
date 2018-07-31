@@ -1808,6 +1808,23 @@ function! GetCurrentDbUrl()
       return dict.db
     endif
   endfor
+  return ''
+endfunction
+
+function! GetCurrentDbName()
+  return get(split(GetCurrentDbUrl(), '/'), -1, 'unknowDB')
+endfunction
+
+function! GetCurrentDbUser()
+  let s:netloc = get(split(GetCurrentDbUrl(), '/'), 2, 'unknowDB')
+  return get(split(s:netloc, ':'), 0, 'unknowUser')
+endfunction
+
+function! GetDumpPath()
+  let s:path = '~/_db_dumps'
+  call MakeDirIfNoExists(s:path)
+  return s:path . '/' . strftime("%Y%m%d_%H%M%S_") . GetCurrentDbUser() . '_' . GetCurrentDbName() . '.dump '
+
 endfunction
 
 augroup AutoSQL
@@ -1821,7 +1838,8 @@ augroup AutoSQL
 augroup END
 
 nnoremap <Leader>zz :DBConnection<cr>
-nnoremap <expr> <Leader>zd ':!pg_dump ' . GetCurrentDbUrl() . ' > '
+" nnoremap <expr> <Leader>zd ':!pg_dump ' . GetCurrentDbUrl() . ' > '
+nnoremap <expr> <Leader>zb ':Spawn -wait=always pg_dump -v -Fc -f ' . GetDumpPath() . ' ' . GetCurrentDbUrl()
 nnoremap <expr> <Leader>zs ':echo "Current DB URL -> ' . GetCurrentDbUrl() . '"<cr>'
 nnoremap <Leader>zm :tabnew \| call termopen('pspg -s 6 -f <C-R>=g:last_dadbod_file<CR>')<cr>
 nnoremap <Leader>zr :r <C-R>=g:last_dadbod_file<cr><cr>
