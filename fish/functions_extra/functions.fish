@@ -334,6 +334,56 @@ function git_delete_merged
   end
 end
 
+function pg_load-db --description 'Load DB dump into a docker container'
+  # It expects the file name to have this format: `YYYYMMDD_HHMMSS_$DBUSER_$DBNAME.dump`
+  switch (count $argv)
+    case 1
+      set -l filename $argv[1]
+      set -l name (basename $filename  | rev | cut -d. -f2- | rev | cut -d_ -f3- )
+      set -l db_user (echo "$name" | cut -d_ -f1)
+      set -l db_name (echo "$name" | cut -d_ -f2)
+
+      set -l exists (docker ps -q -f name="^/psql_db\$")
+      if test -n exists
+        read -l -P 'Container "psql_db" exists. Delete it and continue? [y/N] ' confirm
+        switch $confirm
+            case Y y
+              # docker stop psql_db
+              # docker wait psql_db
+              docker rm --force --volumes psql_db
+            case '*'
+              echo 'Cancel by user'
+              return 1
+          end
+        end
+        # docker run --name psql_db -p 5555:5432 -e POSTGRES_DB=$db_name -e POSTGRES_PASSWORD=pass -e POSTGRES_USER=$db_user -d healthcheck/postgres:alpine
+        docker run --name psql_db -p 5555:5432 -e POSTGRES_DB=$db_name \
+        -e POSTGRES_PASSWORD=pass -e POSTGRES_USER=$db_user \
+        --health-cmd=pg_isready -d postgres:alpine
+        set -l db_uri "postgresql://$db_user:pass@localhost:5555/$db_name"
+        set -l counter 0
+        while test (docker inspect --format='{{.State.Health.Status}}' psql_db) != 'healthy'; and test $counter -lt 10
+          printf "."
+          set counter (math $counter + 1)
+          sleep 0.3
+        end
+        echo ""
+        pg_restore -v -d "$db_uri" $filename
+        echo -e "\nTo connect to the database:"
+        echo "psql $db_uri"
+        return 0
+
+    case 0
+      echo 'Provide a valid dump filename'
+      echo 'Usage: pg_load-db [DB_DUMP]'
+      return 1
+
+    case '*'
+      echo 'Too many arguments!'
+      echo 'Usage: pg_load-db [DB_DUMP]'
+      return 1
+  end
+end
 
 
 # Navigation
