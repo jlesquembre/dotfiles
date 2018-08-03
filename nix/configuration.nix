@@ -121,7 +121,7 @@ in rec
     glxinfo
     gnome3.zenity gnome3.dconf gnome3.dconf-editor
     gnumake
-    gnupg
+    gnupg blackbox
     go
     graphicsmagick
     gwenview
