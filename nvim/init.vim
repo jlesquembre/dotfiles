@@ -475,7 +475,8 @@ endfunction
 function! FormatLink(format)
   let l:link = s:strip(getline('.'))
 
-  let l:title = system('wget -qO- '. shellescape(l:link) . ' | gawk -v IGNORECASE=1 -v RS=''</title'' ''RT{gsub(/.*<title[^>]*>/,"");print;exit}'' ')
+  " let l:title = system('wget -qO- '. shellescape(l:link) . ' | gawk -v IGNORECASE=1 -v RS=''</title'' ''RT{gsub(/.*<title[^>]*>/,"");print;exit}'' ')
+  let l:title = system('curl -L --compressed --silent '. shellescape(l:link) . ' | gawk -v IGNORECASE=1 -v RS=''</title'' ''RT{gsub(/.*<title[^>]*>/,"");print;exit}'' ')
   let b:title = s:strip(l:title)
   let l:title = substitute(b:title, '\v\s+[\-\|]\s+\p+$', '', 'gi')
 
