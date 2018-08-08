@@ -85,6 +85,7 @@ Plug 'ryanoasis/vim-devicons'
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Navigation
+Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-repeat'
 "Plug 'tpope/vim-vinegar'
 Plug 'Shougo/vimfiler.vim' | Plug 'Shougo/unite.vim'
@@ -1862,3 +1863,13 @@ xnoremap <Leader>a<space> :EasyAlign \ <cr>
 nmap <Leader>a<space> <Plug>(EasyAlign)ab <Nop>
 
 " END EASY-ALIGN
+
+
+" ============================================================================
+" MATCHUP {{{1
+" ============================================================================
+
+
+let g:matchup_transmute_enabled = 1
+
+" END MATCHUP
