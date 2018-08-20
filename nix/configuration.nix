@@ -142,7 +142,6 @@ in rec
     ncurses.dev # infocmp and more utils
     neofetch
     nginxMainline
-    nix-repl
     nix-serve
     notify-osd libnotify
     ntfs3g
@@ -213,7 +212,7 @@ in rec
     jdk visualvm clojure leiningen pkgs.boot joker
 
     # purescript
-    purescript psc-package nodePackages.pulp
+    # purescript psc-package nodePackages.pulp
 
     # Rust
     rustc cargo rustfmt
@@ -226,7 +225,8 @@ in rec
     virtualbox
 
     # Digital currencies
-    electrum monero go-ethereum
+    monero go-ethereum
+    # electrum
   ]
   ++ (with pkgs.gitAndTools; [
     diff-so-fancy

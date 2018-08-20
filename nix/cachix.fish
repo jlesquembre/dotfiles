@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 cd /tmp
-set -l packages nerdfonts purescript psc-package libreoffice-fresh neovim cdrtools texlive.combined.scheme-full
+set -l packages nerdfonts libreoffice-fresh neovim cdrtools texlive.combined.scheme-full # purescript psc-package
 
 for package in $packages
   nix-build "<nixpkgs>" -A $package | cachix push jl
