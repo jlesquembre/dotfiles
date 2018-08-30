@@ -99,6 +99,7 @@ in rec
   environment.systemPackages = with pkgs; [
     abcde
     autojump
+    bazel
     # breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
     # conky
     cheat
@@ -128,6 +129,7 @@ in rec
     highlight
     htop
     i3lock i3status-rust
+    jetbrains.idea-community
     jsonnet
     k3b
     keychain
@@ -209,7 +211,7 @@ in rec
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
 
     # JDK tools
-    jdk visualvm clojure leiningen pkgs.boot joker
+    jdk visualvm clojure leiningen pkgs.boot joker maven
 
     # purescript
     # purescript psc-package nodePackages.pulp
