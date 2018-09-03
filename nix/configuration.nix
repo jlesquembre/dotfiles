@@ -142,6 +142,7 @@ in rec
     mcomix
     mediainfo
     mmv
+    ncdu
     ncurses.dev # infocmp and more utils
     neofetch
     nginxMainline

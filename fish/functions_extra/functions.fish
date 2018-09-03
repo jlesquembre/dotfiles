@@ -404,6 +404,7 @@ function passgen -d 'Alias for pwgen' ; pwgen $argv; end;
 #function grep     ; command grep --color=auto $argv ; end
 alias push="git push"
 alias diskspace_report="df -P -kHl"
+alias disk_usage 'ncdu --color dark -r -x --exclude .git --exclude node_modules'
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias dig-short="dig +nocmd any +multiline +noall +answer"
 alias getip="getent hosts"
