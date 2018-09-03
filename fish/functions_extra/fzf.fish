@@ -1,7 +1,7 @@
 set fzf_preview_all '--preview "if test -d {};\
                                     tree -C {} | head -200;\
                                 else;\
-                                    file -ib {} | rg binary ^ /tmp/null; or highlight -O ansi {} ^ /dev/null | head -200;\
+                                    file -ib {} | rg binary ^ /tmp/null; or bat --color always --style changes --paging never --line-range :200 {} ^ /dev/null;\
                                 end;"'
 
 set fzf_preview_dir '--preview "tree -C {} | head -200"'

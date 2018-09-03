@@ -99,6 +99,7 @@ in rec
   environment.systemPackages = with pkgs; [
     abcde
     autojump
+    bat
     bazel
     # breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
     # conky
@@ -126,7 +127,7 @@ in rec
     go
     graphicsmagick
     gwenview
-    highlight
+    # highlight
     htop
     i3lock i3status-rust
     jetbrains.idea-community

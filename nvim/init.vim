@@ -909,7 +909,9 @@ xmap gs  <plug>(GrepperOperator)
 " ============================================================================
 
 " File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
-let g:fzf_files_options = '--preview "(file -ib {} | rg binary || highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+" let g:fzf_files_options = '--preview "(file -ib {} | rg binary || highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
+let g:fzf_files_options = '--preview "(file -ib {} | rg binary || bat --color always --paging never --line-range :'. &lines . ' {} || cat {}) 2> /dev/null"'
 
 nnoremap <silent> <Leader>f       :FilesFd<CR>
 nnoremap <silent> <Leader>ff      :FilesFd<CR>

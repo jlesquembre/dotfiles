@@ -23,6 +23,7 @@ set -x HOSTNAME (hostname)
 set -x PROJECT_HOME $HOME/projects
 set -x BROWSER chromium
 set -x MANPAGER "nvim -c 'set ft=man' -"
+set -x BAT_PAGER less
 
 function fish_greeting -d "what's up, fish?"
     neofetch
