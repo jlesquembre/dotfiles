@@ -102,6 +102,7 @@ in rec
     bat
     bazel
     # breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
+    cachix
     # conky
     cheat
     chromium
