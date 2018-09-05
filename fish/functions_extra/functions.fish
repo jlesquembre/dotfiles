@@ -432,16 +432,35 @@ abbr -a gs 'git status'
 abbr -a grm 'git_delete_merged'
 abbr -a drm 'docker system prune --all --volumes'
 
+function _clj-deps
+  for dep in $argv
+    set deps "$deps $dep {:mvn/version \"RELEASE\"}"
+  end
+  set deps "{:deps {$deps}}"
+  echo $deps
+end
 
 # clj aliasses
-alias   cljs_repl='clj -m cljs.repl.node'
-abbr -a cljs_repl 'clj -m cljs.repl.node'
+alias   cljs-repl='clj -m cljs.repl.node'
+abbr -a cljs-repl 'clj -m cljs.repl.node'
 
 alias   cljs='clj -m cljs.main'
 abbr -a cljs 'clj -m cljs.main'
 
-alias   clj_outdated='clj -A:outdated'
-abbr -a clj_outdated 'clj -A:outdated'
+alias   clj-outdated='clj -A:outdated'
+abbr -a clj-outdated 'clj -A:outdated'
 
-alias   clj_rebel 'clojure -A:rebel'
-abbr -a clj_rebel 'clojure -A:rebel'
+alias   clj-rebel 'clojure -A:rebel'
+abbr -a clj-rebel 'clojure -A:rebel'
+function clj-rebel-extra -d 'clj repl with extra deps'
+  clojure -Sdeps (_clj-deps $argv) -A:rebel
+end
+
+alias   cljs-rebel 'clojure -A:rebel-cljs'
+abbr -a cljs-rebel 'clojure -A:rebel-cljs'
+function cljs-rebel-extra -d 'clj repl with extra deps'
+  clojure -Sdeps (_clj-deps $argv) -A:rebel
+end
+
+alias   clj-find-deps 'clj -A:find-deps -F:table -l 10'
+abbr -a clj-find-deps 'clj -A:find-deps -F:table -l 10'

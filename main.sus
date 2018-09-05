@@ -70,6 +70,7 @@ card top {
     outof clojure
 
     deps.edn
+    rebel_readline.edn
   }
 
   {
