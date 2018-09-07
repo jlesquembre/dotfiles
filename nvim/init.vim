@@ -473,13 +473,36 @@ vim.command('return "{}"'.format(result.replace('"', '\\"')))
 EOF
 endfunction
 
+function! s:gethost(str)
+python3 << EOF
+import vim
+from urllib.parse import urlparse
+url = vim.eval("a:str")
+host = urlparse(url).hostname
+if host.startswith('www.'):
+    host = hostname[4:]
+vim.command('return "{}"'.format(host))
+EOF
+endfunction
+
 function! FormatLink(format)
   let l:link = s:strip(getline('.'))
 
   " let l:title = system('wget -qO- '. shellescape(l:link) . ' | gawk -v IGNORECASE=1 -v RS=''</title'' ''RT{gsub(/.*<title[^>]*>/,"");print;exit}'' ')
   let l:title = system('curl -L --compressed --silent '. shellescape(l:link) . ' | gawk -v IGNORECASE=1 -v RS=''</title'' ''RT{gsub(/.*<title[^>]*>/,"");print;exit}'' ')
+  let l:host = s:gethost(l:link)
   let b:title = s:strip(l:title)
-  let l:title = substitute(b:title, '\v\s+[\-\|]\s+\p+$', '', 'gi')
+
+  " \v -> very magig
+  " {-} non-greedy match
+  if l:host ==# 'github.com'
+    let l:title = substitute(b:title, '\v^\p+[\-\|]\s+', '', 'gi')
+  elseif l:host ==# 'stackoverflow.com' || l:host =~# '.\+\.stackexchange\.com'
+    let l:title = substitute(b:title, '\v^\p{-}\-\s+', '', 'gi')
+    let l:title = substitute(l:title, '\v\s+\-\p{-}$', '', 'gi')
+  else
+    let l:title = substitute(b:title, '\v\s+[\-\|]\s+\p+$', '', 'gi')
+  endif
 
   if a:format == ''
     let l:format = expand('%:e')
