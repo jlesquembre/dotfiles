@@ -1868,7 +1868,7 @@ nnoremap <Leader>zz :DBConnection<cr>
 " nnoremap <expr> <Leader>zd ':!pg_dump ' . GetCurrentDbUrl() . ' > '
 nnoremap <expr> <Leader>zb ':Spawn -wait=always pg_dump -v -Fc -f ' . GetDumpPath() . ' ' . GetCurrentDbUrl()
 nnoremap <expr> <Leader>zs ':echo "Current DB URL -> ' . GetCurrentDbUrl() . '"<cr>'
-nnoremap <Leader>zm :tabnew \| call termopen('pspg -s 6 -f <C-R>=g:last_dadbod_file<CR>')<cr>
+nnoremap <Leader>zm :-tabnew \| call termopen('pspg -s 6 -f <C-R>=g:last_dadbod_file<CR>')<cr>
 nnoremap <Leader>zr :r <C-R>=g:last_dadbod_file<cr><cr>
 
 
