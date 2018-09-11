@@ -1373,7 +1373,7 @@ if exists('g:socket_repl_plugin_ready')
     autocmd user_augroup FileType clojure call s:clojure_socketrepl_settings()
 else
     function! s:clojure_fireplace_settings() abort
-      nmap <silent><buffer> <leader>cc <Plug>FireplacePrompt<Up>
+      nmap <silent><buffer> <leader>cc cqp<Up>
       nnoremap <buffer> crr :Require<cr>
       nnoremap <buffer> cra :Require!<cr>
       nnoremap <buffer> <leader>cr :T boot cider
