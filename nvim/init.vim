@@ -1387,6 +1387,7 @@ endif
 command! PiggieBoot :Piggieback (adzerk.boot-cljs-repl/repl-env)
 " (shadow.cljs.devtools.api/nrepl-select :app)
 command! PiggieShadow :Piggieback :app
+command! PiggieMain :Piggieback (figwheel.main.api/repl-env "dev")
 
 "let g:is_piggieboot_running == 1
 "function! StartPiggieBootIfNotRunning()
