@@ -480,7 +480,7 @@ from urllib.parse import urlparse
 url = vim.eval("a:str")
 host = urlparse(url).hostname
 if host.startswith('www.'):
-    host = hostname[4:]
+    host = host[4:]
 vim.command('return "{}"'.format(host))
 EOF
 endfunction
