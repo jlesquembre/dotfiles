@@ -89,6 +89,7 @@ Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-repeat'
 "Plug 'tpope/vim-vinegar'
 Plug 'Shougo/vimfiler.vim' | Plug 'Shougo/unite.vim'
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
@@ -165,6 +166,7 @@ Plug 'Matt-Deacalion/vim-systemd-syntax'
 Plug 'rust-lang/rust.vim'
 "PLug 'wting/rust.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'jxnblk/vim-mdx-js'
 " Plug 'mxw/vim-jsx'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'HerringtonDarkholme/yats.vim'  " Typescript
@@ -934,7 +936,7 @@ xmap gs  <plug>(GrepperOperator)
 " File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
 " let g:fzf_files_options = '--preview "(file -ib {} | rg binary || highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
 
-let g:fzf_files_options = '--preview "(file -ib {} | rg binary || bat --color always --paging never --line-range :'. &lines . ' {} || cat {}) 2> /dev/null"'
+let g:fzf_files_options = '--preview "(file -ib {} | rg binary || bat --color always --paging never --style plain --line-range :'. &lines . ' {} || cat {}) 2> /dev/null"'
 
 nnoremap <silent> <Leader>f       :FilesFd<CR>
 nnoremap <silent> <Leader>ff      :FilesFd<CR>
@@ -1069,6 +1071,18 @@ let g:airline_mode_map = {
 " ============================================================================
 " VIMFILER {{{1
 " ============================================================================
+
+autocmd FileType defx call s:defx_my_settings()
+function! s:defx_my_settings() abort
+  " Define mappings
+  nnoremap <silent><buffer><expr><CR> defx#do_action('open')
+  nnoremap <silent><buffer><expr>K defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr>N defx#do_action('new_file')
+  nnoremap <silent><buffer><expr>h defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr>~ defx#do_action('cd')
+  nnoremap <silent><buffer><expr><Space> defx#do_action('toggle_select') . 'j'
+endfunction
+
 "nmap <buffer> - :VimFilerBufferDir<CR>
 nnoremap - :VimFilerBufferDir<CR>
 nnoremap <Leader>- :VimFilerExplorer<CR>
