@@ -168,6 +168,7 @@ in rec
     rlwrap
     rofi
     rsync
+    smbclient
     sox soxr
     sqlite
     sshfs-fuse
@@ -214,7 +215,7 @@ in rec
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
 
     # JDK tools
-    jdk visualvm clojure leiningen pkgs.boot joker maven
+    jdk visualvm clojure leiningen pkgs.boot joker maven mx graalvm8
 
     # purescript
     # purescript psc-package nodePackages.pulp
