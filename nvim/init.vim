@@ -88,7 +88,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-repeat'
 "Plug 'tpope/vim-vinegar'
-Plug 'Shougo/vimfiler.vim' | Plug 'Shougo/unite.vim'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
@@ -457,10 +456,10 @@ function! <SID>SynStack()
 endfunc
 
 " Window chooser
-function! ChooseWindow()
-    let winnr = unite#helper#choose_window()
-    call vimfiler#util#winmove(winnr)
-endfunc
+" function! ChooseWindow()
+"     let winnr = unite#helper#choose_window()
+"     call vimfiler#util#winmove(winnr)
+" endfunc
 
 
 function! s:strip(str)
@@ -982,7 +981,7 @@ command! Plugs call fzf#run({
   \ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
   \ 'options': '--delimiter / --nth -1',
   \ 'down':    '~30%',
-  \ 'sink':    'VimFiler'})
+  \ 'sink':    'Defx'})
 
 augroup fzf_custom
   autocmd!
@@ -1069,75 +1068,55 @@ let g:airline_mode_map = {
 
 
 " ============================================================================
-" VIMFILER {{{1
+" DEFX.NVIM {{{1
 " ============================================================================
+
+let g:loaded_netrwPlugin = 1 " Disable netrw.vim
 
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
-  " Define mappings
-  nnoremap <silent><buffer><expr><CR> defx#do_action('open')
-  nnoremap <silent><buffer><expr>K defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr>N defx#do_action('new_file')
-  nnoremap <silent><buffer><expr>h defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr>~ defx#do_action('cd')
-  nnoremap <silent><buffer><expr><Space> defx#do_action('toggle_select') . 'j'
-endfunction
 
-"nmap <buffer> - :VimFilerBufferDir<CR>
-nnoremap - :VimFilerBufferDir<CR>
-nnoremap <Leader>- :VimFilerExplorer<CR>
+  " Open commands
+  " nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
+  nnoremap <silent><buffer><expr> <CR> defx#do_action('open', 'wincmd w \| drop')
+	nnoremap <silent><buffer><expr> l defx#do_action('open')
+	nnoremap <silent><buffer><expr> v defx#do_action('open', 'vsplit')
+  " Preview current file
+	" nnoremap <silent><buffer><expr> s defx#do_action('open', 'pedit')
 
-let g:vimfiler_as_default_explorer = 1
-let g:loaded_netrwPlugin = 1 " Disable netrw.vim
+  " File manipulation
+  nnoremap <silent><buffer><expr> K defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N defx#do_action('new_file')
+	nnoremap <silent><buffer><expr> <Del> defx#do_action('remove')
+	nnoremap <silent><buffer><expr> r defx#do_action('rename')
+	nnoremap <silent><buffer><expr> yy defx#do_action('copy')
+	nnoremap <silent><buffer><expr> dd defx#do_action('move')
+	nnoremap <silent><buffer><expr> pp defx#do_action('paste')
 
-call vimfiler#custom#profile('default', 'context', {
-      \ 'safe' : 0,
-      \ 'auto_expand' : 1,
-      \ 'parent' : 0,
-      \ })
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = ' '
-let g:vimfiler_readonly_file_icon = '✗'
-let g:vimfiler_marked_file_icon = '✓'
+  "Navigation
+  nnoremap <silent><buffer><expr> - defx#do_action('cd', ['..'])
+	nnoremap <silent><buffer><expr> h defx#do_action('cd', ['..'])
+	nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
+	nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
 
-let g:vimfiler_force_overwrite_statusline = 0
-let g:vimfiler_time_format= "%Y/%m/%d %H:%M"
+  " Miscellaneous actions
+	nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
+	nnoremap <silent><buffer><expr> q defx#do_action('quit')
+	nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
+	nnoremap <silent><buffer><expr> yp defx#do_action('yank_path')
+	nnoremap <silent><buffer><expr> <Leader>l defx#do_action('redraw')
 
-autocmd user_augroup FileType vimfiler call s:vimfiler_my_settings()
-function! s:vimfiler_my_settings() abort
-
-  nnoremap <silent><buffer><expr> gt vimfiler#do_action('tabopen')
-  nnoremap <silent><buffer><expr> v vimfiler#do_switch_action('vsplit')
-  nnoremap <silent><buffer><expr> s vimfiler#do_switch_action('split')
-  "nmap <buffer> p <Plug>(vimfiler_quick_look)
-  nmap <buffer> <Tab> <Plug>(vimfiler_switch_to_other_window)
-
-  " move/copy/delete cursor file in one key
-  nmap <buffer> c <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_copy_file)
-  nmap <buffer> m <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_move_file)
-  nmap <buffer> d <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_delete_file)
-
-  nmap <buffer> - <Plug>(vimfiler_switch_to_parent_directory)
+  nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
+	nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
+	nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
 
 endfunction
 
+nnoremap <silent>- :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
+nnoremap <Leader>- :Defx -split=vertical -winwidth=50 -direction=topleft<CR>
 
-" Title string.
-"let &g:titlestring="
-"      \ %{expand('%:p:~:.')}%(%m%r%w%)
-"      \ %<\(%{WidthPart(
-"      \ fnamemodify(&filetype ==# 'vimfiler' ?
-"      \ substitute(b:vimfiler.current_dir, '.\\zs/$', '', '') : getcwd(), ':~'),
-"      \ &columns-len(expand('%:p:.:~')))}\) - VIM"
-"nmap <buffer> - <Plug>VinegarUp
-
-let g:vimfiler_ignore_pattern = ['^\.git$', '^\.DS_Store$']
-" Default value is ['^\.'] (dot files pattern).
-
-
-" END VIMFILER
+" END DEFX.NVIM
 
 
 " ============================================================================
