@@ -391,8 +391,9 @@ function ..    ; cd .. ; end
 function ...   ; cd ../.. ; end
 function ....  ; cd ../../.. ; end
 function ..... ; cd ../../../.. ; end
-function l     ; tree --dirsfirst -aFCNL 1 $argv ; end
-function ll    ; tree --dirsfirst -ChFupDaLg 1 $argv ; end
+function l     ; exa --long --group --header --git $argv ; end
+function ll    ; exa --long --group --header --git --all --all $argv ; end
+function lll   ; exa --long --group --header --git --all --tree --level 2 $argv ; end
 
 # Utilities
 function c        ; bat $argv ; end
