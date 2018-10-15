@@ -725,6 +725,24 @@ xmap ass <Plug>(textobj-sandwich-auto-a)
 omap iss <Plug>(textobj-sandwich-auto-i)
 omap ass <Plug>(textobj-sandwich-auto-a)
 
+" From
+" https://github.com/machakann/vim-sandwich/issues/48#issuecomment-338172430
+let s:sandwich_highlight_on = 1
+function! s:sandwich_highlight_toggle() abort
+  if s:sandwich_highlight_on
+    call operator#sandwich#set('all', 'all', 'highlight', 0)
+    let s:sandwich_highlight_on = 0
+    echo 'sandwich: highlight OFF'
+  else
+    call operator#sandwich#set('all', 'all', 'highlight', 3)
+    let s:sandwich_highlight_on = 1
+    echo 'sandwich: highlight ON'
+  endif
+endfunction
+command! -nargs=0 SandwichHighlightToggle call s:sandwich_highlight_toggle()
+
+nnoremap sh :SandwichHighlightToggle<CR>
+
 " END SANDWICH
 
 
