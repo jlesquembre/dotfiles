@@ -1627,14 +1627,14 @@ endfunction
 
 
 let g:neoterm_autoscroll = 1
-let g:neoterm_default_mod ='botright'
-let g:neoterm_size = 'v'
+let g:neoterm_default_mod ='vertical botright'
+" let g:neoterm_size = 'v'
 "let g:neoterm_shell = 'fish'
 
 let g:codi#rightsplit = 0
 let g:codi#rightalign = 1
 
-nnoremap <silent> <Leader>tt :botright Ttoggle<cr>
+nnoremap <silent> <Leader>tt :Ttoggle<cr>
 nnoremap <silent> <Leader>tl :call neoterm#clear()<cr>
 nnoremap <Leader>tk :Tclose!
 nnoremap <Leader>tn :T nix-shell<cr>
