@@ -103,6 +103,7 @@ in rec
     bazel
     # breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
     cachix
+    calibre
     # conky
     cheat
     chromium
@@ -215,7 +216,7 @@ in rec
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
 
     # JDK tools
-    jdk visualvm clojure leiningen pkgs.boot joker maven mx graalvm8
+    jdk visualvm clojure leiningen pkgs.boot joker maven # mx graalvm8
 
     # purescript
     # purescript psc-package nodePackages.pulp
