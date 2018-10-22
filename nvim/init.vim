@@ -1909,4 +1909,9 @@ nmap <Leader>a<space> <Plug>(EasyAlign)ab <Nop>
 
 let g:matchup_transmute_enabled = 1
 
+let g:matchup_matchpref = {
+    \ 'html': { 'tagnameonly': 1, },
+    \ 'javascript':  { 'tagnameonly': 1, },
+    \}
+
 " END MATCHUP
