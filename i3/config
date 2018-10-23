@@ -254,4 +254,4 @@ exec --no-startup-id i3-msg 'workspace $ws1; exec chromium --force-device-scale-
 
 #exec --no-startup-id "compton --no-fading-openclose"
 exec --no-startup-id "volumeicon"
-exec --no-startup-id "volnoti"
+# exec --no-startup-id "volnoti"

@@ -411,6 +411,7 @@ alias dig-short="dig +nocmd any +multiline +noall +answer"
 alias getip="getent hosts"
 alias v="nvim"
 alias r="ranger"
+alias p="prettyping --nolegend"
 
 
 # Some abbreviations

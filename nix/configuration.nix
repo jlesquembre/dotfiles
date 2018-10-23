@@ -149,7 +149,7 @@ in rec
     neofetch
     nginxMainline
     nix-serve
-    notify-osd libnotify
+    noti notify-osd libnotify
     ntfs3g
     # okular
     openssl
@@ -160,6 +160,7 @@ in rec
     pdftk xpdf
     php
     php71Packages.composer
+    prettyping
     proselint
     pwgen
     python
@@ -207,7 +208,7 @@ in rec
     nodejs yarn
 
     # dev tools
-    httpstat httplab httpie wuzz dnsutils tcpdump socat # postman
+    httpstat httplab httpie wuzz dnsutils tcpdump socat entr # watchman postman
 
     # compress tools
     atool zip unzip p7zip dpkg
@@ -261,6 +262,7 @@ in rec
 
   ++ (with pkgs.python36Packages; [
     cookiecutter
+    csvkit
     glances
     ipython
     neovim
