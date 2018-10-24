@@ -574,6 +574,9 @@ nnoremap <leader>w <C-w>
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 
+" Used to write digraph (acentos)
+inoremap <M-k> <C-k>
+
 " Fast window moves
 " Terminal mode:
 tnoremap <C-h> <c-\><c-n><c-w>h
