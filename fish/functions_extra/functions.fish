@@ -391,9 +391,10 @@ function ..    ; cd .. ; end
 function ...   ; cd ../.. ; end
 function ....  ; cd ../../.. ; end
 function ..... ; cd ../../../.. ; end
-function l     ; exa --long --group --header --git $argv ; end
-function ll    ; exa --long --group --header --git --all --all $argv ; end
-function lll   ; exa --long --group --header --git --all --tree --level 2 $argv ; end
+# function _exa_common   ; exa --long --group --header --git --group-directories-first $argv  ; end
+function l     ; exa --long --group --header --git --group-directories-first $argv  ; end
+function ll    ; l --all --all $argv ; end
+function lll   ; l --all --tree --level 2 $argv ; end
 
 # Utilities
 function c        ; bat $argv ; end
