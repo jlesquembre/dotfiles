@@ -10,6 +10,7 @@ card top {
   .tigrc
   .hyper.js
   .npmrc
+  .yarnrc
   #.gtkrc-2.0
   .xprofile
   .githudrc
