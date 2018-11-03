@@ -1911,6 +1911,7 @@ nmap <Leader>a<space> <Plug>(EasyAlign)ab <Nop>
 
 
 let g:matchup_transmute_enabled = 1
+let g:matchup_matchparen_status_offscreen = 0
 
 let g:matchup_matchpref = {
     \ 'html': { 'tagnameonly': 1, },
