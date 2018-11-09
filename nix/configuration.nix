@@ -106,12 +106,11 @@ in rec
     calibre
     # conky
     cheat
-    chromium
+    chromium google-chrome google-chrome-dev
     clementine
     cmatrix
     #mpd cantata
     #mopidy mopidy-musicbox-webclient mopidy-moped mopidy-mopify
-    google-chrome-dev
     docker_compose
     electron
     exa
