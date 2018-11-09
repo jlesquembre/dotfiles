@@ -1923,4 +1923,10 @@ let g:matchup_matchpref = {
     \ 'javascript':  { 'tagnameonly': 1, },
     \}
 
+function! JsxHotfix()
+  setlocal matchpairs=(:),{:},[:],<:>
+  let b:match_words = '<\@<=\([^/][^ \t>]*\)\g{hlend}[^>]*\%(/\@<!>\|$\):<\@<=/\1>'
+endfunction
+let g:matchup_hotfix_javascript = 'JsxHotfix'
+
 " END MATCHUP
