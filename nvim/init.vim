@@ -511,10 +511,10 @@ function! FormatLink(format)
     let l:format = a:format
   endif
 
-  if (index(['md'], l:format) >= 0)
-    let l:newline = '[' . l:title . '](' . l:link . ')'
-  else
+  if (index(['rst'], l:format) >= 0)
     let l:newline = '`' . l:title . ' <' . l:link . '>`_'
+  else
+    let l:newline = '[' . l:title . '](' . l:link . ')'
   endif
 
   call setline('.', l:newline)
