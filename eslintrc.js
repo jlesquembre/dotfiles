@@ -1,8 +1,13 @@
 module.exports = {
-  extends: ["eslint:recommended", "prettier"],
-  plugins: ["promise"],
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/react"
+  ],
+  plugins: ["react"],
   rules: {
-    "no-console": 0
+    // "no-console": 0,
   },
   env: {
     browser: true,
@@ -11,6 +16,9 @@ module.exports = {
   },
   parserOptions: {
     sourceType: "module",
-    ecmaVersion: 2018
+    ecmaVersion: 2018,
+    ecmaFeatures: {
+      jsx: true
+    }
   }
 };

@@ -11,3 +11,5 @@ nvim/plugged/
 nvim/autoload/plug.vim
 boot/cache/
 clojure/.cpcache
+
+.tern-port
