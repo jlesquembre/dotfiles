@@ -131,6 +131,7 @@ in rec
     # highlight
     htop
     i3lock i3status-rust
+    inkscape
     jetbrains.idea-community
     jsonnet
     k3b
@@ -276,7 +277,7 @@ in rec
     cabal-install
     cabal2nix
     ghc
-    gitHUD
+    githud
     # stack
     # stack2nix
   ])
