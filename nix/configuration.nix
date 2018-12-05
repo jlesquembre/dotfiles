@@ -205,7 +205,7 @@ in rec
     neovim neovim-remote vim customVscode customEmacs
 
     # JS
-    nodejs yarn
+    nodejs
 
     # dev tools
     httpstat httplab httpie wuzz dnsutils tcpdump socat entr # watchman postman

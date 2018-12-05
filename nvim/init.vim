@@ -199,7 +199,7 @@ Plug 'junegunn/vim-peekaboo'
 
 " Autocompletion
 " Plug 'roxma/nvim-completion-manager'
-" Plug 'roxma/nvim-cm-tern',  {'do': 'yarn install'}
+" Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/context_filetype.vim'
 " Plug 'Shougo/neopairs.vim'

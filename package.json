@@ -9,9 +9,8 @@
     "http-server": "^0.11.1",
     "javascript-typescript-langserver": "^2.9.3",
     "neovim": "^4.2.1",
-    "polymer-cli": "^1.8.1",
+    "npm-check": "^5.9.0",
     "prettier": "^1.15.2",
-    "pulp": "^12.3.0",
     "tern": "^0.23.0",
     "vscode-css-languageserver-bin": "^1.4.0",
     "vscode-html-languageserver-bin": "^1.4.0"
