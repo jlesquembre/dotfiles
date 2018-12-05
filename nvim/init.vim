@@ -1507,13 +1507,15 @@ let g:ale_sign_warning = '⬥'
 
 let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', 'virtualenv']
 
-"let g:ale_linters = {
-"\   'javascript': ['eslint_d'],
-"\}
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['tsserver'],
+\}
 
 let g:ale_pattern_options = {
 \   '\.min\.js$' : {'ale_enabled': 0},
 \   '\.js$'      : {'ale_fix_on_save': 1},
+\   '\.ts$'      : {'ale_fix_on_save': 1},
 \   '\.json$'    : {'ale_fix_on_save': 1},
 \   '\.css$'     : {'ale_fix_on_save': 1},
 \   '\.html$'    : {'ale_fix_on_save': 1},
@@ -1529,6 +1531,7 @@ let g:ale_fixers = {
 \       'yapf',
 \   ],
 \   'javascript'   : [ 'prettier' ],
+\   'typescript'   : [ 'prettier' ],
 \   'json'         : [ 'prettier' ],
 \   'css'          : [ 'prettier' ],
 \   'html'         : [ 'prettier' ],
