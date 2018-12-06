@@ -904,6 +904,7 @@ nnoremap <leader>gcc :Gcommit<CR>
 nnoremap <leader>gp :Gpush<CR>
 "nnoremap <leader>gr :Git reset -q -- %<CR>
 nnoremap <leader>gll :GV!<CR>
+nnoremap <leader>glr :GV?<CR>
 nnoremap <leader>gla :GV<CR>
 
 augroup open_folds_gitlog
