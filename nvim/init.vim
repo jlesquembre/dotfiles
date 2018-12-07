@@ -104,10 +104,11 @@ Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-commentary'
 "gorkunov/smartpairs.vim
 "Plug 'cohama/lexima.vim'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 "Plug 'Raimondi/delimitMate' ???
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-endwise'
+Plug 'rstacruz/vim-closer'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-speeddating'
 Plug 'bfredl/nvim-miniyank'
@@ -1745,15 +1746,15 @@ function! s:emmet_configuration() abort
   vmap <buffer> <A-n><A-a> <plug>(emmet-anchorize-url)
 endfunction
 
-" augroup AutoEmmet
-"   autocmd!
-"   autocmd FileType html,css,javascript call s:emmet_configuration()
-"   " https://github.com/mattn/emmet-vim/issues/168#issuecomment-35853346
-"   autocmd FileType html imap <expr> <tab>
-"     \ pumvisible() ? "\<C-n>" :
-"     \ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
-"     \ "\<tab>"
-" augroup END
+augroup AutoEmmet
+  autocmd!
+  autocmd FileType html,css,javascript call s:emmet_configuration()
+  " https://github.com/mattn/emmet-vim/issues/168#issuecomment-35853346
+  autocmd FileType html imap <expr> <tab>
+    \ pumvisible() ? "\<C-n>" :
+    \ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
+    \ "\<tab>"
+augroup END
 
 " EMMET
 
