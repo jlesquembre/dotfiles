@@ -39,6 +39,7 @@ card top {
     into .config/nvim
     outof nvim
 
+    UltiSnips
     init.vim
   }
 

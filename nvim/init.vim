@@ -115,6 +115,8 @@ Plug 'tweekmonster/headlines.vim'
 Plug 'jlesquembre/rst-tables.nvim', {'do': ':UpdateRemotePlugins'}
 " Plug 'machakann/vim-swap'
 Plug 'mattn/emmet-vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 
 " UI
@@ -1934,3 +1936,20 @@ endfunction
 let g:matchup_hotfix_javascript = 'JsxHotfix'
 
 " END MATCHUP
+
+
+" ============================================================================
+" ULTISNIPS {{{1
+" ============================================================================
+
+
+let g:UltiSnipsExpandTrigger="<A-u>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
+
+" END ULTISNIPS

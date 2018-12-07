@@ -1,0 +1,48 @@
+global !p
+
+first_cap_re = re.compile('(.)([A-Z][a-z]+)')
+all_cap_re = re.compile('([a-z0-9])([A-Z])')
+def class2tag(name):
+    s1 = first_cap_re.sub(r'\1-\2', name)
+    s2 = all_cap_re.sub(r'\1-\2', s1).lower()
+    return s2 if '-' in s2 else "x-{}".format(s2)
+
+def expand(snip, jump_pos=1):
+    if snip.tabstop != jump_pos:
+        return
+
+    vim.eval('feedkeys("\<C-R>=UltiSnips#ExpandSnippet()\<CR>")')
+endglobal
+
+
+snippet lit "Lit Element"
+class ${1} extends ${2:LitElement} \{
+  constructor() \{
+    super();
+  }
+
+  render() \{
+    return html\`
+      <style>
+        :host \{
+          display: block;
+        }
+      </style>
+      <div>
+        $0
+      </div>
+    \`;
+  }
+}
+
+customElements.define("`!p
+snip.rv = class2tag(t[1])
+`", $1);
+endsnippet
+
+post_jump "expand(snip)"
+snippet liti "Lit Element with imports" b
+import { LitElement, html } from "@polymer/lit-element";
+
+lit$1
+endsnippet
