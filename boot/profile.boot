@@ -38,12 +38,12 @@
   (require 'boot.repl)
   (set-env!
     :dependencies
-    #(into % '[[org.clojure/tools.nrepl "0.2.13"]
+    #(into % '[[nrepl "0.5.2"]
                [org.clojure/tools.namespace "0.3.0-alpha4"]
-               [cider/cider-nrepl "0.16.0"]
-               [refactor-nrepl "2.4.0-SNAPSHOT"]
+               [cider/cider-nrepl "0.18.0"]
+               [refactor-nrepl "2.4.0"]
                [madstap/hugin "0.1.5" :scope "test"]
-               [jonase/eastwood "0.2.5" :exclusions [org.clojure/clojure]]
+               [jonase/eastwood "0.3.4" :exclusions [org.clojure/clojure]]
                [jonase/kibit "0.1.6" :exclusions [org.clojure/clojure]]]))
                ;[cljfmt "0.5.6"]
                ; [expound "0.3.1"]
@@ -60,12 +60,12 @@
   []
   (set-env!
     :dependencies
-    #(into % '[[org.clojure/core.async "0.3.443"]
-               [cljs-ajax "0.7.3"]
+    #(into % '[[org.clojure/core.async "0.4.490"]
+               [cljs-ajax "0.8.0"]
                [criterium "0.4.4"]
                [com.taoensso/tufte "1.1.2"]
-               [com.rpl/specter "1.1.0"]
-               [com.cognitect/transit-clj "0.8.300"]]))
+               [com.rpl/specter "1.1.2"]
+               [com.cognitect/transit-clj "0.8.313"]]))
                ; [rewrite-clj "0.6.0"]
                ; [zprint "0.4.3"]]))
   (cider))
