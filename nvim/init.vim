@@ -95,6 +95,7 @@ Plug 'mhinz/vim-grepper'
 Plug 'dyng/ctrlsf.vim'
 "Plug 'justinmk/vim-sneak'
 Plug 'easymotion/vim-easymotion'
+" Plug 'unblevable/quick-scope'
 Plug 'takac/vim-hardtime'
 
 
@@ -141,7 +142,7 @@ Plug 'henrik/vim-indexed-search'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'jreybert/vimagit'
+" Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'int3/vim-extradite'
