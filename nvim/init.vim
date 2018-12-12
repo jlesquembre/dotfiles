@@ -660,6 +660,12 @@ augroup AutoBreakpoint
   autocmd FileType clojure map <silent><buffer> <leader><leader>B O(require '[hugin.dbg :as dbg])<cr>(comment)<esc>
 augroup END
 
+augroup QfLists
+  autocmd!
+  autocmd FileType qf nnoremap <silent> <buffer> <Left> :call quickfixed#older()<CR>
+  autocmd FileType qf nnoremap <silent> <buffer> <Right> :call quickfixed#newer()<CR>
+augroup END
+
 " highlight last inserted text
 nnoremap gV `[v`]
 
