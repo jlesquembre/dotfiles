@@ -1952,8 +1952,8 @@ let g:matchup_hotfix_javascript = 'JsxHotfix'
 
 
 let g:UltiSnipsExpandTrigger="<A-u>"
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<A-j>"
+let g:UltiSnipsJumpBackwardTrigger="<A-k>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
