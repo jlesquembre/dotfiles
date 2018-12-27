@@ -505,6 +505,8 @@ function! FormatLink(format)
   elseif l:host ==# 'stackoverflow.com' || l:host =~# '.\+\.stackexchange\.com'
     let l:title = substitute(b:title, '\v^\p{-}\-\s+', '', 'gi')
     let l:title = substitute(l:title, '\v\s+\-\p{-}$', '', 'gi')
+  elseif l:host ==# 'manning.com'
+    let l:title = substitute(b:title, '\v^\p+[\-\|]\s+', '', 'gi')
   else
     let l:title = substitute(b:title, '\v\s+[\-\|]\s+\p+$', '', 'gi')
   endif
