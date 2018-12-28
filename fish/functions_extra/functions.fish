@@ -47,7 +47,7 @@ function compress_videos --description 'Find and compress videos'
         set -l escaped_new_file (echo "$new_file" | sed "s/'/\\\'/g")
 
         if test $low_res -eq 1
-          echo "$cmd -i '$escaped_path' -c:v libx265 -preset placebo -x265-params crf=32 -c:a libopus -b:a 128k '$escaped_new_file'"
+          echo "$cmd -i '$escaped_path' -c:v libx265 -preset veryslow -x265-params crf=32 -c:a libopus -b:a 128k '$escaped_new_file'"
         else
           echo "$cmd -i '$escaped_path' -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k '$escaped_new_file'"
         end
