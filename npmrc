@@ -1,1 +1,8 @@
+# vi: ft=dosini
+
 prefix = ${HOME}/.npm-packages
+
+init-author-name = "José Luis Lafuente"
+init-author-email = "jl@lafuente.me"
+init-author-url = "https://lafuente.me"
+init-license = MIT

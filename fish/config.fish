@@ -51,6 +51,8 @@ if test -e $HOME/dotfiles/node_modules/.bin
     set -x PATH $HOME/dotfiles/node_modules/.bin $PATH
 end
 
+set -x NPM_CONFIG_GLOBALCONFIG $HOME/dotfiles/npmrc
+
 # Use local node packages
 set -x PATH ./node_modules/.bin $PATH
 
