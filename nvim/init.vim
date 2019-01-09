@@ -631,7 +631,7 @@ cnoremap <c-n>  <down>
 cnoremap <c-p>  <up>
 
 " Saner CTRL-L
-nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+nnoremap <leader>l :nohlsearch<cr>:GitGutter<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 
 " Quick saving
 nnoremap <silent> <Leader>s :update<CR>
