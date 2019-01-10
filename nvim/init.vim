@@ -925,6 +925,12 @@ augroup open_folds_gitlog
   autocmd Syntax git normal zR
 augroup END
 
+" start insert mode when entering the commit buffer. See https://stackoverflow.com/a/50537836/
+augroup turbo_commit
+  autocmd!
+  autocmd BufEnter COMMIT_EDITMSG startinsert
+augroup END
+
 
 " END FUGITIVE
 
