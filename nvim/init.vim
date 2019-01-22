@@ -107,6 +107,7 @@ Plug 'tpope/vim-commentary'
 "Plug 'cohama/lexima.vim'
 " Plug 'jiangmiao/auto-pairs'
 "Plug 'Raimondi/delimitMate' ???
+Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-endwise'
 Plug 'rstacruz/vim-closer'
@@ -1201,7 +1202,11 @@ let g:hardtime_ignore_quickfix = 1
 " AUTOPAIRS {{{1
 " ============================================================================
 
-let g:AutoPairsMapSpace=0
+" let g:AutoPairsMapSpace=0
+let g:pear_tree_smart_openers = 1
+let g:pear_tree_smart_closers = 1
+let g:pear_tree_smart_backspace = 1
+let g:pear_tree_repeatable_expand = 0
 
 " END AUTOPAIRS
 
@@ -1320,7 +1325,10 @@ fun! LispCustomSettings()
   " let b:autopairs_loaded = 0
   " let b:autopairs_enabled = 0
   execute 'RainbowParentheses'
-  let b:AutoPairs = {'"':'"'}
+  " let b:AutoPairs = {'"':'"'}
+  let b:pear_tree_pairs = {
+      \   '"': {'closer': '"'}
+      \ }
 
   " It's not possible to remap CTRL-M in insert mode, see
   " :h index -> see list of vim mappings
