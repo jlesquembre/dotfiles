@@ -1114,7 +1114,14 @@ let g:airline_mode_map = {
 
 let g:loaded_netrwPlugin = 1 " Disable netrw.vim
 
-autocmd FileType defx call s:defx_my_settings()
+" autocmd FileType defx call s:defx_my_settings()
+
+augroup defxConfig
+	autocmd!
+	autocmd FileType defx call s:defx_my_settings()
+augroup END
+
+
 function! s:defx_my_settings() abort
 
   " Open commands
@@ -1152,7 +1159,43 @@ function! s:defx_my_settings() abort
 	nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
 	nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
 
+  " nnoremap <silent><buffer><expr>e defx#do_action('call', 'DefxExternalExplorer')
+  nnoremap <silent><buffer><expr> e defx#do_action('call', 'OpenRanger')
 endfunction
+
+
+
+function! s:defx_directory_from_context(context) abort
+  let l:target = a:context['targets'][0]
+  if a:context['cursor'] == 1
+    return l:target
+  endif
+  return fnamemodify(l:target, ':h')
+endfunction
+
+" Open file-explorer split with tmux
+function! g:DefxExternalExplorer(context) abort
+  if executable('ranger')
+    let l:explorer = 'ranger'
+  endif
+	if empty('$KITTY_WINDOW_ID') || empty(l:explorer)
+		return
+	endif
+	let l:dir = s:defx_directory_from_context(context)
+	silent execute '!kitty @ new-window --new-tab  --title ranger ranger ' . shellescape(l:dir)
+endfunction
+
+function! g:OpenRanger(context) abort
+	let l:dir = s:defx_directory_from_context(a:context)
+  execute '-tabnew'
+  setlocal nonumber norelativenumber
+  call termopen('ranger ' . l:dir)
+  execute 'let b:term_title="ranger"'
+  execute 'startinsert'
+  execute 'autocmd TermClose <buffer> Sayonara'
+endfunction
+
+" nnoremap <silent> <leader>o :call OpenRanger()<cr>
 
 nnoremap <silent>- :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
 nnoremap <Leader>- :Defx -split=vertical -winwidth=50 -direction=topleft<CR>
