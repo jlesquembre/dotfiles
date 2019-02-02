@@ -1105,6 +1105,21 @@ let g:airline_mode_map = {
       \ }
 
 
+function! AirlineTermName()
+  if exists('b:term_title')
+    return '['. b:term_title .'] '
+  endif
+  return ''
+endfunction
+
+function! AirlineTerm(...)
+  if &filetype == 'custom_term'
+    let w:airline_section_c = '%{AirlineTermName()}' . g:airline_section_c
+  endif
+endfunction
+call airline#add_statusline_func('AirlineTerm')
+
+
 " END AIRLINE
 
 
@@ -1187,7 +1202,7 @@ endfunction
 
 function! g:OpenRanger(context) abort
 	let l:dir = s:defx_directory_from_context(a:context)
-  execute '-tabnew'
+  execute '-tabnew +set\ filetype=custom_term'
   setlocal nonumber norelativenumber
   call termopen('ranger ' . l:dir)
   execute 'let b:term_title="ranger"'
