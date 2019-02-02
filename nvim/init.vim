@@ -984,7 +984,7 @@ nnoremap <silent> <Leader>fa      :FilesFdAll<CR>
 nnoremap <silent> <Leader>fg      :GFiles<CR>
 nnoremap <silent> <Leader>fc      :Colors<CR>
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
-nnoremap <silent> <Leader>fr     :Find <C-R><C-W>
+nnoremap <silent> <Leader>fr     :Find <C-R><C-W><CR>
 xnoremap <silent> <Leader>fr     y:Find <C-R>"<CR>
 " nnoremap <silent> <Leader>ag      :Ag <C-R><C-W><CR>
 " nnoremap <silent> <Leader>AG      :Ag <C-R><C-A><CR>
@@ -1828,7 +1828,7 @@ function! AirlineDB(...)
     let w:airline_section_x = g:airline_section_x . '%{AirlineDBConnName()}'
   endif
 endfunction
-call airline#add_statusline_func('AirlineDB')
+call airline#add_inactive_statusline_func('AirlineDB')
 
 
 let g:sql_type_default = 'pgsql'
