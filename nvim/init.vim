@@ -22,7 +22,7 @@
 " ============================================================================
 " See https://github.com/neovim/neovim/issues/2676
 "
-" Defaults					            *nvim-defaults*
+" Defaults                      *nvim-defaults*
 "
 "  Syntax highlighting is enabled by default (syntax enable)
 "  :filetype plugin indent on is enabled by default
@@ -1132,8 +1132,8 @@ let g:loaded_netrwPlugin = 1 " Disable netrw.vim
 " autocmd FileType defx call s:defx_my_settings()
 
 augroup defxConfig
-	autocmd!
-	autocmd FileType defx call s:defx_my_settings()
+  autocmd!
+  autocmd FileType defx call s:defx_my_settings()
 augroup END
 
 
@@ -1142,38 +1142,38 @@ function! s:defx_my_settings() abort
   " Open commands
   " nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
   nnoremap <silent><buffer><expr> <CR> defx#do_action('open', 'wincmd w \| drop')
-	nnoremap <silent><buffer><expr> l defx#do_action('open')
-	nnoremap <silent><buffer><expr> v defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr> l defx#do_action('open')
+  nnoremap <silent><buffer><expr> v defx#do_action('open', 'vsplit')
   " Preview current file
-	" nnoremap <silent><buffer><expr> s defx#do_action('open', 'pedit')
+  " nnoremap <silent><buffer><expr> s defx#do_action('open', 'pedit')
 
   " File manipulation
   nnoremap <silent><buffer><expr> K defx#do_action('new_directory')
   nnoremap <silent><buffer><expr> N defx#do_action('new_file')
   nnoremap <silent><buffer><expr> M defx#do_action('new_multiple_files')
-	nnoremap <silent><buffer><expr> <Del> defx#do_action('remove')
-	nnoremap <silent><buffer><expr> r defx#do_action('rename')
-	nnoremap <silent><buffer><expr> yy defx#do_action('copy')
-	nnoremap <silent><buffer><expr> dd defx#do_action('move')
-	nnoremap <silent><buffer><expr> pp defx#do_action('paste')
+  nnoremap <silent><buffer><expr> <Del> defx#do_action('remove')
+  nnoremap <silent><buffer><expr> r defx#do_action('rename')
+  nnoremap <silent><buffer><expr> yy defx#do_action('copy')
+  nnoremap <silent><buffer><expr> dd defx#do_action('move')
+  nnoremap <silent><buffer><expr> pp defx#do_action('paste')
 
   "Navigation
   nnoremap <silent><buffer><expr> - defx#do_action('cd', ['..'])
-	nnoremap <silent><buffer><expr> h defx#do_action('cd', ['..'])
-	nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
-	nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr> h defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
+  nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
   nnoremap <silent><buffer><expr> ~ defx#do_action('cd', [getcwd()])
 
   " Miscellaneous actions
-	nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
-	nnoremap <silent><buffer><expr> q defx#do_action('quit')
-	nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
-	nnoremap <silent><buffer><expr> yp defx#do_action('yank_path')
-	nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
-	nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw') . ':nohlsearch<cr>:syntax sync fromstart<cr><c-l>'
+  nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> q defx#do_action('quit')
+  nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> yp defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
+  nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw') . ':nohlsearch<cr>:syntax sync fromstart<cr><c-l>'
 
   nnoremap <silent><buffer><expr><nowait> <Space> defx#do_action('toggle_select') . 'j'
-	nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
+  nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
 
   nnoremap <silent><buffer><expr> C defx#do_action('toggle_columns', 'mark:filename:type:size:time')
   nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'time')
@@ -1200,15 +1200,15 @@ function! g:DefxExternalExplorer(context) abort
   if executable('ranger')
     let l:explorer = 'ranger'
   endif
-	if empty('$KITTY_WINDOW_ID') || empty(l:explorer)
-		return
-	endif
-	let l:dir = s:defx_directory_from_context(context)
-	silent execute '!kitty @ new-window --new-tab  --title ranger ranger ' . shellescape(l:dir)
+  if empty('$KITTY_WINDOW_ID') || empty(l:explorer)
+    return
+  endif
+  let l:dir = s:defx_directory_from_context(context)
+  silent execute '!kitty @ new-window --new-tab  --title ranger ranger ' . shellescape(l:dir)
 endfunction
 
 function! g:OpenRanger(context) abort
-	let l:dir = s:defx_directory_from_context(a:context)
+  let l:dir = s:defx_directory_from_context(a:context)
   execute '-tabnew +set\ filetype=custom_term'
   setlocal nonumber norelativenumber
   call termopen('ranger ' . l:dir)
