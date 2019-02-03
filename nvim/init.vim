@@ -1150,6 +1150,7 @@ function! s:defx_my_settings() abort
   " File manipulation
   nnoremap <silent><buffer><expr> K defx#do_action('new_directory')
   nnoremap <silent><buffer><expr> N defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> M defx#do_action('new_multiple_files')
 	nnoremap <silent><buffer><expr> <Del> defx#do_action('remove')
 	nnoremap <silent><buffer><expr> r defx#do_action('rename')
 	nnoremap <silent><buffer><expr> yy defx#do_action('copy')
@@ -1161,23 +1162,29 @@ function! s:defx_my_settings() abort
 	nnoremap <silent><buffer><expr> h defx#do_action('cd', ['..'])
 	nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
 	nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> ~ defx#do_action('cd', [getcwd()])
 
   " Miscellaneous actions
 	nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
 	nnoremap <silent><buffer><expr> q defx#do_action('quit')
 	nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
 	nnoremap <silent><buffer><expr> yp defx#do_action('yank_path')
-	nnoremap <silent><buffer><expr> <Leader>l defx#do_action('redraw')
-
-  nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
-	nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
 	nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
+	nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw') . ':nohlsearch<cr>:syntax sync fromstart<cr><c-l>'
+
+  nnoremap <silent><buffer><expr><nowait> <Space> defx#do_action('toggle_select') . 'j'
+	nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
+
+  nnoremap <silent><buffer><expr> C defx#do_action('toggle_columns', 'mark:filename:type:size:time')
+  nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'time')
 
   " nnoremap <silent><buffer><expr>e defx#do_action('call', 'DefxExternalExplorer')
   nnoremap <silent><buffer><expr> e defx#do_action('call', 'OpenRanger')
 endfunction
 
+" nnoremap <silent> <leader>o :call OpenRanger()<cr>
+nnoremap <silent>- :Defx `expand('%:p:h')` -show-ignored-files -search=`expand('%:p')`<CR>
+nnoremap <Leader>- :Defx -split=vertical -winwidth=50 -direction=topleft<CR>
 
 
 function! s:defx_directory_from_context(context) abort
@@ -1188,7 +1195,7 @@ function! s:defx_directory_from_context(context) abort
   return fnamemodify(l:target, ':h')
 endfunction
 
-" Open file-explorer split with tmux
+" Open file-explorer
 function! g:DefxExternalExplorer(context) abort
   if executable('ranger')
     let l:explorer = 'ranger'
@@ -1210,10 +1217,6 @@ function! g:OpenRanger(context) abort
   execute 'autocmd TermClose <buffer> Sayonara'
 endfunction
 
-" nnoremap <silent> <leader>o :call OpenRanger()<cr>
-
-nnoremap <silent>- :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
-nnoremap <Leader>- :Defx -split=vertical -winwidth=50 -direction=topleft<CR>
 
 " END DEFX.NVIM
 
