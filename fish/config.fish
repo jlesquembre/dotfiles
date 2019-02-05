@@ -88,22 +88,22 @@ end
 
 
 # Fish git prompt
-set __fish_git_prompt_showdirtystate 'yes'
-set __fish_git_prompt_showstashstate 'yes'
-set __fish_git_prompt_showupstream 'yes'
-set __fish_git_prompt_color_branch a0ff33
-#set __fish_git_prompt_color_branch 53c156
-#set __fish_git_prompt_color_dirtystate 'red'
-#set __fish_git_prompt_color_upstream_ahead 'ffb90f'
-#set __fish_git_prompt_color_upstream_behind 'blue'
+# set __fish_git_prompt_showdirtystate 'yes'
+# set __fish_git_prompt_showstashstate 'yes'
+# set __fish_git_prompt_showupstream 'yes'
+# set __fish_git_prompt_color_branch a0ff33
+# # set __fish_git_prompt_color_branch 53c156
+# # set __fish_git_prompt_color_dirtystate 'red'
+# # set __fish_git_prompt_color_upstream_ahead 'ffb90f'
+# # set __fish_git_prompt_color_upstream_behind 'blue'
 
 
 # Status Chars
-set __fish_git_prompt_char_dirtystate '⚡'
-set __fish_git_prompt_char_stagedstate '→'
-set __fish_git_prompt_char_stashstate '↩'
-set __fish_git_prompt_char_upstream_ahead '↑'
-set __fish_git_prompt_char_upstream_behind '↓'
+# set __fish_git_prompt_char_dirtystate '⚡'
+# set __fish_git_prompt_char_stagedstate '→'
+# set __fish_git_prompt_char_stashstate '↩'
+# set __fish_git_prompt_char_upstream_ahead '↑'
+# set __fish_git_prompt_char_upstream_behind '↓'
 
 
 function get_pwd
@@ -111,22 +111,21 @@ function get_pwd
 end
 
 
-function get_pyenv
-    if set -q VIRTUAL_ENV
-        echo (set_color -b blue white)"("(basename "$VIRTUAL_ENV")")"(set_color normal)" "
-    else
-        echo ""
-    end
-end
+# function get_pyenv
+#     if set -q VIRTUAL_ENV
+#         echo (set_color -b blue white)"("(basename "$VIRTUAL_ENV")")"(set_color normal)" "
+#     else
+#         echo ""
+#     end
+# end
 
-
-function get_nodeenv
-    if set -q VIRTUAL_NODE
-        echo (set_color -b 62A white)"("(basename "$VIRTUAL_NODE")")"(set_color normal)" "
-    else
-        echo ""
-    end
-end
+# function get_nodeenv
+#     if set -q VIRTUAL_NODE
+#         echo (set_color -b 62A white)"("(basename "$VIRTUAL_NODE")")"(set_color normal)" "
+#     else
+#         echo ""
+#     end
+# end
 
 
 #fish_vi_key_bindings
@@ -178,15 +177,15 @@ function fish_prompt
     set BG_NORMAL 444
     set BG_ERROR A22
 
-    printf '%s%s%s%s%s @ %s%s%s in ' (get_pyenv) (get_nodeenv) (set_color cyan) (whoami) (set_color normal) \
-                                     (set_color yellow) (hostname|cut -d . -f 1) (set_color normal)
+    printf '%s%s%s @ %s%s%s in ' (set_color cyan) (whoami) (set_color normal) \
+                                 (set_color yellow) (hostname|cut -d . -f 1) (set_color normal)
 
     if not test -w .
-		printf '%s%s ' (set_color red) ''
-	end
+      printf '%s%s ' (set_color red) ''
+    end
 
     #printf '%s%s%s%s' (set_color e0c060) (get_pwd) (set_color normal) (__fish_git_prompt)
-    printf '%s%s %s%s%s' (set_color e0c060) (get_pwd) (set_color $__fish_git_prompt_color_branch) (gitHUD) (set_color normal)
+    printf '%s%s %s%s' (set_color e0c060) (get_pwd) (gitHUD) (set_color normal)
 
     echo ''
 
