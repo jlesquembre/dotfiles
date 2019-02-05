@@ -83,12 +83,6 @@ set -x PATH ./node_modules/.bin $PATH
 for fish_file in $HOME/.config/fish/functions_extra/*.fish
     source $fish_file
 end
-if test -e /usr/share/autojump/autojump.fish
-    source /usr/share/autojump/autojump.fish
-end
-if type -q autojump-share
-    source (autojump-share)/autojump.fish
-end
 
 #### A better prompt
 
