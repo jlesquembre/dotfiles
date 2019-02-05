@@ -49,6 +49,7 @@ card top {
 
     rc.conf
     rifle.conf
+    commands.py
   }
 
   {
