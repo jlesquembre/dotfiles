@@ -131,6 +131,7 @@ in rec
     # highlight
     htop
     i3lock i3status-rust
+    imv
     inkscape
     jetbrains.idea-community
     jsonnet
