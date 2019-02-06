@@ -1204,7 +1204,7 @@ function! g:DefxExternalExplorer(context) abort
     return
   endif
   let l:dir = s:defx_directory_from_context(context)
-  silent execute '!kitty @ new-window --new-tab  --title ranger ranger ' . shellescape(l:dir)
+  silent execute '!kitty @ new-window --new-tab --title ranger ranger ' . shellescape(l:dir)
 endfunction
 
 function! g:OpenRanger(context) abort
