@@ -24,6 +24,8 @@ set -x PROJECT_HOME $HOME/projects
 set -x BROWSER chromium
 set -x MANPAGER "nvim -c 'set ft=man' -"
 set -x BAT_PAGER less
+set -x PAGER less
+set -x LESS "-R +G"
 
 function fish_greeting -d "what's up, fish?"
     neofetch
@@ -176,6 +178,10 @@ function fish_prompt
     set FLSYM_LEFT_CLOSE "\uE0B0"
     set BG_NORMAL 444
     set BG_ERROR A22
+
+    if test -n "$RANGER_LEVEL"
+      printf '[ranger]'
+    end
 
     printf '%s%s%s @ %s%s%s in ' (set_color cyan) (whoami) (set_color normal) \
                                  (set_color yellow) (hostname|cut -d . -f 1) (set_color normal)
