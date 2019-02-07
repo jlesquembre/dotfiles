@@ -158,7 +158,7 @@ in rec
     pass
     pavucontrol
     pciutils
-    pdftk xpdf
+    pdftk xpdf poppler-utils
     php
     php71Packages.composer
     prettyping
