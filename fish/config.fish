@@ -180,7 +180,8 @@ function fish_prompt
     set BG_ERROR A22
 
     if test -n "$RANGER_LEVEL"
-      printf '[ranger]'
+      # printf '[%sranger%s]' (set_color -o yellow) (set_color normal)
+      set ranger_txt ' ranger'
     end
 
     printf '%s%s%s @ %s%s%s in ' (set_color cyan) (whoami) (set_color normal) \
@@ -198,12 +199,12 @@ function fish_prompt
     if test $last_status = 0
         #printf '%s%s%s' (set_color green) '✔  ' (set_color normal)
         set_color -b $BG_NORMAL
-        printf ' → '
+        printf "$ranger_txt → "
         set_color $BG_NORMAL -b normal
     else
         #printf '%s%s%s' (set_color red) '✗  ' (set_color normal)
         set_color -b $BG_ERROR
-        printf " $last_status "
+        printf "$ranger_txt $last_status "
         set_color $BG_ERROR -b normal
     end
     printf $FLSYM_LEFT_CLOSE
