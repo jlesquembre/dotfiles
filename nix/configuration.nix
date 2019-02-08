@@ -372,12 +372,26 @@ address=/.local/127.0.0.1
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.extraUsers.jlle = {
+  users.users.jlle = {
     description = "Jose Luis";
     isNormalUser = true;
     home = "/home/jlle";
     uid = 1000;
     extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" ];
+    packages = [
+      # See https://nixos.wiki/wiki/Wrappers_vs._Dotfiles
+      (pkgs.writeScriptBin "nix-freespace" ''
+        # Delete everything from this profile that isn't currently needed
+        # nix-env --delete-generations old  # --> Not needed (done by nix-collect-garbage)
+
+        # Delete generations older than a week
+        nix-collect-garbage --delete-older-than 7d
+
+        # Optimize
+        # nix-store --gc --print-dead  # --> Not needed (done by nix-collect-garbage)
+        nix-store --optimise
+      '')
+    ];
   };
 
   fonts = {
