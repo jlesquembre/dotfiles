@@ -192,7 +192,7 @@ function fish_prompt
     end
 
     #printf '%s%s%s%s' (set_color e0c060) (get_pwd) (set_color normal) (__fish_git_prompt)
-    printf '%s%s %s%s' (set_color e0c060) (get_pwd) (gitHUD) (set_color normal)
+    printf '%s%s %s%s' (set_color e0c060) (get_pwd) (githud) (set_color normal)
 
     echo ''
 

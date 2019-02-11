@@ -158,7 +158,7 @@ in rec
     pass
     pavucontrol
     pciutils
-    pdftk xpdf poppler-utils
+    pdftk xpdf poppler_utils
     php
     php71Packages.composer
     prettyping
@@ -227,7 +227,7 @@ in rec
     rustc cargo rustfmt
 
     # DB utils
-    libmysql mariadb.client postgresql100 pgcli pspg
+    libmysql mariadb.client postgresql_11 pgcli pspg
 
     # kubernetes
     minikube kubectl kubernetes-helm
