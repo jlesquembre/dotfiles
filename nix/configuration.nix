@@ -139,7 +139,7 @@ in rec
     keychain
     libffi
     libicns
-    libreoffice-fresh
+    # libreoffice-fresh
     lsof
     lzma
     mcomix
@@ -158,7 +158,7 @@ in rec
     pass
     pavucontrol
     pciutils
-    pdftk xpdf poppler_utils
+    pdftk poppler_utils # xpdf
     php
     php71Packages.composer
     prettyping
@@ -261,7 +261,7 @@ in rec
     # pygments
   # ]))])
 
-  ++ (with pkgs.python36Packages; [
+  ++ (with pkgs.python37Packages; [
     cookiecutter
     csvkit
     glances
@@ -381,6 +381,7 @@ address=/.local/127.0.0.1
     packages = [
       # See https://nixos.wiki/wiki/Wrappers_vs._Dotfiles
       (pkgs.writeScriptBin "nix-freespace" ''
+        #!${pkgs.bash}/bin/bash
         # Delete everything from this profile that isn't currently needed
         # nix-env --delete-generations old  # --> Not needed (done by nix-collect-garbage)
 
