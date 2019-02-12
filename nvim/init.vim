@@ -435,6 +435,8 @@ function! g:Base16_customize() abort
 
   call Base16hi("ALEErrorSign",   g:base16_gui08, g:base16_gui01, "", "", "", "")
   call Base16hi("ALEWarningSign",   g:base16_gui09, g:base16_gui01, "", "", "", "")
+  call Base16hi("ALEError",     "", "", "", "", "underline", g:base16_gui08)
+  call Base16hi("ALEWarning",     "", "", "", "", "underline", g:base16_gui09)
 
 endfunction
 
