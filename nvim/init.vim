@@ -1038,8 +1038,9 @@ augroup END
 " BETTER WHITESPACE {{{1
 " ============================================================================
 
-let g:better_whitespace_filetypes_blacklist = [
-\ 'git', 'magit',
+" let g:better_whitespace_filetypes_blacklist = [
+let g:whitespace_filetypes_blacklist = [
+\ 'git', 'fugitive', 'magit',
 \ 'diff', 'gitcommit', 'unite', 'qf', 'help'
 \ ]
 
@@ -1051,7 +1052,8 @@ let g:better_whitespace_filetypes_blacklist = [
 
 augroup disable_whitespace_check
   autocmd!
-  execute 'autocmd FileType '.join(g:better_whitespace_filetypes_blacklist, ','). ' let b:airline_whitespace_disabled = 1'
+  execute 'autocmd FileType '.join(g:whitespace_filetypes_blacklist, ','). ' let b:airline_whitespace_disabled = 1'
+  execute 'autocmd FileType '.join(g:whitespace_filetypes_blacklist, ','). ' DisableWhitespace'
 augroup END
 
 " set laststatus=2  " Neovim default
