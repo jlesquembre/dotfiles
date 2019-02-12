@@ -19,10 +19,13 @@ let
 
 in
   emacsWithPackages (epkgs: with epkgs; [
-    # use-package diminish bind-key
+    use-package
+    diminish bind-key
     # rainbow-delimiters smartparens
-    evil-surround evil-indent-textobject evil-cleverparens avy undo-tree
-    helm
+    evil evil-surround evil-indent-textobject evil-cleverparens
+    avy undo-tree
+    # helm
+    ivy ivy-xref
     magit
     # git-timemachine
     # /* LaTeX */ auctex helm-bibtex cdlatex
@@ -38,6 +41,7 @@ in
     # /* Nix */ pkgs.nix nix-buffer
     spaceline # modeline beautification
     zerodark-theme
+    # cyberpunk-theme
     # winum eyebrowse # window management
     # auto-compile
     # /* Maxima */ pkgs.maxima
