@@ -197,7 +197,7 @@ in rec
     zathura
 
     # terminals
-    hyper kitty termite
+    hyper kitty # termite
 
     # screenshot utils
     flameshot simplescreenrecorder xfce.xfce4-screenshooter
@@ -343,8 +343,8 @@ address=/.local/127.0.0.1
   services.xserver.windowManager.default = "i3";
   services.xserver.windowManager.i3.enable = true;
 
-  services.xserver.windowManager.xmonad.enable = true;
-  services.xserver.windowManager.xmonad.enableContribAndExtras = true;
+  # services.xserver.windowManager.xmonad.enable = true;
+  # services.xserver.windowManager.xmonad.enableContribAndExtras = true;
 
   # services.xserver.desktopManager.plasma5.enable = true;
 
