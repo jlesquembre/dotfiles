@@ -97,6 +97,8 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'easymotion/vim-easymotion'
 " Plug 'unblevable/quick-scope'
 Plug 'takac/vim-hardtime'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'michaeljsmith/vim-indent-object'
 
 
 " Text edition
@@ -109,8 +111,8 @@ Plug 'tpope/vim-commentary'
 "Plug 'Raimondi/delimitMate' ???
 Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-jdaddy'
-Plug 'tpope/vim-endwise'
-Plug 'rstacruz/vim-closer'
+" Plug 'tpope/vim-endwise'
+" Plug 'rstacruz/vim-closer'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-speeddating'
 Plug 'bfredl/nvim-miniyank'
