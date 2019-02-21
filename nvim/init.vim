@@ -89,6 +89,7 @@ Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-repeat'
 "Plug 'tpope/vim-vinegar'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'kristijanhusak/defx-icons'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
@@ -1189,8 +1190,8 @@ function! s:defx_my_settings() abort
 endfunction
 
 " nnoremap <silent> <leader>o :call OpenRanger()<cr>
-nnoremap <silent>- :Defx `expand('%:p:h')` -show-ignored-files -search=`expand('%:p')`<CR>
-nnoremap <Leader>- :Defx -split=vertical -winwidth=50 -direction=topleft<CR>
+nnoremap <silent>- :Defx `expand('%:p:h')` -columns=icons:filename:type -show-ignored-files -search=`expand('%:p')`<CR>
+nnoremap <Leader>- :Defx -split=vertical -columns=icons:filename:type -winwidth=50 -direction=topleft<CR>
 
 
 function! s:defx_directory_from_context(context) abort
