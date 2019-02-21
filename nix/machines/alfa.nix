@@ -3,17 +3,20 @@
 
 {
 
+  hardware.opengl.enable = true;
+  hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
+
+  # hardware.opengl.extraPackages = [ pkgs.linuxPackages.nvidia_x11.out ];
+  # hardware.opengl.extraPackages32 = [ pkgs.linuxPackages.nvidia_x11.lib32 ];
+  # services.xserver.videoDrivers = [ "nvidia" ];
+  # boot.extraModulePackages = [ pkgs.linuxPackages.nvidia_x11 ];
 
   #boot.blacklistedKernelModules = [ "nouveau" ];
   #boot.kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
   #boot.vesa = false;
 
-  #hardware.opengl.enable = true;
-  #hardware.opengl.driSupport32Bit = true;
   #services.xserver.videoDrivers = [ "nvidia" "vesa" ];
-
 
   #fileSystems."/tmp" = {
   #  device = "tmpfs";
