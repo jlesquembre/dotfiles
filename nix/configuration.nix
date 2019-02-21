@@ -153,7 +153,7 @@ in rec
     noti notify-osd libnotify
     ntfs3g
     # okular
-    openssl
+    libressl
     paper-icon-theme arc-theme
     pass
     pavucontrol
@@ -231,7 +231,7 @@ in rec
 
     # kubernetes
     minikube kubectl kubernetes-helm
-    virtualbox
+    # virtualbox
 
     # Digital currencies
     monero go-ethereum
