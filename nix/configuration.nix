@@ -144,6 +144,7 @@ in rec
     lzma
     mcomix
     mediainfo
+    mlocate
     mmv
     ncdu
     ncurses.dev # infocmp and more utils
@@ -418,6 +419,38 @@ address=/.local/127.0.0.1
       unifont
     ];
   };
+
+  # locate options
+  services.locate = {
+    enable = true;
+    locate = pkgs.mlocate;
+    localuser = null; # mlocate does not support this option so it must be null
+    # interval = "daily";
+    interval = "hourly";
+
+    pruneNames = [
+      ".git"
+      "cache"
+      ".cache"
+      ".cpcache"
+      ".aot_cache"
+      ".boot"
+      "node_modules"
+    ];
+
+    prunePaths = options.services.locate.prunePaths.default ++ [
+      "/dev"
+      "/lost+found"
+      "/nix/var"
+      "/proc"
+      "/run"
+      "/sys"
+      "/tmp"
+      "/usr/tmp"
+      "/var/tmp"
+    ];
+  };
+
 
   # The NixOS release to be compatible with for stateful data such as databases.
   #system.stateVersion = "16.09";
