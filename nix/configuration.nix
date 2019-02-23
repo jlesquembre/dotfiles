@@ -378,7 +378,7 @@ address=/.local/127.0.0.1
     isNormalUser = true;
     home = "/home/jlle";
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" "mlocate"];
     packages = [
       # See https://nixos.wiki/wiki/Wrappers_vs._Dotfiles
       (pkgs.writeScriptBin "nix-freespace" ''
@@ -436,6 +436,7 @@ address=/.local/127.0.0.1
       ".aot_cache"
       ".boot"
       "node_modules"
+      "USB"
     ];
 
     prunePaths = options.services.locate.prunePaths.default ++ [
