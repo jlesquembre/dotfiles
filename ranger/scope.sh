@@ -246,7 +246,7 @@ handle_mime() {
             # Preview as text conversion
             # img2txt --gamma=0.6 --width="${PV_WIDTH}" -- "${FILE_PATH}" && exit 4
             # exiftool "${FILE_PATH}" && exit 5
-            exiftool -f -filename -filemodifydate -filesize \
+            exiftool -d "%Y-%m-%d %H:%M:%S" -f -filename -filemodifydate -filesize \
               -datetimeoriginal -modifydate -imagesize \
               -aperture -shutterspeed -iso -focallength -model -lensid -shuttercount \
               -subject -hierarchicalsubject -comment -rating -label -GPSposition -GPSaltitude \
