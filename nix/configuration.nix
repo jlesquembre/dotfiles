@@ -114,6 +114,7 @@ in rec
     docker_compose
     electron
     exa
+    exiftool
     Fabric
     fd
     file
