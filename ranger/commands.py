@@ -131,3 +131,38 @@ class j(Command):
         directory = directory.decode("utf-8", "ignore")
         directory = directory.rstrip('\n')
         self.fm.execute_console("cd " + directory)
+
+
+class select_all_files(Command):
+    """
+    :select_all_files
+    Select all file in current directory
+    """
+    def execute(self):
+        cwd = self.fm.thisdir
+        for item in cwd.files:
+            if os.path.isdir(item.path):
+                cwd.mark_item(item, False)
+            else:
+                cwd.mark_item(item, True)
+
+        self.fm.ui.redraw_main_column()
+        self.fm.ui.status.need_redraw = True
+
+
+class rename_all_files(Command):
+    """
+    :rename_all_files
+    Rename all files in directory
+    """
+    def execute(self):
+        cwd = self.fm.thisdir
+        for item in cwd.files:
+            cwd.mark_item(item, True)
+
+        self.fm.execute_console("bulkrename")
+
+        self.fm.mark_files(all=True, val=False)
+
+        self.fm.ui.redraw_main_column()
+        self.fm.ui.status.need_redraw = True
