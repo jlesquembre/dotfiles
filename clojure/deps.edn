@@ -27,6 +27,11 @@
                                      com.bhauman/figwheel-main       {:mvn/version "0.1.7"}}
                         :main-opts  ["-m" "figwheel.main"]}
 
+           :user {:extra-deps {vvvvalvalval/scope-capture  {:mvn/version "0.3.2"}
+                               com.gfredericks/dot-slash-2 {:mvn/version "0.1.5"}
+                               com.gfredericks/repl-utils  {:mvn/version "0.2.17"}}
+                  :extra-paths ["/home/jlle/dotfiles/clojure"]}
+
            :find-deps  {:extra-deps {find-deps {:git/url "https://github.com/hagmonk/find-deps"
                                                 :sha     "6fc73813aafdd2288260abb2160ce0d4cdbac8be"}}
                         :main-opts  ["-m" "find-deps.core"]}}}
