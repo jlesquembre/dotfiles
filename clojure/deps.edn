@@ -27,6 +27,9 @@
                                      com.bhauman/figwheel-main       {:mvn/version "0.1.7"}}
                         :main-opts  ["-m" "figwheel.main"]}
 
+           :server {:extra-deps {nasus {:mvn/version "0.1.1"}}
+                    :main-opts ["-m" "http.server"]}
+
            :user {:extra-deps {vvvvalvalval/scope-capture  {:mvn/version "0.3.2"}
                                com.gfredericks/dot-slash-2 {:mvn/version "0.1.5"}
                                com.gfredericks/repl-utils  {:mvn/version "0.2.17"}}
