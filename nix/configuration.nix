@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, options, pkgs, lib, ... }:
 
 let
 
@@ -193,10 +193,13 @@ in rec
     wget
     whois
     xclip
-    xonsh
+    # xonsh
     xorg.xkbcomp
     #xorg.xcursorthemes
     zathura
+
+    # dhall-lang
+    dhall dhall.prelude dhall-bash dhall-json dhall-text # dhall-nix
 
     # terminals
     hyper kitty # termite
@@ -220,7 +223,7 @@ in rec
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
 
     # JDK tools
-    jdk visualvm clojure leiningen pkgs.boot joker maven # mx graalvm8
+    jdk visualvm clojure leiningen pkgs.boot joker maven gradle # mx graalvm8
 
     # purescript
     # purescript psc-package nodePackages.pulp
@@ -229,7 +232,8 @@ in rec
     rustc cargo rustfmt
 
     # DB utils
-    libmysql mariadb.client postgresql_11 pgcli pspg
+    libmysql mariadb.client
+    postgresql_11 pspg # pgcli
 
     # kubernetes
     minikube kubectl kubernetes-helm
@@ -269,7 +273,6 @@ in rec
     glances
     ipython
     neovim
-    pygments
     virtualenv
     youtube-dl
   ])
