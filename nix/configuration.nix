@@ -369,8 +369,15 @@ address=/.local/127.0.0.1
   services.devmon.enable = true;
   services.udev.packages = with pkgs; [ libu2f-host ];
 
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull;
+    support32Bit = true;
+    # extraConfig = ''
+    #   # stop switching to HDMI output
+    #   unload-module module-switch-on-port-available
+    # '';
+  };
 
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark-qt;

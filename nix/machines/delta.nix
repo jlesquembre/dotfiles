@@ -29,6 +29,7 @@
   environment.systemPackages = [
     # pkgs.cudatoolkit
     pkgs.wpa_supplicant_gui
+    pkgs.blueman
   ];
 
   fileSystems."/mnt/yelster_public" = {
@@ -39,5 +40,24 @@
         automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
       in ["${automount_opts},guest,user=nobody,vers=1.0"];
   };
+
+  hardware.bluetooth = {
+    enable = true;
+    # extraConfig = "
+    #   [General]
+    #   Enable=Source,Sink,Media,Socket
+    # ";
+  };
+
+  hardware.pulseaudio.extraModules = [ pkgs.pulseaudio-modules-bt ];
+  # hardware.pulseaudio.configFile = pkgs.writeText "default.pa" ''
+  #   load-module module-bluetooth-policy
+  #   load-module module-bluetooth-discover
+  #   ## module fails to load with
+  #   ##   module-bluez5-device.c: Failed to get device path from module arguments
+  #   ##   module.c: Failed to load module "module-bluez5-device" (argument: ""): initialization failed.
+  #   # load-module module-bluez5-device
+  #   # load-module module-bluez5-discover
+# '';
 
 }
