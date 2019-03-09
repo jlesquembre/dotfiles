@@ -150,7 +150,8 @@ Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'int3/vim-extradite'
-Plug 'junegunn/gv.vim'
+" Plug 'junegunn/gv.vim'
+Plug 'rbong/vim-flog'
 " Plug 'gregsexton/gitv', {'on': ['Gitv']}
 " Plug 'lambdalisue/gina.vim'
 
@@ -923,9 +924,23 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gcc :Gcommit<CR>
 nnoremap <leader>gp :Gpush<CR>
 "nnoremap <leader>gr :Git reset -q -- %<CR>
-nnoremap <leader>gll :GV!<CR>
-nnoremap <leader>glr :GV?<CR>
-nnoremap <leader>gla :GV<CR>
+" nnoremap <leader>gll :GV!<CR>
+" nnoremap <leader>glr :GV?<CR>
+" nnoremap <leader>gla :GV<CR>
+nnoremap <leader>gll :Flog -path=%<CR>
+nnoremap <leader>gla :Flog<CR>
+
+function! Flogdiff(mods) abort
+  let l:path = fnameescape(flog#get_state().path[0])
+  let l:commit = flog#get_commit_data(line('.')).short_commit_hash
+  call flog#preview(a:mods . ' split ' . l:path . ' | Gvdiff ' . l:commit)
+endfunction
+
+augroup flog
+  autocmd FileType floggraph command! -buffer -nargs=0 Flogdiff call Flogdiff('<mods>')
+  autocmd FileType floggraph nnoremap <buffer> gd :Flogdiff<CR>
+  autocmd FileType floggraph nmap <buffer> <leader>q <Plug>Flogquit
+augroup END
 
 augroup open_folds_gitlog
   autocmd!
