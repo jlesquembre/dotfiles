@@ -451,7 +451,7 @@ alias   cljs='clj -m cljs.main'
 abbr -a cljs 'clj -m cljs.main'
 
 alias   clj-outdated='clj -A:outdated'
-abbr -a clj-outdated 'clj -A:outdated'
+abbr -a clj-outdated 'clj -A:outdated -a'
 
 alias   clj-rebel 'clojure -A:rebel'
 abbr -a clj-rebel 'clojure -A:rebel'
