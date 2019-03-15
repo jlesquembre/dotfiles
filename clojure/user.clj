@@ -5,6 +5,12 @@
     [com.gfredericks.dot-slash-2 :as dot-slash-2]))
 
 
+;; ------------
+;;
+;; Global utils
+;;
+;; ------------
+
 (require '[sc.api :refer [letsc defsc]])
 
 (defmacro letsc*
@@ -36,6 +42,11 @@
 
       com.gfredericks.repl/pp]})
 
+;; -----------
+;;
+;; clj -A:user
+;;
+;; -----------
 
 ;; Trick to load all user.clj files in path
 ;; Usage: clj -A:user:other-alias
