@@ -930,27 +930,28 @@ nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gll :Flog -path=%<CR>
 nnoremap <leader>gla :Flog<CR>
 
+
 function! Flogdiff(mods) abort
   let l:path = fnameescape(flog#get_state().path[0])
   let l:commit = flog#get_commit_data(line('.')).short_commit_hash
   call flog#preview(a:mods . ' split ' . l:path . ' | Gvdiff ' . l:commit)
 endfunction
 
-
 augroup flog
   autocmd!
   autocmd FileType floggraph command! -buffer -nargs=0 Flogdiff call Flogdiff('<mods>')
   autocmd FileType floggraph nnoremap <buffer> gd :Flogdiff<CR>
-  autocmd FileType floggraph map <buffer> o <Plug>Flogvsplitcommitright
-  " autocmd FileType floggraph nmap <buffer> <leader>q <Plug>Flogquit
+
+  autocmd FileType floggraph map <buffer> o :call myflog#close_term_preview()<CR>:vertical belowright Flogsplitcommit<CR>
   autocmd FileType floggraph nmap <buffer> <leader>q :call myflog#quit()<CR>
-  " autocmd FileType floggraph command! Myflogsplitcommit call flog#preview_commit('vertical belowright term ' . flog#get_fugitive_git_command() . ' -p show ', 1)
-  " autocmd FileType floggraph command! Myflogsplitcommit call flog#preview_commit('vnew  | termopen(''' . flog#get_fugitive_git_command() . ' -p show ', 1) . ''')'
-  " autocmd FileType floggraph command! Myflogsplitcommit execute JLFlog()
-  autocmd FileType floggraph command! -buffer -nargs=0 Myflogsplitcommit call myflog#diff_fancy('<mods>')
+
+  autocmd FileType floggraph command! -buffer -nargs=0 Myflogsplitcommit call myflog#diff_fancy()
   autocmd FileType floggraph nnoremap <buffer> <silent> <CR> :Myflogsplitcommit<CR>
   autocmd FileType floggraph nnoremap <buffer> <silent> J :call myflog#scroll_down()<CR>
   autocmd FileType floggraph nnoremap <buffer> <silent> K :call myflog#scroll_up()<CR>
+
+  autocmd FileType floggraph nnoremap <buffer> <silent> <c-n> :call myflog#preview_next_commit()<CR>
+  autocmd FileType floggraph nnoremap <buffer> <silent> <c-p> :call myflog#preview_prev_commit()<CR>
 augroup END
 
 augroup open_folds_gitlog
