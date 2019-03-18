@@ -143,7 +143,6 @@ in rec
     # libreoffice-fresh
     lsof
     lzma
-    mcomix
     mediainfo
     mlocate
     mmv
