@@ -373,6 +373,20 @@ autocmd user_augroup WinLeave,FocusLost   * setlocal nocursorline
 " END BASIC SETTINGS
 
 " ============================================================================
+" PERSONAL DOC {{{1
+" ============================================================================
+
+augroup user_augroup
+  autocmd!
+  " autocmd BufWritePost ~/.config/nvim/doc/personal.txt :helptags ~/.config/nvim/doc
+  autocmd BufWritePost ~/dotfiles/nvim/doc/personal.txt :helptags ~/.config/nvim/doc
+augroup END
+
+
+" END PERSONAL DOC
+
+
+" ============================================================================
 " COLORSCHEMA {{{1
 " ============================================================================
 
@@ -2005,6 +2019,7 @@ augroup AutoSQL
   autocmd!
   autocmd FileType sql nnoremap <buffer> cpp :call GetSQL()<CR>:DB <C-R>s<CR>
   autocmd FileType sql vnoremap <buffer> cpp :DB<CR>
+  autocmd FileType sql nnoremap <buffer> g? :help personal-sql-mappings<CR>
   autocmd BufReadPost *.dbout let g:last_dadbod_file = expand('%:p')
   autocmd TermOpen *.dbout nnoremap <silent> <buffer> q :close<cr>
   autocmd TermOpen *.dbout tnoremap <silent> <buffer> q <C-\><C-n>:close<cr>

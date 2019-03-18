@@ -1,0 +1,37 @@
+*personal.txt*  My personal vim documentation
+
+Author:  José Luis Lafuente <https://github.com/jlesquembre>
+License: Same terms as Vim itself (see |license|)
+
+INTRODUCTION                                    *personal-doc*
+
+Just some reminders aobut my personal vim configuration
+
+MAPPINGS                                        *personal-mappings*
+
+My personal mappings
+
+SQL mappings                                 *personal-sql-mappings*
+
+<leader>zz                                  *personal-sql-dbconnection*
+
+Let you choose the default SQL connection to send queries. Possible
+connections should be listed in a .env file
+
+
+<leader>zs                                  *personal-sql-showdb*
+
+Show current DB connection
+
+
+<leader>zm                                  *personal-sql-pspg*
+
+Open last query results with pspg in a new terminal
+
+
+<leader>zr                                  *personal-sql-read-result*
+
+Read the last query result and insert it at the current curson position
+
+
+ vim:tw=78:ts=8:ft=help

@@ -41,6 +41,7 @@ card top {
     UltiSnips
     autoload
     init.vim
+    doc/personal.txt
   }
 
   {
