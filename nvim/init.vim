@@ -547,7 +547,7 @@ function! FormatLink(format)
   call setline('.', l:newline)
   normal 0
 
-  echomsg 'Original title (saved on b:title): ' . b:title
+  echomsg 'Original title (saved on b:title, `<C-R>=` to insert it): ' . b:title
 
 endfunction
 
