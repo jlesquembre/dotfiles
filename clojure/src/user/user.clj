@@ -68,18 +68,18 @@
 (defn load-user!
   [f]
   (try
-    (prn (str "Loading " f))
+    (println (str "Loading " f))
     (load-file (str f))
     (catch Exception e
       (binding [*out* *err*]
         (printf "WARNING: Exception while loading %s\n" f)
-        (prn e)))))
+        (println e)))))
 
 
 (defn load-all-user!
   []
   (let [paths (user-clj-paths)]
-    (prn (str "Load " (first paths)))
+    (println (str "Loading " (first paths)))
     (doall
       (map load-user! (rest paths)))))
 

@@ -15,29 +15,62 @@
  :aliases {:outdated   {:extra-deps {olical/depot {:mvn/version "1.7.0"}}
                         :main-opts  ["-m" "depot.outdated.main"]}
 
-           :new        {:extra-deps {seancorfield/clj-new {:git/url "https://github.com/seancorfield/clj-new"
-                                                           :sha "108f27159501f8ce12564b398b0ea50def3892b1"}}
-                        :main-opts  ["-m" "clj-new.create"]}
+           ;; project creation from templates:
+           ;; - see https://github.com/seancorfield/clj-new
+           ;; - create an application project:
+           ;;   - clj -A:new app myname/myapp
+           ;;   - cd myapp
+           ;;   - clj -m myname.myapp # run it!
+           ;;   - clj -A:test:runner # run the tests!
+           ;; - create a library project:
+           ;;   - clj -A:new lib myname/my-cool-lib
+           ;;   - cd my-cool-lib
+           ;;   - clj -A:test:runner # run the tests!
+           :new {:extra-deps {seancorfield/clj-new {:mvn/version "RELEASE"}}
+                 :main-opts ["-m" "clj-new.create"]}
 
            :rebel      {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}
-                                     com.rpl/specter            {:mvn/version "1.1.1"}}
+                                     com.rpl/specter            {:mvn/version "1.1.2"}}
                         :main-opts  ["-m" "rebel-readline.main"]}
 
            :rebel-cljs {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
-                                     com.bhauman/figwheel-main       {:mvn/version "0.1.7"}}
+                                     com.bhauman/figwheel-main       {:mvn/version "0.2.0"}}
                         :main-opts  ["-m" "figwheel.main"]}
 
-           :server {:extra-deps {nasus {:mvn/version "0.1.1"}}
+           :server {:extra-deps {nasus {:mvn/version "0.1.3"}}
                     :main-opts ["-m" "http.server"]}
+
+           ;; see https://github.com/jonase/eastwood#running-eastwood-in-a-repl
+           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "RELEASE"}}
+                      :main-opts ["-m" "eastwood.lint" "{:source-paths,[\"src\"],:test-paths,[\"test\"]}"]}
+
+           ;; uberjar building:
+           ;; - see https://github.com/seancorfield/depstar for a minimalist approach:
+           ;;   - clj -A:uberjar result.jar
+           ;; - to run it:
+           ;;   - java -cp result.jar clojure.main -m mymain.namespace
+           ;; - build a library JAR:
+           ;;   - clj -A:jar result-lib.jar
+           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "RELEASE"}}
+                     :main-opts ["-m" "hf.depstar.uberjar"]}
+           :jar {:extra-deps {seancorfield/depstar {:mvn/version "RELEASE"}}
+                 :main-opts ["-m" "hf.depstar.jar"]}
+
+           :find-deps  {:extra-deps {find-deps {:git/url "https://github.com/hagmonk/find-deps"
+                                                :sha     "9bf23a52cb0a8190c9c2c7ad1d796da802f8ce7a"}}
+                        :main-opts  ["-m" "find-deps.core"]}
 
            :user {:extra-deps {vvvvalvalval/scope-capture  {:mvn/version "0.3.2"}
                                com.gfredericks/dot-slash-2 {:mvn/version "0.1.5"}
                                com.gfredericks/repl-utils  {:mvn/version "0.2.17"}}
-                  :extra-paths ["/home/jlle/dotfiles/clojure"]}
+                  :extra-paths ["/home/jlle/dotfiles/clojure/src/user"]}
 
-           :find-deps  {:extra-deps {find-deps {:git/url "https://github.com/hagmonk/find-deps"
-                                                :sha     "6fc73813aafdd2288260abb2160ce0d4cdbac8be"}}
-                        :main-opts  ["-m" "find-deps.core"]}}}
+           :u/nrepl {:extra-deps {nrepl  {:mvn/version "0.6.0"}
+                                  cider/cider-nrepl {:mvn/version "0.21.1"}
+                                  cider/piggieback {:mvn/version "0.4.0"}
+                                  refactor-nrepl {:mvn/version "2.4.0"}}
+                     :extra-paths ["/home/jlle/dotfiles/clojure/src/nrepl"]}}}
+
   ;; Paths
   ;;   Directories in the current project to include in the classpath
 

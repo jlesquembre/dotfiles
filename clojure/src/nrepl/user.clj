@@ -45,11 +45,3 @@
      (when (= kind ::exit)
        (clean-up-and-exit status))
      (throw ex))))
-
-
-; (nrepl-cli/-main  "-i") ; "--middleware" "[refactor-nrepl.middleware/wrap-refactor cider.nrepl/cider-middleware cider.piggieback/wrap-cljs-repl]")
-
-; (when (defonce server (nrepl-cli/start-server nrepl-options))
-;   (nrepl-cli/ack-server server nrepl-options)
-;   (println (nrepl-cli/server-started-message server nrepl-options))
-;   (nrepl-cli/save-port-file server nrepl-options))
