@@ -149,7 +149,7 @@ in rec
     ncdu
     ncurses.dev # infocmp and more utils
     neofetch
-    nginxMainline
+    nginxMainline apacheHttpd # apache used for tools like htpasswd
     nix-serve
     noti notify-osd libnotify
     ntfs3g
