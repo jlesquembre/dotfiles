@@ -60,6 +60,14 @@
                                                 :sha     "9bf23a52cb0a8190c9c2c7ad1d796da802f8ce7a"}}
                         :main-opts  ["-m" "find-deps.core"]}
 
+           ;; start a Socket REPL
+           :socket {:jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/repl}"]}
+
+           ;; start a Socket pREPL
+           :prepl {:jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/io-prepl}"
+                              "-Dclojure.server.node={:port,5556,:accept,cljs.server.node/prepl}"
+                              "-Dclojure.server.browser={:port,5557,:accept,cljs.server.browser/prepl}"]}
+
            :user {:extra-deps {vvvvalvalval/scope-capture  {:mvn/version "0.3.2"}
                                com.gfredericks/dot-slash-2 {:mvn/version "0.1.5"}
                                com.gfredericks/repl-utils  {:mvn/version "0.2.17"}}
