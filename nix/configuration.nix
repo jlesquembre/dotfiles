@@ -268,7 +268,7 @@ in rec
 
   ++ (with pkgs.python37Packages; [
     cookiecutter
-    csvkit
+    # csvkit
     glances
     ipython
     neovim
