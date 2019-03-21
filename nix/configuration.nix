@@ -177,6 +177,7 @@ in rec
     sqlite
     sshfs-fuse
     super-user-spark
+    telnet
     texlive.combined.scheme-full
     tldr
     tmux
