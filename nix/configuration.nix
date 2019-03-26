@@ -207,6 +207,9 @@ in rec
     # screenshot utils
     flameshot simplescreenrecorder xfce.xfce4-screenshooter
 
+    # screencasts
+    asciinema obs-studio screenkey
+
     # editors
     neovim neovim-remote vim customVscode customEmacs
 
