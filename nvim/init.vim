@@ -186,7 +186,8 @@ Plug 'cespare/vim-toml'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'google/vim-jsonnet'
 
-Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
+" Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
+Plug 'RRethy/vim-hexokinase'
 
 " General utils
 Plug 'tpope/vim-dispatch'
@@ -2089,3 +2090,14 @@ let g:UltiSnipsEditSplit="vertical"
 
 
 " END ULTISNIPS
+
+
+" ============================================================================
+" HEXOKINASE {{{1
+" ============================================================================
+
+let g:Hexokinase_virtualText = '███'
+let g:Hexokinase_refreshEvents = ['TextChanged', 'TextChangedI']
+let g:Hexokinase_ftAutoload = ['css', 'xml']
+
+" END HEXOKINASE
