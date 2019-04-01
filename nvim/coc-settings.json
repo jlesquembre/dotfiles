@@ -1,0 +1,19 @@
+{
+  "diagnostic.errorSign": "⬥",
+  "diagnostic.warningSign": "⬥",
+  "diagnostic.hintSign": "⬥",
+  "diagnostic.infoSign": "⬥",
+
+  "coc.preferences.colorSupport": false,
+
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "json",
+    "jsonc",
+    "css",
+    "html",
+    "markdown",
+    "markdown.mdx"
+  ]
+}

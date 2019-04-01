@@ -41,6 +41,7 @@ card top {
     UltiSnips
     autoload
     init.vim
+    coc-settings.json
     doc/personal.txt
   }
 

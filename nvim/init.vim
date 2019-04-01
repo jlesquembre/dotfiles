@@ -85,7 +85,7 @@ Plug 'ryanoasis/vim-devicons'
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Navigation
-Plug 'andymass/vim-matchup'
+" Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-repeat'
 "Plug 'tpope/vim-vinegar'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -110,7 +110,7 @@ Plug 'tpope/vim-commentary'
 "Plug 'cohama/lexima.vim'
 " Plug 'jiangmiao/auto-pairs'
 "Plug 'Raimondi/delimitMate' ???
-Plug 'tmsvg/pear-tree'
+" Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-jdaddy'
 " Plug 'tpope/vim-endwise'
 " Plug 'rstacruz/vim-closer'
@@ -120,7 +120,7 @@ Plug 'bfredl/nvim-miniyank'
 Plug 'tweekmonster/headlines.vim'
 Plug 'jlesquembre/rst-tables.nvim', {'do': ':UpdateRemotePlugins'}
 " Plug 'machakann/vim-swap'
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -199,7 +199,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'tpope/vim-projectionist'
 "Plug 'neomake/neomake'
 "Plug 'sbdchd/neoformat'
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 Plug 'kassio/neoterm'
 Plug 'metakirby5/codi.vim'
 Plug 'mhinz/vim-sayonara'
@@ -210,15 +210,17 @@ Plug 'junegunn/vim-peekaboo'
 " Autocompletion
 " Plug 'roxma/nvim-completion-manager'
 " Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/context_filetype.vim'
-" Plug 'Shougo/neopairs.vim'
-Plug 'Shougo/echodoc.vim'
-Plug 'Shougo/neoinclude.vim'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/context_filetype.vim'
+" " Plug 'Shougo/neopairs.vim'
+" Plug 'Shougo/echodoc.vim'
+" Plug 'Shougo/neoinclude.vim'
 
-Plug 'ponko2/deoplete-fish'
-Plug 'carlitux/deoplete-ternjs'
-Plug 'Shougo/neco-vim'
+" Plug 'ponko2/deoplete-fish'
+" Plug 'carlitux/deoplete-ternjs'
+" Plug 'Shougo/neco-vim'
+
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 " Plug 'autozimu/LanguageClient-neovim', {
 "     \ 'branch': 'next',
@@ -456,6 +458,14 @@ function! g:Base16_customize() abort
   call Base16hi("ALEWarningSign",   g:base16_gui09, g:base16_gui01, "", "", "", "")
   call Base16hi("ALEError",     "", "", "", "", "underline", g:base16_gui08)
   call Base16hi("ALEWarning",     "", "", "", "", "underline", g:base16_gui09)
+
+  call Base16hi("CocErrorSign",   g:base16_gui08, g:base16_gui01, "", "", "", "")
+  call Base16hi("CocWarningSign",   g:base16_gui09, g:base16_gui01, "", "", "", "")
+  call Base16hi("CocInfoSign",   g:base16_gui0D, g:base16_gui01, "", "", "", "")
+  call Base16hi("CocHintSign",   g:base16_gui0B, g:base16_gui01, "", "", "", "")
+
+  call Base16hi("CocError",     "", "", "", "", "underline", g:base16_gui08)
+  call Base16hi("CocWarning",     "", "", "", "", "underline", g:base16_gui09)
 
 endfunction
 
@@ -1127,7 +1137,9 @@ let g:airline#extensions#tabline#show_close_button = 0
 "let g:airline#extensions#tabline#show_tab_nr = 1
 "let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#tabs_label = 't'
-let g:airline#extensions#ale#enabled = 1
+" let g:airline#extensions#ale#enabled = 1
+let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -1638,115 +1650,126 @@ let g:headlines_height= 22
 " ALE {{{1
 " ============================================================================
 
-let g:ale_sign_error = '⬥'
-let g:ale_sign_warning = '⬥'
+" let g:ale_sign_error = '⬥'
+" let g:ale_sign_warning = '⬥'
 
-" let g:ale_javascript_prettier_executable = 'prettier_d'
-" let g:ale_javascript_prettier_options = '--trailing-comma es5'
-" let g:ale_javascript_eslint_executable = 'eslint_d'
+" " let g:ale_javascript_prettier_executable = 'prettier_d'
+" " let g:ale_javascript_prettier_options = '--trailing-comma es5'
+" " let g:ale_javascript_eslint_executable = 'eslint_d'
 
-let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', 'virtualenv']
+" let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', 'virtualenv']
 
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'typescript': ['tsserver'],
-\}
+" let g:ale_linters = {
+" \   'javascript': ['eslint'],
+" \   'typescript': ['tsserver'],
+" \}
 
-let g:ale_pattern_options = {
-\   '\.min\.js$' : {'ale_enabled': 0},
-\   '\.js$'      : {'ale_fix_on_save': 1},
-\   '\.ts$'      : {'ale_fix_on_save': 1},
-\   '\.json$'    : {'ale_fix_on_save': 1},
-\   '\.css$'     : {'ale_fix_on_save': 1},
-\   '\.html$'    : {'ale_fix_on_save': 1},
-\   '\.mdx\?$'   : {'ale_fix_on_save': 1},
-\   '\.rs$'      : {'ale_fix_on_save': 1},
-\   '\.joker$'   : {'ale_linters': []},
-\}
+" let g:ale_pattern_options = {
+" \   '\.min\.js$' : {'ale_enabled': 0},
+" \   '\.js$'      : {'ale_fix_on_save': 1},
+" \   '\.ts$'      : {'ale_fix_on_save': 1},
+" \   '\.json$'    : {'ale_fix_on_save': 1},
+" \   '\.css$'     : {'ale_fix_on_save': 1},
+" \   '\.html$'    : {'ale_fix_on_save': 1},
+" \   '\.mdx\?$'   : {'ale_fix_on_save': 1},
+" \   '\.rs$'      : {'ale_fix_on_save': 1},
+" \   '\.joker$'   : {'ale_linters': []},
+" \}
 
-let g:ale_fixers = {
-\   'python': [
-\       'remove_trailing_lines',
-\       'isort',
-\       'yapf',
-\   ],
-\   'javascript'   : [ 'prettier' ],
-\   'typescript'   : [ 'prettier' ],
-\   'json'         : [ 'prettier' ],
-\   'css'          : [ 'prettier' ],
-\   'html'         : [ 'prettier' ],
-\   'markdown'     : [ 'prettier' ],
-\   'markdown.mdx' : [ 'prettier' ],
-\   'rust'         : [ 'rustfmt' ],
-\}
+" let g:ale_fixers = {
+" \   'python': [
+" \       'remove_trailing_lines',
+" \       'isort',
+" \       'yapf',
+" \   ],
+" \   'javascript'   : [ 'prettier' ],
+" \   'typescript'   : [ 'prettier' ],
+" \   'json'         : [ 'prettier' ],
+" \   'css'          : [ 'prettier' ],
+" \   'html'         : [ 'prettier' ],
+" \   'markdown'     : [ 'prettier' ],
+" \   'markdown.mdx' : [ 'prettier' ],
+" \   'rust'         : [ 'rustfmt' ],
+" \}
 
 
-map <silent> <leader>af :ALEFix<cr>
-nmap <silent> <leader>ak <Plug>(ale_previous_wrap)
-nmap <silent> <leader>aj <Plug>(ale_next_wrap)
-nmap <silent> [w <Plug>(ale_previous_wrap)
-nmap <silent> ]w <Plug>(ale_next_wrap)
+" map <silent> <leader>af :ALEFix<cr>
+" nmap <silent> <leader>ak <Plug>(ale_previous_wrap)
+" nmap <silent> <leader>aj <Plug>(ale_next_wrap)
+" nmap <silent> [w <Plug>(ale_previous_wrap)
+" nmap <silent> ]w <Plug>(ale_next_wrap)
 
 " ALE
 
 
 " ============================================================================
-" DEOPLETE {{{1
+" COC.NVIM {{{1
 " ============================================================================
+let g:coc_global_extensions = [
+      \'coc-word',
+      \'coc-pairs',
+      \'coc-prettier',
+      \'coc-json',
+      \'coc-css',
+      \'coc-html',
+      \'coc-tsserver',
+      \'coc-tslint',
+      \'coc-yaml',
+      \'coc-emmet'
+      \]
 
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" Disable it
-"let g:cm_smart_enable = 0
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-"set shortmess+=c
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-" hide the menu and also start a new line
-"inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
 
 " Use tab to select the popup menu
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_smart_case = 1
 
-call deoplete#custom#var('file', 'force_completion_length', 1)
-call deoplete#custom#var('file', 'enable_buffer_path', v:true)
+" call deoplete#custom#var('file', 'force_completion_length', 1)
+" call deoplete#custom#var('file', 'enable_buffer_path', v:true)
 
-call deoplete#custom#option('keyword_patterns', {
-    \ 'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
-    \})
+" call deoplete#custom#option('keyword_patterns', {
+"     \ 'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
+"     \})
 
-call deoplete#custom#source('async_clj', 'rank', 500)
+" call deoplete#custom#source('async_clj', 'rank', 500)
 
-let g:deoplete#sources#ternjs#docs = 1
-let g:deoplete#sources#ternjs#types = 1
+" let g:deoplete#sources#ternjs#docs = 1
+" let g:deoplete#sources#ternjs#types = 1
 
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#enable_force_overwrite = 1
+" let g:echodoc#enable_at_startup = 1
+" let g:echodoc#enable_force_overwrite = 1
 
-" disable the preview window feature.
-set completeopt-=preview
+" " disable the preview window feature.
+" set completeopt-=preview
 " set splitbelow
 " autocmd CompleteDone * silent! pclose!
 " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-
-" let g:LanguageClient_serverCommands = {
-"     \ 'css':  ['css-languageserver', '--stdio'],
-"     \ 'html': ['html-languageserver', '--stdio'],
-"     \ }
-"     " \ 'javascript': ['javascript-typescript-stdio'],
-"     " \ 'rust':           ['rustup', 'run', 'nightly', 'rls'],
-"     " \ 'python':         ['pyls'],
-"     " \ 'sh': ['bash-language-server', 'start'],
-
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-" DEOPLETE
+" COC.NVIM
 
 
 " ============================================================================
@@ -1882,15 +1905,15 @@ function! s:emmet_configuration() abort
   vmap <buffer> <A-n><A-a> <plug>(emmet-anchorize-url)
 endfunction
 
-augroup AutoEmmet
-  autocmd!
-  autocmd FileType html,css,javascript call s:emmet_configuration()
-  " https://github.com/mattn/emmet-vim/issues/168#issuecomment-35853346
-  autocmd FileType html imap <expr> <tab>
-    \ pumvisible() ? "\<C-n>" :
-    \ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
-    \ "\<tab>"
-augroup END
+" augroup AutoEmmet
+"   autocmd!
+"   autocmd FileType html,css,javascript call s:emmet_configuration()
+"   " https://github.com/mattn/emmet-vim/issues/168#issuecomment-35853346
+"   autocmd FileType html imap <expr> <tab>
+"     \ pumvisible() ? "\<C-n>" :
+"     \ emmet#isExpandable() ? "\<plug>(emmet-expand-abbr)" :
+"     \ "\<tab>"
+" augroup END
 
 " EMMET
 
