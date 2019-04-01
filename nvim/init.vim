@@ -1214,6 +1214,7 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
   nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
   nnoremap <silent><buffer><expr> ~ defx#do_action('cd', [getcwd()])
+  nnoremap <silent><buffer><expr> o defx#do_action('open_or_close_tree')
 
   " Miscellaneous actions
   nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
