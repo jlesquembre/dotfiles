@@ -237,10 +237,11 @@ Plug 'guns/vim-clojure-highlight' | Plug 'guns/vim-clojure-static'
 
 " Plug 'clojure-vim/nvim-parinfer.js', {'do': 'lein do npm install'}
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
-Plug 'clojure-vim/async-clj-omni'
 Plug 'humorless/vim-kibit'
 
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'Olical/conjure', { 'branch': 'master', 'do': 'make compile', 'for': 'clojure', 'on': 'ConjureAdd'  }
+Plug '~/projects/coc-conjure'
 "Plug 'clojure-vim/neovim-client', { 'for': 'clojure' }
 "Plug 'jebberjeb/clojure-socketrepl.nvim', { 'for': 'clojure' }
 
@@ -1717,8 +1718,12 @@ let g:coc_global_extensions = [
       \'coc-tsserver',
       \'coc-tslint',
       \'coc-yaml',
+      \'coc-conjure',
       \'coc-emmet'
       \]
+
+" let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
+" let g:coc_watch_extensions = ['coc-conjure']
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
