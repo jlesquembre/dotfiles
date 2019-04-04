@@ -235,5 +235,6 @@ end
 
 function fish_right_prompt -d "Write out the right prompt"
     set -l last_duration (echo $CMD_DURATION | humanize_duration)
-    printf "[ $last_duration ]"
+    set -l now (date "+%T %F")
+    printf "$now [ $last_duration ]"
 end
