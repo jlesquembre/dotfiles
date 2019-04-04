@@ -64,7 +64,8 @@
            :socket {:jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/repl}"]}
 
            ;; start a Socket pREPL
-           :prepl {:jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/io-prepl}"
+           :prepl {:extra-deps {compliment {:mvn/version "0.3.8"}}
+                   :jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/io-prepl}"
                               "-Dclojure.server.node={:port,5556,:accept,cljs.server.node/prepl}"
                               "-Dclojure.server.browser={:port,5557,:accept,cljs.server.browser/prepl}"]}
 
