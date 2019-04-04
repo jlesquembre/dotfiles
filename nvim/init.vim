@@ -149,9 +149,9 @@ Plug 'tpope/vim-rhubarb'
 " Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
-Plug 'int3/vim-extradite'
 " Plug 'junegunn/gv.vim'
 Plug 'rbong/vim-flog'
+Plug 'idanarye/vim-merginal'
 " Plug 'gregsexton/gitv', {'on': ['Gitv']}
 " Plug 'lambdalisue/gina.vim'
 
@@ -953,7 +953,9 @@ nnoremap <leader>gp :Gpush<CR>
 " nnoremap <leader>glr :GV?<CR>
 " nnoremap <leader>gla :GV<CR>
 nnoremap <leader>gll :Flog -path=%<CR>
-nnoremap <leader>gla :Flog<CR>
+nnoremap <leader>gla :Flog -all<CR>
+
+nnoremap <leader>gb :MerginalToggle<CR>
 
 
 function! Flogdiff(mods) abort
