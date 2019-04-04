@@ -241,7 +241,6 @@ Plug 'humorless/vim-kibit'
 
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'Olical/conjure', { 'branch': 'master', 'do': 'make compile', 'for': 'clojure', 'on': 'ConjureAdd'  }
-Plug '~/projects/coc-conjure'
 "Plug 'clojure-vim/neovim-client', { 'for': 'clojure' }
 "Plug 'jebberjeb/clojure-socketrepl.nvim', { 'for': 'clojure' }
 
