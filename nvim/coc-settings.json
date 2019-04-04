@@ -15,5 +15,7 @@
     "html",
     "markdown",
     "markdown.mdx"
-  ]
+  ],
+
+  "pairs.disableLanguages": ["clojure"]
 }
