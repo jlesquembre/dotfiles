@@ -17,7 +17,10 @@
 
   #services.xserver.videoDrivers = [ "nvidia" ];
   #services.xserver.videoDrivers = [ "nvidia" "vesa" ];
-  services.xserver.synaptics.enable = true;
+
+  # Enable touchpad, for options
+  # see https://nixos.org/nixos/options.html#libinput
+  services.xserver.libinput.enable = true;
 
   #boot.blacklistedKernelModules = [ "i915" ];
   #boot.kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
