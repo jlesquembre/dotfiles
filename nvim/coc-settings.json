@@ -13,8 +13,7 @@
     "jsonc",
     "css",
     "html",
-    "markdown",
-    "markdown.mdx"
+    "markdown"
   ],
 
   "pairs.disableLanguages": ["clojure"]

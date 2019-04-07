@@ -1721,6 +1721,10 @@ let g:coc_global_extensions = [
       \'coc-emmet'
       \]
 
+let g:coc_filetype_map = {
+  \ 'markdown.mdx': 'markdown',
+  \ }
+
 " let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
 " let g:coc_watch_extensions = ['coc-conjure']
 
