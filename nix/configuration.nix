@@ -135,6 +135,7 @@ in rec
     imv
     inkscape
     jetbrains.idea-community
+    jq
     jsonnet
     k3b
     keychain
