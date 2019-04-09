@@ -2,6 +2,8 @@
   (:require
     [clojure.java.classpath :as classpath]
     [clojure.java.io :as io]
+    [clojure.reflect :refer [reflect]]
+    [lambdaisland.deep-diff :as ddiff]
     [com.gfredericks.dot-slash-2 :as dot-slash-2]))
 
 
@@ -23,11 +25,26 @@
   []
   `(defsc ~(sc.api/last-ep-id)))
 
+; From
+; https://github.com/jorinvo/clj-scratch
+(defn jmethods
+  "Print methods of a Java object"
+  [o]
+  (->> o
+      reflect
+      :members
+      (filter :exception-types)
+      (sort-by :name)
+      (map #(select-keys % [:name :parameter-types]))))
+
 ;; See
 ;; https://github.com/gfredericks/dot-slash-2
 (dot-slash-2/!
  '{. [{:var clojure.repl/doc
        :name d}
+
+      {:var ddiff/diff
+       :name diff}
 
       {:var user/letsc*
        :name letsc}
@@ -35,10 +52,12 @@
        :name defsc}
       sc.api/spy
 
+      user/jmethods
+
       clojure.repl/apropos
       clojure.repl/dir
       clojure.java.shell/sh
-      clojure.data/diff
+      ; clojure.data/diff
 
       com.gfredericks.repl/pp]})
 
