@@ -71,6 +71,7 @@
 
            :user {:extra-deps {vvvvalvalval/scope-capture  {:mvn/version "0.3.2"}
                                lambdaisland/deep-diff      {:mvn/version "0.0-35"}
+                               org.clojure/tools.namespace {:mvn/version "0.3.0-alpha4"}
                                com.gfredericks/dot-slash-2 {:mvn/version "0.1.5"}
                                com.gfredericks/repl-utils  {:mvn/version "0.2.17"}}
                   :extra-paths ["/home/jlle/dotfiles/clojure/src/user"]}

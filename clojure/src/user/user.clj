@@ -43,7 +43,7 @@
  '{. [{:var clojure.repl/doc
        :name d}
 
-      {:var ddiff/diff
+      {:var lambdaisland.deep-diff/diff
        :name diff}
 
       {:var user/letsc*
@@ -54,6 +54,7 @@
 
       user/jmethods
 
+      clojure.tools.namespace.repl/refresh
       clojure.repl/apropos
       clojure.repl/dir
       clojure.java.shell/sh
