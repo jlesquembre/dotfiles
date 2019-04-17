@@ -258,6 +258,7 @@ in rec
   ])
   ++ (with pkgs.nodePackages; [
     bower
+    fkill-cli
     node2nix
     prettier
   ])

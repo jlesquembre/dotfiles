@@ -128,24 +128,6 @@ function fcdd --description 'fzf cd (only match basename)'
 end
 
 
-function fkill --description 'kill with fzf'
-    #set -l cmd "ps -ef | sed 1d | fzf -m | awk '{print \$2}'"
-    set -l cmd "ps -ef | sed 1d | fzf -m"
-
-    set -l tempfile (mktemp)
-    _run_fzf_cmd $tempfile $cmd; set -l last_status $status
-    if test $last_status -ne 0; rm $tempfile; return $last_status
-    end
-
-    set -l pid (cat $tempfile | tr -s ' ' | cut -d' ' -f 2)
-    set -l command (cat $tempfile | tr -s ' ' | cut -d' ' -f 8-)
-    echo "Killing command: '$command' with PID: $pid"
-    kill $pid
-    rm $tempfile
-
-end
-
-
 function jj -d 'autojump with fzf'
     if test (count $argv) -eq 0; set argv ''; end
     set -l cmd "autojump -s | head -n -7 | sort -nr | awk '{print \$2}' | fzf +s --query=\"$argv\" $fzf_preview_dir"
@@ -172,3 +154,33 @@ function fp -d 'pew workon with fzf'
     pew workon (cat $tempfile)
     rm $tempfile
 end
+
+# Recoll utils, see https://github.com/soleblaze/dotfiles/blob/master/zsh/recoll.zsh
+
+# alias rt="recoll -t"
+# alias rdt="recoll -d -t"
+# alias rpdf="recoll -t ext:pdf"
+# alias rtxt="recoll -t ext:txt"
+# alias rmd="recoll -t ext:md"
+# alias fzf="fzf --color='bg+:33,hl:12,hl+:208'"
+
+# function ort {
+#     xdg-open "$(recoll -t "$*" | grep file | awk -F'\t' '{print $2}' |\
+#     tr -d '[]' | sed 's|file://||' | fzf)"
+# }
+# function ordt {
+#     xdg-open "$(recoll -d -t "$*" | grep file | awk -F'\t' '{print $2}' |\
+#     tr -d '[]' | sed 's|file://||' | fzf)"
+# }
+# function orpdf {
+#     xdg-open "$(recoll -t ext:pdf "$*" | grep file | awk -F'\t' '{print $2}' |\
+#     tr -d '[]' | sed 's|file://||' | fzf)"
+# }
+# function ortxt {
+#     xdg-open "$(recoll -t ext:txt "$*" | grep file | awk -F'\t' '{print $2}' |\
+#     tr -d '[]' | sed 's|file://||' | fzf)"
+# }
+# function ormd {
+#     xdg-open "$(recoll -t ext:md "$*" | grep file | awk -F'\t' '{print $2}' |\
+#     tr -d '[]' | sed 's|file://||' | fzf)"
+# }
