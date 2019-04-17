@@ -731,6 +731,7 @@ nnoremap <silent> <Leader>u :call FormatLink('')<cr>
 " nnoremap <Leader>um :call FormatLink('md')<cr>
 " nnoremap <Leader>ur :call FormatLink('rst')<cr>
 
+nnoremap <leader>cl :r !conventional-changelog -u<cr>
 
 " END MAPPINGS
 
