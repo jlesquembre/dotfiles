@@ -16,5 +16,7 @@
     "markdown"
   ],
 
-  "pairs.disableLanguages": ["clojure"]
+  "pairs.disableLanguages": ["clojure"],
+
+  "prettier.proseWrap": "always"
 }
