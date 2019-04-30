@@ -113,8 +113,6 @@ Plug 'tpope/vim-commentary'
 " Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-jdaddy'
 " Plug 'tpope/vim-endwise'
-" Plug 'rstacruz/vim-closer'
-Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-speeddating'
 Plug 'bfredl/nvim-miniyank'
 Plug 'tweekmonster/headlines.vim'
@@ -1097,38 +1095,25 @@ augroup END
 
 
 " ============================================================================
-" BETTER WHITESPACE {{{1
+" AIRLINE {{{1
 " ============================================================================
 
-" let g:better_whitespace_filetypes_blacklist = [
 let g:whitespace_filetypes_blacklist = [
 \ 'git', 'fugitive', 'magit',
 \ 'diff', 'gitcommit', 'unite', 'qf', 'help'
 \ ]
 
-" END BETTER WHITESPACE
-
-" ============================================================================
-" AIRLINE {{{1
-" ============================================================================
-
 augroup disable_whitespace_check
   autocmd!
   execute 'autocmd FileType '.join(g:whitespace_filetypes_blacklist, ','). ' let b:airline_whitespace_disabled = 1'
-  execute 'autocmd FileType '.join(g:whitespace_filetypes_blacklist, ','). ' DisableWhitespace'
 augroup END
 
-" set laststatus=2  " Neovim default
-"let g:airline_theme='powerlineish'
 let g:airline_theme='oceanicnext'
 "let g:airline_theme='onedark'
 " let g:airline_theme='base16_default' " same as base16-default-dark
 let g:airline_powerline_fonts = 1
 
 let g:airline#extensions#hunks#non_zero_only = 1
-let g:airline#extensions#whitespace#enabled = 1
-let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing' ]
-let g:airline#extensions#branch#enabled = 1
 
 "let g:airline#extensions#tabline#show_buffers=2
 let g:airline#extensions#tabline#enabled = 1
@@ -1137,24 +1122,15 @@ let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tabline#tab_min_count = 0
 let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#tabs_label = ''
 "let g:airline#extensions#tabline#show_tab_nr = 1
 "let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#tabline#tabs_label = 't'
-" let g:airline#extensions#ale#enabled = 1
-let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-  endif
+  let g:airline_symbols = {}
+endif
 
 let g:airline_symbols.maxlinenr = ''
-
-
-"let g:tablabel = "%N%{flagship#tabmodified()} %{flagship#tabcwds('shorten',',')}"
-"set laststatus=2
-"set showtabline=2
-"set guioptions-=e
 
 let g:airline_mode_map = {
       \ '__' : '-',
@@ -1966,7 +1942,7 @@ let g:qfenter_keymap.topen = ['<C-t>']
 function! AirlineDBConnName()
   let dbconn = get(b:, 'dbconn', get(g:, 'dbconn'))
   if empty(dbconn)
-    return ''
+    return '[NO DB CONNECTION]'
   endif
   return '[' . split(dbconn, '=')[0] . ']'
 endfunction
@@ -1975,7 +1951,7 @@ function! AirlineDB(...)
     let w:airline_section_x = g:airline_section_x . '%{AirlineDBConnName()}'
   endif
 endfunction
-call airline#add_inactive_statusline_func('AirlineDB')
+call airline#add_statusline_func('AirlineDB')
 
 
 let g:sql_type_default = 'pgsql'
