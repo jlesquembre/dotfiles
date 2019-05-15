@@ -204,6 +204,7 @@ Plug 'mhinz/vim-sayonara'
 Plug 'semanser/vim-outdated-plugins'
 Plug 'yssl/QFEnter'
 Plug 'junegunn/vim-peekaboo'
+Plug 'embear/vim-localvimrc'
 
 " Autocompletion
 " Plug 'roxma/nvim-completion-manager'
