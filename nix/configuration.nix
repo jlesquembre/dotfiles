@@ -139,6 +139,7 @@ in rec
     jsonnet
     k3b
     keychain
+    kodi
     libffi
     libicns
     # libreoffice-fresh
@@ -218,7 +219,7 @@ in rec
     nodejs yarn
 
     # dev tools
-    httpstat httplab httpie wuzz dnsutils tcpdump socat entr # watchman postman
+    httpstat httplab httpie wuzz dnsutils tcpdump socat entr watchman # postman
 
     # compress tools
     atool zip unzip p7zip dpkg
@@ -241,6 +242,7 @@ in rec
 
     # kubernetes
     minikube kubectl kubernetes-helm
+    cri-tools podman runc
     # virtualbox
 
     # Digital currencies
