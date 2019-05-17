@@ -107,6 +107,7 @@ in rec
     # conky
     cheat
     chromium google-chrome google-chrome-dev
+    # (pkgs.chromium.override { useVaapi = true; })
     clementine
     cmatrix
     #mpd cantata
@@ -242,6 +243,7 @@ in rec
 
     # kubernetes
     minikube kubectl kubernetes-helm
+    google-cloud-sdk
     cri-tools podman runc
     # virtualbox
 
@@ -255,6 +257,8 @@ in rec
     git-recent
     gitRemoteGcrypt
     gitFull
+    # gitMinimal
+    # (gitFull.override { svnSupport = false; })
     tig
     transcrypt
   ])
