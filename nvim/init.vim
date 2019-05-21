@@ -2124,3 +2124,31 @@ let g:Hexokinase_refreshEvents = ['TextChanged', 'TextChangedI']
 let g:Hexokinase_ftAutoload = ['css', 'xml']
 
 " END HEXOKINASE
+
+
+" ============================================================================
+" CONJURE {{{1
+" ============================================================================
+
+let g:conjure_default_mappings = 0
+let g:conjure_log_direction = "horizontal"
+
+augroup custom_conjure
+  autocmd!
+  autocmd InsertEnter *.edn,*.clj,*.clj[cs] :call conjure#close_unused_log()
+  autocmd FileType clojure nnoremap <buffer> cpp :ConjureEvalCurrentForm<cr>
+  autocmd FileType clojure nnoremap <buffer> cpr :ConjureEvalRootForm<cr>
+  autocmd FileType clojure vnoremap <buffer> cpp :ConjureEvalSelection<cr>
+  autocmd FileType clojure nnoremap <buffer> cpb :ConjureEvalBuffer<cr>
+  autocmd FileType clojure nnoremap <buffer> cpf :ConjureLoadFile <c-r>=expand('%:p')<cr><cr>
+  autocmd FileType clojure nnoremap <buffer> cps :ConjureStatus<cr>
+  autocmd FileType clojure nnoremap <buffer> cll :ConjureOpenLog<cr>
+  autocmd FileType clojure nnoremap <buffer> <leader>q :ConjureCloseLog<cr>
+  autocmd FileType clojure nnoremap <buffer> cpt :ConjureRunTests<cr>
+  autocmd FileType clojure nnoremap <buffer> cptt :ConjureRunAllTests<cr>
+  autocmd FileType clojure nnoremap <buffer> K :ConjureDoc <c-r><c-w><cr>
+  autocmd FileType clojure nnoremap <buffer> gd :ConjureDefinition <c-r><c-w><cr>
+  autocmd FileType clojure setlocal omnifunc=conjure#omnicomplete
+augroup END
+
+" END CONJURE
