@@ -16,7 +16,13 @@
     "markdown"
   ],
 
-  "pairs.disableLanguages": ["clojure"],
+  "suggest.timeout": 4000,
+
+  "coc.source.file.ignoreHidden": false,
+
+  "suggest.maxCompleteItemCount": 99,
+
+  // "pairs.disableLanguages": ["clojure"],
 
   "prettier.proseWrap": "always"
 }

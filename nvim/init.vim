@@ -66,6 +66,9 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
   "autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
+let g:use_conjure = 1
+let g:use_coc = 1
+
 call plug#begin('~/.config/nvim/plugged')
 
 " Color schemas
@@ -116,7 +119,7 @@ Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-speeddating'
 Plug 'bfredl/nvim-miniyank'
 Plug 'tweekmonster/headlines.vim'
-Plug 'jlesquembre/rst-tables.nvim', {'do': ':UpdateRemotePlugins'}
+" Plug 'jlesquembre/rst-tables.nvim', {'do': ':UpdateRemotePlugins'}
 " Plug 'machakann/vim-swap'
 " Plug 'mattn/emmet-vim'
 Plug 'SirVer/ultisnips'
@@ -209,17 +212,21 @@ Plug 'embear/vim-localvimrc'
 " Autocompletion
 " Plug 'roxma/nvim-completion-manager'
 " Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'Shougo/context_filetype.vim'
 " " Plug 'Shougo/neopairs.vim'
-" Plug 'Shougo/echodoc.vim'
-" Plug 'Shougo/neoinclude.vim'
 
 " Plug 'ponko2/deoplete-fish'
 " Plug 'carlitux/deoplete-ternjs'
-" Plug 'Shougo/neco-vim'
 
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+if exists("g:use_coc") && exists("g:use_conjure")
+  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+else
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/context_filetype.vim'
+  Plug 'Shougo/echodoc.vim'
+  Plug 'Shougo/neoinclude.vim'
+  Plug 'Shougo/neco-vim'
+  Plug 'clojure-vim/async-clj-omni'
+endif
 
 " Plug 'autozimu/LanguageClient-neovim', {
 "     \ 'branch': 'next',
@@ -238,10 +245,12 @@ Plug 'guns/vim-clojure-highlight' | Plug 'guns/vim-clojure-static'
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 Plug 'humorless/vim-kibit'
 
-" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-Plug 'Olical/conjure', { 'branch': 'master', 'do': 'make compile', 'for': 'clojure', 'on': 'ConjureAdd'  }
-"Plug 'clojure-vim/neovim-client', { 'for': 'clojure' }
-"Plug 'jebberjeb/clojure-socketrepl.nvim', { 'for': 'clojure' }
+if exists("g:use_conjure")
+  Plug 'Olical/conjure', { 'branch': 'master', 'do': 'bin/compile', 'for': 'clojure', 'on': 'ConjureAdd'  }
+  " Plug '~/projects/conjure', { 'for': 'clojure', 'on': 'ConjureAdd'  }
+else
+  Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+endif
 
 Plug 'guns/vim-slamhound'
 "Plug 'venantius/vim-cljfmt'
@@ -1425,15 +1434,9 @@ let g:sexp_insert_after_wrap = 0
 
 let g:clojure_align_multiline_strings = 1
 
-fun! LispCustomSettings()
-  " If variable autopairs_loaded doesn't exit, the plugin will be loaded
-  " let b:autopairs_loaded = 0
-  " let b:autopairs_enabled = 0
+function! LispCustomSettings()
   execute 'RainbowParentheses'
-  " let b:AutoPairs = {'"':'"'}
-  let b:pear_tree_pairs = {
-      \   '"': {'closer': '"'}
-      \ }
+  let b:coc_paires = [['"', '"']]
 
   " It's not possible to remap CTRL-M in insert mode, see
   " :h index -> see list of vim mappings
@@ -1443,28 +1446,43 @@ fun! LispCustomSettings()
   inoremap <silent><buffer> <c-n> <c-o>:ParinferToggleMode<cr>
   nnoremap <silent><buffer> <leader>cm :ParinferToggleMode<cr>
 
-  " setlocal iskeyword-=/
-  " nnoremap <Plug>FireplaceK :<C-R>=<SID>K()<CR><CR>
-  " nnoremap <silent> <Plug>FireplaceDjump :<C-U>exe <SID>Edit('edit')<CR>
-  " nnoremap <silent> <Plug>FireplaceDsplit :<C-U>exe <SID>Edit('split')<CR>
-  " nnoremap <silent> <Plug>FireplaceDtabjump :<C-U>exe <SID>Edit('tabedit')<CR>
-
   nnoremap <buffer> <leader>cn :Slamhound<cr>
-endfun
+endfunction
+
+let g:conjure_default_mappings = 0
+let g:conjure_log_direction = "horizontal"
+
+function! ClojureCustomSettings()
+  if exists("g:use_conjure")
+    nnoremap <buffer> cpp :ConjureEvalCurrentForm<cr>
+    nnoremap <buffer> cpr :ConjureEvalRootForm<cr>
+    vnoremap <buffer> cpp :ConjureEvalSelection<cr>
+    nnoremap <buffer> cpb :ConjureEvalBuffer<cr>
+    nnoremap <buffer> cpf :ConjureLoadFile <c-r>=expand('%:p')<cr><cr>
+    nnoremap <buffer> cps :ConjureStatus<cr>
+    nnoremap <buffer> cll :ConjureOpenLog<cr>
+    " nnoremap <buffer> <leader>q :ConjureCloseLog<cr>
+    nnoremap <buffer> cpt :ConjureRunTests<cr>
+    nnoremap <buffer> cptt :ConjureRunAllTests<cr>
+    nnoremap <buffer> K :ConjureDoc <c-r><c-w><cr>
+    nnoremap <buffer> gd :ConjureDefinition <c-r><c-w><cr>
+    setlocal omnifunc=conjure#omnicomplete
+  else
+    nmap <silent><buffer> <leader>cc cqp<Up>
+    nnoremap <buffer> crr :Require<cr>
+    nnoremap <buffer> cra :Require!<cr>
+  endif
+
+endfunction
+
 
 augroup clojure
   autocmd!
   autocmd FileType lisp,clojure,scheme call LispCustomSettings()
-"  autocmd FileType lisp,clojure,scheme
-"        \ nnoremap <buffer> <leader>a[ vi[<c-v>$:EasyAlign\ g/^\S/<cr>gv=
-"  autocmd FileType lisp,clojure,scheme
-"        \ nnoremap <buffer> <leader>a{ vi{<c-v>$:EasyAlign\ g/^\S/<cr>gv=
-"  autocmd FileType lisp,clojure,scheme
-"        \ nnoremap <buffer> <leader>a( vi(<c-v>$:EasyAlign\ g/^\S/<cr>gv=
-"  autocmd FileType lisp,clojure,scheme
-"        \ nnoremap <buffer> <leader>rq :silent update<bar>Require!<cr>
-"  autocmd FileType lisp,clojure,scheme
-"        \ nnoremap <buffer> <leader>rt :silent update<bar>RunTests<cr>
+  autocmd FileType clojure call ClojureCustomSettings()
+  if exists("g:use_conjure")
+    autocmd InsertEnter *.edn,*.clj,*.clj[cs] :call conjure#close_unused_log()
+  endif
 augroup END
 
 
@@ -1504,30 +1522,6 @@ let g:rainbow#blacklist = ['#'.g:base16_gui04, '#'.g:base16_gui05, '#'.g:base16_
 "au FileType clojure xnoremap <buffer> <Enter> :Eval<CR>
 "au FileType clojure nmap <buffer> <Enter> cpp
 
-" if socketrepl is active
-if exists('g:socket_repl_plugin_ready')
-    command StartREPL :call jobstart("boot -i \"(do (require 'clojure.core.server) ((resolve 'clojure.core.server/start-server) {:port 5555 :name :repl :accept 'clojure.core.server/repl}))\" wait")
-
-    function! s:clojure_socketrepl_settings() abort
-      nnoremap <silent><buffer> K :Doc<cr>
-      nnoremap <silent><buffer> <leader>cs :StartREPL<cr>
-      nnoremap <silent><buffer> <leader>ca :Connect<cr>
-      nnoremap <silent><buffer> <leader>ce :EvalCode<cr>
-      nnoremap <silent><buffer> <leader>cc :EvalCode<cr>
-      nnoremap <silent><buffer> <leader>cb :EvalBuffer<cr>
-    endfunction
-    autocmd user_augroup FileType clojure call s:clojure_socketrepl_settings()
-else
-    function! s:clojure_fireplace_settings() abort
-      nmap <silent><buffer> <leader>cc cqp<Up>
-      nnoremap <buffer> crr :Require<cr>
-      nnoremap <buffer> cra :Require!<cr>
-      nnoremap <buffer> <leader>cr :T boot cider
-      " nnoremap <buffer> <leader>crr :T boot cider-extra
-    endfunction
-    autocmd user_augroup FileType clojure call s:clojure_fireplace_settings()
-
-endif
 
 " https://github.com/adzerk-oss/boot-cljs-repl#vim-fireplace
 command! PiggieBoot :Piggieback (adzerk.boot-cljs-repl/repl-env)
@@ -1685,88 +1679,96 @@ let g:headlines_height= 22
 " ============================================================================
 " COC.NVIM {{{1
 " ============================================================================
-let g:coc_global_extensions = [
-      \'coc-word',
-      \'coc-pairs',
-      \'coc-prettier',
-      \'coc-json',
-      \'coc-css',
-      \'coc-html',
-      \'coc-tsserver',
-      \'coc-tslint',
-      \'coc-yaml',
-      \'coc-conjure',
-      \'coc-emmet'
-      \]
 
-let g:coc_filetype_map = {
-  \ 'markdown.mdx': 'markdown',
-  \ }
+if exists("g:use_coc") && exists("g:use_conjure")
 
-" let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
-" let g:coc_watch_extensions = ['coc-conjure']
+  let g:coc_global_extensions = [
+        \'coc-word',
+        \'coc-pairs',
+        \'coc-lists',
+        \'coc-prettier',
+        \'coc-json',
+        \'coc-css',
+        \'coc-html',
+        \'coc-tsserver',
+        \'coc-tslint',
+        \'coc-yaml',
+        \'coc-conjure',
+        \'coc-emmet'
+        \]
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+  let g:coc_filetype_map = {
+    \ 'markdown.mdx': 'markdown',
+    \ }
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+  " let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
+  " let g:coc_watch_extensions = ['coc-conjure']
 
-" Use <c-space> for trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
 
-" Use K to show documentation in preview window
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+  " Use <c-space> for trigger completion.
+  inoremap <silent><expr> <c-space> coc#refresh()
+
+  " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+  " Coc only does snippet and additional edit on confirm.
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+  " Use K to show documentation in preview window
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 
-" Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+  " Use `[c` and `]c` for navigate diagnostics
+  nmap <silent> [c <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 
-" Use tab to select the popup menu
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+else " Use deoplete
 
-" let g:deoplete#enable_at_startup = 1
-" let g:deoplete#enable_smart_case = 1
+  " Use tab to select the popup menu
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" call deoplete#custom#var('file', 'force_completion_length', 1)
-" call deoplete#custom#var('file', 'enable_buffer_path', v:true)
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_smart_case = 1
 
-" call deoplete#custom#option('keyword_patterns', {
-"     \ 'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
-"     \})
+  call deoplete#custom#var('file', 'force_completion_length', 1)
+  call deoplete#custom#var('file', 'enable_buffer_path', v:true)
 
-" call deoplete#custom#source('async_clj', 'rank', 500)
+  call deoplete#custom#option('keyword_patterns', {
+      \ 'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
+      \})
 
-" let g:deoplete#sources#ternjs#docs = 1
-" let g:deoplete#sources#ternjs#types = 1
+  call deoplete#custom#source('async_clj', 'rank', 500)
 
-" let g:echodoc#enable_at_startup = 1
-" let g:echodoc#enable_force_overwrite = 1
+  let g:deoplete#sources#ternjs#docs = 1
+  let g:deoplete#sources#ternjs#types = 1
 
-" " disable the preview window feature.
-" set completeopt-=preview
-" set splitbelow
-" autocmd CompleteDone * silent! pclose!
-" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+  let g:echodoc#enable_at_startup = 1
+  let g:echodoc#enable_force_overwrite = 1
+
+  " disable the preview window feature.
+  set completeopt-=preview
+  " set splitbelow
+  " autocmd CompleteDone * silent! pclose!
+  " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+endif
 
 " COC.NVIM
 
@@ -2124,31 +2126,3 @@ let g:Hexokinase_refreshEvents = ['TextChanged', 'TextChangedI']
 let g:Hexokinase_ftAutoload = ['css', 'xml']
 
 " END HEXOKINASE
-
-
-" ============================================================================
-" CONJURE {{{1
-" ============================================================================
-
-let g:conjure_default_mappings = 0
-let g:conjure_log_direction = "horizontal"
-
-augroup custom_conjure
-  autocmd!
-  autocmd InsertEnter *.edn,*.clj,*.clj[cs] :call conjure#close_unused_log()
-  autocmd FileType clojure nnoremap <buffer> cpp :ConjureEvalCurrentForm<cr>
-  autocmd FileType clojure nnoremap <buffer> cpr :ConjureEvalRootForm<cr>
-  autocmd FileType clojure vnoremap <buffer> cpp :ConjureEvalSelection<cr>
-  autocmd FileType clojure nnoremap <buffer> cpb :ConjureEvalBuffer<cr>
-  autocmd FileType clojure nnoremap <buffer> cpf :ConjureLoadFile <c-r>=expand('%:p')<cr><cr>
-  autocmd FileType clojure nnoremap <buffer> cps :ConjureStatus<cr>
-  autocmd FileType clojure nnoremap <buffer> cll :ConjureOpenLog<cr>
-  autocmd FileType clojure nnoremap <buffer> <leader>q :ConjureCloseLog<cr>
-  autocmd FileType clojure nnoremap <buffer> cpt :ConjureRunTests<cr>
-  autocmd FileType clojure nnoremap <buffer> cptt :ConjureRunAllTests<cr>
-  autocmd FileType clojure nnoremap <buffer> K :ConjureDoc <c-r><c-w><cr>
-  autocmd FileType clojure nnoremap <buffer> gd :ConjureDefinition <c-r><c-w><cr>
-  autocmd FileType clojure setlocal omnifunc=conjure#omnicomplete
-augroup END
-
-" END CONJURE
