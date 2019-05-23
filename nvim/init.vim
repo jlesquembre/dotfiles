@@ -1694,6 +1694,7 @@ if exists("g:use_coc") && exists("g:use_conjure")
         \'coc-tslint',
         \'coc-yaml',
         \'coc-conjure',
+        \'coc-snippets',
         \'coc-emmet'
         \]
 
