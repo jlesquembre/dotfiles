@@ -1482,6 +1482,7 @@ augroup clojure
   autocmd FileType clojure call ClojureCustomSettings()
   if exists("g:use_conjure")
     autocmd InsertEnter *.edn,*.clj,*.clj[cs] :call conjure#close_unused_log()
+    autocmd CursorHold *.edn,*.clj,*.clj[cs] :call conjure#quick_doc()
   endif
 augroup END
 
