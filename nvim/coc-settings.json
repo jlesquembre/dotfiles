@@ -22,7 +22,7 @@
 
   "suggest.maxCompleteItemCount": 99,
 
-  // "pairs.disableLanguages": ["clojure"],
+  "pairs.disableLanguages": ["clojure"],
 
   "prettier.proseWrap": "always"
 }
