@@ -318,6 +318,8 @@ set clipboard+=unnamedplus  " Use "+ register
 set inccommand=split
 set updatetime=100 " Also used for the CursorHold autocommand
 set previewheight=15
+set undofile
+set lazyredraw
 
 " Better folds
 "set foldcolumn=1
@@ -1436,7 +1438,7 @@ let g:clojure_align_multiline_strings = 1
 
 function! LispCustomSettings()
   execute 'RainbowParentheses'
-  let b:coc_paires = [['"', '"']]
+  let b:coc_pairs = [['"', '"']]
 
   " It's not possible to remap CTRL-M in insert mode, see
   " :h index -> see list of vim mappings
