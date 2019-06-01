@@ -220,7 +220,7 @@ in rec
     nodejs yarn
 
     # dev tools
-    httpstat httplab httpie wuzz dnsutils tcpdump socat entr watchman # postman
+    httpstat httplab httping httpie wuzz dnsutils tcpdump socat entr watchman # postman
 
     # compress tools
     atool zip unzip p7zip dpkg
@@ -241,10 +241,11 @@ in rec
     libmysql mariadb.client
     postgresql_11 pspg # pgcli
 
-    # kubernetes
+    # Kubernetes
     minikube kubectl kubernetes-helm
     google-cloud-sdk
     cri-tools podman runc
+    stern
     # virtualbox
 
     # Digital currencies
