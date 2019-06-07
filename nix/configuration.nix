@@ -199,6 +199,7 @@ in rec
     # xonsh
     xorg.xkbcomp
     #xorg.xcursorthemes
+    yubikey-personalization
     zathura
 
     # dhall-lang
@@ -379,7 +380,7 @@ address=/.local/127.0.0.1
   programs.fish.vendor.completions.enable = true;
 
   services.devmon.enable = true;
-  services.udev.packages = with pkgs; [ libu2f-host ];
+  services.udev.packages = with pkgs; [ libu2f-host yubikey-personalization ];
 
   hardware.pulseaudio = {
     enable = true;
