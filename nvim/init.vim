@@ -1463,6 +1463,7 @@ function! ClojureCustomSettings()
     nnoremap <buffer> cpf :ConjureLoadFile <c-r>=expand('%:p')<cr><cr>
     nnoremap <buffer> cps :ConjureStatus<cr>
     nnoremap <buffer> cll :ConjureOpenLog<cr>
+    nnoremap <buffer> cu :ConjureUp<cr>
     " nnoremap <buffer> <leader>q :ConjureCloseLog<cr>
     nnoremap <buffer> cpt :ConjureRunTests<cr>
     nnoremap <buffer> cptt :ConjureRunAllTests<cr>
@@ -1484,7 +1485,9 @@ augroup clojure
   autocmd FileType clojure call ClojureCustomSettings()
   if exists("g:use_conjure")
     autocmd InsertEnter *.edn,*.clj,*.clj[cs] :call conjure#close_unused_log()
-    autocmd CursorHold *.edn,*.clj,*.clj[cs] :call conjure#quick_doc()
+    autocmd CursorMoved *.edn,*.clj,*.clj[cs] :call conjure#quick_doc()
+    autocmd CursorMovedI *.edn,*.clj,*.clj[cs] :call conjure#quick_doc()
+    autocmd BufLeave *.edn,*.clj,*.clj[cs] :call conjure#quick_doc_cancel()
   endif
 augroup END
 

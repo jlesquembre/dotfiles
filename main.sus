@@ -24,6 +24,7 @@ card top {
   xmonad.hs -> .xmonad/xmonad.hs
   init.el -> .emacs.d/init.el
   joker.edn -> .joker
+  clojure/conjure.edn -> .config/conjure/conjure.edn
 
   {
     into .config
