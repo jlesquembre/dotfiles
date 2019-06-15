@@ -19,7 +19,7 @@ card top {
   rofi.conf -> .config/rofi/config
   termite.conf -> .config/termite/config
   kitty.conf -> .config/kitty/kitty.conf
-  volumeicon -> .config/volumeicon/volumeicon
+  # volumeicon -> .config/volumeicon/volumeicon
   nixpkgs_local -> .nixpkgs
   xmonad.hs -> .xmonad/xmonad.hs
   init.el -> .emacs.d/init.el
