@@ -22,6 +22,8 @@
 
   "suggest.maxCompleteItemCount": 99,
 
+  "emmet.includeLanguages": { "javascript": "html" },
+
   "pairs.disableLanguages": ["clojure"],
 
   "prettier.proseWrap": "always"
