@@ -17,17 +17,19 @@ endglobal
 
 snippet lit "Lit Element"
 class ${1} extends ${2:LitElement} \{
+  static get styles() \{
+    return css\`
+      :host \{
+      }
+    \`;
+  }
+
   constructor() \{
     super();
   }
 
   render() \{
     return html\`
-      <style>
-        :host \{
-          display: block;
-        }
-      </style>
       <div>
         $0
       </div>
@@ -42,7 +44,26 @@ endsnippet
 
 post_jump "expand(snip)"
 snippet liti "Lit Element with imports" b
-import { LitElement, html } from "lit-element";
+import { LitElement, html, css } from "lit-element";
 
-lit$1
+class ${1} extends ${2:LitElement} \{
+  static get styles() \{
+    return css\`
+      :host \{
+      }
+    \`;
+  }
+
+  constructor() \{
+    super();
+  }
+
+  render() \{
+    return html\`
+      <div>
+        $0
+      </div>
+    \`;
+  }
+}
 endsnippet
