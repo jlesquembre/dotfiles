@@ -22,6 +22,9 @@
   # see https://nixos.org/nixos/options.html#libinput
   services.xserver.libinput.enable = true;
 
+  # https://github.com/NixOS/nixpkgs/pull/62101
+  services.throttled.enable = true;
+
   hardware.cpu.intel.updateMicrocode = true;
 
   # https://nixos.wiki/wiki/Accelerated_Video_Playback
