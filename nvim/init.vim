@@ -2014,7 +2014,8 @@ function! ConnectToDb(db)
     let s:scope = 'g:db'
     let g:dbconn = a:db
   endif
-  execute 'DB '. s:scope . ' = ' . split(a:db,'=')[1]
+  let l:idx = stridx(a:db, '=') + 1
+  execute 'DB '. s:scope . ' = ' . strpart(a:db, l:idx)
 
 endfunction
 
