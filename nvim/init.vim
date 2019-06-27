@@ -1453,6 +1453,8 @@ endfunction
 
 let g:conjure_default_mappings = 0
 let g:conjure_log_direction = "horizontal"
+" let g:conjure_log_auto_open = ['eval', 'ret', 'ret-multiline', 'out', 'err', 'tap', 'doc', 'load-file', 'test']
+let g:conjure_log_auto_open = ["out", "err", "tap", "doc", "test"]
 
 function! ClojureCustomSettings()
   if exists("g:use_conjure")
@@ -1462,8 +1464,10 @@ function! ClojureCustomSettings()
     nnoremap <buffer> cpb :ConjureEvalBuffer<cr>
     nnoremap <buffer> cpf :ConjureLoadFile <c-r>=expand('%:p')<cr><cr>
     nnoremap <buffer> cps :ConjureStatus<cr>
-    nnoremap <buffer> cll :ConjureOpenLog<cr>
+    nnoremap <buffer> cll :ConjureToggleLog<cr>
     nnoremap <buffer> cu :ConjureUp<cr>
+    nnoremap <buffer> crr :ConjureEval (clojure.tools.namespace.repl/refresh)<cr>
+    nnoremap <buffer> cri :ConjureEval (integrant.repl/reset)<cr>
     " nnoremap <buffer> <leader>q :ConjureCloseLog<cr>
     nnoremap <buffer> cpt :ConjureRunTests<cr>
     nnoremap <buffer> cptt :ConjureRunAllTests<cr>
