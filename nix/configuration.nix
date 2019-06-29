@@ -144,6 +144,7 @@ in rec
     libffi
     libicns
     # libreoffice-fresh
+    libxml2 # Provides xmllint
     lsof
     lzma
     mediainfo
