@@ -9,10 +9,7 @@
 ;; For all attributes other than :paths, these config files are merged left to right.
 ;; Only the last :paths is kept and others are dropped.
 
-{:deps {org.clojure/clojurescript {:mvn/version "1.10.520"}
-        org.clojure/clojure {:mvn/version "1.10.1"}}
-
- :aliases {:outdated   {:extra-deps {olical/depot {:mvn/version "1.8.2"}}
+{:aliases {:outdated   {:extra-deps {olical/depot {:mvn/version "1.8.2"}}
                         :main-opts  ["-m" "depot.outdated.main"]}
 
            ;; project creation from templates:
@@ -67,6 +64,23 @@
            :prepl {:jvm-opts ["-Dclojure.server.repl={:port,5555,:accept,clojure.core.server/io-prepl}"
                               "-Dclojure.server.node={:port,5556,:accept,cljs.server.node/prepl}"
                               "-Dclojure.server.browser={:port,5557,:accept,cljs.server.browser/prepl}"]}
+           :rebl-11
+           {:extra-deps {org.clojure/core.async {:mvn/version "0.4.490"}
+                         ;; deps for file datafication (0.9.149 or later)
+                         org.clojure/data.csv {:mvn/version "0.1.4"}
+                         org.clojure/data.json {:mvn/version "0.2.3"}
+                         org.yaml/snakeyaml {:mvn/version "1.23"}
+                         com.cognitect/rebl
+                         ;; adjust to match your install location
+                         {:local/root "/home/jlle/projects/REBL-0.9.172/REBL-0.9.172.jar"}
+                         org.openjfx/javafx-fxml     {:mvn/version "11.0.1"}
+                         org.openjfx/javafx-controls {:mvn/version "11.0.1"}
+                         org.openjfx/javafx-graphics {:mvn/version "11.0.1"}
+                         org.openjfx/javafx-media    {:mvn/version "11.0.1"}
+                         org.openjfx/javafx-swing    {:mvn/version "11.0.1"}
+                         org.openjfx/javafx-base     {:mvn/version "11.0.1"}
+                         org.openjfx/javafx-web      {:mvn/version "11.0.1"}}
+            :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:extra-deps {org.clojure/core.async      {:mvn/version "0.4.500"}
                                vvvvalvalval/scope-capture  {:mvn/version "0.3.2"}
