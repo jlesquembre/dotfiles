@@ -231,7 +231,7 @@ in rec
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
 
     # JDK tools
-    jdk visualvm clojure leiningen pkgs.boot joker maven gradle # mx graalvm8
+    jdk11 visualvm clojure leiningen pkgs.boot joker maven gradle # mx graalvm8
 
     # purescript
     # purescript psc-package nodePackages.pulp
@@ -246,7 +246,9 @@ in rec
     # Kubernetes
     minikube kubectl kubernetes-helm
     google-cloud-sdk
-    cri-tools podman runc
+    kube3d dapper
+    cri-o
+    podman runc
     stern
     # virtualbox
 
