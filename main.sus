@@ -27,6 +27,13 @@ card top {
   clojure/conjure.edn -> .config/conjure/conjure.edn
 
   {
+    into .m2
+    outof m2
+
+    settings.xml
+  }
+
+  {
     into .config
 
     chromium-flags.conf
