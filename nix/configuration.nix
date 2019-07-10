@@ -101,7 +101,7 @@ in rec
     autojump
     bat
     bazel
-    # breeze-gtk breeze-icons breeze-qt5 gnome-breeze kde-gtk-config
+    breeze-gtk breeze-icons breeze-qt5 gnome-breeze # kde-gtk-config
     cachix
     calibre
     # conky
@@ -165,7 +165,7 @@ in rec
     pciutils
     pdftk poppler_utils # xpdf
     php
-    php71Packages.composer
+    phpPackages.composer
     prettyping
     proselint
     pwgen
@@ -210,10 +210,11 @@ in rec
     hyper kitty # termite
 
     # screenshot utils
-    flameshot simplescreenrecorder xfce.xfce4-screenshooter
+    flameshot xfce.xfce4-screenshooter
 
     # screencasts
-    asciinema obs-studio screenkey
+    asciinema obs-studio screenkey # kazam recordmydesktop simplescreenrecorder
+    kdenlive
 
     # editors
     neovim neovim-remote vim customVscode customEmacs
@@ -247,7 +248,7 @@ in rec
     minikube kubectl kubernetes-helm
     google-cloud-sdk
     kube3d dapper
-    cri-o
+    cri-o cri-tools
     podman runc
     stern
     # virtualbox
