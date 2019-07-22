@@ -47,16 +47,17 @@ if test -e $GOPATH/bin
     set -x PATH $GOPATH/bin $PATH
 end
 
-
+# Use npx instead!!
+#
+# Use local node packages
+# set -x PATH ./node_modules/.bin $PATH
+#
 # Instead of global npm packages, use a local one and add it to PATH
-if test -e $HOME/dotfiles/node_modules/.bin
-    set -x PATH $HOME/dotfiles/node_modules/.bin $PATH
-end
+# if test -e $HOME/dotfiles/node_modules/.bin
+#     set -x PATH $HOME/dotfiles/node_modules/.bin $PATH
+# end
 
 set -x NPM_CONFIG_GLOBALCONFIG $HOME/dotfiles/npmrc
-
-# Use local node packages
-set -x PATH ./node_modules/.bin $PATH
 
 
 ## Use local python environment

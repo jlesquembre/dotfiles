@@ -13,7 +13,6 @@ card top {
   .xprofile
   .githudrc
   .eslintrc.js
-  node_modules
   .psqlrc
   editorconfig.ini -> .editorconfig
   rofi.conf -> .config/rofi/config
