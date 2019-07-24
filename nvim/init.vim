@@ -1045,6 +1045,9 @@ xmap gs  <plug>(GrepperOperator)
 " FZF {{{1
 " ============================================================================
 
+" Don't use default fzf terminal options
+unlet $FZF_DEFAULT_OPTS
+
 " File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
 " let g:fzf_files_options = '--preview "(file -ib {} | rg binary || highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
 
