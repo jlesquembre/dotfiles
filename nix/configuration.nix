@@ -245,11 +245,12 @@ in rec
     postgresql_11 pspg # pgcli
 
     # Kubernetes
-    minikube kubectl kubernetes-helm
+    minikube kubectl kubectx kubernetes-helm
     google-cloud-sdk
     kube3d dapper
     cri-o cri-tools
     podman runc
+    tilt
     stern
     # virtualbox
 
