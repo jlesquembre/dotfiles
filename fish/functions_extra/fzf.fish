@@ -15,6 +15,8 @@ set -x FZF_ALT_C_OPTS $fzf_preview_dir
 
 set -x FZF_CTRL_R_OPTS '--preview "echo {}" --preview-window down:3:hidden --bind "?:toggle-preview"'
 
+set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border'
+
 # function fshow
 #   git log --graph --color=always \
 #       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$argv" | \
@@ -29,7 +31,7 @@ set -x FZF_CTRL_R_OPTS '--preview "echo {}" --preview-window down:3:hidden --bin
 function fssh -d "Fuzzy-find ssh host"
   set -q FZF_TMUX_HEIGHT; or set FZF_TMUX_HEIGHT 20%
     begin
-      set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT +m"
+      set -lx FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS +m"
       rg --ignore-case '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2- | tr ' ' '\n' | eval (__fzfcmd) -q '(commandline)' | read -l result
       and commandline -- "ssh $result"
     end
