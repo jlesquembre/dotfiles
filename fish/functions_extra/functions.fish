@@ -415,7 +415,7 @@ alias r="ranger"
 alias p="prettyping --nolegend"
 
 
-# Some abbreviations
+# Git abbreviations
 abbr -a g 'git'
 abbr -a gcl 'git clone'
 abbr -a gco 'git checkout'
@@ -433,7 +433,16 @@ abbr -a gdd 'git diff --staged'
 abbr -a gsd 'git stash show -p'
 abbr -a gs 'git status'
 abbr -a grm 'git_delete_merged'
+
+# Docker abbreviations
 abbr -a drm 'docker system prune --all --volumes'
+
+# K8S abbreviations
+abbr -a k 'kubectl'
+abbr -a kc 'kubectx'
+abbr -a kg 'kubectl get'
+abbr -a kga 'kubectl get all -o wide'
+
 
 function _clj-deps
   for dep in $argv
