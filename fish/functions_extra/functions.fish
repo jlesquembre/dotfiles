@@ -442,6 +442,7 @@ abbr -a k 'kubectl'
 abbr -a kc 'kubectx'
 abbr -a kg 'kubectl get'
 abbr -a kga 'kubectl get all -o wide'
+abbr -a kgi 'kubectl get ingress'
 
 # minikube
 function minidocker
