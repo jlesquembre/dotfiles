@@ -443,6 +443,11 @@ abbr -a kc 'kubectx'
 abbr -a kg 'kubectl get'
 abbr -a kga 'kubectl get all -o wide'
 
+# minikube
+function minidocker
+  fish -C 'functions -e fish_greeting; eval (minikube docker-env)'
+end
+
 
 function _clj-deps
   for dep in $argv

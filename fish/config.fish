@@ -185,6 +185,10 @@ function fish_prompt
       set ranger_txt ' ranger'
     end
 
+    if test "$DOCKER_CERT_PATH" = "$HOME/.minikube/certs"
+      set minikube_txt ' minikube'
+    end
+
     printf '%s%s%s @ %s%s%s in ' (set_color cyan) (whoami) (set_color normal) \
                                  (set_color yellow) (hostname|cut -d . -f 1) (set_color normal)
 
@@ -200,12 +204,12 @@ function fish_prompt
     if test $last_status = 0
         #printf '%s%s%s' (set_color green) '✔  ' (set_color normal)
         set_color -b $BG_NORMAL
-        printf "$ranger_txt → "
+        printf "$ranger_txt$minikube_txt → "
         set_color $BG_NORMAL -b normal
     else
         #printf '%s%s%s' (set_color red) '✗  ' (set_color normal)
         set_color -b $BG_ERROR
-        printf "$ranger_txt $last_status "
+        printf "$ranger_txt$minikube_txt $last_status "
         set_color $BG_ERROR -b normal
     end
     printf $FLSYM_LEFT_CLOSE
