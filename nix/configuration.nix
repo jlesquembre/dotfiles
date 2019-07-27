@@ -101,7 +101,6 @@ in rec
     autojump
     bat
     bazel
-    breeze-gtk breeze-icons breeze-qt5 gnome-breeze # kde-gtk-config
     cachix
     calibre
     # conky
@@ -202,6 +201,10 @@ in rec
     #xorg.xcursorthemes
     yubikey-personalization
     zathura
+
+    # QT apps helpers
+    qt5.qtbase qt5.qtsvg qt5.breeze-qt5
+    breeze-gtk breeze-icons breeze-qt5 gnome-breeze # kde-gtk-config
 
     # dhall-lang
     dhall dhall.prelude dhall-bash dhall-json dhall-text # dhall-nix
