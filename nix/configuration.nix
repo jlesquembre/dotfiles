@@ -203,7 +203,7 @@ in rec
     zathura
 
     # QT apps helpers
-    qt5.qtbase qt5.qtsvg qt5.breeze-qt5
+    qt5.qtbase qt5.qtsvg
     breeze-gtk breeze-icons breeze-qt5 gnome-breeze # kde-gtk-config
 
     # dhall-lang
