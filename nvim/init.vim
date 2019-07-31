@@ -365,6 +365,11 @@ augroup readonly_files
 augroup END
 
 
+augroup titlfile
+  autocmd!
+  autocmd BufRead,BufNewFile Tiltfile setfiletype bzl
+augroup END
+
 " Set augroup
 " See https://vi.stackexchange.com/a/9458/2660
 augroup user_augroup
@@ -1457,7 +1462,7 @@ endfunction
 let g:conjure_default_mappings = 0
 let g:conjure_log_direction = "horizontal"
 " let g:conjure_log_auto_open = ['eval', 'ret', 'ret-multiline', 'out', 'err', 'tap', 'doc', 'load-file', 'test']
-let g:conjure_log_auto_open = ["out", "err", "tap", "doc", "test"]
+let g:conjure_log_blacklist = ["ret", "ret-multiline", "load-file", "eval"]
 
 function! ClojureCustomSettings()
   if exists("g:use_conjure")
