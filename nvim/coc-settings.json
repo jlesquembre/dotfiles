@@ -3,6 +3,7 @@
   "diagnostic.warningSign": "⬥",
   "diagnostic.hintSign": "⬥",
   "diagnostic.infoSign": "⬥",
+  "diagnostic.displayByAle": true,
 
   "coc.preferences.colorSupport": false,
 

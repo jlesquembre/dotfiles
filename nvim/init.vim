@@ -200,7 +200,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'tpope/vim-projectionist'
 "Plug 'neomake/neomake'
 "Plug 'sbdchd/neoformat'
-" Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 Plug 'kassio/neoterm'
 Plug 'metakirby5/codi.vim'
 Plug 'mhinz/vim-sayonara'
@@ -473,6 +473,9 @@ function! g:Base16_customize() abort
   call Base16hi("ALEWarningSign",   g:base16_gui09, g:base16_gui01, "", "", "", "")
   call Base16hi("ALEError",     "", "", "", "", "underline", g:base16_gui08)
   call Base16hi("ALEWarning",     "", "", "", "", "underline", g:base16_gui09)
+  highlight clear ALEInfoSignLineNr
+  highlight clear ALEWarningSignLineNr
+  highlight clear ALEErrorSignLineNr
 
   call Base16hi("CocErrorSign",   g:base16_gui08, g:base16_gui01, "", "", "", "")
   call Base16hi("CocWarningSign",   g:base16_gui09, g:base16_gui01, "", "", "", "")
@@ -1642,8 +1645,8 @@ let g:headlines_height= 22
 " ALE {{{1
 " ============================================================================
 
-" let g:ale_sign_error = '⬥'
-" let g:ale_sign_warning = '⬥'
+let g:ale_sign_error = '⬥'
+let g:ale_sign_warning = '⬥'
 
 " " let g:ale_javascript_prettier_executable = 'prettier_d'
 " " let g:ale_javascript_prettier_options = '--trailing-comma es5'
@@ -1651,10 +1654,10 @@ let g:headlines_height= 22
 
 " let g:ale_virtualenv_dir_names = ['venv', '.env', 'env', 've', 'virtualenv']
 
-" let g:ale_linters = {
-" \   'javascript': ['eslint'],
-" \   'typescript': ['tsserver'],
-" \}
+let g:ale_linters = {
+\   'javascript': [],
+\   'typescript': [],
+\}
 
 " let g:ale_pattern_options = {
 " \   '\.min\.js$' : {'ale_enabled': 0},
@@ -1688,8 +1691,8 @@ let g:headlines_height= 22
 " map <silent> <leader>af :ALEFix<cr>
 " nmap <silent> <leader>ak <Plug>(ale_previous_wrap)
 " nmap <silent> <leader>aj <Plug>(ale_next_wrap)
-" nmap <silent> [w <Plug>(ale_previous_wrap)
-" nmap <silent> ]w <Plug>(ale_next_wrap)
+nmap <silent> [w <Plug>(ale_previous_wrap)
+nmap <silent> ]w <Plug>(ale_next_wrap)
 
 " ALE
 
@@ -1753,8 +1756,9 @@ if exists("g:use_coc") && exists("g:use_conjure")
 
 
   " Use `[c` and `]c` for navigate diagnostics
-  nmap <silent> [c <Plug>(coc-diagnostic-prev)
-  nmap <silent> ]c <Plug>(coc-diagnostic-next)
+  " Use ALE to display diagnostics
+  " nmap <silent> [c <Plug>(coc-diagnostic-prev)
+  " nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 
 else " Use deoplete
@@ -1865,6 +1869,7 @@ augroup END
 
 let g:toggle_list_no_mappings = 1
 nnoremap <script> <silent> <leader>x :call ToggleQuickfixList()<CR>
+nnoremap <script> <silent> <leader>v :call ToggleLocationList()<CR>
 
 " let g:listtoggle_no_maps = 1
 " nmap <Leader>x <Plug>ListToggleQuickfixListToggle
