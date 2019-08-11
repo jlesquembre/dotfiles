@@ -235,7 +235,8 @@ in rec
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
 
     # JDK tools
-    jdk11 visualvm clojure leiningen pkgs.boot joker maven gradle # mx graalvm8
+    jdk11 visualvm clojure leiningen pkgs.boot joker maven gradle
+    mx graalvm8
 
     # purescript
     # purescript psc-package nodePackages.pulp
