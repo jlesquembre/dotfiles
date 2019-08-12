@@ -440,6 +440,7 @@ abbr -a drm 'docker system prune --all --volumes'
 # K8S abbreviations
 abbr -a k 'kubectl'
 abbr -a kc 'kubectx'
+abbr -a kn 'kubens'
 abbr -a kg 'kubectl get'
 abbr -a kga 'kubectl get all -o wide'
 abbr -a kgi 'kubectl get ingress'
