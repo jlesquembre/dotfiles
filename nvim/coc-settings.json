@@ -28,5 +28,9 @@
 
   "pairs.disableLanguages": ["clojure"],
 
+  "yaml.schemas": {
+    "kubernetes": "/*.yaml"
+  },
+
   "prettier.proseWrap": "always"
 }

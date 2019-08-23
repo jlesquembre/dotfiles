@@ -252,6 +252,7 @@ in rec
     minikube kubectl kubectx kubernetes-helm
     google-cloud-sdk
     kube3d dapper
+    kubeval
     cri-o cri-tools
     podman runc
     tilt
