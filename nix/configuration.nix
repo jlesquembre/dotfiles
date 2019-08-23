@@ -235,7 +235,7 @@ in rec
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
 
     # JDK tools
-    jdk11 visualvm clojure leiningen pkgs.boot joker maven gradle
+    jdk11 visualvm clojure leiningen pkgs.boot joker maven gradle clj-kondo
     mx graalvm8
 
     # purescript
@@ -253,6 +253,7 @@ in rec
     google-cloud-sdk
     kube3d dapper
     kubeval
+    click kube-prompt
     cri-o cri-tools
     podman runc
     tilt
