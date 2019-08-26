@@ -13,3 +13,4 @@ boot/cache/
 clojure/.cpcache
 
 .tern-port
+plug.vim.old
