@@ -153,6 +153,7 @@ in rec
     ncurses.dev # infocmp and more utils
     neofetch
     nginxMainline # apacheHttpd # apache used for tools like htpasswd
+    nixpkgs-fmt
     nix-serve
     noti notify-osd libnotify
     ntfs3g
