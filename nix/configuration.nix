@@ -250,7 +250,7 @@ in rec
     postgresql_11 pspg # pgcli
 
     # Kubernetes
-    minikube kubectl kubectx kubernetes-helm
+    minikube kubectl kubectx kubernetes-helm kustomize
     google-cloud-sdk
     kube3d dapper
     kubeval
