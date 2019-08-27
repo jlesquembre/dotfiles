@@ -257,7 +257,7 @@ in rec
     click kube-prompt
     cri-o cri-tools
     podman runc
-    tilt
+    skaffold tilt
     stern
     # virtualbox
 
