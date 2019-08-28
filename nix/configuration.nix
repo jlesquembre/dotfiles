@@ -100,7 +100,7 @@ in rec
     abcde
     autojump
     bat
-    bazel
+    bazel bazel-buildtools
     cachix
     calibre
     # conky
@@ -251,8 +251,9 @@ in rec
 
     # Kubernetes
     minikube kubectl kubectx kubernetes-helm kustomize
+    gomplate
     google-cloud-sdk
-    kube3d dapper
+    kind kube3d dapper
     kubeval
     click kube-prompt
     cri-o cri-tools
