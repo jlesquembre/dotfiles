@@ -42,10 +42,10 @@ end
 # set fish_complete_path $fish_complete_path $__fish_datadir/vendor_completions.d
 
 # Set go variables
-set -x GOPATH $HOME/go
-if test -e $GOPATH/bin
-    set -x PATH $GOPATH/bin $PATH
-end
+# set -x GOPATH $HOME/go
+# if test -e $GOPATH/bin
+#     set -x PATH $GOPATH/bin $PATH
+# end
 
 # Use npx instead!!
 #
