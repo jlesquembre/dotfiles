@@ -444,6 +444,8 @@ abbr -a kn 'kubens'
 abbr -a kg 'kubectl get'
 abbr -a kga 'kubectl get all -o wide'
 abbr -a kgi 'kubectl get ingress'
+abbr -a ka 'kubectl apply -f'
+abbr -a kd 'kubectl delete -f'
 
 # minikube
 function minidocker
