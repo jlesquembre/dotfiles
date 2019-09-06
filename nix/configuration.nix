@@ -227,7 +227,9 @@ in rec
     nodejs yarn
 
     # dev tools
-    httpstat httplab httping httpie wuzz dnsutils tcpdump socat entr watchman # postman
+    httpstat httplab httping httpie wuzz
+    dnsutils tcpdump socat entr watchman # postman
+    siege
 
     # compress tools
     atool zip unzip p7zip dpkg
