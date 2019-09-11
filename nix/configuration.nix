@@ -257,7 +257,8 @@ in rec
     google-cloud-sdk
     kind kube3d dapper
     kubeval
-    click kube-prompt
+    click kube-prompt k9s
+    # kubelive
     cri-o cri-tools
     podman runc
     skaffold tilt
