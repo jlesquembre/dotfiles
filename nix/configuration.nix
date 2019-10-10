@@ -248,7 +248,7 @@ in rec
     rustc cargo rustfmt
 
     # DB utils
-    libmysql mariadb.client
+    libmysqlclient mariadb.client
     postgresql_11 pspg # pgcli
 
     # Kubernetes
