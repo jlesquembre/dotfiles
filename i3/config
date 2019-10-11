@@ -29,7 +29,7 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec "hyper"
 # bindsym $mod+Shift+Return exec "SHELL=`which fish` termite"
-bindsym $mod+Shift+Return exec "kitty"
+bindsym $mod+Space exec "kitty"
 #i3-sensible-terminal
 
 # kill focused window
@@ -82,13 +82,13 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+# bindsym $mod+Shift+space floating toggle
 
 for_window [title="^pinentry$"] floating enable
 
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
