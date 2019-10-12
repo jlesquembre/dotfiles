@@ -98,6 +98,7 @@ in rec
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     abcde
+    appimage-run
     autojump
     bat
     bazel bazel-buildtools
@@ -135,6 +136,7 @@ in rec
     imv
     inkscape
     jetbrains.idea-community
+    just
     jq
     jsonnet
     k3b
@@ -418,7 +420,7 @@ address=/.local/127.0.0.1
     isNormalUser = true;
     home = "/home/jlle";
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" "mlocate"];
+    extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" "mlocate" "dialout"];
     packages = [
       # See https://nixos.wiki/wiki/Wrappers_vs._Dotfiles
       (pkgs.writeScriptBin "nix-freespace" ''
