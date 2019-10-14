@@ -186,6 +186,7 @@ Plug 'LnL7/vim-nix'
 Plug 'cespare/vim-toml'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'google/vim-jsonnet'
+Plug 'vmchale/just-vim'
 
 " Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
 Plug 'RRethy/vim-hexokinase'
@@ -368,7 +369,6 @@ augroup END
 augroup filetypedetect
   autocmd!
   autocmd BufRead,BufNewFile Tiltfile setfiletype bzl
-  autocmd BufRead,BufNewFile justfile setfiletype make
 augroup END
 
 " Set augroup
