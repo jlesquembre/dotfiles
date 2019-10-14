@@ -365,9 +365,10 @@ augroup readonly_files
 augroup END
 
 
-augroup titlfile
+augroup filetypedetect
   autocmd!
   autocmd BufRead,BufNewFile Tiltfile setfiletype bzl
+  autocmd BufRead,BufNewFile justfile setfiletype make
 augroup END
 
 " Set augroup
