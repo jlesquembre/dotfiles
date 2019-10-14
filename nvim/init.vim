@@ -1659,6 +1659,16 @@ let g:ale_linters = {
 \   'typescript': [],
 \}
 
+let g:ale_pattern_options = {
+\   '\.go$'      : {'ale_fix_on_save': 1},
+\   '\.rs$'      : {'ale_fix_on_save': 1},
+\}
+
+let g:ale_fixers = {
+\   'rust'         : [ 'rustfmt' ],
+\   'go'           : [ 'gofmt' ],
+\}
+
 " let g:ale_pattern_options = {
 " \   '\.min\.js$' : {'ale_enabled': 0},
 " \   '\.js$'      : {'ale_fix_on_save': 1},
