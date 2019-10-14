@@ -1205,8 +1205,8 @@ augroup END
 function! s:defx_my_settings() abort
 
   " Open commands
-  " nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
-  nnoremap <silent><buffer><expr> <CR> defx#do_action('open', 'wincmd w \| drop')
+  nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
+  " nnoremap <silent><buffer><expr> <CR> defx#do_action('open', 'wincmd w \| drop')
   nnoremap <silent><buffer><expr> l defx#do_action('open')
   nnoremap <silent><buffer><expr> v defx#do_action('open', 'vsplit')
   " Preview current file
