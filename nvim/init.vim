@@ -243,7 +243,7 @@ Plug 'guns/vim-clojure-highlight' | Plug 'guns/vim-clojure-static'
 
 
 " Plug 'clojure-vim/nvim-parinfer.js', {'do': 'lein do npm install'}
-Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
+Plug 'eraserhd/parinfer-rust', {'do': 'nix-shell --run \"cargo build --release \"'}
 Plug 'humorless/vim-kibit'
 
 if exists("g:use_conjure")
