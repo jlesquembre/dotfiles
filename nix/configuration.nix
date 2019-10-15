@@ -99,7 +99,6 @@ in rec
   environment.systemPackages = with pkgs; [
     abcde
     appimage-run
-    autojump
     arandr
     bat
     bazel bazel-buildtools
@@ -137,6 +136,7 @@ in rec
     imv
     inkscape
     jetbrains.idea-community
+    jump
     just
     jq
     jsonnet

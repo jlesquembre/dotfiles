@@ -132,7 +132,7 @@ end
 
 function jj -d 'autojump with fzf'
     if test (count $argv) -eq 0; set argv ''; end
-    set -l cmd "autojump -s | head -n -7 | sort -nr | awk '{print \$2}' | fzf +s --query=\"$argv\" $fzf_preview_dir"
+    set -l cmd "jump top | fzf +s --query=\"$argv\" $fzf_preview_dir"
 
     set -l tempfile (mktemp)
     _run_fzf_cmd $tempfile $cmd; set -l last_status $status

@@ -87,6 +87,8 @@ for fish_file in $HOME/.config/fish/functions_extra/*.fish
     source $fish_file
 end
 
+status --is-interactive; and source (jump shell fish | psub)
+
 #### A better prompt
 
 

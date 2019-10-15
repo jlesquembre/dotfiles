@@ -101,7 +101,7 @@ class fzf_autojump(Command):
     """
     def execute(self):
         command = '''
-        autojump -s | head -n -7 | sort -nr | awk '{print $2}' | fzf +s --preview "tree -C {} | head -200"
+        jump top | fzf +s --preview "tree -C {} | head -200"
         '''
         fzf = self.fm.execute_command(command, universal_newlines=True, stdout=subprocess.PIPE)
         stdout, stderr = fzf.communicate()
@@ -113,25 +113,31 @@ class fzf_autojump(Command):
                 self.fm.select_file(fzf_file)
 
 
-def hook_init(fm):
-    def update_autojump(signal):
-        subprocess.call(["autojump", "--add", signal.new.path])
+original_hook_init = ranger.api.hook_init
 
-    fm.signal_bind('cd', update_autojump)
+def hook_init(func):
+    def update_jump(signal):
+        subprocess.call(["jump", "chdir", signal.new.path])
+
+    func.signal_bind("cd", update_jump)
+    original_hook_init(func)
 
 ranger.api.hook_init = hook_init
 
 class j(Command):
     """:j
-    Uses autojump to set the current directory.
+    Jump to a directory with fuzzy input.
     """
 
     def execute(self):
-        directory = subprocess.check_output(["autojump", self.arg(1)])
+        jump_command = ["jump", "cd"]
+        jump_command.extend(self.args)
+
+        directory = subprocess.check_output(jump_command)
         directory = directory.decode("utf-8", "ignore")
         directory = directory.rstrip('\n')
-        self.fm.execute_console("cd " + directory)
 
+        self.fm.execute_console("cd " + directory)
 
 class select_all_files(Command):
     """
