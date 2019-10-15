@@ -366,7 +366,7 @@ augroup readonly_files
 augroup END
 
 
-augroup filetypedetect
+augroup CustomFileTypeDetection
   autocmd!
   autocmd BufRead,BufNewFile Tiltfile setfiletype bzl
 augroup END
