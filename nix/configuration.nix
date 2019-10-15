@@ -100,6 +100,7 @@ in rec
     abcde
     appimage-run
     autojump
+    arandr
     bat
     bazel bazel-buildtools
     cachix
