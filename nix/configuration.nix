@@ -110,6 +110,7 @@ in rec
     # (pkgs.chromium.override { useVaapi = true; })
     clementine
     cmatrix
+    cue
     #mpd cantata
     #mopidy mopidy-musicbox-webclient mopidy-moped mopidy-mopify
     docker_compose
@@ -211,7 +212,7 @@ in rec
     breeze-gtk breeze-icons breeze-qt5 gnome-breeze # kde-gtk-config
 
     # dhall-lang
-    dhall dhall.prelude dhall-bash dhall-json dhall-text # dhall-nix
+    dhall dhall-bash dhall-json dhall-text # dhall-nix
 
     # terminals
     hyper kitty # termite
@@ -256,7 +257,8 @@ in rec
 
     # Kubernetes
     minikube kubectl kubectx kubernetes-helm kustomize
-    gomplate
+    # istioctl
+    # gomplate
     google-cloud-sdk
     kind kube3d dapper
     kubeval
