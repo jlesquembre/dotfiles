@@ -966,7 +966,7 @@ nnoremap <leader>gww :Gwrite<CR>
 " but in that case we lose the Gwrite output (unless there is an error)
 nnoremap <leader>gwc :Gwrite<Bar>:Gcommit<CR>
 nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gg :Gstatus<CR>
 nnoremap <leader>gcc :Gcommit<CR>
 nnoremap <leader>gp :Gpush<CR>
 "nnoremap <leader>gr :Git reset -q -- %<CR>
