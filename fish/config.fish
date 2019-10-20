@@ -28,7 +28,10 @@ set -x BAT_PAGER less
 # set -x LESS "-R +G"
 
 function fish_greeting -d "what's up, fish?"
+  if not set -q WHATSUP
+    set -gx WHATSUP 1
     neofetch
+  end
 end
 
 # Until devpi issue #64 is implemented, you need to set REQUESTS_CA_BUNDLE environment variable
