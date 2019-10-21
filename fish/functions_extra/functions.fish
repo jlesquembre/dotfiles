@@ -435,6 +435,9 @@ abbr -a gs 'git status'
 abbr -a grm 'git_delete_merged'
 
 # Docker abbreviations
+abbr -a d 'docker'
+abbr -a dp 'docker ps'
+abbr -a dpa 'docker ps --all'
 abbr -a drm 'docker system prune --all --volumes'
 
 # K8S abbreviations
