@@ -376,19 +376,20 @@ augroup END
 " See https://vi.stackexchange.com/a/9458/2660
 augroup user_augroup
   autocmd!
+  autocmd FileType help wincmd K
+
+  " Help NeoVim check for modified files: https://github.com/neovim/neovim/issues/2127
+  autocmd BufEnter,FocusGained * checktime
+  " autocmd BufEnter,CursorHold,CursorHoldI,CursorMoved,CursorMovedI,FocusGained,BufEnter,FocusLost,WinLeave * checktime
+
+  " The PC is fast enough, do syntax highlight syncing from start
+  autocmd BufEnter * syntax sync fromstart
+
+  " Only use cursorline for current window
+  autocmd WinEnter,FocusGained * setlocal cursorline
+  autocmd WinLeave,FocusLost   * setlocal nocursorline
 augroup END
 
-autocmd user_augroup FileType help wincmd K
-
-" Help NeoVim check for modified files: https://github.com/neovim/neovim/issues/2127
-autocmd user_augroup BufEnter,FocusGained * checktime
-
-" The PC is fast enough, do syntax highlight syncing from start
-autocmd user_augroup BufEnter * :syntax sync fromstart
-
-" Only use cursorline for current window
-autocmd user_augroup WinEnter,FocusGained * setlocal cursorline
-autocmd user_augroup WinLeave,FocusLost   * setlocal nocursorline
 
 " END BASIC SETTINGS
 
@@ -396,7 +397,7 @@ autocmd user_augroup WinLeave,FocusLost   * setlocal nocursorline
 " PERSONAL DOC {{{1
 " ============================================================================
 
-augroup user_augroup
+augroup user_personal_doc
   autocmd!
   " autocmd BufWritePost ~/.config/nvim/doc/personal.txt :helptags ~/.config/nvim/doc
   autocmd BufWritePost ~/dotfiles/nvim/doc/personal.txt :helptags ~/.config/nvim/doc
