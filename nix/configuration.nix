@@ -173,7 +173,7 @@ in rec
     prettyping
     proselint
     pwgen
-    python
+    python pipenv
     ranger
     recoll
     ripgrep
@@ -265,7 +265,7 @@ in rec
     click kube-prompt k9s
     # kubelive
     cri-o cri-tools
-    podman runc
+    buildah podman runc
     skaffold tilt
     stern
     # virtualbox
