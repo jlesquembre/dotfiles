@@ -39,6 +39,7 @@ card top {
     chrome-dev-flags.conf
     kdeglobals
     gtk-3.0
+    zathurarc -> zathura/zathurarc
   }
 
   {
