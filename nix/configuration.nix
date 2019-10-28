@@ -176,7 +176,7 @@ in rec
     python pipenv
     ranger
     recoll
-    ripgrep
+    ripgrep ripgrep-all
     rlwrap
     rofi
     rsync
@@ -194,7 +194,7 @@ in rec
     udevil
     unrar
     upower
-    #(pkgs.xdg_utils.override { mimiSupport = true; })
+    # (pkgs.xdg_utils.override { mimiSupport = true; })
     # volnoti
     volumeicon
     w3m
@@ -256,7 +256,7 @@ in rec
     postgresql_11 pspg # pgcli
 
     # Kubernetes
-    minikube kubectl kubectx kubernetes-helm kustomize
+    minikube kubectl kubectx kubernetes-helm kustomize pulumi-bin
     # istioctl
     # gomplate
     google-cloud-sdk
