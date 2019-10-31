@@ -206,6 +206,9 @@ function fish_prompt
 
     echo ''
 
+    set k8s_txt (kubeprompt -p)
+
+    printf "$k8s_txt"
     if test $last_status = 0
         #printf '%s%s%s' (set_color green) '✔  ' (set_color normal)
         set_color -b $BG_NORMAL
