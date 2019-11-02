@@ -1849,6 +1849,7 @@ let g:codi#rightalign = 1
 
 nnoremap <silent> <Leader>tt :Ttoggle<cr>
 nnoremap <silent> <Leader>tl :call neoterm#clear()<cr>
+nnoremap <Leader>tl :<c-u>exec v:count.'Tclear'<cr>
 nnoremap <Leader>tk :Tclose!
 nnoremap <Leader>tn :T nix-shell<cr>
 
