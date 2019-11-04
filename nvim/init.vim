@@ -487,6 +487,7 @@ function! g:Base16_customize() abort
 
   call Base16hi("CocError",     "", "", "", "", "underline", g:base16_gui08)
   call Base16hi("CocWarning",     "", "", "", "", "underline", g:base16_gui09)
+  call Base16hi("CocHighlightText",     "", g:base16_gui02, "", "", "", "" )
 
 endfunction
 
@@ -753,6 +754,9 @@ nnoremap <silent> <Leader>u :call FormatLink('')<cr>
 " nnoremap <Leader>ur :call FormatLink('rst')<cr>
 
 nnoremap <leader>cl :r !conventional-changelog -u<cr>
+
+" Expand the Active File Directory
+cnoremap <expr> %% getcmdtype() == ':' ? fnameescape(expand('%:h')) . '/' : '%%'
 
 " END MAPPINGS
 
@@ -1665,11 +1669,13 @@ let g:ale_linters = {
 let g:ale_pattern_options = {
 \   '\.go$'      : {'ale_fix_on_save': 1},
 \   '\.rs$'      : {'ale_fix_on_save': 1},
+\   '\.sh$'      : {'ale_fix_on_save': 1},
 \}
 
 let g:ale_fixers = {
-\   'rust'         : [ 'rustfmt' ],
-\   'go'           : [ 'gofmt' ],
+\   'go'         : [ 'gofmt' ],
+\   'rust'       : [ 'rustfmt' ],
+\   'sh'         : [ 'shfmt' ],
 \}
 
 " let g:ale_pattern_options = {
@@ -1767,7 +1773,14 @@ if exists("g:use_coc") && exists("g:use_conjure")
       call CocAction('doHover')
     endif
   endfunction
+
   nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  " Remap for rename current word
+  nmap <leader>rn <Plug>(coc-rename)
 
 
   " Use `[c` and `]c` for navigate diagnostics
