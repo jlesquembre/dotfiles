@@ -157,9 +157,11 @@ in rec
     ncurses.dev # infocmp and more utils
     neofetch
     nginxMainline # apacheHttpd # apache used for tools like htpasswd
-    nixpkgs-fmt
+    nix-review
     nix-serve
-    noti notify-osd libnotify
+    nixpkgs-fmt
+    noti libnotify
+    notify-osd
     ntfs3g
     # okular
     libressl
@@ -180,6 +182,8 @@ in rec
     rlwrap
     rofi
     rsync
+    shellcheck
+    shfmt
     smbclient
     sox soxr
     sqlite
@@ -286,7 +290,7 @@ in rec
     transcrypt
   ])
   ++ (with pkgs.nodePackages; [
-    bower
+    bash-language-server
     fkill-cli
     node2nix
     prettier
