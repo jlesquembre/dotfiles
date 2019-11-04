@@ -73,6 +73,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Color schemas
 Plug 'chriskempson/base16-vim'
+" Plug 'srcery-colors/srcery-vim'
 Plug 'mhartington/oceanic-next'
 Plug 'junegunn/seoul256.vim'
 Plug 'rakr/vim-one'
@@ -497,7 +498,9 @@ augroup on_change_colorschema
 augroup END
 
 colorscheme base16-default-dark
-"colorscheme onedark
+" colorscheme OceanicNext
+" colorscheme srcery
+" colorscheme onedark
 
 " END COLORSCHEMA
 
