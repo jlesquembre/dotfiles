@@ -128,7 +128,7 @@ in rec
     gnome3.zenity gnome3.dconf gnome3.dconf-editor
     gnumake
     gnupg blackbox
-    go
+    go golint gotools
     graphicsmagick
     gwenview
     # highlight
