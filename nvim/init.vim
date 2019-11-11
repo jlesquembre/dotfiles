@@ -1671,12 +1671,14 @@ let g:ale_linters = {
 
 let g:ale_pattern_options = {
 \   '\.go$'      : {'ale_fix_on_save': 1},
+\   '\.nix$'     : {'ale_fix_on_save': 1},
 \   '\.rs$'      : {'ale_fix_on_save': 1},
 \   '\.sh$'      : {'ale_fix_on_save': 1},
 \}
 
 let g:ale_fixers = {
 \   'go'         : [ 'gofmt' ],
+\   'nix'        : [ 'nixpkgs-fmt' ],
 \   'rust'       : [ 'rustfmt' ],
 \   'sh'         : [ 'shfmt' ],
 \}
