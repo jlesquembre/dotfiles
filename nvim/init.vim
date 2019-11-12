@@ -2182,6 +2182,6 @@ let g:UltiSnipsEditSplit="vertical"
 
 let g:Hexokinase_virtualText = '███'
 let g:Hexokinase_refreshEvents = ['TextChanged', 'TextChangedI']
-let g:Hexokinase_ftAutoload = ['css', 'xml']
+let g:Hexokinase_ftEnabled = ['css', 'html' ]
 
 " END HEXOKINASE
