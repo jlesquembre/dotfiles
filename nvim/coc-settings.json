@@ -24,7 +24,7 @@
 
   "suggest.maxCompleteItemCount": 99,
 
-  "emmet.includeLanguages": { "javascript": "html" },
+  "emmet.includeLanguages": { "javascript": "html", "typescript": "html" },
 
   "pairs.disableLanguages": ["clojure"],
 
