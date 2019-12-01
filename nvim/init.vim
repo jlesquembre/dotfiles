@@ -1472,28 +1472,35 @@ function! LispCustomSettings()
   nnoremap <buffer> <leader>cn :Slamhound<cr>
 endfunction
 
-let g:conjure_default_mappings = 0
+let g:conjure_default_mappings = v:false
 let g:conjure_log_direction = "horizontal"
 " let g:conjure_log_auto_open = ['eval', 'ret', 'ret-multiline', 'out', 'err', 'tap', 'doc', 'load-file', 'test']
 let g:conjure_log_blacklist = ["ret", "ret-multiline", "load-file", "eval"]
 
 function! ClojureCustomSettings()
   if exists("g:use_conjure")
+    nnoremap <buffer> cu :ConjureUp<cr>
+    nnoremap <buffer> cps :ConjureStatus<cr>
+    vnoremap <buffer> cpw :ConjureEval<cr>
+    vnoremap <buffer> cpp :ConjureEvalSelection<cr>
     nnoremap <buffer> cpp :ConjureEvalCurrentForm<cr>
     nnoremap <buffer> cpr :ConjureEvalRootForm<cr>
-    vnoremap <buffer> cpp :ConjureEvalSelection<cr>
+    nnoremap <buffer> cpm :ConjureEvalFormAtMark<cr>
     nnoremap <buffer> cpb :ConjureEvalBuffer<cr>
     nnoremap <buffer> cpf :ConjureLoadFile <c-r>=expand('%:p')<cr><cr>
-    nnoremap <buffer> cps :ConjureStatus<cr>
+    nnoremap <buffer> K :ConjureDoc <c-r><c-w><cr>
+    nnoremap <buffer> css :ConjureSource <c-r><c-w><cr><cr>
+    nnoremap <buffer> gd :ConjureDefinition <c-r><c-w><cr>
     nnoremap <buffer> cll :ConjureToggleLog<cr>
-    nnoremap <buffer> cu :ConjureUp<cr>
-    nnoremap <buffer> crr :ConjureEval (clojure.tools.namespace.repl/refresh)<cr>
+
+    " nnoremap <buffer> crr :ConjureEval (clojure.tools.namespace.repl/refresh)<cr>
+    nnoremap <buffer> crr :ConjureRefresh changed<cr>
+    nnoremap <buffer> cra :ConjureRefresh all<cr>
+    nnoremap <buffer> crc :ConjureRefresh clear<cr>
     nnoremap <buffer> cri :ConjureEval (integrant.repl/reset)<cr>
     " nnoremap <buffer> <leader>q :ConjureCloseLog<cr>
     nnoremap <buffer> cpt :ConjureRunTests<cr>
     nnoremap <buffer> cptt :ConjureRunAllTests<cr>
-    nnoremap <buffer> K :ConjureDoc <c-r><c-w><cr>
-    nnoremap <buffer> gd :ConjureDefinition <c-r><c-w><cr>
     setlocal omnifunc=conjure#omnicomplete
   else
     nmap <silent><buffer> <leader>cc cqp<Up>
