@@ -60,7 +60,7 @@
 
 " auto-install vim-plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+  silent !curl -qfLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   "autocmd VimEnter * PlugInstall
   "autocmd VimEnter * PlugInstall | source $MYVIMRC
@@ -125,6 +125,7 @@ Plug 'tweekmonster/headlines.vim'
 " Plug 'mattn/emmet-vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'chrisbra/NrrwRgn'
 
 
 " UI
@@ -551,7 +552,7 @@ function! FormatLink(format)
   let l:link = s:strip(getline('.'))
 
   " let l:title = system('wget -qO- '. shellescape(l:link) . ' | gawk -v IGNORECASE=1 -v RS=''</title'' ''RT{gsub(/.*<title[^>]*>/,"");print;exit}'' ')
-  let l:title = system('curl -L --compressed --silent '. shellescape(l:link) . ' | gawk -v IGNORECASE=1 -v RS=''</title'' ''RT{gsub(/.*<title[^>]*>/,"");print;exit}'' ')
+  let l:title = system('curl -q -L --compressed --silent '. shellescape(l:link) . ' | gawk -v IGNORECASE=1 -v RS=''</title'' ''RT{gsub(/.*<title[^>]*>/,"");print;exit}'' ')
   let l:host = s:gethost(l:link)
   let b:title = s:strip(l:title)
 
@@ -1677,10 +1678,11 @@ let g:ale_linters = {
 \}
 
 let g:ale_pattern_options = {
-\   '\.go$'      : {'ale_fix_on_save': 1},
-\   '\.nix$'     : {'ale_fix_on_save': 1},
-\   '\.rs$'      : {'ale_fix_on_save': 1},
-\   '\.sh$'      : {'ale_fix_on_save': 1},
+\   '\.go$':              {'ale_fix_on_save': 1},
+\   '\.nix$':             {'ale_fix_on_save': 1},
+\   'configuration.nix$': {'ale_fixers': []},
+\   '\.rs$':              {'ale_fix_on_save': 1},
+\   '\.sh$':              {'ale_fix_on_save': 1},
 \}
 
 let g:ale_fixers = {
