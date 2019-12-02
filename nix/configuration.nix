@@ -151,6 +151,7 @@ in rec
     lsof
     lzma
     mediainfo
+    meld
     mlocate
     mmv
     ncdu
