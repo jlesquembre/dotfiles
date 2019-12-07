@@ -207,7 +207,7 @@ function fish_prompt
 
     echo ''
 
-    set k8s_txt (kubeprompt -p)
+    set k8s_txt (kubeprompt -f default)
 
     printf "$k8s_txt"
     if test $last_status = 0
