@@ -82,10 +82,8 @@
                          org.openjfx/javafx-web      {:mvn/version "11.0.1"}}
             :main-opts ["-m" "cognitect.rebl"]}
 
-           :user {:extra-deps {org.clojure/core.async      {:mvn/version "0.4.500"}
-                               vvvvalvalval/scope-capture  {:mvn/version "0.3.2"}
+           :user {:extra-deps {vvvvalvalval/scope-capture  {:mvn/version "0.3.2"}
                                lambdaisland/deep-diff      {:mvn/version "0.0-47"}
-                               org.clojure/tools.namespace {:mvn/version "0.3.0"}
                                com.gfredericks/dot-slash-2 {:mvn/version "0.1.5"}
                                com.gfredericks/repl-utils  {:mvn/version "0.2.21"}}
                   :extra-paths ["/home/jlle/dotfiles/clojure/src/user"]}

@@ -54,7 +54,7 @@
 
       user/jmethods
 
-      clojure.tools.namespace.repl/refresh
+      ; clojure.tools.namespace.repl/refresh
       clojure.repl/apropos
       clojure.repl/dir
       clojure.java.shell/sh
