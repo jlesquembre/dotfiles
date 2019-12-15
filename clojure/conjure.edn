@@ -1,2 +1,11 @@
+; {:conns
+;  {:jvm {:port 5555}}}
 {:conns
- {:jvm {:port 5555}}}
+ ; {:dev {:port #slurp-edn ".prepl-port"}}
+ {:dev {:port 5555
+        :hooks {:connect! (fn [conn]
+                            (do
+                              (require 'cognitect.rebl)
+                              ((resolve 'cognitect.rebl/ui))))
+                :result! (fn [{:keys [code result]}]
+                           (cognitect.rebl/submit code result))}}}}

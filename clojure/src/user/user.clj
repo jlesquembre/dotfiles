@@ -4,7 +4,8 @@
     [clojure.java.io :as io]
     [clojure.reflect :refer [reflect]]
     [lambdaisland.deep-diff :as ddiff]
-    [com.gfredericks.dot-slash-2 :as dot-slash-2]))
+    [com.gfredericks.dot-slash-2 :as dot-slash-2]
+    [hashp.core]))
 
 
 ;; ------------
