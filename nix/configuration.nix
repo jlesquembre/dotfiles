@@ -115,6 +115,7 @@ in rec
     #mopidy mopidy-musicbox-webclient mopidy-moped mopidy-mopify
     docker_compose
     electron
+    etcher
     exa
     exiftool
     Fabric

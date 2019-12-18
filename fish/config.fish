@@ -35,6 +35,7 @@ function fish_greeting -d "what's up, fish?"
   end
 end
 
+
 # Until devpi issue #64 is implemented, you need to set REQUESTS_CA_BUNDLE environment variable
 # Uhm, not really a good solution, in that case this is the only CA allowed by requests
 # set -x REQUESTS_CA_BUNDLE $HOME/devpi_certs/nginx.crt
@@ -207,7 +208,8 @@ function fish_prompt
 
     echo ''
 
-    set k8s_txt (kubeprompt -f default)
+    # set k8s_txt (kubeprompt -f default)
+    set k8s_txt (~/projects/kubeprompt/bin/kubeprompt -f default)
 
     printf "$k8s_txt"
     if test $last_status = 0
