@@ -4,8 +4,10 @@
  ; {:dev {:port #slurp-edn ".prepl-port"}}
  {:dev {:port 5555
         :hooks {:connect! (fn [conn]
-                            (do
+                            (try
                               (require 'cognitect.rebl)
-                              ((resolve 'cognitect.rebl/ui))))
+                              ((resolve 'cognitect.rebl/ui))
+                              (catch Exception e (prn "cognitect.rebl not found"))))
                 :result! (fn [{:keys [code result]}]
-                           (cognitect.rebl/submit code result))}}}}
+                           (when (find-ns 'cognitect.rebl)
+                            (cognitect.rebl/submit code result)))}}}}

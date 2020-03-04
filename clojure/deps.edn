@@ -79,11 +79,11 @@
                          org.openjfx/javafx-media    {:mvn/version "11.0.1"}
                          org.openjfx/javafx-swing    {:mvn/version "11.0.1"}
                          org.openjfx/javafx-base     {:mvn/version "11.0.1"}
-                         org.openjfx/javafx-web      {:mvn/version "11.0.1"}}
-            :main-opts ["-m" "cognitect.rebl"]}
+                         org.openjfx/javafx-web      {:mvn/version "11.0.1"}}}
+            ; :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:extra-deps {vvvvalvalval/scope-capture  {:mvn/version "0.3.2"}
-                               hashp                       {:mvn/version "0.1.0"}
+                               hashp                       {:mvn/version "0.1.1"}
                                lambdaisland/deep-diff      {:mvn/version "0.0-47"}
                                com.gfredericks/dot-slash-2 {:mvn/version "0.1.5"}
                                com.gfredericks/repl-utils  {:mvn/version "0.2.22"}}
