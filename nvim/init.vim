@@ -199,6 +199,7 @@ Plug 'RRethy/vim-hexokinase'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-dotenv'
+Plug 'tpope/vim-rsi'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -279,6 +280,8 @@ Plug 'junegunn/vim-easy-align'
 "Plug 'francoiscabrol/ranger.vim'
 "Plug 'rbgrouleff/bclose.vim'
 
+" Language specific helpers
+Plug 'mhinz/vim-crates'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -634,11 +637,26 @@ tnoremap <C-v><Esc> <Esc>
 " Make yank more logical
 map Y y$
 
+" Center on scroll
+" nnoremap j jzz
+" nnoremap k kzz
+" set scrolloff=999
+
 "nmap <leader>w <C-w>
 nnoremap <leader>w <C-w>
 
-nnoremap <leader>d "_d
-vnoremap <leader>d "_d
+" nnoremap <leader>d "_d
+" vnoremap <leader>d "_d
+
+" un-join (split) the current line at the cursor position
+nnoremap gj i<c-j><esc>k$
+xnoremap x  "_d
+xnoremap <leader>p  "0p
+xnoremap <leader>P  "0P
+xnoremap g<leader>p  "0gp
+xnoremap g<leader>P  "0gP
+nnoremap xx x
+
 
 " Used to write digraph (acentos)
 inoremap <M-k> <C-k>
@@ -730,11 +748,13 @@ augroup QfLists
   autocmd FileType qf nnoremap <silent> <buffer> <Right> :call quickfixed#newer()<CR>
 augroup END
 
-" highlight last inserted text
+" Select last inserted text
 nnoremap gV `[v`]
 
 " open file under cursor in a new vertical split
 nnoremap gf :vertical wincmd f<cr>
+" create file under cursor
+nnoremap <Leader>nf :vsp %:h/<C-r><C-a><CR>
 
 " Faster esc
 inoremap <c-space> <esc>
@@ -763,6 +783,15 @@ nnoremap <leader>cl :r !conventional-changelog -u<cr>
 
 " Expand the Active File Directory
 cnoremap <expr> %% getcmdtype() == ':' ? fnameescape(expand('%:h')) . '/' : '%%'
+
+
+" Add insertmode commands and remove some from rsi.vim
+augroup readline
+  autocmd!
+  autocmd VimEnter * iunmap   <C-d>
+  autocmd VimEnter * iunmap   <C-f>
+  autocmd VimEnter * inoremap <C-y> <C-r><C-o>"
+augroup END
 
 " END MAPPINGS
 
@@ -1218,6 +1247,7 @@ augroup END
 function! s:dirvish_customizations() abort
   nnoremap <buffer> D :!mkdir %
   nnoremap <buffer> N :e %
+  call dirvish#add_icon_fn({p -> p[-1:]=='/'?'📂':'📄'})
   " nnoremap <silent><buffer><expr> <BS>
 endfunction
 
