@@ -32,6 +32,10 @@
     "kubernetes": "/*.yaml"
   },
 
+  "snippets.extends": {
+    "markdown.mdx": "markdown"
+  },
+
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
