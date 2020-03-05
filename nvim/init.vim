@@ -386,7 +386,11 @@ augroup user_augroup
   autocmd FileType help wincmd K
 
   " Help NeoVim check for modified files: https://github.com/neovim/neovim/issues/2127
-  autocmd BufEnter,FocusGained * checktime
+  " autocmd BufEnter,FocusGained * checktime
+  " autocmd BufEnter,FocusGained * if mode() != 'c' | checktime | endif
+  autocmd BufEnter,FocusGained * if !bufexists("[Command Line]") | checktime | endif
+
+
   " autocmd BufEnter,CursorHold,CursorHoldI,CursorMoved,CursorMovedI,FocusGained,BufEnter,FocusLost,WinLeave * checktime
 
   " The PC is fast enough, do syntax highlight syncing from start
@@ -783,6 +787,14 @@ nnoremap <leader>cl :r !conventional-changelog -u<cr>
 
 " Expand the Active File Directory
 cnoremap <expr> %% getcmdtype() == ':' ? fnameescape(expand('%:h')) . '/' : '%%'
+
+" quickly edit macros
+" nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register.' = '. string(getreg(v:register))<cr><c-f><left>
+fun! ChangeReg() abort
+  let x = nr2char(getchar())
+  call feedkeys("q:ilet @" . x . " = \<c-r>\<c-r>=string(@" . x . ")\<cr>\<esc>0f'", 'n')
+endfun
+nnoremap cr :call ChangeReg()<cr>
 
 
 " Add insertmode commands and remove some from rsi.vim
