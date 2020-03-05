@@ -654,7 +654,14 @@ nnoremap <leader>w <C-w>
 
 " un-join (split) the current line at the cursor position
 nnoremap gj i<c-j><esc>k$
+" nnoremap gJ i<c-j><esc>k$
+nnoremap x  "_d
 xnoremap x  "_d
+
+nnoremap <leader>p  "0p
+nnoremap <leader>P  "0P
+nnoremap g<leader>p  "0gp
+nnoremap g<leader>P  "0gP
 xnoremap <leader>p  "0p
 xnoremap <leader>P  "0P
 xnoremap g<leader>p  "0gp
@@ -802,7 +809,8 @@ augroup readline
   autocmd!
   autocmd VimEnter * iunmap   <C-d>
   autocmd VimEnter * iunmap   <C-f>
-  autocmd VimEnter * inoremap <C-y> <C-r><C-o>"
+  autocmd VimEnter * inoremap <C-y> <C-r><C-o>+
+  autocmd VimEnter * cnoremap <C-y> <C-r><C-o>+
 augroup END
 
 " END MAPPINGS
