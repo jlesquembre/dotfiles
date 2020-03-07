@@ -668,6 +668,8 @@ xnoremap g<leader>p  "0gp
 xnoremap g<leader>P  "0gP
 nnoremap xx x
 
+" Insert single character
+nnoremap <tab> i_<Esc>r
 
 " Used to write digraph (acentos)
 inoremap <M-k> <C-k>
@@ -736,8 +738,8 @@ nnoremap k gk
 nnoremap <leader>gn :tabnew<cr>
 
 " move to beginning/end of line
-nnoremap <silent> <Leader>b ^
-nnoremap <silent> <Leader>e $
+noremap <silent> <Leader>b ^
+noremap <silent> <Leader>e $
 
 " Quick breakpoints
 augroup AutoBreakpoint
@@ -1173,6 +1175,7 @@ augroup fzf_custom
   autocmd!
   autocmd FileType fzf tnoremap <buffer> <C-j> <C-n>
   autocmd FileType fzf tnoremap <buffer> <C-k> <C-p>
+  autocmd FileType fzf tnoremap <buffer> <esc> <C-c>
 augroup END
 
 
