@@ -1416,34 +1416,34 @@ hi HighlightedyankRegion cterm=reverse gui=reverse
 " Disable predefined sexp mappings {{{2
 
 let g:sexp_mappings = {
-    \ 'sexp_outer_list':                '',
-    \ 'sexp_inner_list':                '',
-    \ 'sexp_outer_top_list':            '',
-    \ 'sexp_inner_top_list':            '',
-    \ 'sexp_outer_string':              '',
-    \ 'sexp_inner_string':              '',
-    \ 'sexp_outer_element':             '',
-    \ 'sexp_inner_element':             '',
-    \ 'sexp_move_to_prev_bracket':      '',
-    \ 'sexp_move_to_next_bracket':      '',
+    \ 'sexp_outer_list':                'af',
+    \ 'sexp_inner_list':                'if',
+    \ 'sexp_outer_top_list':            'ar',
+    \ 'sexp_inner_top_list':            'ir',
+    \ 'sexp_outer_string':              'as',
+    \ 'sexp_inner_string':              'is',
+    \ 'sexp_outer_element':             'ae',
+    \ 'sexp_inner_element':             'ie',
+    \ 'sexp_move_to_prev_bracket':      '<M-f>',
+    \ 'sexp_move_to_next_bracket':      '<M-v>',
     \ 'sexp_move_to_prev_element_head': '',
     \ 'sexp_move_to_next_element_head': '',
     \ 'sexp_move_to_prev_element_tail': '',
     \ 'sexp_move_to_next_element_tail': '',
+    \ 'sexp_flow_to_prev_open':         '(',
+    \ 'sexp_flow_to_next_open':         ')',
     \ 'sexp_flow_to_prev_close':        '',
-    \ 'sexp_flow_to_next_open':         '',
-    \ 'sexp_flow_to_prev_open':         '',
     \ 'sexp_flow_to_next_close':        '',
-    \ 'sexp_flow_to_prev_leaf_head':    '',
-    \ 'sexp_flow_to_next_leaf_head':    '',
-    \ 'sexp_flow_to_prev_leaf_tail':    '',
-    \ 'sexp_flow_to_next_leaf_tail':    '',
-    \ 'sexp_move_to_prev_top_element':  '',
-    \ 'sexp_move_to_next_top_element':  '',
-    \ 'sexp_select_prev_element':       '',
-    \ 'sexp_select_next_element':       '',
-    \ 'sexp_indent':                    '',
-    \ 'sexp_indent_top':                '',
+    \ 'sexp_flow_to_prev_leaf_head':    'b',
+    \ 'sexp_flow_to_next_leaf_head':    'w',
+    \ 'sexp_flow_to_prev_leaf_tail':    'ge',
+    \ 'sexp_flow_to_next_leaf_tail':    'e',
+    \ 'sexp_move_to_prev_top_element':  '[[',
+    \ 'sexp_move_to_next_top_element':  ']]',
+    \ 'sexp_select_prev_element':       '[v',
+    \ 'sexp_select_next_element':       ']v',
+    \ 'sexp_indent':                    '==',
+    \ 'sexp_indent_top':                '=-',
     \ 'sexp_round_head_wrap_list':      '',
     \ 'sexp_round_tail_wrap_list':      '',
     \ 'sexp_square_head_wrap_list':     '',
@@ -1459,9 +1459,9 @@ let g:sexp_mappings = {
     \ 'sexp_insert_at_list_head':       '',
     \ 'sexp_insert_at_list_tail':       '',
     \ 'sexp_splice_list':               '',
-    \ 'sexp_convolute':                 '',
-    \ 'sexp_raise_list':                '',
-    \ 'sexp_raise_element':             '',
+    \ 'sexp_convolute':                 '<leader>?',
+    \ 'sexp_raise_list':                '<leader>o',
+    \ 'sexp_raise_element':             '<leader>O',
     \ 'sexp_swap_list_backward':        '',
     \ 'sexp_swap_list_forward':         '',
     \ 'sexp_swap_element_backward':     '',
@@ -1480,7 +1480,6 @@ let g:clojure_align_multiline_strings = 1
 
 function! LispCustomSettings()
   execute 'RainbowParentheses'
-  let b:coc_pairs = [['"', '"']]
 
   " It's not possible to remap CTRL-M in insert mode, see
   " :h index -> see list of vim mappings
@@ -1528,6 +1527,21 @@ function! ClojureCustomSettings()
     nnoremap <buffer> crr :Require<cr>
     nnoremap <buffer> cra :Require!<cr>
   endif
+
+  " Insert double quote
+  imap <silent><buffer> "    <Plug>(sexp_insert_double_quote)
+  " Delete paired delimiters
+  imap <silent><buffer> <BS> <Plug>(sexp_insert_backspace)
+
+  nmap <buffer> <leader>a >I<cr>
+  nmap <buffer> <leader>i <I<del><cr><up>
+
+  nmap saf <Plug>(operator-sandwich-add)if(
+  nmap sar <Plug>(operator-sandwich-add)if[
+  nmap sav <Plug>(operator-sandwich-add)if{
+  nmap saj <Plug>(operator-sandwich-add)ie(
+  nmap sau <Plug>(operator-sandwich-add)ie[
+  nmap sam <Plug>(operator-sandwich-add)ie{
 
 endfunction
 
@@ -2160,8 +2174,8 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-xnoremap <Leader>a<space> :EasyAlign \ <cr>
-nmap <Leader>a<space> <Plug>(EasyAlign)ab <Nop>
+" xnoremap <Leader>a<space> :EasyAlign \ <cr>
+" nmap <Leader>a<space> <Plug>(EasyAlign)ab <Nop>
 
 " END EASY-ALIGN
 
