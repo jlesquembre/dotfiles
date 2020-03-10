@@ -103,7 +103,7 @@ Plug 'dyng/ctrlsf.vim'
 "Plug 'justinmk/vim-sneak'
 Plug 'easymotion/vim-easymotion'
 " Plug 'unblevable/quick-scope'
-Plug 'takac/vim-hardtime'
+" Plug 'takac/vim-hardtime'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'michaeljsmith/vim-indent-object'
 
@@ -115,12 +115,10 @@ Plug 'tpope/vim-commentary'
 "gorkunov/smartpairs.vim
 "Plug 'cohama/lexima.vim'
 " Plug 'jiangmiao/auto-pairs'
-"Plug 'Raimondi/delimitMate' ???
 " Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-jdaddy'
 " Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-speeddating'
-Plug 'bfredl/nvim-miniyank'
 Plug 'tweekmonster/headlines.vim'
 " Plug 'jlesquembre/rst-tables.nvim', {'do': ':UpdateRemotePlugins'}
 " Plug 'machakann/vim-swap'
@@ -128,6 +126,9 @@ Plug 'tweekmonster/headlines.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'chrisbra/NrrwRgn'
+Plug 'tommcdo/vim-exchange'
+Plug 'vim-scripts/transpose-words'
+Plug 'tpope/vim-capslock'
 
 
 " UI
@@ -135,17 +136,13 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "Plug 'Yggdroot/indentLine'
 Plug 'mhinz/vim-startify'
-Plug 'mhinz/vim-halo'
-"Plug 'haya14busa/vim-operator-flashy' | Plug 'kana/vim-operator-user'
 Plug 'machakann/vim-highlightedyank'
 " Plug 'fszymanski/ListToggle.vim'
 Plug 'milkypostman/vim-togglelist'
 "Plug 'itchyny/vim-cursorword'
 
-" TODO index search plugins will be natively supported by vim, see:
 " https://github.com/vim/vim/issues/453
-Plug 'henrik/vim-indexed-search'
-" Plug 'google/vim-searchindex'
+" Plug 'henrik/vim-indexed-search'
 
 
 " Git
@@ -213,7 +210,7 @@ Plug 'metakirby5/codi.vim'
 Plug 'mhinz/vim-sayonara'
 Plug 'semanser/vim-outdated-plugins'
 Plug 'yssl/QFEnter'
-Plug 'junegunn/vim-peekaboo'
+" Plug 'junegunn/vim-peekaboo'
 Plug 'embear/vim-localvimrc'
 
 " Autocompletion
@@ -328,12 +325,13 @@ set inccommand=split
 set updatetime=100 " Also used for the CursorHold autocommand
 set previewheight=15
 set undofile
-set lazyredraw
+" set lazyredraw
 
 " Better folds
 "set foldcolumn=1
 set foldmethod=marker
-set foldopen+=jump
+" set foldopen+=jump
+" set shortmess-=F
 
 "set splitbelow
 "set splitright
@@ -705,17 +703,8 @@ nnoremap <leader>wl <C-w>L
 
 " Not needed, provided by vim-indexed-search plugin
 " Saner behavior of n and N
-" nnoremap <silent><expr> n 'Nn'[v:searchforward]
-" nnoremap <silent><expr> N 'nN'[v:searchforward]
-" nnoremap <silent><expr> n 'Nn'[v:searchforward] . 'zv:call halo#run()<cr>'
-" nnoremap <silent><expr> N 'nN'[v:searchforward] . 'zv:call halo#run()<cr>'
-let g:indexed_search_mappings = 0
-" nmap / <Plug>(indexed-search-/)
-" nmap ? <Plug>(indexed-search-?)
-" nmap * <Plug>(indexed-search-*)
-" nmap # <Plug>(indexed-search-#)
-noremap <silent><expr> n 'Nn'[v:searchforward] . ':ShowSearchIndex<CR>zv:call halo#run()<cr>'
-noremap <silent><expr> N 'nN'[v:searchforward] . ':ShowSearchIndex<CR>zv:call halo#run()<cr>'
+nnoremap <expr> n 'Nn'[v:searchforward] . 'zv'
+nnoremap <expr> N 'nN'[v:searchforward] . 'zv'
 
 " Saner command-line history
 cnoremap <c-n>  <down>
@@ -749,10 +738,7 @@ augroup AutoBreakpoint
   autocmd FileType javascript map <silent><buffer> <leader><leader>b odebugger;<esc>
   autocmd FileType javascript map <silent><buffer> <leader><leader>B Odebugger;<esc>
 
-  " autocmd FileType clojure map <silent><buffer> <leader><leader>b o(require '[hugin.dbg :as dbg])<cr>(comment)<esc>
-  " autocmd FileType clojure map <silent><buffer> <leader><leader>B O(require '[hugin.dbg :as dbg])<cr>(comment)<esc>
   autocmd FileType clojure map <silent><expr><buffer> <leader><leader>b 'saa((i./spy <esc>'
-  " autocmd FileType clojure map <silent><buffer> <leader><leader>B O(require '[hugin.dbg :as dbg])<cr>(comment)<esc>
 augroup END
 
 augroup QfLists
@@ -799,12 +785,22 @@ cnoremap <expr> %% getcmdtype() == ':' ? fnameescape(expand('%:h')) . '/' : '%%'
 
 " quickly edit macros
 " nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register.' = '. string(getreg(v:register))<cr><c-f><left>
-fun! ChangeReg() abort
+function! ChangeReg() abort
+  echo 'Register to edit?'
   let x = nr2char(getchar())
   call feedkeys("q:ilet @" . x . " = \<c-r>\<c-r>=string(@" . x . ")\<cr>\<esc>0f'", 'n')
-endfun
-nnoremap cr :call ChangeReg()<cr>
+endfunction
+nnoremap <silent> cr :call ChangeReg()<cr>
 
+" set lazyredraw before running a macro
+function! RunMacro() abort
+  set lazyredraw
+  echo 'Macro to execute?'
+  let x = nr2char(getchar())
+  execute 'normal! '. v:count . '@' . x
+  set nolazyredraw
+endfunction
+nnoremap @ :<c-u>call RunMacro()<cr>
 
 " Add insertmode commands and remove some from rsi.vim
 augroup readline
@@ -857,23 +853,6 @@ xmap ass <Plug>(textobj-sandwich-auto-a)
 omap iss <Plug>(textobj-sandwich-auto-i)
 omap ass <Plug>(textobj-sandwich-auto-a)
 
-" From
-" https://github.com/machakann/vim-sandwich/issues/48#issuecomment-338172430
-let s:sandwich_highlight_on = 1
-function! s:sandwich_highlight_toggle() abort
-  if s:sandwich_highlight_on
-    call operator#sandwich#set('all', 'all', 'highlight', 0)
-    let s:sandwich_highlight_on = 0
-    echo 'sandwich: highlight OFF'
-  else
-    call operator#sandwich#set('all', 'all', 'highlight', 3)
-    let s:sandwich_highlight_on = 1
-    echo 'sandwich: highlight ON'
-  endif
-endfunction
-command! -nargs=0 SandwichHighlightToggle call s:sandwich_highlight_toggle()
-
-nnoremap sh :SandwichHighlightToggle<CR>
 
 " END SANDWICH
 
@@ -1423,41 +1402,12 @@ let g:pear_tree_repeatable_expand = 0
 " HIGHLIGHTED YANK (OPERATOR FLASHY) {{{1
 " ============================================================================
 
-"let g:operator#flashy#flash_time = 600
-"map y <Plug>(operator-flashy)
-"nmap Y <Plug>(operator-flashy)$
-
 let g:highlightedyank_highlight_duration = 500
-" Not required on neovim
-" map y <Plug>(highlightedyank)
-" map Y <Plug>(highlightedyank)$
 
 hi HighlightedyankRegion cterm=reverse gui=reverse
 
 " END OPERATOR FLASHY
 
-
-
-" ============================================================================
-" MINIYANK  {{{1
-" ============================================================================
-
-" Use normal and visual remap, see:
-" https://github.com/bfredl/nvim-miniyank/issues/8
-nmap p <Plug>(miniyank-autoput)
-xmap p <Plug>(miniyank-autoput)
-
-nmap P <Plug>(miniyank-autoPut)
-xmap P <Plug>(miniyank-autoPut)
-
-nmap <leader>p <Plug>(miniyank-cycle)
-xmap <leader>p <Plug>(miniyank-cycle)
-
-"map <Leader>pc <Plug>(miniyank-tochar)
-"map <Leader>pl <Plug>(miniyank-toline)
-"map <Leader>pb <Plug>(miniyank-toblock)
-
-" END MINIYANK
 
 " ============================================================================
 " CLOJURE {{{1
