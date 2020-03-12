@@ -90,6 +90,7 @@ Plug 'ryanoasis/vim-devicons'
 
 " Navigation
 " Plug 'andymass/vim-matchup'
+Plug 'Yggdroot/hiPairs'
 Plug 'tpope/vim-repeat'
 "Plug 'tpope/vim-vinegar'
 " Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -448,6 +449,7 @@ endfunction
 
 function! g:Base16_customize() abort
   call Base16hi("MatchParen",    g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold,italic", "")
+  call Base16hi("hiPairs_matchPair",    g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold,italic", "")
   call Base16hi("CursorLineNr",  g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold", "")
   call Base16hi("QuickFixLine",  g:base16_gui00, g:base16_gui09, g:base16_cterm00, g:base16_cterm09, "none", "")
   call Base16hi("PMenu",         g:base16_gui04, g:base16_gui01, g:base16_cterm04, g:base16_cterm01, "none", "")
@@ -801,6 +803,7 @@ function! RunMacro() abort
   set nolazyredraw
 endfunction
 nnoremap @ :<c-u>call RunMacro()<cr>
+nnoremap Q :<c-u>call RunMacro()<cr>@
 
 " Add insertmode commands and remove some from rsi.vim
 augroup readline
