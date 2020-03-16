@@ -99,6 +99,7 @@ Plug 'justinmk/vim-dirvish'
 Plug 'kristijanhusak/vim-dirvish-git'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
+Plug 'yuki-ycino/fzf-preview.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'dyng/ctrlsf.vim'
 "Plug 'justinmk/vim-sneak'
@@ -1102,25 +1103,17 @@ xmap gs  <plug>(GrepperOperator)
 " Don't use default fzf terminal options
 unlet $FZF_DEFAULT_OPTS
 
-" File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
-" let g:fzf_files_options = '--preview "(file -ib {} | rg binary || highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+" let g:fzf_files_options = '--preview "(file -ib {} | rg binary || bat --color always --paging never --style plain --line-range :'. &lines . ' {} || cat {}) 2> /dev/null"'
 
-let g:fzf_files_options = '--preview "(file -ib {} | rg binary || bat --color always --paging never --style plain --line-range :'. &lines . ' {} || cat {}) 2> /dev/null"'
-
-nnoremap <silent> <Leader>f       :FilesFd<CR>
-nnoremap <silent> <Leader>ff      :FilesFd<CR>
-nnoremap <silent> <Leader>fa      :FilesFdAll<CR>
-nnoremap <silent> <Leader>fg      :GFiles<CR>
-nnoremap <silent> <Leader>fc      :Colors<CR>
-nnoremap <silent> <Leader><Enter> :Buffers<CR>
-nnoremap <silent> <Leader>fr     :Find <C-R><C-W><CR>
-xnoremap <silent> <Leader>fr     y:Find <C-R>"<CR>
-" nnoremap <silent> <Leader>ag      :Ag <C-R><C-W><CR>
-" nnoremap <silent> <Leader>AG      :Ag <C-R><C-A><CR>
-" xnoremap <silent> <Leader>ag      y:Ag <C-R>"<CR>
-nnoremap <silent> <Leader>`       :Marks<CR>
-" nnoremap <silent> q: :History:<CR>
-" nnoremap <silent> q/ :History/<CR>
+" nnoremap <silent> <Leader>f       :FilesFd<CR>
+" nnoremap <silent> <Leader>ff      :FilesFd<CR>
+" nnoremap <silent> <Leader>fa      :FilesFdAll<CR>
+" nnoremap <silent> <Leader>fg      :GFiles<CR>
+" nnoremap <silent> <Leader>fc      :Colors<CR>
+" nnoremap <silent> <Leader><Enter> :Buffers<CR>
+" nnoremap <silent> <Leader>fr     :Find <C-R><C-W><CR>
+" xnoremap <silent> <Leader>fr     y:Find <C-R>"<CR>
+" nnoremap <silent> <Leader>`       :Marks<CR>
 
 "inoremap <expr> <c-x><c-t> fzf#complete('tmuxwords.rb --all-but-current --scroll 500 --min 5')
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -1132,6 +1125,32 @@ nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
+let g:fzf_preview_filelist_command = 'fd --hidden --follow --exclude ".git" --type file --type symlink'
+let g:fzf_preview_directory_files_command = 'fd --hidden --follow --no-ignore'
+let g:fzf_preview_command = 'bat --color always --paging never --style plain {-1}'
+let g:fzf_preview_floating_window_winblend = 0
+let g:fzf_preview_floating_window_rate = 0.8
+let g:fzf_preview_use_dev_icons = 1
+" let g:fzf_preview_filelist_postprocess_command = 'xargs -d "\n" exa --color=always' " Use exa
+
+nmap <Leader>f [fzf-p]
+xmap <Leader>f [fzf-p]
+
+nnoremap <silent> [fzf-p]f     :<C-u>FzfPreviewProjectFiles<CR>
+nnoremap <silent> [fzf-p]a     :<C-u>FzfPreviewDirectoryFiles<CR>
+nnoremap <silent> [fzf-p]gg    :<C-u>FzfPreviewGitStatus<CR>
+nnoremap <silent> [fzf-p]<CR>  :<C-u>FzfPreviewBuffers<CR>
+nnoremap <silent> [fzf-p]b     :<C-u>FzfPreviewAllBuffers<CR>
+nnoremap <silent> [fzf-p]j     :<C-u>FzfPreviewJumps<CR>
+nnoremap <silent> [fzf-p]/     :<C-u>FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"<CR>
+nnoremap <silent> [fzf-p]*     :<C-u>FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+nnoremap          [fzf-p]s     :<C-u>FzfPreviewProjectGrep<Space>
+xnoremap          [fzf-p]s     "sy:FzfPreviewProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+nnoremap <silent> [fzf-p]q     :<C-u>FzfPreviewQuickFix<CR>
+nnoremap <silent> [fzf-p]l     :<C-u>FzfPreviewLocationList<CR>
+nnoremap <silent> [fzf-p]m     :<C-u>FzfPreviewMarks<CR>
+" nnoremap <silent> [fzf-p]g;    :<C-u>FzfPreviewChanges<CR>
+" nnoremap <silent> [fzf-p]t     :<C-u>FzfPreviewBufferTags<CR>
 
 command! -bang -nargs=? -complete=dir FilesFd call fzf#vim#files(<q-args>, {
   \ 'source': 'fd --hidden --follow --exclude ".git" --type file --type symlink'
@@ -1143,9 +1162,6 @@ command! -bang -nargs=? -complete=dir FilesFdAll call fzf#vim#files(<q-args>, {
   \ },
   \ <bang>0)
 
-command! -bang -nargs=* Find
-  \ call fzf#vim#grep('rg --column --line-number --no-heading --color=always '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-
 
 command! Plugs call fzf#run({
   \ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
@@ -1153,12 +1169,12 @@ command! Plugs call fzf#run({
   \ 'down':    '~30%',
   \ 'sink':    'Defx'})
 
-augroup fzf_custom
-  autocmd!
-  autocmd FileType fzf tnoremap <buffer> <C-j> <C-n>
-  autocmd FileType fzf tnoremap <buffer> <C-k> <C-p>
-  autocmd FileType fzf tnoremap <buffer> <esc> <C-c>
-augroup END
+" augroup fzf_custom
+"   autocmd!
+"   autocmd FileType fzf tnoremap <buffer> <C-j> <C-n>
+"   autocmd FileType fzf tnoremap <buffer> <C-k> <C-p>
+"   autocmd FileType fzf tnoremap <buffer> <esc> <C-c>
+" augroup END
 
 
 " END FZF
