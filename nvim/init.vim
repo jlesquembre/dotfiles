@@ -100,6 +100,7 @@ Plug 'kristijanhusak/vim-dirvish-git'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'yuki-ycino/fzf-preview.vim'
+Plug 'stsewd/fzf-checkout.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'dyng/ctrlsf.vim'
 "Plug 'justinmk/vim-sneak'
@@ -196,6 +197,7 @@ Plug 'RRethy/vim-hexokinase'
 
 " General utils
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-rsi'
@@ -213,6 +215,7 @@ Plug 'mhinz/vim-sayonara'
 Plug 'semanser/vim-outdated-plugins'
 Plug 'yssl/QFEnter'
 " Plug 'junegunn/vim-peekaboo'
+Plug 'chrisbra/Recover.vim'
 Plug 'embear/vim-localvimrc'
 
 " Autocompletion
