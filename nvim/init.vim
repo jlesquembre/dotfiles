@@ -1248,7 +1248,14 @@ function! AirlineTerm(...)
     let w:airline_section_c = '%{AirlineTermName()}' . g:airline_section_c
   endif
 endfunction
-call airline#add_statusline_func('AirlineTerm')
+
+
+augroup customAirline
+    autocmd!
+    autocmd VimEnter   *        call airline#add_statusline_func('AirlineTerm')
+    autocmd VimEnter   *        call airline#add_statusline_func('AirlineDB')
+    autocmd SourcePost $MYVIMRC if exists(':AirlineRefresh') | AirlineRefresh | endif
+augroup END
 
 
 " END AIRLINE
@@ -2083,12 +2090,13 @@ function! AirlineDBConnName()
   endif
   return '[' . split(dbconn, '=')[0] . ']'
 endfunction
+
+" Called in customAirline augroup
 function! AirlineDB(...)
   if &filetype == 'sql'
     let w:airline_section_x = g:airline_section_x . '%{AirlineDBConnName()}'
   endif
 endfunction
-call airline#add_statusline_func('AirlineDB')
 
 
 let g:sql_type_default = 'pgsql'
