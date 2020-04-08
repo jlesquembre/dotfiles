@@ -796,7 +796,7 @@ function! ChangeReg() abort
   let x = nr2char(getchar())
   call feedkeys("q:ilet @" . x . " = \<c-r>\<c-r>=string(@" . x . ")\<cr>\<esc>0f'", 'n')
 endfunction
-nnoremap <silent> cr :call ChangeReg()<cr>
+nnoremap <silent> <leader>cr :call ChangeReg()<cr>
 
 " set lazyredraw before running a macro
 function! RunMacro() abort
