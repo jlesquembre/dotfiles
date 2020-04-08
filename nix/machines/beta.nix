@@ -42,17 +42,21 @@
 
   hardware.enableAllFirmware = true;
 
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
   networking.wireless.userControlled.enable = true;
   networking.wireless.networks = import ../wireless-networks.nix {};
   environment.systemPackages = [
     pkgs.wpa_supplicant_gui
-    pkgs.blueman
+    # pkgs.blueman
   ];
+
 
   hardware.bluetooth = {
     enable = true;
+    package = pkgs.bluezFull;
   };
+
+  services.blueman.enable = true;
 
   hardware.pulseaudio.extraModules = [ pkgs.pulseaudio-modules-bt ];
 
