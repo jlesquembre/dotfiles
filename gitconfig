@@ -11,12 +11,13 @@
 
 [core]
   editor = nvim
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  ; pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta --dark --theme="base16" --file-color="#ffff00" --file-style="box"
   hooksPath = .githooks
 
 [push]
-    default = simple
-    followTags = true
+  default = simple
+  followTags = true
 
 [alias]
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short --all
@@ -44,16 +45,16 @@
   program = gpg
 
 [color]
-	ui = true
+  ui = true
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
 [color "diff"]
-	meta = 227
-	frag = magenta bold
-	commit = 227 bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+  meta = 227
+  frag = magenta bold
+  commit = 227 bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
