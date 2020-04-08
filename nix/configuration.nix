@@ -302,7 +302,6 @@ in rec
   ]
   ++ (with pkgs.gitAndTools; [
     delta
-    diff-so-fancy
     git-open
     git-recent
     gitRemoteGcrypt
