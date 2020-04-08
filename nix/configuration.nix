@@ -21,7 +21,7 @@ let
   #channel-unstable = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz) {};
 
   # latest stable channel
-  # channel-17_09 = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-17.09.tar.gz) {};
+  channel-19_09 = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-19.09.tar.gz) {};
 
   # specific commit
   # pkgs-58d44a3 = import (fetchTarball https://github.com/nixos/nixpkgs/archive/58d44a3.tar.gz) {};
@@ -40,16 +40,14 @@ in rec
 
   networking.hostName = "${hostName}";
   # networking.firewall.enable = false;
+  networking.firewall.allowedTCPPorts = [ 8000 8080 ];
 
   # mount /tmp on tmpfs
   boot.tmpOnTmpfs = true;
 
   # Select internationalisation properties.
-  i18n = {
-  #   consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
-  };
+  console.keyMap = "us";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
@@ -125,6 +123,7 @@ in rec
     fish
     fzf
     gcc6
+    glances
     glxinfo
     gnome3.zenity gnome3.dconf gnome3.dconf-editor
     gnumake
@@ -137,6 +136,7 @@ in rec
     i3lock i3status-rust
     imv
     inkscape
+    io
     jetbrains.idea-community
     jump
     just
@@ -145,12 +145,14 @@ in rec
     k3b
     keychain
     kodi
+    kondo
     libffi
     libicns
     # libreoffice-fresh
     libxml2 # Provides xmllint
     lsof
     lzma
+    man-db
     mediainfo
     meld
     mlocate
@@ -165,6 +167,7 @@ in rec
     noti libnotify
     notify-osd
     ntfs3g
+    nushell
     # okular
     libressl
     paper-icon-theme arc-theme
@@ -177,20 +180,21 @@ in rec
     prettyping
     proselint
     pwgen
-    python pipenv
+    python3 pipenv
     ranger
     recoll
     ripgrep ripgrep-all
     rlwrap
     rofi
     rsync
+    ruby
     shellcheck
     shfmt
     smbclient
     sox soxr
     sqlite
     sshfs-fuse
-    super-user-spark
+    # super-user-spark
     telnet
     texlive.combined.scheme-full
     tldr
@@ -205,7 +209,7 @@ in rec
     volumeicon
     w3m
     wget
-    whois
+    # whois # Included in inetutils
     xclip
     # xonsh
     xorg.xkbcomp
@@ -218,10 +222,10 @@ in rec
     breeze-gtk breeze-icons breeze-qt5 gnome-breeze # kde-gtk-config
 
     # dhall-lang
-    dhall dhall-bash dhall-json dhall-text # dhall-nix
+    dhall dhall-bash dhall-json # dhall-text dhall-nix
 
     # terminals
-    hyper kitty # termite
+    alacritty hyper kitty
 
     # screenshot utils
     flameshot xfce.xfce4-screenshooter
@@ -248,8 +252,16 @@ in rec
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
 
     # JDK tools
-    jdk11 visualvm clojure leiningen pkgs.boot joker maven gradle clj-kondo
-    mx graalvm8
+    jdk11 visualvm maven gradle
+    mx
+    # graalvm11-ee
+    (pkgs.graalvm11-ee.overrideAttrs ( attrs: rec{ meta.priority = 1; }))
+
+    # clojure
+    clojure leiningen pkgs.boot joker clj-kondo
+
+    # scala
+    sbt
 
     # purescript
     # purescript psc-package nodePackages.pulp
@@ -259,10 +271,12 @@ in rec
 
     # DB utils
     libmysqlclient mariadb.client
-    postgresql_11 pspg # pgcli
+    postgresql pspg # pgcli
 
     # Kubernetes
     minikube kubectl kubectx kubernetes-helm kustomize pulumi-bin
+    # kubectl-fzf
+    kubeprompt
     # istioctl
     # gomplate
     google-cloud-sdk
@@ -276,11 +290,18 @@ in rec
     stern
     # virtualbox
 
+    # Erlang
+    erlang elixir
+
+    # Prolog
+    gprolog swiPrologWithGui
+
     # Digital currencies
     monero go-ethereum
     # electrum
   ]
   ++ (with pkgs.gitAndTools; [
+    delta
     diff-so-fancy
     git-open
     git-recent
@@ -307,10 +328,9 @@ in rec
     # pygments
   # ]))])
 
-  ++ (with pkgs.python37Packages; [
-    cookiecutter
+  ++ (with pkgs.python38Packages; [
+    # cookiecutter
     # csvkit
-    glances
     ipython
     neovim
     virtualenv
@@ -323,13 +343,14 @@ in rec
     cabal-install
     cabal2nix
     ghc
-    githud
+    # githud
     # stack
     # stack2nix
   ])
-  # ++ (with channel-17_09; [
-  #   super-user-spark
-  # ])
+  ++ (with channel-19_09; [
+    super-user-spark
+    haskellPackages.githud
+  ])
   ;
 
   # List services that you want to enable:
@@ -384,8 +405,9 @@ address=/.local/127.0.0.1
   services.xserver.xkbOptions = "eurosign:e";
 
   services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.defaultSession = "none+i3";
 
-  services.xserver.windowManager.default = "i3";
+  # services.xserver.windowManager.default = "none+i3";
   services.xserver.windowManager.i3.enable = true;
 
   # services.xserver.windowManager.xmonad.enable = true;
