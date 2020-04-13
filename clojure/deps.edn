@@ -38,7 +38,7 @@
                     :main-opts ["-m" "http.server"]}
 
            ;; see https://github.com/jonase/eastwood#running-eastwood-in-a-repl
-           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "RELEASE"}}
+           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "0.3.9"}}
                       :main-opts ["-m" "eastwood.lint" "{:source-paths,[\"src\"],:test-paths,[\"test\"]}"]}
 
            ;; uberjar building:
@@ -48,12 +48,12 @@
            ;;   - java -cp result.jar clojure.main -m mymain.namespace
            ;; - build a library JAR:
            ;;   - clj -A:jar result-lib.jar
-           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "RELEASE"}}
+           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "0.5.2"}}
                      :main-opts ["-m" "hf.depstar.uberjar"]}
-           :jar {:extra-deps {seancorfield/depstar {:mvn/version "RELEASE"}}
+           :jar {:extra-deps {seancorfield/depstar {:mvn/version "0.5.2"}}
                  :main-opts ["-m" "hf.depstar.jar"]}
 
-           :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "RELEASE"}}
+           :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.1.9"}}
                       :jvm-opts   []
                       :main-opts  ["--main" "org.rssys.pbuilder.core"]}
 
