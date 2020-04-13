@@ -23,7 +23,7 @@
            ;;   - clj -A:new lib myname/my-cool-lib
            ;;   - cd my-cool-lib
            ;;   - clj -A:test:runner # run the tests!
-           :new {:extra-deps {seancorfield/clj-new {:mvn/version "RELEASE"}}
+           :new {:extra-deps {seancorfield/clj-new {:mvn/version "1.0.199"}}
                  :main-opts ["-m" "clj-new.create"]}
 
            :rebel      {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}
@@ -52,6 +52,10 @@
                      :main-opts ["-m" "hf.depstar.uberjar"]}
            :jar {:extra-deps {seancorfield/depstar {:mvn/version "RELEASE"}}
                  :main-opts ["-m" "hf.depstar.jar"]}
+
+           :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "RELEASE"}}
+                      :jvm-opts   []
+                      :main-opts  ["--main" "org.rssys.pbuilder.core"]}
 
            :find-deps  {:extra-deps {find-deps {:git/url "https://github.com/hagmonk/find-deps"
                                                 :sha     "9bf23a52cb0a8190c9c2c7ad1d796da802f8ce7a"}}

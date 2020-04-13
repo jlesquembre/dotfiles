@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - master
+  # schedule:
+  #   - cron: "0 9 * * 5"
+
+jobs:
+  clojars:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: DeLaGuardo/setup-clojure@2.0
+        with:
+          tools-deps: latest
+      - name: Update clj dependencies
+        run:
+          clojure -Sdeps '{:deps {olical/depot {:mvn/version "1.8.4"}}}' -m
+          depot.outdated.main --update clojure/deps.edn
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v2
+        with:
+          commit-message: Update clojure dependencies
+          title: Update clojure dependencies
+          assignees: jlesquembre
+          branch: update-clj-deps
