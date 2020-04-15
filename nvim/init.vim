@@ -73,24 +73,25 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Color schemas
 Plug 'chriskempson/base16-vim'
-" Plug 'srcery-colors/srcery-vim'
 Plug 'mhartington/oceanic-next'
-Plug 'junegunn/seoul256.vim'
-Plug 'rakr/vim-one'
-Plug 'joshdick/onedark.vim'
-Plug 'challenger-deep-theme/vim', {'as': 'challenger-deep-theme'}
-Plug 'KabbAmine/yowish.vim'
-Plug 'mhinz/vim-janah'
+" Plug 'srcery-colors/srcery-vim'
+" Plug 'junegunn/seoul256.vim'
+" Plug 'rakr/vim-one'
+" Plug 'joshdick/onedark.vim'
+" Plug 'challenger-deep-theme/vim', {'as': 'challenger-deep-theme'}
+" Plug 'KabbAmine/yowish.vim'
+" Plug 'mhinz/vim-janah'
 " Plug 'dracula/vim', {'as': 'dracula-colorscheme'}
-Plug 'liuchengxu/space-vim-dark'
+" Plug 'liuchengxu/space-vim-dark'
+" Plug 'romainl/Apprentice'
+" Plug 'ayu-theme/ayu-vim'
 
 
 Plug 'ryanoasis/vim-devicons'
-"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Navigation
 " Plug 'andymass/vim-matchup'
-Plug 'Yggdroot/hiPairs'
+" Plug 'Yggdroot/hiPairs'
 Plug 'tpope/vim-repeat'
 "Plug 'tpope/vim-vinegar'
 " Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -212,7 +213,7 @@ Plug 'jamessan/vim-gnupg'
 Plug 'kassio/neoterm'
 Plug 'metakirby5/codi.vim'
 Plug 'mhinz/vim-sayonara'
-Plug 'semanser/vim-outdated-plugins'
+" Plug 'semanser/vim-outdated-plugins'
 Plug 'yssl/QFEnter'
 " Plug 'junegunn/vim-peekaboo'
 Plug 'chrisbra/Recover.vim'
@@ -284,6 +285,7 @@ Plug 'junegunn/vim-easy-align'
 
 " Language specific helpers
 Plug 'mhinz/vim-crates'
+Plug 'vim-ruby/vim-ruby'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -512,9 +514,14 @@ augroup on_change_colorschema
 augroup END
 
 colorscheme base16-default-dark
+" colorscheme apprentice
 " colorscheme OceanicNext
 " colorscheme srcery
 " colorscheme onedark
+" let ayucolor="light"  " for light version of theme
+" let ayucolor="mirage" " for mirage version of theme
+" let ayucolor="dark"   " for dark version of theme
+" colorscheme ayu
 
 " END COLORSCHEMA
 
@@ -1746,6 +1753,7 @@ let g:ale_pattern_options = {
 \   'configuration.nix$': {'ale_fixers': []},
 \   '\.rs$':              {'ale_fix_on_save': 1},
 \   '\.sh$':              {'ale_fix_on_save': 1},
+\   'scope\.sh$':         {'ale_fixers': []},
 \}
 
 let g:ale_fixers = {
