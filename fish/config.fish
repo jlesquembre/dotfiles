@@ -23,8 +23,9 @@ set -x HOSTNAME (hostname)
 set -x PROJECT_HOME $HOME/projects
 set -x BROWSER chromium
 set -x MANPAGER "nvim -c 'set ft=man' -"
-set -x BAT_PAGER less
 set -x KUBECTL_EXTERNAL_DIFF meld
+# set -x BAT_PAGER less
+set -x PAGER page
 # set -x PAGER less
 # set -x LESS "-R +G"
 
@@ -33,6 +34,10 @@ function fish_greeting -d "what's up, fish?"
     set -gx WHATSUP 1
     neofetch
   end
+end
+
+function preexec --on-event fish_preexec
+  set -gx PAGE_BUFFER_NAME $argv
 end
 
 

@@ -2262,3 +2262,19 @@ let g:Hexokinase_refreshEvents = ['TextChanged', 'TextChangedI']
 let g:Hexokinase_ftEnabled = ['css', 'html' ]
 
 " END HEXOKINASE
+
+" ============================================================================
+" PAGE https://github.com/I60R/page {{{1
+" ============================================================================
+augroup readonly_files
+  autocmd!
+  autocmd User PageOpen set norelativenumber
+  autocmd User PageOpen AirlineToggle
+  autocmd User PageOpen set showmode
+  autocmd User PageOpen :mode
+  autocmd User PageOpen exe 'map  <buffer> q :q<CR>'
+  autocmd User PageOpen exe 'tmap  <buffer> q :q<CR>'
+augroup END
+
+
+" END PAGE

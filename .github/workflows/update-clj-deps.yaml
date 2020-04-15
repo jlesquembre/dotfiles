@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: "0 9 * * 2"
+    - cron: "1 5 * * 2"
 
 jobs:
   clojure-deps:

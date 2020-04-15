@@ -170,6 +170,7 @@ in rec
     nushell
     # okular
     libressl
+    page
     paper-icon-theme arc-theme
     pass
     pavucontrol
