@@ -123,6 +123,7 @@ in rec
     fish
     fzf
     gcc6
+    gettext
     glances
     glxinfo
     gnome3.zenity gnome3.dconf gnome3.dconf-editor
@@ -136,7 +137,6 @@ in rec
     i3lock i3status-rust
     imv
     inkscape
-    io
     jetbrains.idea-community
     jump
     just
@@ -188,7 +188,6 @@ in rec
     rlwrap
     rofi
     rsync
-    ruby
     shellcheck
     shfmt
     smbclient
@@ -262,7 +261,7 @@ in rec
     clojure leiningen pkgs.boot joker clj-kondo
 
     # scala
-    sbt
+    bloop sbt
 
     # purescript
     # purescript psc-package nodePackages.pulp
