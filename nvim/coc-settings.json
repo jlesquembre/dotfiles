@@ -15,7 +15,8 @@
     "css",
     "html",
     "yaml",
-    "markdown"
+    "markdown",
+    "scala"
   ],
 
   "suggest.timeout": 4000,

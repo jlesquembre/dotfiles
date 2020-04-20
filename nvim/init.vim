@@ -189,7 +189,9 @@ Plug 'LnL7/vim-nix'
 Plug 'cespare/vim-toml'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'google/vim-jsonnet'
+Plug 'derekwyatt/vim-scala'
 Plug 'vmchale/just-vim'
+" Plug 'Glench/Vim-Jinja2-Syntax'
 
 " Plug 'ap/vim-css-color'  " Needs to be loaded AFTER the syntax
 Plug 'RRethy/vim-hexokinase'
@@ -683,7 +685,7 @@ xnoremap g<leader>P  "0gP
 nnoremap xx x
 
 " Insert single character
-nnoremap <tab> i_<Esc>r
+" nnoremap <tab> i_<Esc>r
 
 " Used to write digraph (acentos)
 inoremap <M-k> <C-k>
@@ -1890,7 +1892,6 @@ if exists("g:use_coc") && exists("g:use_conjure")
   " Use <TAB> for selections ranges.
   " NOTE: Requires 'textDocument/selectionRange' support from the language server.
   " coc-tsserver, coc-python are the examples of servers that support it.
-  " TODO duplicated mapping
   nmap <silent> <tab> <Plug>(coc-range-select)
   xmap <silent> <tab> <Plug>(coc-range-select)
 
@@ -1917,16 +1918,16 @@ if exists("g:use_coc") && exists("g:use_conjure")
   " " Resume latest coc list.
   " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-  " Disable codeaction and quick fix, not too useful, for an example see:
+  " For an example see:
   " https://github.com/microsoft/vscode-extension-samples/tree/master/code-actions-sample
   " " Applying codeAction to the selected region.
   " " Example: `<leader>aap` for current paragraph
   " xmap <leader>a  <Plug>(coc-codeaction-selected)
   " nmap <leader>a  <Plug>(coc-codeaction-selected)
-  " " Remap keys for applying codeAction to the current line.
-  " nmap <leader>ac  <Plug>(coc-codeaction)
-  " " Apply AutoFix to problem on the current line.
-  " nmap <leader>qf  <Plug>(coc-fix-current)
+  " Remap keys for applying codeAction to the current line.
+  nnoremap <leader>dc :CocAction<cr>
+  " Apply AutoFix to problem on the current line.
+  nnoremap <leader>df :CocFix<cr>
 
 else " Use deoplete
 
@@ -2013,7 +2014,7 @@ vnoremap <silent> <Leader>ts :TREPLSendSelection<cr>
 
 function! s:neoterm_extra_maps() abort
   " Don't add on these filetypes
-  if &ft =~ 'clojure\|clojurescript\|sql'
+  if &ft =~ 'clojure\|clojurescript\|sql\|scala'
     return
   endif
   nnoremap <buffer><silent> cpp :TREPLSendLine<cr>
@@ -2353,3 +2354,32 @@ let g:localvimrc_ask = 0
 let g:localvimrc_sandbox = 0
 
 " END LOCALVIMRC
+
+" ============================================================================
+" SCALA {{{1
+" ============================================================================
+
+function! ScalaCustomSettings()
+  " Toggle panel with Tree Views
+  nnoremap <silent><buffer> <leader>dtt :<C-u>CocCommand metals.tvp<cr>
+  " Toggle Tree View 'metalsBuild'
+  nnoremap <silent><buffer> <leader>dtb :<C-u>CocCommand metals.tvp metalsBuild<cr>
+  " Toggle Tree View 'metalsCompile'
+  nnoremap <silent><buffer> <leader>dtc :<C-u>CocCommand metals.tvp metalsCompile<cr>
+  " Reveal current current class (trait or object) in Tree View 'metalsBuild'
+  nnoremap <silent><buffer> <leader>dtf :<C-u>CocCommand metals.revealInTreeView metalsBuild<cr>
+
+  nnoremap <silent><buffer> <leader>dtn :<C-u>CocCommand metals.new-scala-file<cr>
+  " Used to expand decorations in worksheets
+  nmap <buffer> cpp <Plug>(coc-metals-expand-decoration)
+endfunction
+
+
+augroup scala_settings
+  autocmd!
+  " Configuration for vim-scala
+  autocmd BufRead,BufNewFile *.sbt set filetype=scala
+  autocmd FileType scala call ScalaCustomSettings()
+augroup END
+
+" END SCALA
