@@ -1813,7 +1813,9 @@ if exists("g:use_coc") && exists("g:use_conjure")
         \'coc-yaml',
         \'coc-conjure',
         \'coc-snippets',
-        \'coc-emmet'
+        \'coc-emmet',
+        \'coc-angular',
+        \'coc-metals',
         \]
 
   let g:coc_filetype_map = {
@@ -1834,8 +1836,7 @@ if exists("g:use_coc") && exists("g:use_conjure")
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
-  " Use <c-space> for trigger completion.
-  inoremap <silent><expr> <c-space> coc#refresh()
+  let g:coc_snippet_next = '<tab>'
 
   " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
   " Coc only does snippet and additional edit on confirm.
@@ -1851,21 +1852,81 @@ if exists("g:use_coc") && exists("g:use_conjure")
       call CocAction('doHover')
     endif
   endfunction
-
   nnoremap <silent> K :call <SID>show_documentation()<cr>
 
-  " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+  augroup cocCustom
+    autocmd!
+    " Highlight symbol under cursor on CursorHold
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+    " Update signature help on jump placeholder
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp') "TODO
+  augroup END
 
   " Remap for rename current word
   nmap <leader>rn <Plug>(coc-rename)
 
+  " GoTo code navigation.
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+
+  " Use <c-space> for trigger completion.
+  inoremap <silent><expr> <c-space> coc#refresh()
 
   " Use `[c` and `]c` for navigate diagnostics
   " Use ALE to display diagnostics
   " nmap <silent> [c <Plug>(coc-diagnostic-prev)
   " nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
+
+  " Introduce function text object
+  " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+  xmap if <Plug>(coc-funcobj-i)
+  xmap af <Plug>(coc-funcobj-a)
+  omap if <Plug>(coc-funcobj-i)
+  omap af <Plug>(coc-funcobj-a)
+
+  " Use <TAB> for selections ranges.
+  " NOTE: Requires 'textDocument/selectionRange' support from the language server.
+  " coc-tsserver, coc-python are the examples of servers that support it.
+  " TODO duplicated mapping
+  nmap <silent> <tab> <Plug>(coc-range-select)
+  xmap <silent> <tab> <Plug>(coc-range-select)
+
+  " Add `:OR` command for organize imports of the current buffer.
+  command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+  nnoremap <leader>di :call CocAction('runCommand', 'editor.action.organizeImport')<cr>
+
+  " Mappings using CoCList:
+  nnoremap <silent> <leader>dl  :<C-u>CocList<cr>
+  " " Show all diagnostics. Not useful because forward to ALE
+  " nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+  " " Manage extensions.
+  " nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+  " " Show commands.
+  " nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+  " " Find symbol of current document.
+  " nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+  " Search workspace symbols.
+  nnoremap <silent> <leader>ds  :<C-u>CocList -I symbols<cr>
+  " " Do default action for next item.
+  " nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+  " " Do default action for previous item.
+  " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+  " " Resume latest coc list.
+  " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+  " Disable codeaction and quick fix, not too useful, for an example see:
+  " https://github.com/microsoft/vscode-extension-samples/tree/master/code-actions-sample
+  " " Applying codeAction to the selected region.
+  " " Example: `<leader>aap` for current paragraph
+  " xmap <leader>a  <Plug>(coc-codeaction-selected)
+  " nmap <leader>a  <Plug>(coc-codeaction-selected)
+  " " Remap keys for applying codeAction to the current line.
+  " nmap <leader>ac  <Plug>(coc-codeaction)
+  " " Apply AutoFix to problem on the current line.
+  " nmap <leader>qf  <Plug>(coc-fix-current)
 
 else " Use deoplete
 
