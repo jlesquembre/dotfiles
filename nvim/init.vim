@@ -123,7 +123,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-jdaddy'
 " Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-speeddating'
-Plug 'tweekmonster/headlines.vim'
 " Plug 'jlesquembre/rst-tables.nvim', {'do': ':UpdateRemotePlugins'}
 " Plug 'machakann/vim-swap'
 " Plug 'mattn/emmet-vim'
@@ -142,7 +141,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'machakann/vim-highlightedyank'
 " Plug 'fszymanski/ListToggle.vim'
-Plug 'milkypostman/vim-togglelist'
 "Plug 'itchyny/vim-cursorword'
 
 " https://github.com/vim/vim/issues/453
@@ -215,6 +213,7 @@ Plug 'metakirby5/codi.vim'
 Plug 'mhinz/vim-sayonara'
 " Plug 'semanser/vim-outdated-plugins'
 Plug 'yssl/QFEnter'
+Plug 'milkypostman/vim-togglelist'
 " Plug 'junegunn/vim-peekaboo'
 Plug 'chrisbra/Recover.vim'
 Plug 'embear/vim-localvimrc'
@@ -246,9 +245,9 @@ endif
 
 " Clojure
 "Plug 'kovisoft/paredit',    { 'for': 'clojure' }
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
-Plug 'guns/vim-clojure-highlight' | Plug 'guns/vim-clojure-static'
+Plug 'guns/vim-sexp',                              { 'for': 'clojure' }
+Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
+Plug 'guns/vim-clojure-highlight',                 { 'for': 'clojure' } | Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 
 
 " Plug 'clojure-vim/nvim-parinfer.js', {'do': 'lein do npm install'}
@@ -262,7 +261,7 @@ else
   Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 endif
 
-Plug 'guns/vim-slamhound'
+Plug 'guns/vim-slamhound', { 'for': 'clojure' }
 "Plug 'venantius/vim-cljfmt'
 
 "Plug 'hkupty/acid.nvim', {'do':':UpdateRemotePlugins'}
@@ -284,8 +283,8 @@ Plug 'junegunn/vim-easy-align'
 "Plug 'rbgrouleff/bclose.vim'
 
 " Language specific helpers
-Plug 'mhinz/vim-crates'
-Plug 'vim-ruby/vim-ruby'
+Plug 'mhinz/vim-crates'  " Already lazy, don't use Plug 'for' or 'on'
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -404,6 +403,10 @@ augroup user_augroup
   " Only use cursorline for current window
   autocmd WinEnter,FocusGained * setlocal cursorline
   autocmd WinLeave,FocusLost   * setlocal nocursorline
+
+  " jsonc support
+  autocmd FileType json syntax match Comment +\/\/.\+$+
+
 augroup END
 
 
@@ -1135,9 +1138,10 @@ nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
-let g:fzf_preview_filelist_command = 'fd --hidden --follow --exclude ".git" --type file --type symlink'
-let g:fzf_preview_directory_files_command = 'fd --hidden --follow --no-ignore'
-let g:fzf_preview_command = 'bat --color always --paging never --style plain {-1}'
+" let g:fzf_preview_filelist_command = 'fd --hidden --follow --exclude ".git" --type file --type symlink'
+" let g:fzf_preview_directory_files_command = 'fd --hidden --follow --no-ignore'
+let g:fzf_preview_command = 'bat --color always --paging never --style plain --line-range :100 {-1}'
+" let g:fzf_preview_command = 'bat --color always --paging never --style plain {-1}'
 let g:fzf_preview_floating_window_winblend = 0
 let g:fzf_preview_floating_window_rate = 0.8
 let g:fzf_preview_use_dev_icons = 1
@@ -1149,7 +1153,7 @@ xmap <Leader>f [fzf-p]
 nnoremap <silent> [fzf-p]f     :<C-u>FzfPreviewProjectFiles<CR>
 nnoremap <silent> [fzf-p]a     :<C-u>FzfPreviewDirectoryFiles<CR>
 nnoremap <silent> [fzf-p]gg    :<C-u>FzfPreviewGitStatus<CR>
-nnoremap <silent> [fzf-p]<CR>  :<C-u>FzfPreviewBuffers<CR>
+nnoremap <silent> <Leader><CR> :<C-u>FzfPreviewBuffers<CR>
 nnoremap <silent> [fzf-p]b     :<C-u>FzfPreviewAllBuffers<CR>
 nnoremap <silent> [fzf-p]j     :<C-u>FzfPreviewJumps<CR>
 nnoremap <silent> [fzf-p]/     :<C-u>FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"<CR>
@@ -1199,10 +1203,6 @@ let g:whitespace_filetypes_blacklist = [
 \ 'diff', 'gitcommit', 'unite', 'qf', 'help'
 \ ]
 
-augroup disable_whitespace_check
-  autocmd!
-  execute 'autocmd FileType '.join(g:whitespace_filetypes_blacklist, ','). ' let b:airline_whitespace_disabled = 1'
-augroup END
 
 let g:airline_theme='oceanicnext'
 "let g:airline_theme='onedark'
@@ -1258,10 +1258,12 @@ endfunction
 
 
 augroup customAirline
-    autocmd!
-    autocmd VimEnter   *        call airline#add_statusline_func('AirlineTerm')
-    autocmd VimEnter   *        call airline#add_statusline_func('AirlineDB')
-    autocmd SourcePost $MYVIMRC if exists(':AirlineRefresh') | AirlineRefresh | endif
+  autocmd!
+  autocmd VimEnter   *        call airline#add_statusline_func('AirlineTerm')
+  autocmd VimEnter   *        call airline#add_statusline_func('AirlineDB')
+  autocmd SourcePost $MYVIMRC if exists(':AirlineRefresh') | AirlineRefresh | endif
+  execute 'autocmd FileType '.join(g:whitespace_filetypes_blacklist, ','). ' let b:airline_whitespace_disabled = 1'
+  " autocmd WinEnter,BufWinEnter __vial_* let w:airline_disabled=1
 augroup END
 
 
@@ -1721,16 +1723,6 @@ command! PiggieMain :Piggieback (figwheel.main.api/repl-env "dev")
 " END NEOMAKE / NEOFORMAT
 
 " ============================================================================
-" HEADLINES {{{1
-" ============================================================================
-
-let g:headlines_key= '<leader><leader>h'
-let g:headlines_height= 22
-
-" HEADLINES
-
-
-" ============================================================================
 " ALE {{{1
 " ============================================================================
 
@@ -1979,22 +1971,6 @@ augroup END
 
 
 " ============================================================================
-" TOGGLELIST (prev: LISTTOGGLE) {{{1
-" ============================================================================
-
-let g:toggle_list_no_mappings = 1
-nnoremap <script> <silent> <leader>x :call ToggleQuickfixList()<CR>
-nnoremap <script> <silent> <leader>v :call ToggleLocationList()<CR>
-
-" let g:listtoggle_no_maps = 1
-" nmap <Leader>x <Plug>ListToggleQuickfixListToggle
-" nmap <Leader>l <Plug>ListToggleLocationListToggle
-
-
-" TOGGLELIST (prev: LISTTOGGLE)
-
-
-" ============================================================================
 " EMMET {{{1
 " ============================================================================
 
@@ -2074,15 +2050,20 @@ nnoremap <leader>Q :Sayonara!<cr>
 
 
 " ============================================================================
-" QFENTER {{{1
+" QFENTER / TOGGLELIST {{{1
 " ============================================================================
 
 let g:qfenter_keymap = {}
+let g:qfenter_keymap.open  = ['<CR>']
 let g:qfenter_keymap.vopen = ['<C-v>']
 let g:qfenter_keymap.hopen = ['<C-x>']
 let g:qfenter_keymap.topen = ['<C-t>']
 
-" QFENTER
+let g:toggle_list_no_mappings = 1
+nnoremap <script> <silent> <leader>x :call ToggleQuickfixList()<CR>
+nnoremap <script> <silent> <leader>v :call ToggleLocationList()<CR>
+
+" QFENTER / TOGGLELIST
 
 
 " ============================================================================
@@ -2271,6 +2252,20 @@ let g:Hexokinase_refreshEvents = ['TextChanged', 'TextChangedI']
 let g:Hexokinase_ftEnabled = ['css', 'html' ]
 
 " END HEXOKINASE
+
+" ============================================================================
+" CRATES
+" ============================================================================
+
+augroup crates_updates
+  autocmd!
+  autocmd BufRead Cargo.toml call crates#toggle()
+  autocmd BufRead Cargo.toml map <buffer> <leader>ct :CratesToggle<cr>
+  autocmd BufRead Cargo.toml map <buffer> <leader>cu :CratesUp<cr>
+augroup END
+
+
+" END CRATES
 
 " ============================================================================
 " PAGE https://github.com/I60R/page {{{1
