@@ -31,7 +31,7 @@
                         :main-opts  ["-m" "rebel-readline.main"]}
 
            :rebel-cljs {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
-                                     com.bhauman/figwheel-main       {:mvn/version "0.2.3"}}
+                                     com.bhauman/figwheel-main       {:mvn/version "0.2.4"}}
                         :main-opts  ["-m" "figwheel.main"]}
 
            :server {:extra-deps {nasus {:mvn/version "0.1.7"}}
@@ -53,7 +53,7 @@
            :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.94"}}
                  :main-opts ["-m" "hf.depstar.jar"]}
 
-           :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.1.9"}}
+           :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.1.10"}}
                       :jvm-opts   []
                       :main-opts  ["--main" "org.rssys.pbuilder.core"]}
 
@@ -77,13 +77,13 @@
                          com.cognitect/rebl
                          ;; adjust to match your install location
                          {:local/root "/home/jlle/projects/REBL/REBL-0.9.220.jar"}
-                         org.openjfx/javafx-fxml     {:mvn/version "14"}
-                         org.openjfx/javafx-controls {:mvn/version "14"}
-                         org.openjfx/javafx-graphics {:mvn/version "14"}
-                         org.openjfx/javafx-media    {:mvn/version "14"}
-                         org.openjfx/javafx-swing    {:mvn/version "14"}
-                         org.openjfx/javafx-base     {:mvn/version "14"}
-                         org.openjfx/javafx-web      {:mvn/version "14"}}}
+                         org.openjfx/javafx-fxml     {:mvn/version "14.0.1"}
+                         org.openjfx/javafx-controls {:mvn/version "14.0.1"}
+                         org.openjfx/javafx-graphics {:mvn/version "14.0.1"}
+                         org.openjfx/javafx-media    {:mvn/version "14.0.1"}
+                         org.openjfx/javafx-swing    {:mvn/version "14.0.1"}
+                         org.openjfx/javafx-base     {:mvn/version "14.0.1"}
+                         org.openjfx/javafx-web      {:mvn/version "14.0.1"}}}
             ; :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:extra-deps {vvvvalvalval/scope-capture  {:mvn/version "0.3.2"}
