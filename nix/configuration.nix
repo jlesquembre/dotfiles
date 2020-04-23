@@ -161,7 +161,7 @@ in rec
     ncurses.dev # infocmp and more utils
     neofetch
     nginxMainline # apacheHttpd # apache used for tools like htpasswd
-    nix-review
+    nixpkgs-review
     nix-serve
     nixpkgs-fmt
     noti libnotify
@@ -171,7 +171,7 @@ in rec
     # okular
     libressl
     page
-    paper-icon-theme arc-theme
+    paper-icon-theme
     pass
     pavucontrol
     pciutils
@@ -284,11 +284,9 @@ in rec
     kubeval
     click kube-prompt k9s
     # kubelive
-    cri-o cri-tools
-    buildah podman runc
+    buildah
     skaffold tilt
     stern
-    # virtualbox
 
     # Erlang
     erlang elixir
@@ -304,10 +302,9 @@ in rec
     delta
     git-open
     git-recent
-    gitRemoteGcrypt
+    git-trim
     gitFull
-    # gitMinimal
-    # (gitFull.override { svnSupport = false; })
+    gitRemoteGcrypt
     tig
     transcrypt
   ])
@@ -352,12 +349,18 @@ in rec
   ])
   ;
 
-  # List services that you want to enable:
-  virtualisation.docker.enable = true;
 
-  virtualisation.virtualbox.host = {
+  virtualisation.docker.enable = true;
+  virtualisation.podman = {
     enable = true;
+    dockerCompat = false;
   };
+  virtualisation.cri-o.enable = true;
+  virtualisation.containers.users = [ "jlle" ];
+
+  # virtualisation.virtualbox.host = {
+  #   enable = true;
+  # };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -368,6 +371,7 @@ in rec
   # Enable GnuPG agent with SSH support
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
+  programs.gnupg.agent.pinentryFlavor = "qt"; # One of "curses", "tty", "gtk2", "qt", "gnome3", "emacs"
 
   # DNS configuration
   networking.networkmanager.insertNameservers = ["127.0.0.1"];
@@ -478,7 +482,11 @@ address=/.local/127.0.0.1
       freefont_ttf
       hack-font
       inconsolata
-      nerdfonts
+      (nerdfonts.override {
+        fonts = [
+          "Hack"
+        ];
+      })
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
