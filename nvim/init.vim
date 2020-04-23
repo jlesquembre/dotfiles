@@ -219,6 +219,9 @@ Plug 'milkypostman/vim-togglelist'
 " Plug 'junegunn/vim-peekaboo'
 Plug 'chrisbra/Recover.vim'
 Plug 'embear/vim-localvimrc'
+" Plug 'diepm/vim-rest-console'
+" Plug 'baverman/vial'
+" Plug 'baverman/vial-http'
 
 " Autocompletion
 " Plug 'roxma/nvim-completion-manager'
@@ -459,8 +462,17 @@ endfunction
 
 
 function! g:Base16_customize() abort
+  let s:gui_bg = "0F1419"  " From ayu colors
+  " let g:base16_gui00 = "0F1419"
+  call Base16hi("Normal",     "",             s:gui_bg,       "", "", "", "")
+  call Base16hi("Error",      s:gui_bg,                       "", "", "", "", "")
+  call Base16hi("ErrorMsg",   "",             s:gui_bg,       "", "", "", "")
+  call Base16hi("Conceal",    s:gui_bg,                       "", "", "", "", "")
+  call Base16hi("Cursor",     "",             s:gui_bg,       "", "", "", "")
+  " call Base16hi("CursorLine", "",             g:base16_gui00, "", "", "", "")
+
   call Base16hi("MatchParen",    g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold,italic", "")
-  call Base16hi("hiPairs_matchPair",    g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold,italic", "")
+  " call Base16hi("hiPairs_matchPair",    g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold,italic", "")
   call Base16hi("CursorLineNr",  g:base16_gui05, g:base16_gui03, g:base16_cterm05, g:base16_cterm03, "bold", "")
   call Base16hi("QuickFixLine",  g:base16_gui00, g:base16_gui09, g:base16_cterm00, g:base16_cterm09, "none", "")
   call Base16hi("PMenu",         g:base16_gui04, g:base16_gui01, g:base16_cterm04, g:base16_cterm01, "none", "")
@@ -733,6 +745,7 @@ nnoremap <leader>l :nohlsearch<cr>:GitGutter<cr>:diffupdate<cr>:syntax sync from
 
 " Quick saving
 nnoremap <silent> <Leader>s :update<CR>
+inoremap <C-s> <C-o>:w<cr>
 
 " Show syntax highlighting groups for word under cursor
 nnoremap <F10> :call <SID>SynStack()<CR>
@@ -1002,6 +1015,7 @@ let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 " GIT GUTTER {{{1
 " ============================================================================
 
+let g:gitgutter_map_keys = 0
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
 nmap <Leader>hs <Plug>(GitGutterStageHunk)
@@ -1019,14 +1033,20 @@ xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 " FUGITIVE {{{1
 " ============================================================================
 
+" Git abbreviations
+cnoreabbrev gp Git pull --ff-only
+cnoreabbrev gs Git switch
+cnoreabbrev gsc Git switch --create
+
 nnoremap <leader>gww :Gwrite<CR>
+nnoremap <leader>grr :Gread<CR>
 " <Bar> is the pipe (|) char. Gwrite output is shown, and Gcommit is not
 " executed if there is an error with Gwrite, and alternative map is:
 " nnoremap <leader>gwc :Gwrite<CR>:Gcommit<CR>
 " but in that case we lose the Gwrite output (unless there is an error)
 nnoremap <leader>gwc :Gwrite<Bar>:Gcommit<CR>
 nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gg :Gstatus<CR>
+nnoremap <leader>gg :G<CR>
 nnoremap <leader>gcc :Gcommit<CR>
 nnoremap <leader>gp :Gpush<CR>
 "nnoremap <leader>gr :Git reset -q -- %<CR>
@@ -1817,8 +1837,8 @@ if exists("g:use_coc") && exists("g:use_conjure")
         \'coc-snippets',
         \'coc-emmet',
         \'coc-angular',
-        \'coc-metals',
         \]
+        " \'coc-metals',
 
   let g:coc_filetype_map = {
     \ 'markdown.mdx': 'markdown',
