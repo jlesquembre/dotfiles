@@ -1092,6 +1092,7 @@ augroup END
 augroup turbo_commit
   autocmd!
   autocmd BufEnter COMMIT_EDITMSG startinsert
+  autocmd BufEnter COMMIT_EDITMSG inoremap <C-s> <esc>ZZ
 augroup END
 
 
