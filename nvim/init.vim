@@ -359,7 +359,8 @@ set swapfile
 let tmpvim_dir = "/tmp/nvim/"
 execute "set backupdir=".tmpvim_dir."backup/"
 execute "set undodir=".tmpvim_dir."undo/"
-execute "set directory=".tmpvim_dir."swap/"
+" the double // at the end is import see :h dir
+execute "set directory=".tmpvim_dir."swap//"
 set shada='1000,<500,s100,h " file saved at ~/.local/share/nvim
 set viewdir=$HOME/.config/nvim/views
 
