@@ -751,6 +751,20 @@ inoremap <C-s> <C-o>:w<cr>
 " Show syntax highlighting groups for word under cursor
 nnoremap <F10> :call <SID>SynStack()<CR>
 
+" Fix neovim block with function keys
+inoremap <F1>  <nop>
+inoremap <F2>  <nop>
+inoremap <F3>  <nop>
+inoremap <F4>  <nop>
+inoremap <F5>  <nop>
+inoremap <F6>  <nop>
+inoremap <F7>  <nop>
+inoremap <F8>  <nop>
+inoremap <F9>  <nop>
+inoremap <F10> <nop>
+inoremap <F11> <nop>
+inoremap <F12> <nop>
+
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
@@ -1233,6 +1247,14 @@ let g:airline_theme='oceanicnext'
 " let g:airline_theme='base16_default' " same as base16-default-dark
 let g:airline_powerline_fonts = 1
 
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
+
+
 let g:airline#extensions#hunks#non_zero_only = 1
 
 "let g:airline#extensions#tabline#show_buffers=2
@@ -1245,6 +1267,7 @@ let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#tabs_label = ''
 "let g:airline#extensions#tabline#show_tab_nr = 1
 "let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#ale#enabled = 1
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -1307,6 +1330,7 @@ augroup dirvishConfig
   autocmd FileType dirvish call s:dirvish_customizations()
 augroup END
 
+nnoremap <leader>- :vnew +Dirvish<cr>
 
 function! s:dirvish_customizations() abort
   nnoremap <buffer> D :!mkdir %
