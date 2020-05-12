@@ -29,6 +29,8 @@ set -x PAGER page
 # set -x PAGER less
 # set -x LESS "-R +G"
 
+eval (direnv hook fish)
+
 function fish_greeting -d "what's up, fish?"
   if not set -q WHATSUP
     set -gx WHATSUP 1
@@ -181,6 +183,20 @@ function fish_user_key_bindings
     end
 end
 
+function nix_prompt_txt
+  if test -n "$IN_NIX_SHELL"
+    if test "$IN_NIX_SHELL" = "pure"
+        set_color -b 0087af faf5e3
+        printf " ❄ "
+        set_color -b normal normal
+    else
+        set_color -b 897e01 faf5e3
+        printf " ❄ "
+        set_color -b normal normal
+    end
+  end
+end
+
 # From https://github.com/0rax/fishline
 function fish_prompt
     # $status gets nuked as soon as something else is run, e.g. set_color
@@ -216,6 +232,7 @@ function fish_prompt
     # set k8s_txt (kubeprompt -f default)
     set k8s_txt (~/projects/kubeprompt/bin/kubeprompt -f default)
 
+    nix_prompt_txt
     printf "$k8s_txt"
     if test $last_status = 0
         #printf '%s%s%s' (set_color green) '✔  ' (set_color normal)

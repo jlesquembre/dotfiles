@@ -250,7 +250,8 @@ bar {
 #exec fish ~/.i3/set_i3_workspaces.fish
 workspace_layout tabbed
 #exec urxvt -e weechat -T weechat
-exec --no-startup-id i3-msg 'workspace $ws1; exec chromium --force-device-scale-factor=1 --password-store=basic'
+# exec --no-startup-id i3-msg 'workspace $ws1; exec chromium --force-device-scale-factor=1 --password-store=basic'
+exec --no-startup-id i3-msg 'workspace $ws1; exec firefox'
 
 #exec --no-startup-id "compton --no-fading-openclose"
 exec --no-startup-id "volumeicon"

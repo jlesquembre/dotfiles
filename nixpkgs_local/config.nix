@@ -2,9 +2,13 @@
 # https://nixos.org/wiki/Crash_Course#Writing_your_own_nix_packages
 {
 
-  allowUnfree = true;
-  packageOverrides = pkgs : with pkgs; rec {
 
+  allowUnfree = true;
+  packageOverrides = pkgs: with pkgs; rec {
+
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
 
     # If you want to debug linphone and its alsa libraries, let's keep the symbols and use -O0 for them:
     #alsaLibDebug = pkgs.misc.debugVersion pkgs.alsaLib;
@@ -32,21 +36,26 @@
 
     #customHaskellEnv = pkgs.haskell.packages.ghc802.ghcWithPackages
     customHaskellEnv = pkgs.haskellPackages.ghcWithPackages
-                       (haskellPackages: with haskellPackages; [
-                         # libraries
-                         parsec QuickCheck
-                         # tools
-                         #cabal-install haskintex
-                       ]);
+      (
+        haskellPackages: with haskellPackages; [
+          # libraries
+          parsec
+          QuickCheck
+          # tools
+          #cabal-install haskintex
+        ]
+      );
     nodeEnv = buildEnv {
-        name = "nodeEnv";
-        paths = [ nodejs-8_x ] ++ (with nodePackages; [
+      name = "nodeEnv";
+      paths = [ nodejs-8_x ] ++ (
+        with nodePackages; [
           #babel
           replem
           npm2nix
           coffee-script
           #jsonlint
-          ]);
+        ]
+      );
     };
 
     /*
@@ -60,10 +69,11 @@
       name = "all";
       paths = [
         # hello_jl
-        customHaskellEnv
+        # customHaskellEnv
         # conky
         # customOkular
         nix-index
+        nur.repos.mic92.nix-update
       ];
     };
 
