@@ -219,6 +219,7 @@ Plug 'milkypostman/vim-togglelist'
 " Plug 'junegunn/vim-peekaboo'
 Plug 'chrisbra/Recover.vim'
 Plug 'embear/vim-localvimrc'
+" Plug 'direnv/direnv.vim'
 " Plug 'diepm/vim-rest-console'
 " Plug 'baverman/vial'
 " Plug 'baverman/vial-http'
@@ -232,7 +233,8 @@ Plug 'embear/vim-localvimrc'
 " Plug 'carlitux/deoplete-ternjs'
 
 if exists("g:use_coc") && exists("g:use_conjure")
-  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+  " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 else
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/context_filetype.vim'
@@ -260,8 +262,7 @@ Plug 'eraserhd/parinfer-rust', {'do': 'nix-shell --run \"cargo build --release \
 Plug 'humorless/vim-kibit'
 
 if exists("g:use_conjure")
-  Plug 'Olical/conjure', { 'branch': 'master', 'do': 'bin/compile', 'for': 'clojure', 'on': 'ConjureAdd'  }
-  " Plug '~/projects/conjure', { 'for': 'clojure', 'on': 'ConjureAdd'  }
+  Plug 'Olical/conjure', {'branch': 'develop'}
 else
   Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 endif
@@ -846,8 +847,8 @@ function! RunMacro() abort
   execute 'normal! '. v:count . '@' . x
   set nolazyredraw
 endfunction
-nnoremap @ :<c-u>call RunMacro()<cr>
-nnoremap Q :<c-u>call RunMacro()<cr>@
+" nnoremap @ :<c-u>call RunMacro()<cr>
+" nnoremap Q :<c-u>call RunMacro()<cr>@
 
 " Add insertmode commands and remove some from rsi.vim
 augroup readline
@@ -1579,36 +1580,80 @@ function! LispCustomSettings()
   nnoremap <buffer> <leader>cn :Slamhound<cr>
 endfunction
 
-let g:conjure_default_mappings = v:false
-let g:conjure_log_direction = "horizontal"
-" let g:conjure_log_auto_open = ['eval', 'ret', 'ret-multiline', 'out', 'err', 'tap', 'doc', 'load-file', 'test']
-let g:conjure_log_blacklist = ["ret", "ret-multiline", "load-file", "eval"]
+" let g:conjure_default_mappings = v:false
+" let g:conjure_log_direction = "horizontal"
+" " let g:conjure_log_auto_open = ['eval', 'ret', 'ret-multiline', 'out', 'err', 'tap', 'doc', 'load-file', 'test']
+" let g:conjure_log_blacklist = ["ret", "ret-multiline", "load-file", "eval"]
+
+let g:conjure_config = {
+ \ "log.hud.enabled?": v:true,
+ \ "mappings.prefix": "c",
+ \ "mappings.log-split": "Ls",
+ \ "mappings.log-vsplit": "ll",
+ \ "mappings.log-tab": "Lt",
+ \ "mappings.log-close-visible": "lq",
+ \ "mappings.eval-current-form": "pp",
+ \ "mappings.eval-root-form": "pr",
+ \ "mappings.eval-marked-form": "pm",
+ \ "mappings.eval-word": "pw",
+ \ "mappings.eval-file": "pf",
+ \ "mappings.eval-buf": "pb",
+ \ "mappings.eval-visual": "p",
+ \ "mappings.eval-motion": "m",
+ \ "mappings.doc-word": ["K"],
+ \ "mappings.def-word": ["gd"],
+ \ "clients.clojure": "conjure.client.clojure.nrepl",
+ \ "clojure.nrepl/mappings.disconnect": "ud",
+ \ "clojure.nrepl/mappings.connect-port-file": "uu",
+ \ "clojure.nrepl/mappings.interrupt": "ui",
+ \ "clojure.nrepl/mappings.last-exception": "ve",
+ \ "clojure.nrepl/mappings.result-1": "v1",
+ \ "clojure.nrepl/mappings.result-2": "v2",
+ \ "clojure.nrepl/mappings.result-3": "v3",
+ \ "clojure.nrepl/mappings.view-source": "vs",
+ \ "clojure.nrepl/mappings.session-clone": "sc",
+ \ "clojure.nrepl/mappings.session-fresh": "sf",
+ \ "clojure.nrepl/mappings.session-close": "sq",
+ \ "clojure.nrepl/mappings.session-close-all": "sQ",
+ \ "clojure.nrepl/mappings.session-list": "sl",
+ \ "clojure.nrepl/mappings.session-next": "sn",
+ \ "clojure.nrepl/mappings.session-prev": "sp",
+ \ "clojure.nrepl/mappings.session-select": "ss",
+ \ "clojure.nrepl/mappings.session-type": "st",
+ \ "clojure.nrepl/mappings.run-all-tests": "pta",
+ \ "clojure.nrepl/mappings.run-current-ns-tests": "ptn",
+ \ "clojure.nrepl/mappings.run-alternate-ns-tests": "ptN",
+ \ "clojure.nrepl/mappings.run-current-test": "ptc",
+ \ "clojure.nrepl/mappings.refresh-changed": "rr",
+ \ "clojure.nrepl/mappings.refresh-all": "ra",
+ \ "clojure.nrepl/mappings.refresh-clear": "rc",
+ \ }
 
 function! ClojureCustomSettings()
   if exists("g:use_conjure")
-    nnoremap <buffer> cu :ConjureUp<cr>
-    nnoremap <buffer> cps :ConjureStatus<cr>
-    vnoremap <buffer> cpw :ConjureEval<cr>
-    vnoremap <buffer> cpp :ConjureEvalSelection<cr>
-    nnoremap <buffer> cpp :ConjureEvalCurrentForm<cr>
-    nnoremap <buffer> cpr :ConjureEvalRootForm<cr>
-    nnoremap <buffer> cpm :ConjureEvalFormAtMark<cr>
-    nnoremap <buffer> cpb :ConjureEvalBuffer<cr>
-    nnoremap <buffer> cpf :ConjureLoadFile <c-r>=expand('%:p')<cr><cr>
-    nnoremap <buffer> K :ConjureDoc <c-r><c-w><cr>
-    nnoremap <buffer> css :ConjureSource <c-r><c-w><cr><cr>
-    nnoremap <buffer> gd :ConjureDefinition <c-r><c-w><cr>
-    nnoremap <buffer> cll :ConjureToggleLog<cr>
+    " nnoremap <buffer> cu :ConjureUp<cr>
+    " nnoremap <buffer> cps :ConjureStatus<cr>
+    " vnoremap <buffer> cpw :ConjureEval<cr>
+    " vnoremap <buffer> cpp :ConjureEvalSelection<cr>
+    " nnoremap <buffer> cpp :ConjureEvalCurrentForm<cr>
+    " nnoremap <buffer> cpr :ConjureEvalRootForm<cr>
+    " nnoremap <buffer> cpm :ConjureEvalFormAtMark<cr>
+    " nnoremap <buffer> cpb :ConjureEvalBuffer<cr>
+    " nnoremap <buffer> cpf :ConjureLoadFile <c-r>=expand('%:p')<cr><cr>
+    " nnoremap <buffer> K :ConjureDoc <c-r><c-w><cr>
+    " nnoremap <buffer> css :ConjureSource <c-r><c-w><cr><cr>
+    " nnoremap <buffer> gd :ConjureDefinition <c-r><c-w><cr>
+    " nnoremap <buffer> cll :ConjureToggleLog<cr>
 
-    " nnoremap <buffer> crr :ConjureEval (clojure.tools.namespace.repl/refresh)<cr>
-    nnoremap <buffer> crr :ConjureRefresh changed<cr>
-    nnoremap <buffer> cra :ConjureRefresh all<cr>
-    nnoremap <buffer> crc :ConjureRefresh clear<cr>
-    nnoremap <buffer> cri :ConjureEval (integrant.repl/reset)<cr>
-    " nnoremap <buffer> <leader>q :ConjureCloseLog<cr>
-    nnoremap <buffer> cpt :ConjureRunTests<cr>
-    nnoremap <buffer> cptt :ConjureRunAllTests<cr>
-    setlocal omnifunc=conjure#omnicomplete
+    " " nnoremap <buffer> crr :ConjureEval (clojure.tools.namespace.repl/refresh)<cr>
+    " nnoremap <buffer> crr :ConjureRefresh changed<cr>
+    " nnoremap <buffer> cra :ConjureRefresh all<cr>
+    " nnoremap <buffer> crc :ConjureRefresh clear<cr>
+    " nnoremap <buffer> cri :ConjureEval (integrant.repl/reset)<cr>
+    " " nnoremap <buffer> <leader>q :ConjureCloseLog<cr>
+    " nnoremap <buffer> cpt :ConjureRunTests<cr>
+    " nnoremap <buffer> cptt :ConjureRunAllTests<cr>
+    " setlocal omnifunc=conjure#omnicomplete
   else
     nmap <silent><buffer> <leader>cc cqp<Up>
     nnoremap <buffer> crr :Require<cr>
@@ -1637,12 +1682,12 @@ augroup clojure
   autocmd!
   autocmd FileType lisp,clojure,scheme call LispCustomSettings()
   autocmd FileType clojure call ClojureCustomSettings()
-  if exists("g:use_conjure")
-    autocmd InsertEnter *.edn,*.clj,*.clj[cs] :call conjure#close_unused_log()
-    autocmd CursorMoved *.edn,*.clj,*.clj[cs] :call conjure#quick_doc()
-    autocmd CursorMovedI *.edn,*.clj,*.clj[cs] :call conjure#quick_doc()
-    autocmd BufLeave *.edn,*.clj,*.clj[cs] :call conjure#quick_doc_cancel()
-  endif
+  " if exists("g:use_conjure")
+  "   autocmd InsertEnter *.edn,*.clj,*.clj[cs] :call conjure#close_unused_log()
+  "   autocmd CursorMoved *.edn,*.clj,*.clj[cs] :call conjure#quick_doc()
+  "   autocmd CursorMovedI *.edn,*.clj,*.clj[cs] :call conjure#quick_doc()
+  "   autocmd BufLeave *.edn,*.clj,*.clj[cs] :call conjure#quick_doc_cancel()
+  " endif
 augroup END
 
 
@@ -1792,6 +1837,7 @@ let g:ale_pattern_options = {
 \   '\.go$':              {'ale_fix_on_save': 1},
 \   '\.nix$':             {'ale_fix_on_save': 1},
 \   'configuration.nix$': {'ale_fixers': []},
+\   'all-packages.nix$':  {'ale_fixers': []},
 \   '\.rs$':              {'ale_fix_on_save': 1},
 \   '\.sh$':              {'ale_fix_on_save': 1},
 \   'scope\.sh$':         {'ale_fixers': []},
@@ -1885,6 +1931,9 @@ if exists("g:use_coc") && exists("g:use_conjure")
   endfunction
 
   let g:coc_snippet_next = '<tab>'
+
+  " Use <C-l> for trigger snippet expand.
+  imap <expr> <C-l> pumvisible()? "\<Plug>(coc-snippets-expand)" : '\<C-l>'
 
   " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
   " Coc only does snippet and additional edit on confirm.

@@ -31,6 +31,7 @@ in rec
 
   imports =
     [ ./nginx/common.nix
+      ./vpn/openvpn.nix
       # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       # Import machine-specific configuration files.
@@ -119,7 +120,7 @@ in rec
     Fabric
     fd
     file
-    firefox-bin
+    firefox
     fish
     fzf
     gcc6
@@ -129,7 +130,7 @@ in rec
     gnome3.zenity gnome3.dconf gnome3.dconf-editor
     gnumake
     gnupg blackbox
-    go golint gotools
+    go golint # gotools
     graphicsmagick
     gwenview
     # highlight
@@ -144,7 +145,7 @@ in rec
     jsonnet
     k3b
     keychain
-    kodi
+    # kodi
     kondo
     libffi
     libicns
@@ -161,9 +162,6 @@ in rec
     ncurses.dev # infocmp and more utils
     neofetch
     nginxMainline # apacheHttpd # apache used for tools like htpasswd
-    nixpkgs-review
-    nix-serve
-    nixpkgs-fmt
     noti libnotify
     notify-osd
     ntfs3g
@@ -181,7 +179,7 @@ in rec
     prettyping
     proselint
     pwgen
-    python3 pipenv
+    python3
     ranger
     recoll
     ripgrep ripgrep-all
@@ -214,8 +212,14 @@ in rec
     # xonsh
     xorg.xkbcomp
     #xorg.xcursorthemes
+    youtube-dl
     yubikey-personalization
     zathura
+
+    # nix dev tools
+    nixpkgs-review nix-serve nixpkgs-fmt
+    direnv niv # lorri installed via the service
+
 
     # QT apps helpers
     qt5.qtbase qt5.qtsvg
@@ -258,7 +262,7 @@ in rec
     (pkgs.graalvm11-ee.overrideAttrs ( attrs: rec{ meta.priority = 1; }))
 
     # clojure
-    clojure leiningen pkgs.boot joker clj-kondo
+    clojure leiningen pkgs.boot joker clj-kondo #babashka
 
     # scala
     bloop sbt
@@ -329,8 +333,8 @@ in rec
     # csvkit
     ipython
     neovim
+    poetry
     virtualenv
-    youtube-dl
   ])
   # ++ (with pkgs.kdeApplications; [
   #   okular
@@ -351,11 +355,11 @@ in rec
 
 
   virtualisation.docker.enable = true;
+  virtualisation.cri-o.enable = true;
   virtualisation.podman = {
     enable = true;
     dockerCompat = false;
   };
-  virtualisation.cri-o.enable = true;
   virtualisation.containers.users = [ "jlle" ];
 
   # virtualisation.virtualbox.host = {
@@ -371,7 +375,7 @@ in rec
   # Enable GnuPG agent with SSH support
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
-  programs.gnupg.agent.pinentryFlavor = "qt"; # One of "curses", "tty", "gtk2", "qt", "gnome3", "emacs"
+  # programs.gnupg.agent.pinentryFlavor = "qt"; # One of "curses", "tty", "gtk2", "qt", "gnome3", "emacs"
 
   # DNS configuration
   networking.networkmanager.insertNameservers = ["127.0.0.1"];
