@@ -18,3 +18,4 @@ plug.vim.old
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg
 /secrets/nginx/docs/default.nix
+/secrets/nginx/webdav/default.nix
