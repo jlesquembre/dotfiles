@@ -21,3 +21,4 @@ plug.vim.old
 /secrets/nginx/webdav/default.nix
 /secrets/secrets.nix
 /secrets/vpn/default.nix
+/secrets/wireless-networks.nix
