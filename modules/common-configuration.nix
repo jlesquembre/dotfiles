@@ -1,14 +1,9 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, options, pkgs, lib, ... }:
+{ hostName }:
+{ config, options, pkgs, lib,  ... }:
 
 let
 
-  hostName = "${lib.fileContents ./hostname}";
-
-  customNginx = (./nginx + "/${hostName}.nix");
+  mainUser = "jlle";
 
   customEmacs = (import ./emacs.nix { inherit pkgs; });
 
@@ -29,17 +24,22 @@ let
 in rec
 {
 
-  imports =
-    [ ./nginx/common.nix
-      ./vpn/openvpn.nix
-      # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
-      # Import machine-specific configuration files.
-      (./machines + "/${hostName}.nix")
-    ]
-    ++ lib.optional (builtins.pathExists customNginx) customNginx;
+  imports = [
+    ../secrets/nginx/docs
+    ../secrets/nginx/webdav
+    /etc/nixos/hardware-configuration.nix
+  ];
 
-  networking.hostName = "${hostName}";
+  nix.trustedUsers = [ "root" mainUser ];
+  nix.useSandbox = true;
+  nix.nixPath = [
+    # "nixpkgs=/etc/nixos/nixpkgs"
+    "nixpkgs=/home/${mainUser}/nixpkgs"
+    "nixpkgs-overlays=/home/${mainUser}/overlays"
+    "nixos-config=/etc/nixos/configuration.nix"
+  ];
+
+  networking.hostName = hostName;
   # networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 8000 8080 ];
 
@@ -57,45 +57,47 @@ in rec
 
   # custom packages
   nixpkgs.overlays = [
-    (self: super: {
-
-      polybar = super.polybar.override {
-        i3Support = true;
-      };
-
-      conky = super.conky.override {
-        lua = self.lua5_3;
-        luaImlib2Support = false;
-        luaCairoSupport = false;
-      };
-
-      # okular = super.kdeApplications.okular.overrideDerivation (old: {
-      #   nativeBuildInputs = old.nativeBuildInputs ++ [ super.makeWrapper ];
-      #   fixupPhase = ''
-      #     mv $out/bin/okular $out/bin/okular-unwrapped
-      #     makeWrapper $out/bin/okular-unwrapped $out/bin/okular --set XDG_CURRENT_DESKTOP KDE
-      #     '';
-      #   });
-
-    })
+    (import ../overlays {})
   ];
+  # nixpkgs.overlays = [
+  #   (self: super: {
+
+  #     polybar = super.polybar.override {
+  #       i3Support = true;
+  #     };
+
+  #     conky = super.conky.override {
+  #       lua = self.lua5_3;
+  #       luaImlib2Support = false;
+  #       luaCairoSupport = false;
+  #     };
+
+  #     # okular = super.kdeApplications.okular.overrideDerivation (old: {
+  #     #   nativeBuildInputs = old.nativeBuildInputs ++ [ super.makeWrapper ];
+  #     #   fixupPhase = ''
+  #     #     mv $out/bin/okular $out/bin/okular-unwrapped
+  #     #     makeWrapper $out/bin/okular-unwrapped $out/bin/okular --set XDG_CURRENT_DESKTOP KDE
+  #     #     '';
+  #     #   });
+
+  #   })
+  # ];
 
   # nix.binaryCaches = [
   #   "http://192.168.1.199:8080"
   #   # "https://cache.nixos.org/"
   # ];
   # nix.requireSignedBinaryCaches = false;
-  nix.trustedUsers = [ "root" "jlle" ];
-  nix.useSandbox = true;
-  nix.nixPath = [
-    "nixpkgs=/etc/nixos/nixpkgs"
-    "nixos-config=/etc/nixos/configuration.nix"
-   ];
   #[ "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "/nix/var/nix/profiles/per-user/root/channels" ]
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+
+    # Custom packages
+    nix-freespace
+
+    # Nixpkgs
     abcde
     appimage-run
     arandr
@@ -360,7 +362,7 @@ in rec
     enable = true;
     dockerCompat = false;
   };
-  virtualisation.containers.users = [ "jlle" ];
+  virtualisation.containers.users = [ mainUser ];
 
   # virtualisation.virtualbox.host = {
   #   enable = true;
@@ -453,27 +455,28 @@ address=/.local/127.0.0.1
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.jlle = {
+  users.users.${mainUser} = {
     description = "Jose Luis";
     isNormalUser = true;
-    home = "/home/jlle";
+    home = "/home/${mainUser}";
     uid = 1000;
     extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" "mlocate" "dialout"];
-    packages = [
-      # See https://nixos.wiki/wiki/Wrappers_vs._Dotfiles
-      (pkgs.writeScriptBin "nix-freespace" ''
-        #!${pkgs.bash}/bin/bash
-        # Delete everything from this profile that isn't currently needed
-        # nix-env --delete-generations old  # --> Not needed (done by nix-collect-garbage)
+    # TODO move to overlays / custom packages?
+    #packages = [
+    #  # See https://nixos.wiki/wiki/Wrappers_vs._Dotfiles
+    #  (pkgs.writeScriptBin "nix-freespace" ''
+    #    #!${pkgs.bash}/bin/bash
+    #    # Delete everything from this profile that isn't currently needed
+    #    # nix-env --delete-generations old  # --> Not needed (done by nix-collect-garbage)
 
-        # Delete generations older than a week
-        nix-collect-garbage --delete-older-than 7d
+    #    # Delete generations older than a week
+    #    nix-collect-garbage --delete-older-than 7d
 
-        # Optimize
-        # nix-store --gc --print-dead  # --> Not needed (done by nix-collect-garbage)
-        nix-store --optimise
-      '')
-    ];
+    #    # Optimize
+    #    # nix-store --gc --print-dead  # --> Not needed (done by nix-collect-garbage)
+    #    nix-store --optimise
+    #  '')
+    #];
   };
 
   fonts = {

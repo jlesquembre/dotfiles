@@ -1,31 +1,46 @@
 # dotfiles
 
-My personal dotfiles. For more info on how this is deployed, see
-[Super User Spark](https://github.com/NorfairKing/super-user-spark) and
-[the Spark language](https://github.com/NorfairKing/super-user-spark/blob/master/doc/language.md).
-
-# Usage
-
+My personal dotfiles
 
 ```
-spark check main.sus
+# "nixpkgs-overlays=/run/current-system/libkookie/overlays"
+# "home-manager=/data/src/nix/home-manager"
+# "home-manager-config=/data/src/nix/config/home-manager"
+
 ```
 
+## Structure
 
-```
-spark deploy -r main.sus
-```
+- `/machines`: Main entry points
+- `/overlays`: Custom packages and modificaton to nixpkgs
+- `/modules`: System configuration
 
+# Installation
+
+- Clone `nixpkgs` and `home-manager`
+
+- Link NixOS configuration to one of the main entry points:
+
+  ```bash
+  sudo ln -s ~/dotfiles/machines/alpha.nix /etc/nixos/configuration.nix
+  ```
+
+- Force `nix-env` command to use your cloned `nixpkgs` version
+
+  ```bash
+  ln -s ${nixpkgs_dir} ~/.nix-defexpr/nixpkgs
+
+  # channels_root -> /nix/var/nix/profiles/per-user/root/channels/
+  rm ~/.nix-defexpr/channels_root
+  ```
 
 # NixOS install
-
 
 Check if there is an user and is on `wheel` group:
 
 ```
 extraGroups = [ "wheel" ];
 ```
-
 
 ```
 wget http://bit.do/jlnix -O init.sh
