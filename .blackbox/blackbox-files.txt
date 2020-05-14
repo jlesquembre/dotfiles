@@ -1,2 +1,3 @@
 secrets/nginx/docs/default.nix
 secrets/nginx/webdav/default.nix
+secrets/secrets.nix
