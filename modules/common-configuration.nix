@@ -5,6 +5,8 @@ let
 
   mainUser = "jlle";
 
+  secrets = import ../secrets/secrets.nix;
+
   customEmacs = (import ./emacs.nix { inherit pkgs; });
 
   customVscode = (import ./vscode.nix { inherit pkgs; });
@@ -26,16 +28,16 @@ in rec
 
   imports = [
     ../secrets/nginx/docs
-    ../secrets/nginx/webdav
+    # ../secrets/nginx/webdav
     /etc/nixos/hardware-configuration.nix
+    ./cachix.nix
   ];
 
   nix.trustedUsers = [ "root" mainUser ];
   nix.useSandbox = true;
   nix.nixPath = [
-    # "nixpkgs=/etc/nixos/nixpkgs"
     "nixpkgs=/home/${mainUser}/nixpkgs"
-    "nixpkgs-overlays=/home/${mainUser}/overlays"
+    "nixpkgs-overlays=/home/${mainUser}/overlays/overlays-compat.nix"
     "nixos-config=/etc/nixos/configuration.nix"
   ];
 
@@ -454,29 +456,16 @@ address=/.local/127.0.0.1
   programs.wireshark.package = pkgs.wireshark-qt;
 
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.mutableUsers = false;
+  users.users.root.hashedPassword = secrets.hashedPassword;
+
   users.users.${mainUser} = {
     description = "Jose Luis";
     isNormalUser = true;
     home = "/home/${mainUser}";
+    hashedPassword = secrets.hashedPassword;
     uid = 1000;
     extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" "mlocate" "dialout"];
-    # TODO move to overlays / custom packages?
-    #packages = [
-    #  # See https://nixos.wiki/wiki/Wrappers_vs._Dotfiles
-    #  (pkgs.writeScriptBin "nix-freespace" ''
-    #    #!${pkgs.bash}/bin/bash
-    #    # Delete everything from this profile that isn't currently needed
-    #    # nix-env --delete-generations old  # --> Not needed (done by nix-collect-garbage)
-
-    #    # Delete generations older than a week
-    #    nix-collect-garbage --delete-older-than 7d
-
-    #    # Optimize
-    #    # nix-store --gc --print-dead  # --> Not needed (done by nix-collect-garbage)
-    #    nix-store --optimise
-    #  '')
-    #];
   };
 
   fonts = {

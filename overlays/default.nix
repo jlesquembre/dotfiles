@@ -14,7 +14,6 @@ self: super: {
     nix-store --optimise
 '';
 
-  # clj-kondo = super.clj-kondo.override { graalvm8 = self.pkgs.graalvm11-ee;};
   clj-kondo =
     let
       pkg = super.clj-kondo.override { graalvm8 = self.graalvm11-ee;};
