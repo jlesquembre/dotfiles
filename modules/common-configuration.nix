@@ -37,7 +37,7 @@ in rec
   nix.useSandbox = true;
   nix.nixPath = [
     "nixpkgs=/home/${mainUser}/nixpkgs"
-    "nixpkgs-overlays=/home/${mainUser}/overlays/overlays-compat.nix"
+    "nixpkgs-overlays=/home/${mainUser}/dotfiles/overlays/overlays-compat.nix"
     "nixos-config=/etc/nixos/configuration.nix"
   ];
 
