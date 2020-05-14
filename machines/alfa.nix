@@ -1,7 +1,14 @@
-
 { config, pkgs, ... }:
-
+let
+  hostName = "alfa";
+in
 {
+
+  imports = [
+    (import ../modules/common-configuration.nix { inherit hostName; })
+    ../secrets/nginx/webdav
+  ];
+
 
   hardware.opengl.enable = true;
   hardware.opengl.driSupport = true;
