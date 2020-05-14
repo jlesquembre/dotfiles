@@ -42,3 +42,6 @@
 
 [gpg]
   program = gpg
+
+[diff "blackbox"]
+  textconv = gpg --use-agent -q --batch --decrypt
