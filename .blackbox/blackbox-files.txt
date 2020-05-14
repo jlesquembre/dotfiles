@@ -1,4 +1,5 @@
 secrets/nginx/docs/default.nix
+secrets/nginx/docs/docs.nginx.conf
 secrets/nginx/webdav/default.nix
 secrets/secrets.nix
 secrets/vpn/default.nix
