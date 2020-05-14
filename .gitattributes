@@ -1,3 +1,0 @@
-#pattern  filter=crypt diff=crypt
-nix/wireless-networks.nix  filter=crypt diff=crypt
-nix/nginx/*                filter=crypt diff=crypt
