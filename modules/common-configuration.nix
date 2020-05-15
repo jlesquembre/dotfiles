@@ -23,6 +23,17 @@ let
   # specific commit
   # pkgs-58d44a3 = import (fetchTarball https://github.com/nixos/nixpkgs/archive/58d44a3.tar.gz) {};
 
+  home-manager = { home-manager-path, config-path }:
+    assert builtins.typeOf home-manager-path == "string";
+    assert builtins.typeOf config-path == "string";
+    (pkgs.callPackage (/. + home-manager-path + "/home-manager") { path = "${home-manager-path}"; }).overrideAttrs (old: {
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      buildCommand = ''
+        ${old.buildCommand}
+        wrapProgram $out/bin/home-manager --set HOME_MANAGER_CONFIG "${config-path}"
+      '';
+    });
+
 in rec
 {
 
@@ -466,6 +477,12 @@ address=/.local/127.0.0.1
     hashedPassword = secrets.hashedPassword;
     uid = 1000;
     extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" "mlocate" "dialout"];
+    packages = [
+      (home-manager {
+        home-manager-path = "/home/jlle/home-manager";
+        config-path = "/home/jlle/dotfiles/home.nix";
+      })
+    ];
   };
 
   fonts = {
