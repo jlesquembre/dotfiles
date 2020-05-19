@@ -14,9 +14,8 @@
   # the Home Manager release notes for a list of state version
   # changes in each release.
   # home.stateVersion = "20.03";
-  home.packages = [
-    # pkgs.htop
-    # pkgs.fortune
+  home.packages = with pkgs; [
+    gnome3.zenity
   ];
 
   home.file = {
@@ -57,6 +56,23 @@
     # };
 
   };
+
+  gtk = {
+    enable = true;
+    iconTheme = {
+      package = pkgs.paper-icon-theme;
+      name = "Paper";
+    };
+    theme = {
+      package = pkgs.arc-theme;
+      name = "Arc";
+    };
+    # font.name = "Sans Serif 10";
+
+    gtk3.bookmarks = [ "file:///tmp" ];
+    # gtk3.extraConfig = {};
+  };
+
 
   programs = {
 
@@ -129,6 +145,12 @@
       pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=\${ref#refs/heads/} ; git branch -D $branch ; done";
       spr = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f";
     };
+
+
+    # fish.functions = {
+    #   gitignore = "curl -sL https://www.gitignore.io/api/$argv";
+    # };
+
 
   };
 

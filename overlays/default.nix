@@ -12,11 +12,13 @@ self: super: {
     # Optimize
     # nix-store --gc --print-dead  # --> Not needed (done by nix-collect-garbage)
     nix-store --optimise
-'';
+  '';
+
+  babashka = super.babashka.override { graalvm8 = self.graalvm11-ee; };
 
   clj-kondo =
     let
-      pkg = super.clj-kondo.override { graalvm8 = self.graalvm11-ee;};
+      pkg = super.clj-kondo.override { graalvm8 = self.graalvm11-ee; };
     in
     pkg.overrideAttrs (old: rec {
       pname = "clj-kondo";
@@ -25,6 +27,5 @@ self: super: {
         url = "https://github.com/borkdude/${pname}/releases/download/v${version}/${pname}-${version}-standalone.jar";
         sha256 = "07jz18rcj4qlmli28nmc9z0g60ry4kxblpk618dadjn57nnss67z";
       };
-    })
-  ;
+    });
 }

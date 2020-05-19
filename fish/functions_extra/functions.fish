@@ -454,6 +454,31 @@ abbr -a kgi 'kubectl get ingress'
 abbr -a ka 'kubectl apply -f'
 abbr -a kd 'kubectl delete -f'
 
+# Nix abbreviations
+abbr -a ns 'nix_switch'
+abbr -a nb 'nix_build'
+
+
+function nix_switch
+  set -lx BLACKBOX_REPOBASE $HOME/dotfiles;
+  blackbox_postdeploy
+  echo
+  echo
+  echo "sudo nixos-rebuild switch"
+  sudo nixos-rebuild switch
+  blackbox_shred_all_files
+end
+
+function nix_build
+  set -lx BLACKBOX_REPOBASE $HOME/dotfiles;
+  blackbox_postdeploy
+  echo
+  echo
+  echo "nixos-rebuild build"
+  nixos-rebuild build
+  blackbox_shred_all_files
+end
+
 # minikube
 function minidocker
   fish -C 'functions -e fish_greeting; eval (minikube docker-env)'
