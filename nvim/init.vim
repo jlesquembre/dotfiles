@@ -648,6 +648,8 @@ command! DeleteWhitespace execute "StripWhitespace"
 cnoreabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
 "command! Sudow execute "w !sudo tee > /dev/null %"
 
+" Create parent directories
+cnoreabbrev mk Mkdir! \| update
 
 " END COMMANDS
 

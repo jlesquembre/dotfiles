@@ -1,9 +1,0 @@
-<settings>
-  <servers>
-    <server>
-      <id>clojars</id>
-      <username>jlesquembre</username>
-      <password>${clojars.password}</password>
-    </server>
-  </servers>
-</settings>
