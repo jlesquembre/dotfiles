@@ -2,18 +2,13 @@
 
 My personal dotfiles
 
-```
-# "nixpkgs-overlays=/run/current-system/libkookie/overlays"
-# "home-manager=/data/src/nix/home-manager"
-# "home-manager-config=/data/src/nix/config/home-manager"
-
-```
-
 ## Structure
 
 - `/machines`: Main entry points
 - `/overlays`: Custom packages and modificaton to nixpkgs
 - `/modules`: System configuration
+- `/home-manager`: Home manager configuration
+- `/dotfiles`: Configuration files
 
 # Installation
 

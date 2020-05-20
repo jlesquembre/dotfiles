@@ -3,7 +3,8 @@
 
 let
 
-  mainUser = "jlle";
+  user = "jlle";
+  userHome = "/home/${user}";
 
   secrets = import ../secrets/secrets.nix;
 
@@ -45,12 +46,12 @@ in rec
     lib.lists.optional (builtins.pathExists ../secrets/nginx/docs/default.nix)  ../secrets/nginx/docs
   ;
 
-  nix.trustedUsers = [ "root" mainUser ];
+  nix.trustedUsers = [ "root" user ];
   nix.useSandbox = true;
   nix.nixPath = [
-    "nixpkgs=/home/${mainUser}/nixpkgs"
+    "nixpkgs=${userHome}/nixpkgs"
     "nixos-config=/etc/nixos/configuration.nix"
-    "nixpkgs-overlays=/home/${mainUser}/dotfiles/overlays/overlays-compat"
+    "nixpkgs-overlays=${userHome}/dotfiles/overlays/overlays-compat"
   ];
 
   networking.hostName = hostName;
@@ -200,7 +201,6 @@ in rec
     recoll
     ripgrep ripgrep-all
     rlwrap
-    rofi
     rsync
     shellcheck
     shfmt
@@ -208,7 +208,6 @@ in rec
     sox soxr
     sqlite
     sshfs-fuse
-    # super-user-spark
     telnet
     texlive.combined.scheme-full
     tldr
@@ -230,7 +229,6 @@ in rec
     #xorg.xcursorthemes
     youtube-dl
     yubikey-personalization
-    zathura
 
     # nix dev tools
     nixpkgs-review nix-serve nixpkgs-fmt
@@ -245,7 +243,7 @@ in rec
     dhall dhall-bash dhall-json # dhall-text dhall-nix
 
     # terminals
-    alacritty hyper kitty
+    alacritty kitty # hyper
 
     # screenshot utils
     flameshot xfce.xfce4-screenshooter
@@ -266,7 +264,7 @@ in rec
     siege
 
     # compress tools
-    atool zip unzip p7zip dpkg
+    atool unar dpkg
 
     # audio/video tools
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
@@ -278,7 +276,7 @@ in rec
     (pkgs.graalvm11-ee.overrideAttrs ( attrs: rec{ meta.priority = 1; }))
 
     # clojure
-    clojure leiningen pkgs.boot joker clj-kondo #babashka
+    clojure leiningen pkgs.boot clj-kondo #babashka # joker
 
     # scala
     bloop sbt
@@ -364,7 +362,6 @@ in rec
     # stack2nix
   ])
   ++ (with channel-19_09; [
-    super-user-spark
     haskellPackages.githud
   ])
   ;
@@ -376,7 +373,7 @@ in rec
     enable = true;
     dockerCompat = false;
   };
-  virtualisation.containers.users = [ mainUser ];
+  virtualisation.containers.users = [ user ];
 
   # virtualisation.virtualbox.host = {
   #   enable = true;
@@ -471,17 +468,17 @@ address=/.local/127.0.0.1
   users.mutableUsers = false;
   users.users.root.hashedPassword = secrets.hashedPassword;
 
-  users.users.${mainUser} = {
+  users.users.${user} = {
     description = "Jose Luis";
     isNormalUser = true;
-    home = "/home/${mainUser}";
+    home = userHome;
     hashedPassword = secrets.hashedPassword;
     uid = 1000;
     extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" "mlocate" "dialout"];
     packages = [
       (home-manager {
-        home-manager-path = "/home/jlle/home-manager";
-        config-path = "/home/jlle/dotfiles/home.nix";
+        home-manager-path = "${userHome}/home-manager";
+        config-path = builtins.toString ../home-manager/common.nix;
       })
     ];
   };
@@ -514,9 +511,13 @@ address=/.local/127.0.0.1
     ];
   };
 
+
+  # Need to setup gnome themes with home-manager
+  programs.dconf.enable = true;
+
   # locate options
   services.locate = {
-    enable = true;
+    enable = false;
     locate = pkgs.mlocate;
     localuser = null; # mlocate does not support this option so it must be null
     # interval = "daily";

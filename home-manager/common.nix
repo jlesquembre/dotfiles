@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
-
+let
+  dotfiles = ../dotfiles;
+in
 {
   # Let Home Manager install and manage itself.
   # programs.home-manager.enable = true;
@@ -14,7 +16,7 @@
   # the Home Manager release notes for a list of state version
   # changes in each release.
   # home.stateVersion = "20.03";
-  imports = [ ./home/custom-options.nix ];
+  imports = [ ./custom-options.nix ];
 
   home.packages = with pkgs; [
     gnome3.zenity
@@ -24,7 +26,7 @@
   #   source = ./configs;
   #   recursive = true;
   # };
-  # xdg.configFile."foo.txt".source = ./configFiles/foo.txt;
+  # xdg.configFile."foo.txt".source = ./dotfiles/foo.txt;
 
   xdg.enable = true;
 
@@ -33,22 +35,22 @@
   #
   # home.activation.myActivationAction = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
   #   $DRY_RUN_CMD ln -sv $VERBOSE_ARG \
-  #       ${builtins.toPath ./configFiles/foo.txt} $HOME/.config/foo.txt
+  #       ${builtins.toPath ./dotfiles/foo.txt} $HOME/.config/foo.txt
   # '';
 
   # home.file = {
   home.file.editorconfig = {
-    source = ./configFiles/editorconfig.ini;
+    source = "${dotfiles}/editorconfig.ini";
     target = ".editorconfig";
   };
 
   home.file.tigrc = {
-    source = ./configFiles/tigrc;
+    source = "${dotfiles}/tigrc";
     target = ".tigrc";
   };
 
   home.file.githudrc = {
-    source = ./configFiles/githudrc;
+    source = "${dotfiles}/githudrc";
     target = ".githudrc";
   };
 
@@ -57,7 +59,7 @@
     text = (
       with builtins;
       let cljPath = toString ./clojure; in
-      replaceStrings [ "$HOME" "$CLJ_PATH" ] [ "${config.home.homeDirectory}" cljPath ] (readFile ./configFiles/deps.edn)
+      replaceStrings [ "$HOME" "$CLJ_PATH" ] [ "${config.home.homeDirectory}" cljPath ] (readFile "${dotfiles}/deps.edn")
     );
 
   };
@@ -118,13 +120,6 @@
     '';
     target = ".m2/settings.xml";
   };
-  # TODO
-  # rofi = {
-  #   source = ./configFiles/rofi.conf;
-  #   target = ".config/rofi/config";
-  # };
-
-  # };
 
   gtk = {
     enable = true;
