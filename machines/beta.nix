@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   hostName = "beta";
 in
@@ -9,8 +9,11 @@ in
   imports = [
     # ../modules/common-configuration.nix
     (import ../modules/common-configuration.nix { inherit hostName; })
-    ../secrets/vpn
-  ];
+    # ../secrets/vpn
+  ]
+  ++
+  lib.lists.optional (builtins.pathExists ../secrets/vpn/default.nix) ../secrets/vpn
+  ;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

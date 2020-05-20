@@ -229,8 +229,8 @@ function fish_prompt
 
     echo ''
 
-    # set k8s_txt (kubeprompt -f default)
-    set k8s_txt (~/projects/kubeprompt/bin/kubeprompt -f default)
+    set k8s_txt (kubeprompt -f default)
+    # set k8s_txt (~/projects/kubeprompt/bin/kubeprompt -f default)
 
     nix_prompt_txt
     printf "$k8s_txt"

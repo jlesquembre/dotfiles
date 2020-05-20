@@ -38,18 +38,19 @@ in rec
 {
 
   imports = [
-    ../secrets/nginx/docs
-    # ../secrets/nginx/webdav
     /etc/nixos/hardware-configuration.nix
     ./cachix.nix
-  ];
+  ]
+  ++
+    lib.lists.optional (builtins.pathExists ../secrets/nginx/docs/default.nix)  ../secrets/nginx/docs
+  ;
 
   nix.trustedUsers = [ "root" mainUser ];
   nix.useSandbox = true;
   nix.nixPath = [
     "nixpkgs=/home/${mainUser}/nixpkgs"
-    "nixpkgs-overlays=/home/${mainUser}/dotfiles/overlays/overlays-compat.nix"
     "nixos-config=/etc/nixos/configuration.nix"
+    "nixpkgs-overlays=/home/${mainUser}/dotfiles/overlays/overlays-compat"
   ];
 
   networking.hostName = hostName;
@@ -70,7 +71,7 @@ in rec
 
   # custom packages
   nixpkgs.overlays = [
-    (import ../overlays {})
+    (import ../overlays/common {})
   ];
   # nixpkgs.overlays = [
   #   (self: super: {

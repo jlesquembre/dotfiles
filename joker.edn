@@ -1,6 +1,0 @@
-; vi: ft=clojure
-{:known-macros
- [clojure.java.jdbc/with-db-connection
-  clojure.java.jdbc/with-db-transaction
-  com.rpl.specter/recursive-path]
- :known-namespaces [.]}
