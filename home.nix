@@ -52,6 +52,16 @@
     target = ".githudrc";
   };
 
+  home.file.clojure = {
+    target = ".clojure/deps.edn";
+    text = (
+      with builtins;
+      let cljPath = toString ./clojure; in
+      replaceStrings [ "$HOME" "$CLJ_PATH" ] [ "${config.home.homeDirectory}" cljPath ] (readFile ./configFiles/deps.edn)
+    );
+
+  };
+
   # config.psql.historyDir is defined in custom-options.nix
   home.file."${config.psql.historyDir}/.keep".text = "";
   home.file.psqlrc = {

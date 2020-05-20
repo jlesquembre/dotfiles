@@ -14,7 +14,7 @@ jobs:
       - name: Update clj dependencies
         run:
           clojure -Sdeps '{:deps {olical/depot {:mvn/version "LATEST"}}}' -m
-          depot.outdated.main --update clojure/deps.edn
+          depot.outdated.main --update configFiles/deps.edn
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2
         with:

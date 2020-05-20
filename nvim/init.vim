@@ -651,6 +651,9 @@ cnoreabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
 " Create parent directories
 cnoreabbrev mk Mkdir! \| update
 
+" Expand the Active File Directory
+cnoremap <expr> %% getcmdtype() == ':' ? fnameescape(expand('%:h')) . '/' : '%%'
+
 " END COMMANDS
 
 
@@ -828,9 +831,6 @@ nnoremap <silent> <Leader>u :call FormatLink('')<cr>
 " nnoremap <Leader>ur :call FormatLink('rst')<cr>
 
 nnoremap <leader>cl :r !conventional-changelog -u<cr>
-
-" Expand the Active File Directory
-cnoremap <expr> %% getcmdtype() == ':' ? fnameescape(expand('%:h')) . '/' : '%%'
 
 " quickly edit macros
 " nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register.' = '. string(getreg(v:register))<cr><c-f><left>
