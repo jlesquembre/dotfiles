@@ -137,6 +137,70 @@ in
     # gtk3.extraConfig = {};
   };
 
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      shell.program = "${pkgs.fish}/bin/fish";
+      url.launcher.program = "${pkgs.xdg_utils}/bin/xdg-open";
+      cursor.style = "Block";
+      window = {
+        padding = {
+          x = 5;
+          y = 5;
+        };
+      };
+      font = {
+        family = "Hack";
+        size = 12.0;
+      };
+      key_bindings = [
+        {
+          key = "Q";
+          mods = "Control";
+          action = "SpawnNewInstance";
+        }
+        {
+          key = "L";
+          mods = "Control";
+          action = "ReceiveChar";
+        }
+      ];
+      colors = {
+        primary =
+          {
+            background = "#0f1419";
+            foreground = "#d8d8d8";
+          };
+        cursor =
+          {
+            text = "#000000";
+            cursor = "#d8d8d8";
+          };
+        normal =
+          {
+            black = "#181818";
+            red = "#ab4642";
+            green = "#a1b56c";
+            yellow = "#f7ca88";
+            blue = "#7cafc2";
+            magenta = "#ba8baf";
+            cyan = "#86c1b9";
+            white = "#d8d8d8";
+          };
+        bright =
+          {
+            black = "#585858";
+            red = "#ab4642";
+            green = "#a1b56c";
+            yellow = "#f7ca88";
+            blue = "#7cafc2";
+            magenta = "#ba8baf";
+            cyan = "#86c1b9";
+            white = "#d8d8d8";
+          };
+      };
+    };
+  };
 
   programs.bat = {
     enable = true;

@@ -27,10 +27,7 @@ font pango:Hack 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec "hyper"
-# bindsym $mod+Shift+Return exec "SHELL=`which fish` termite"
-bindsym $mod+space exec "kitty"
-#i3-sensible-terminal
+bindsym $mod+space exec "alacritty"
 
 # kill focused window
 bindsym $mod+Shift+q kill
