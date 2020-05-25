@@ -61,7 +61,16 @@ in
       let cljPath = toString ./clojure; in
       replaceStrings [ "$HOME" "$CLJ_PATH" ] [ "${config.home.homeDirectory}" cljPath ] (readFile "${dotfiles}/deps.edn")
     );
+  };
 
+  # NixOS already manage gpg-agent per user, add only some extra config
+  # If home-manager manages it, you need to setup some services with NixOS at
+  # system level anyways:
+  # services.dbus.packages = with pkgs; [ pkgs.gcr gnome3.dconf]
+  home.file.".gnupg/sshcontrol" = {
+    text = ''
+      04DC5CE6C1FCA557E5CDE3C1EA40496D37F50891
+    '';
   };
 
   # config.psql.historyDir is defined in custom-options.nix
@@ -281,6 +290,165 @@ in
       sandbox = "none";
     };
   };
+
+  programs.vscode = {
+    enable = true;
+    # package = pkgs.vscodium;
+    extensions =
+      with pkgs.vscode-extensions; [
+        bbenoist.Nix
+        ms-azuretools.vscode-docker
+        ms-kubernetes-tools.vscode-kubernetes-tools
+        ms-vscode.Go
+        ms-vscode-remote.remote-ssh
+        ms-python.python
+        redhat.vscode-yaml
+        vscodevim.vim
+      ]
+      # Concise version from the vscode market place when not available in the default set.
+      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          publisher = "MS-vsliveshare";
+          name = "vsliveshare-pack";
+          version = "0.3.4";
+          sha256 = "0svijjggycnw9iy7ziiixmcf83p45q0nzvhm0pvcm982hpi4dkra";
+        }
+        {
+          publisher = "MS-vsliveshare";
+          name = "vsliveshare";
+          version = "1.0.2236";
+          sha256 = "19wxkayf503ingxqnhmy6lb7smwjd2ysd2vg7vayfpd5g3kc0bq8";
+        }
+        {
+          publisher = "MS-vsliveshare";
+          name = "vsliveshare-audio";
+          version = "0.1.85";
+          sha256 = "0ibhfiimiv6xxri1lw13b5i8vfnnwnjhfm4p5z9aa5yxxcx6rch1";
+        }
+        {
+          publisher = "vscjava";
+          name = "vscode-java-pack";
+          version = "0.9.0";
+          sha256 = "0yvbxlflz5gx2i16kjh4mg64z8138rh0ck8n986hf66gjr7vv89m";
+        }
+        {
+          publisher = "ms-vscode-remote";
+          name = "remote-containers";
+          version = "0.117.1";
+          sha256 = "0kq3wfwxjnbhbq1ssj7h704gvv1rr0vkv7aj8gimnkj50jw87ryd";
+        }
+        # {
+        #   publisher = "sdras";
+        #   name = "night-owl";
+        #   version = "0.4.1";
+        #   sha256 = "1m9n2ny321v2z5x8338p45467i1idic5mha7llslkcyji43q4pyx";
+        # }
+      ];
+  };
+
+  programs.firefox = {
+    enable = true;
+    # package = pkgs.firefox-wayland;
+  };
+
+  wayland.windowManager.sway = {
+    enable = true;
+    extraSessionCommands =
+      ''
+        export SDL_VIDEODRIVER=wayland
+        # needs qt5.qtwayland in systemPackages
+        export QT_QPA_PLATFORM=wayland
+        export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+        # Fix for some Java AWT applications (e.g. Android Studio),
+        # use this if they aren't displayed properly:
+        export _JAVA_AWT_WM_NONREPARENTING=1
+        MOZ_ENABLE_WAYLAND = "1";
+        # XCURSOR_PATH = [ "${pkgs.gnome3.adwaita-icon-theme}/share/icons" ];
+      '';
+    wrapperFeatures.gtk = true;
+    # extraOptions =  [ "--verbose" "--debug" "--unsupported-gpu" "--my-next-gpu-wont-be-nvidia" ];
+    config.modifier = "Mod4";
+    config.fonts = [ "Hack 10" ];
+    config.window.titlebar = true;
+    config.assigns = {
+      "1: web" = [{ class = "^Firefox$"; }];
+      # "0: extra" = [{ class = "^Firefox$"; window_role = "About"; }];
+    };
+    # config.floating.titlebar = true;
+    config.workspaceAutoBackAndForth = true;
+    config.workspaceLayout = "tabbed"; # one of "default", "stacked", "tabbed"
+    # config.terminal = "${pkgs.alacritty}/bin/alacritty";
+    # config.input = {
+    #   "type:keyboard" = { xkb_variant = "iso-dev"; };
+    # };
+    config.startup = [
+      # { command = "systemctl --user restart polybar"; always = true; notification = false; }
+      # { command = "dropbox start"; notification = false; }
+      { command = "firefox"; }
+    ];
+    config.keybindings =
+      let
+        modifier = config.wayland.windowManager.sway.config.modifier;
+      in
+      lib.mkOptionDefault {
+        "${modifier}+Space" = "exec ${pkgs.alacritty}/bin/alacritty";
+        "${modifier}+Shift+Space" = "exec ${pkgs.kitty}/bin/kitty";
+        # "${modifier}+Shift+q" = "kill";
+        # "${modifier}+d" = "exec ${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu | ${pkgs.findutils}/bin/xargs swaymsg exec --";
+      };
+  };
+
+  # Modified keyboard for developers
+  # See http://wiki.linuxquestions.org/wiki/List_of_keysyms
+  home.file.dev-keyboard = {
+    target = ".xkb/symbols/iso-dev";
+    text = ''
+      partial default alphanumeric_keys
+      xkb_symbols "basic" {
+
+          name[Group1]="ISO keyboard for developers";
+
+          //include "latin(type4)"
+          //include "level3(ralt_switch)"
+          include "us(altgr-intl)"
+          include "level3(caps_switch)"
+          modifier_map  Control { <CAPS>, <LCTL> };
+
+          key <AE01> {[           1,           exclam,      exclamdown,          bar   ]};
+          key <AE02> {[           2,               at                                  ]};
+          key <AE06> {[           6,      asciicircum                                  ]};
+
+          key <AE07> {[           7,        ampersand                                  ]};
+          key <AE08> {[           8,         asterisk                                  ]};
+          key <AE09> {[           9,        parenleft                                  ]};
+          key <AE10> {[           0,       parenright                                  ]};
+
+          key <AD03> {[           e,                E,        EuroSign,     sterling   ]};
+          key <AD09> {[           o,                O,       masculine                 ]};
+
+          key <AC01> {[           a,                A,     ordfeminine                 ]};
+          key <AC02> {[           s,                S,          ssharp                 ]};
+
+          key <AC10> {[   semicolon,            colon,  dead_diaeresis                 ]};
+          key <AC11> {[  apostrophe,         quotedbl,      dead_acute                 ]};
+
+          key <MENU> {[  dead_acute,   dead_diaeresis                                  ]};
+          key <LSGT> {[   backslash,              bar                                  ]};
+          key <AB06> {[           n,                N,          ntilde,       Ntilde   ]};
+          key <AB07> {[           m,                M,              mu,           mu   ]};
+          key <AB08> {[       comma,             less                                  ]};
+          key <AB09> {[      period,          greater                                  ]};
+          key <AB10> {[       slash,         question,    questiondown,    dead_hook   ]};
+
+          key <CAPS>  {  symbols[Group1]=[ Control_L ] };
+      };
+    '';
+  };
+
+
+
+
+
   # fish.functions = {
   #   gitignore = "curl -sL https://www.gitignore.io/api/$argv";
   # };

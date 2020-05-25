@@ -265,6 +265,7 @@ in rec
 
     # compress tools
     atool zip unzip unar dpkg
+    libarchive # replaces p7zip: bsdtar -cf archive.7z --format=7zip ...
 
     # audio/video tools
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
@@ -386,7 +387,6 @@ in rec
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
   services.gnome3.gnome-keyring.enable = true;
-  security.pam.services.${user}.enableGnomeKeyring = true;
   programs.seahorse.enable = true;
   # programs.gnupg.agent.pinentryFlavor = "qt"; # One of "curses", "tty", "gtk2", "qt", "gnome3", "emacs"
 

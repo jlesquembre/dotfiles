@@ -254,11 +254,17 @@ end
 #  end
 #end
 
+# TODO  better clone helper
 function clone --description "clone something, cd into it. install it."
   git clone $argv[1]
   cd (basename $argv[1] | sed 's/.git$//')
   # npm install
 end
+
+function w
+  realpath (command -sa $argv)
+end
+
 
 function md --wraps mkdir -d "Create a directory and cd into it"
   command mkdir -p $argv
