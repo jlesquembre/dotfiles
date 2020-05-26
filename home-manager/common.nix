@@ -16,7 +16,10 @@ in
   # the Home Manager release notes for a list of state version
   # changes in each release.
   # home.stateVersion = "20.03";
-  imports = [ ./custom-options.nix ];
+  imports = [
+    ./custom-options.nix
+    ./sway.nix
+  ];
 
   home.packages = with pkgs; [
     gnome3.zenity
@@ -146,6 +149,8 @@ in
     # gtk3.extraConfig = {};
   };
 
+  systemd.user.startServices = true;
+
   programs.alacritty = {
     enable = true;
     settings = {
@@ -220,15 +225,6 @@ in
     };
   };
 
-  programs.rofi = {
-    enable = true;
-    package = pkgs.rofi.override {
-      plugins = [
-        pkgs.rofi-emoji
-        # pkgs.rofi-pass
-      ];
-    };
-  };
 
   programs.emacs = {
     enable = true;
