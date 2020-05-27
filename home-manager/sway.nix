@@ -1,11 +1,39 @@
 { config, pkgs, lib, ... }:
 let
   customKeyboardName = "isodev";
+  waybarConfig = pkgs.writeTextFile {
+    name = "waybar.config";
+    text = builtins.toJSON (import ./waybar.nix);
+  };
+  # waybarConfig = ../dotfiles/waybar.jsonc;
+  waybarStyle = ../dotfiles/waybar.css;
+  makoConfig = pkgs.writeTextFile {
+    name = "mako.config";
+    text = ''
+      background-color=#285577FF
+      # time in milliseconds
+      default-timeout=5000
+    '';
+  };
+  kanshiConfig = pkgs.writeTextFile {
+    name = "kanshi_config";
+    text = ''
+      profile {
+        output eDP-1 disable
+        output HDMI-A-2 position 0,0
+      }
+    '';
+    destination = "/kanshi/config";
+  };
 in
 {
+  # wayland.windowManager.sway = with (import ../modules/sway-options.nix { pkgs = pkgs; });
   wayland.windowManager.sway = {
     enable = true;
     xwayland = true;
+    extraSessionCommands = ''
+      export MOZILLLA=1
+    '';
     # systemdIntegration = false;
     # package = swayPackage;
     # wrapperFeatures.gtk = true;
@@ -29,6 +57,10 @@ in
       { command = "firefox"; }
       { command = "alacritty"; }
     ];
+    config.window.commands =
+      # [ { command = "border pixel 1"; criteria = { class = "XTerm"; } ; } ]
+      # for_window [shell=".*"] title_format "%title :: %shell"
+      [{ command = ''title_format "%title :: %shell"''; criteria = { shell = ".*"; }; }];
     # config.menu = "${pkgs.wldash}/bin/wldash";
     config.keybindings =
       let
@@ -103,8 +135,8 @@ in
 
   xdg.configFile."wofi/style.css".source = ../dotfiles/wofi.css;
 
-  xdg.configFile."waybar/config".source = ../dotfiles/waybar.jsonc;
-  xdg.configFile."waybar/style.css".source = ../dotfiles/waybar.css;
+  xdg.configFile."waybar/config".source = waybarConfig;
+  xdg.configFile."waybar/style.css".source = waybarStyle;
   systemd.user.services = {
     waybar = {
       Unit = {
@@ -115,22 +147,7 @@ in
         WantedBy = [ "sway-session.target" ];
       };
       Service = {
-        ExecStart = "${pkgs.waybar}/bin/waybar";
-        RestartSec = 3;
-        Restart = "always";
-      };
-    };
-
-    mako = {
-      Unit = {
-        Description = pkgs.mako.meta.description;
-        PartOf = [ "graphical-session.target" ];
-      };
-      Install = {
-        WantedBy = [ "sway-session.target" ];
-      };
-      Service = {
-        ExecStart = "${pkgs.mako}/bin/mako --default-timeout 10000";
+        ExecStart = "${pkgs.waybar}/bin/waybar -c ${waybarConfig} -s ${waybarStyle}";
         RestartSec = 3;
         Restart = "always";
       };
@@ -147,10 +164,10 @@ in
       Service = {
         ExecStart = ''
           ${pkgs.swayidle}/bin/swayidle -w \
-             timeout 150 'swaylock -elfF -s fill -i ${../nixos-nineish.png}' \
+             timeout 150 'swaylock -elfF -s fill -i ${../nixos-bg.png}' \
              timeout 300 'swaymsg "output * dpms off"' \
              resume 'swaymsg "output * dpms on"' \
-             before-sleep 'swaylock -elfF -s fill -i ${../nixos-nineish.png}'
+             before-sleep 'swaylock -elfF -s fill -i ${../nixos-bg.png}'
         '';
         RestartSec = 3;
         Restart = "always";
@@ -159,14 +176,26 @@ in
   };
 
 
+  # Easy to find the default config, and the systemd unit is restarted on changes
+  xdg.configFile."mako/config".source = makoConfig;
+  systemd.user.services.mako =
+    {
+      Unit = {
+        Description = pkgs.mako.meta.description;
+        PartOf = [ "graphical-session.target" ];
+      };
+      Install = {
+        WantedBy = [ "sway-session.target" ];
+      };
+      Service = {
+        ExecStart = "${pkgs.mako}/bin/mako -c ${makoConfig}";
+        RestartSec = 3;
+        Restart = "always";
+      };
+    };
 
-  xdg.configFile."kanshi/config".text =
-    ''
-      profile {
-        output eDP-1 disable
-        output HDMI-A-2 position 0,0
-      }
-    '';
+
+  xdg.configFile."kanshi/config".source = "${kanshiConfig}/kanshi/config";
   systemd.user.services.kanshi = {
     Unit = {
       Description = "Kanshi dynamic display configuration";
@@ -181,6 +210,7 @@ in
       ExecStart = "${pkgs.kanshi}/bin/kanshi";
       RestartSec = 5;
       Restart = "always";
+      Environment = "XDG_CONFIG_HOME=${kanshiConfig}";
     };
   };
 }

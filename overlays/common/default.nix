@@ -28,4 +28,8 @@ self: super: {
         sha256 = "07jz18rcj4qlmli28nmc9z0g60ry4kxblpk618dadjn57nnss67z";
       };
     });
+  waybar = super.waybar.override {
+    pulseSupport = true;
+    # withMediaPlayer = true;
+  };
 }
