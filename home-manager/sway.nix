@@ -1,12 +1,14 @@
 { config, pkgs, lib, ... }:
 let
   customKeyboardName = "isodev";
+
   waybarConfig = pkgs.writeTextFile {
     name = "waybar.config";
-    text = builtins.toJSON (import ./waybar.nix);
+    text = builtins.toJSON (import ./waybar.nix { pkgs = pkgs; });
   };
-  # waybarConfig = ../dotfiles/waybar.jsonc;
+
   waybarStyle = ../dotfiles/waybar.css;
+
   makoConfig = pkgs.writeTextFile {
     name = "mako.config";
     text = ''
@@ -15,6 +17,7 @@ let
       default-timeout=5000
     '';
   };
+
   kanshiConfig = pkgs.writeTextFile {
     name = "kanshi_config";
     text = ''
@@ -25,9 +28,40 @@ let
     '';
     destination = "/kanshi/config";
   };
+
+  volume-sh = pkgs.writeScriptBin "volume.sh"
+    ''
+      #!${pkgs.bash}/bin/bash
+
+      set -eu
+
+      PATH="${pkgs.pamixer}/bin/:${pkgs.volnoti}/bin/"
+
+      CURVOL=$(pamixer --get-volume)
+      incr=5
+      NEWVOL=$(($CURVOL + $incr))
+
+      if [ $CURVOL -ge 100 ] && [ "$1" = "up" ]; then
+          # Don't go up!
+          incr=0
+      fi
+
+      if [ "$1" = "toogle" ]; then
+        pamixer --toggle-mute
+      elif [ "$1" = "up" ]; then
+        pamixer --increase $incr
+      else
+        pamixer --decrease $incr
+      fi
+
+      if [ "$(pamixer --get-volume-human)" = "muted" ]; then
+        volnoti-show -m $CURVOL
+      else
+        volnoti-show $CURVOL
+      fi
+    '';
 in
 {
-  # wayland.windowManager.sway = with (import ../modules/sway-options.nix { pkgs = pkgs; });
   wayland.windowManager.sway = {
     enable = true;
     xwayland = true;
@@ -58,10 +92,10 @@ in
       { command = "alacritty"; }
     ];
     config.window.commands =
-      # [ { command = "border pixel 1"; criteria = { class = "XTerm"; } ; } ]
-      # for_window [shell=".*"] title_format "%title :: %shell"
-      [{ command = ''title_format "%title :: %shell"''; criteria = { shell = ".*"; }; }];
-    # config.menu = "${pkgs.wldash}/bin/wldash";
+      [
+        { command = ''floating enable''; criteria = { app_id = "zenity"; }; }
+        { command = ''title_format "%title :: %shell"''; criteria = { shell = ".*"; }; }
+      ];
     config.keybindings =
       let
         modifier = config.wayland.windowManager.sway.config.modifier;

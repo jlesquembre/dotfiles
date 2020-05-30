@@ -1,4 +1,7 @@
 # https://developer.gnome.org/pygtk/stable/pango-markup-language.html
+# TODO
+# multiple monitors
+{ pkgs }:
 {
   layer = "top"; # Waybar at top layer
   position = "bottom"; # Waybar position (top|bottom|left|right)
@@ -17,7 +20,6 @@
     #"temperature"
     #"backlight"
     "battery"
-    "battery#bat2"
     "pulseaudio"
     "clock"
   ];
@@ -88,7 +90,7 @@
   # };
   battery = {
     states = {
-      good = 95;
+      # good = 95;
       warning = 30;
       critical = 15;
     };
@@ -96,9 +98,8 @@
     # "format-good"= ""; # An empty format will hide the module
     # "format-full"= "";
     format-icons = [ "" "" "" "" "" ];
-  };
-  "battery#bat2" = {
-    bat = "BAT2";
+    # "🔌" # (AC power plug UTF-8 glyph)
+    # status_bat = "🔋" (Battery glyph)
   };
   disk =
     {
@@ -121,7 +122,8 @@
     scroll-step = 1;
     format = "{volume}% {icon}";
     format-bluetooth = "{volume}% {icon}";
-    format-muted = "ﱝ";
+    # format-muted = "ﱝ";
+    format-muted = "{volume}% 🔇";
     # format-muted = "";
     format-icons = {
       headphones = "";
@@ -132,7 +134,7 @@
       car = "";
       default = [ "" "" ];
     };
-    on-click = "pavucontrol";
+    on-click-middle = "${pkgs.pamixer}/bin/pamixer --toggle";
+    on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
   };
-
 }
