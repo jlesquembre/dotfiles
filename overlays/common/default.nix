@@ -20,7 +20,7 @@ self: super: {
     let
       pkg = super.clj-kondo.override { graalvm8 = self.graalvm11-ee; };
     in
-    pkg.overrideAttrs (old: rec {
+    pkg.overrideAttrs (oldAttrs: rec {
       pname = "clj-kondo";
       version = "2020.05.09";
       src = self.fetchurl {
@@ -28,6 +28,7 @@ self: super: {
         sha256 = "07jz18rcj4qlmli28nmc9z0g60ry4kxblpk618dadjn57nnss67z";
       };
     });
+
   waybar = super.waybar.override {
     pulseSupport = true;
     # withMediaPlayer = true;

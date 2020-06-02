@@ -1,6 +1,4 @@
 # https://developer.gnome.org/pygtk/stable/pango-markup-language.html
-# TODO
-# multiple monitors
 { pkgs }:
 {
   layer = "top"; # Waybar at top layer
@@ -9,7 +7,7 @@
   # "width"= 120; # Waybar width
   # Choose the order of the modules
   modules-left = [ "sway/workspaces" "sway/mode" "custom/media" ];
-  modules-center = [ "sway/window" ];
+  # modules-center = [ "sway/window" ];
   modules-right = [
     "idle_inhibitor"
     "disk"
@@ -27,7 +25,7 @@
   "sway/workspaces" = {
     disable-scroll = false;
     disable-markup = false;
-    all-outputs = true;
+    all-outputs = false;
     "format" = " {name} {icon} ";
     #"format"="{icon}";
     format-icons = {

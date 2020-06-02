@@ -59,17 +59,71 @@ let
         volnoti-show "$(pamixer --get-volume)"
       fi
     '';
+
+  # https://github.com/grahamc/nixos-config/blob/master/packages/sway-cycle-workspace/cycle-workspace.sh
+  cycle-workspace = pkgs.writeScriptBin "cycle-workspace.sh"
+    ''
+      #!${pkgs.bash}/bin/bash
+
+      set -eu
+
+      PATH="${pkgs.jq}/bin/:$PATH"
+
+      get_outputs() {
+        swaymsg -t get_outputs | jq '.[] | .name' | sort
+      }
+
+      get_current_output() {
+        swaymsg -t get_outputs | jq '.[] | select(.focused==true) | .name'
+      }
+
+      get_next_output() {
+        all_outputs=$(get_outputs)
+        current_output=$(get_current_output)
+        printf "%s\n%s\n" "$all_outputs" "$all_outputs" |
+          grep -A1 "$current_output" |
+          head -n2 |
+          tail -n1
+      }
+
+      swaymsg move workspace to "$(get_next_output)"
+    '';
+
+  # https://github.com/swaywm/sway/issues/4121
+  focus-window = pkgs.writeScriptBin "focus-window.sh"
+    ''
+      #!${pkgs.bash}/bin/bash
+
+      set -eu
+
+      PATH="${pkgs.jq}/bin/:${pkgs.ripgrep}/bin/:${pkgs.gawk}/bin/:$PATH"
+
+      # Get regular windows
+      regular_windows=$(swaymsg -t get_tree | jq -r '.nodes[1].nodes[].nodes[] | .. | (.id|tostring) + " " + .name?' | rg -e "[0-9]* ."  )
+
+      # Get floating windows
+      floating_windows=$(swaymsg -t get_tree | jq '.nodes[1].nodes[].floating_nodes[] | (.id|tostring) + " " + .name?'| rg -e "[0-9]* ." | tr -d '"')
+
+      enter=$'\n'
+      if [[ $regular_windows && $floating_windows ]]; then
+        all_windows="$regular_windows$enter$floating_windows"
+      elif [[ $regular_windows ]]; then
+        all_windows=$regular_windows
+      else
+        all_windows=$floating_windows
+      fi
+
+      # Select window with rofi
+      selected=$(echo "$all_windows" | wofi --dmenu -i | awk '{print $1}')
+
+      # Tell sway to focus said window
+      swaymsg [con_id="$selected"] focus
+    '';
+
 in
 {
   wayland.windowManager.sway = {
     enable = true;
-    xwayland = true;
-    extraSessionCommands = ''
-      export MOZILLLA=1
-    '';
-    # systemdIntegration = false;
-    # package = swayPackage;
-    # wrapperFeatures.gtk = true;
     config.modifier = "Mod4";
     config.fonts = [ "Hack 10" ];
     config.window.titlebar = true;
@@ -88,10 +142,12 @@ in
       # { command = "systemctl --user restart polybar"; always = true; notification = false; }
       # { command = "dropbox start"; notification = false; }
       { command = "firefox"; }
-      { command = "alacritty"; }
+      # { command = "firefox --name=firefox_1"; always = false; }
+      # { command = "alacritty"; }
     ];
     config.window.commands =
       [
+        # { command = ''move container to workspace 1''; criteria = { app_id = "firefox_1"; }; }
         { command = ''floating enable''; criteria = { app_id = "zenity"; }; }
         { command = ''title_format "%title :: %shell"''; criteria = { shell = ".*"; }; }
       ];
@@ -113,12 +169,25 @@ in
         "${modifier}+Shift+b" = "exec \"swaylock -f -c 000000\"";
         "${modifier}+Shift+o" = ''exec "zenity --question --text 'Reboot the system\nAre you sure?' && systemctl reboot"'';
         "${modifier}+Shift+p" = ''exec "zenity --question --text 'Poweroff the system\nAre you sure?' && systemctl poweroff"'';
+
+        "${modifier}+y" = "exec --no-startup-id ${cycle-workspace}/bin/cycle-workspace.sh";
+        "${modifier}+u" = "exec --no-startup-id ${focus-window}/bin/focus-window.sh";
+        "${modifier}+i" = "exec ${pkgs.wdisplays}/bin/wdisplays";
+        "${modifier}+p" = "exec ${pkgs.pavucontrol}/bin/pavucontrol";
+
+        # see https://github.com/grahamc/nixos-config/blob/aef2a2c1b0ca584b2c7c04dfbbd5d2615e3448d8/packages/volume/volume.sh
+        "XF86AudioRaiseVolume" = "exec --no-startup-id ${volume-sh}/bin/volume.sh up";
+        "XF86AudioLowerVolume" = "exec --no-startup-id ${volume-sh}/bin/volume.sh down";
+        "XF86AudioMute" = "exec --no-startup-id ${volume-sh}/bin/volume.sh toogle";
+        # "XF86MonBrightnessUp" = "exec @backlight@ up";
+        # "XF86MonBrightnessDown" = "exec @backlight@ down";
+        # "XF86KbdBrightnessUp" = "exec kbdlight up 20";
+        # "XF86KbdBrightnessDown" = "exec kbdlight down 20";
       };
 
     config.bars = [ ];
   };
 
-  # wayland.windowManager.sway.config.bars."mybar".command = "${pkgs.waybar}/bin/waybar";
   # Modified keyboard for developers
   # See http://wiki.linuxquestions.org/wiki/List_of_keysyms
   home.file.dev-keyboard = {
@@ -197,6 +266,8 @@ in
       Service = {
         ExecStart = ''
           ${pkgs.swayidle}/bin/swayidle -w \
+             timeout 120 'notify-send "Lock computer" "Computer will be locked in 30 seconds!" --icon=${pkgs.paper-icon-theme}/share/icons/Paper/512x512/status/error.png -t 19000' \
+             timeout 140 'notify-send "Lock computer" "Computer will be locked in 10 seconds!" --icon=${pkgs.paper-icon-theme}/share/icons/Paper/512x512/status/error.png -t 10000' \
              timeout 150 'swaylock -elfF -s fill -i ${../nixos-bg.png}' \
              timeout 300 'swaymsg "output * dpms off"' \
              resume 'swaymsg "output * dpms on"' \

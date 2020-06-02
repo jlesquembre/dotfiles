@@ -29,9 +29,24 @@ let
     assert builtins.typeOf config-path == "string";
     (pkgs.callPackage (/. + home-manager-path + "/home-manager") { path = "${home-manager-path}"; }).overrideAttrs (old: {
       nativeBuildInputs = [ pkgs.makeWrapper ];
-      buildCommand = ''
+      buildCommand =
+  let
+    home-mananger-bootstrap = pkgs.writeTextFile {
+      name = "home-mananger-bootstrap.nix";
+      text = ''
+        { config, pkgs, ... }:
+        {
+          # Home Manager needs a bit of information about you and the
+          # paths it should manage.
+          home.username = "${user}";
+          home.homeDirectory = "${userHome}";
+          imports = [ ${config-path} ];
+        }
+      '';
+    }; in
+        ''
         ${old.buildCommand}
-        wrapProgram $out/bin/home-manager --set HOME_MANAGER_CONFIG "${config-path}"
+        wrapProgram $out/bin/home-manager --set HOME_MANAGER_CONFIG "${home-mananger-bootstrap}"
       '';
     });
 
@@ -383,12 +398,15 @@ in rec
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # Enable GnuPG agent/gnome keyring with SSH support
+  # Enable GnuPG agent with SSH support
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
-  services.gnome3.gnome-keyring.enable = true;
-  programs.seahorse.enable = true;
   # programs.gnupg.agent.pinentryFlavor = "qt"; # One of "curses", "tty", "gtk2", "qt", "gnome3", "emacs"
+
+  # Enable gnome keyring
+  services.gnome3.gnome-keyring.enable = true;
+  security.pam.services.gdm.enableGnomeKeyring = true;
+  programs.seahorse.enable = true;
 
   # DNS configuration
   networking.networkmanager.insertNameservers = ["127.0.0.1"];
@@ -416,17 +434,47 @@ nohook resolv.conf
 address=/.local/127.0.0.1
 '';
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable the X11 windowing system.
+  services.dbus.socketActivated = true;
+  programs.sway =
+  {
+    enable = true;
+    extraPackages = with pkgs; [ mako wofi wdisplays waybar swaylock swayidle xwayland kanshi ];
+    wrapperFeatures.gtk = true;
+    extraSessionCommands =
+      ''
+        export SDL_VIDEODRIVER=wayland
+        # needs qt5.qtwayland in systemPackages
+        export QT_QPA_PLATFORM=wayland
+        export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+        # Fix for some Java AWT applications (e.g. Android Studio),
+        # use this if they aren't displayed properly:
+        export _JAVA_AWT_WM_NONREPARENTING=1
+        export MOZ_ENABLE_WAYLAND=1
+        export MOZ_DBUS_REMOTE=1
+        export XCURSOR_PATH = "${pkgs.gnome3.adwaita-icon-theme}/share/icons:$XCURSOR_PATH" ];
+      '';
+  };
   services.xserver.enable = true;
   services.xserver.layout = "us";
-  services.xserver.xkbOptions = "eurosign:e";
+  # services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.wayland = true;
 
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.displayManager.defaultSession = "none+i3";
-  services.xserver.windowManager.i3.enable = true;
+  # services.xserver.desktopManager.session = [
+  services.xserver.displayManager.session = [
+    {
+      name = "xterm";
+      manage = "desktop";
+      start = ''
+        ${pkgs.xterm}/bin/xterm -ls &
+        waitPID=$!
+      '';
+    }
+  ];
+
+
+  # Enable CUPS to print documents.
+  # services.printing.enable = true;
 
   # services.xserver.windowManager.xmonad.enable = true;
   # services.xserver.windowManager.xmonad.enableContribAndExtras = true;
@@ -467,7 +515,7 @@ address=/.local/127.0.0.1
   users.users.root.hashedPassword = secrets.hashedPassword;
 
   users.users.${user} = {
-    description = "Jose Luis";
+    description = "José Luis";
     isNormalUser = true;
     home = userHome;
     hashedPassword = secrets.hashedPassword;
@@ -476,7 +524,7 @@ address=/.local/127.0.0.1
     packages = [
       (home-manager {
         home-manager-path = "${userHome}/home-manager";
-        config-path = builtins.toString ../home-manager/common.nix;
+        config-path = builtins.toString ../home-manager + "/${hostName}.nix";
       })
     ];
   };
