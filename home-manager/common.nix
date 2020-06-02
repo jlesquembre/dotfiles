@@ -25,6 +25,10 @@ in
     gnome3.zenity
   ];
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
   # xdg.configFile."nvim" = {
   #   source = ./configs;
   #   recursive = true;

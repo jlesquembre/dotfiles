@@ -33,17 +33,16 @@ let
     ''
       #!${pkgs.bash}/bin/bash
 
-      set -eu
+      set -u
 
       PATH="${pkgs.pamixer}/bin/:${pkgs.volnoti}/bin/"
 
       CURVOL=$(pamixer --get-volume)
       incr=5
-      NEWVOL=$(($CURVOL + $incr))
 
-      if [ $CURVOL -ge 100 ] && [ "$1" = "up" ]; then
-          # Don't go up!
-          incr=0
+      if [ "$CURVOL" -ge 100 ] && [ "$1" = "up" ]; then
+        # Don't go up!
+        incr=0
       fi
 
       if [ "$1" = "toogle" ]; then
@@ -55,9 +54,9 @@ let
       fi
 
       if [ "$(pamixer --get-volume-human)" = "muted" ]; then
-        volnoti-show -m $CURVOL
+        volnoti-show -m "$CURVOL"
       else
-        volnoti-show $CURVOL
+        volnoti-show "$(pamixer --get-volume)"
       fi
     '';
 in
