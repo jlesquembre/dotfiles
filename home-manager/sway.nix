@@ -317,4 +317,22 @@ in
       Environment = "XDG_CONFIG_HOME=${kanshiConfig}";
     };
   };
+
+
+  systemd.user.services.volnoti = {
+    Unit = {
+      Description = "Volume Notifications";
+      PartOf = [ "graphical-session.target" ];
+    };
+    Install = {
+      # WantedBy = [ "sway-session.target" ];
+      WantedBy = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      Restart = "always";
+      ExecStart = "${pkgs.volnoti}/bin/volnoti -t 2 -n";
+      ExecStop = "${pkgs.procps}/bin/pkill volnoti";
+    };
+  };
 }

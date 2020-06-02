@@ -143,8 +143,14 @@ in
     iconTheme = {
       # package = pkgs.arc-icon-theme;
       # name = "Arc";
-      package = pkgs.paper-icon-theme;
-      name = "Paper";
+      # package = pkgs.paper-icon-theme;
+      # name = "Paper";
+      # package = pkgs.numix-icon-theme;
+      # name = "Numix";
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus";
+      # package = pkgs.qogir-icon-theme;
+      # name = "Qogir";
     };
     theme = {
       package = pkgs.arc-theme;
@@ -155,6 +161,14 @@ in
     gtk3.bookmarks = [ "file:///tmp" ];
   };
 
+  xsession.pointerCursor = {
+    # package = pkgs.vanilla-dmz;
+    # name = "Vanilla-DMZ";
+    package = pkgs.qogir-icon-theme;
+    name = "Qogir";
+    size = 32;
+  };
+
   systemd.user.startServices = true;
 
   programs.alacritty = {
@@ -162,6 +176,7 @@ in
     settings = {
       shell.program = "${pkgs.fish}/bin/fish";
       url.launcher.program = "${pkgs.xdg_utils}/bin/xdg-open";
+      mouse.hide_when_typing = true;
       cursor.style = "Block";
       window = {
         padding = {
@@ -358,11 +373,40 @@ in
   #   nixpkgs = fetchTarball "https://github.com/NixOS/nixpkgs/tarball/61cc1f0dc07c2f786e0acfd07444548486f4153b";
   # };
 
-  programs.browserpass = {
-    enable = true;
-    browsers = [ "firefox" ];
-  };
+  # programs.browserpass = {
+  #   enable = true;
+  #   browsers = [ "firefox" ];
+  # };
 
+  # programs.firefox = {
+  #   enable = true;
+  #   #   package = pkgs.firefox-wayland;
+  #   profiles = {
+  #     default =
+  #       {
+  #         isDefault = true;
+  #         settings = {
+  #           "browser.display.background_color" = "#bdbdbd";
+  #           "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
+  #           "browser.search.suggest.enabled" = false;
+  #           "browser.startup.page" = 3;
+  #           "browser.tabs.closeWindowWithLastTab" = true;
+  #           # "browser.urlbar.placeholderName" = "DuckDuckGo";
+  #           "devtools.theme" = "dark";
+  #           "experiments.activeExperiment" = false;
+  #           "experiments.enabled" = false;
+  #           "experiments.supported" = false;
+  #           "extensions.pocket.enabled" = false;
+  #           # "general.smoothScroll" = false;
+  #           # "layout.css.devPixelsPerPx" = "1";
+  #           # "network.IDN_show_punycode" = true;
+  #           # "network.allow-experiments" = false;
+  #           # "signon.rememberSignons" = false;
+  #           "widget.content.gtk-theme-override" = "Adwaita:light";
+  #         };
+  #       };
+  #   };
+  # };
 
   # services.pasystray.enable = true;
 

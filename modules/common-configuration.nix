@@ -407,6 +407,7 @@ in rec
   services.gnome3.gnome-keyring.enable = true;
   security.pam.services.gdm.enableGnomeKeyring = true;
   programs.seahorse.enable = true;
+  services.dbus.socketActivated = true;
 
   # DNS configuration
   networking.networkmanager.insertNameservers = ["127.0.0.1"];
@@ -434,7 +435,6 @@ nohook resolv.conf
 address=/.local/127.0.0.1
 '';
 
-  services.dbus.socketActivated = true;
   programs.sway =
   {
     enable = true;
@@ -451,7 +451,9 @@ address=/.local/127.0.0.1
         export _JAVA_AWT_WM_NONREPARENTING=1
         export MOZ_ENABLE_WAYLAND=1
         export MOZ_DBUS_REMOTE=1
-        export XCURSOR_PATH = "${pkgs.gnome3.adwaita-icon-theme}/share/icons:$XCURSOR_PATH" ];
+        # export XCURSOR_THEME
+        # export XCURSOR_SIZE
+        # export XCURSOR_PATH="${pkgs.gnome3.adwaita-icon-theme}/share/icons:$XCURSOR_PATH";
       '';
   };
   services.xserver.enable = true;

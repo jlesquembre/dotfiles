@@ -11,7 +11,6 @@
   modules-right = [
     "idle_inhibitor"
     "disk"
-    "tray"
     "network"
     "cpu"
     "memory"
@@ -19,6 +18,7 @@
     #"backlight"
     "battery"
     "pulseaudio"
+    "tray"
     "clock"
   ];
   # Modules configuration
@@ -55,7 +55,8 @@
   };
   clock = {
     tooltip-format = "{:%Y-%m-%d | %H:%M}";
-    format-alt = "{:%Y-%m-%d}";
+    format-alt = "{:%Y-%m-%d | %H:%M}";
+    format = "{:%d %b %H:%M}";
   };
   cpu = {
     #"format"= "CPU {usage}% "

@@ -132,6 +132,7 @@ window#waybar.hidden {
 
 #tray {
   background-color: #2980b9;
+  border-bottom: none;
 }
 
 #idle_inhibitor {
