@@ -128,10 +128,6 @@ in
     config.fonts = [ "Hack 10" ];
     config.window.titlebar = true;
     config.floating.titlebar = true;
-    # config.assigns = {
-    #   "1: web" = [{ class = "^Firefox$"; }];
-    #   # "0: extra" = [{ class = "^Firefox$"; window_role = "About"; }];
-    # };
     config.workspaceAutoBackAndForth = true;
     config.workspaceLayout = "tabbed"; # one of "default", "stacked", "tabbed"
     config.terminal = "${pkgs.alacritty}/bin/alacritty";
@@ -140,14 +136,10 @@ in
     };
     config.startup = [
       # { command = "systemctl --user restart polybar"; always = true; notification = false; }
-      # { command = "dropbox start"; notification = false; }
-      { command = "firefox"; }
-      # { command = "firefox --name=firefox_1"; always = false; }
       # { command = "alacritty"; }
     ];
     config.window.commands =
       [
-        # { command = ''move container to workspace 1''; criteria = { app_id = "firefox_1"; }; }
         { command = ''floating enable''; criteria = { app_id = "zenity"; }; }
         { command = ''title_format "%title :: %shell"''; criteria = { shell = ".*"; }; }
       ];
@@ -333,6 +325,21 @@ in
       Restart = "always";
       ExecStart = "${pkgs.volnoti}/bin/volnoti -t 2 -n";
       ExecStop = "${pkgs.procps}/bin/pkill volnoti";
+    };
+  };
+
+  systemd.user.services.firefox = {
+    Unit = {
+      Description = "Firefox";
+      After = [ "waybar.service" ];
+    };
+    Install = {
+      WantedBy = [ "sway-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      Restart = "no";
+      ExecStart = "${pkgs.firefox}/bin/firefox";
     };
   };
 }
