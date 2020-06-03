@@ -266,10 +266,10 @@ in
           ${pkgs.swayidle}/bin/swayidle -w \
              timeout 120 'notify-send "Lock computer" "Computer will be locked in 30 seconds!" --icon=${pkgs.paper-icon-theme}/share/icons/Paper/512x512/status/error.png -t 19000' \
              timeout 140 'notify-send "Lock computer" "Computer will be locked in 10 seconds!" --icon=${pkgs.paper-icon-theme}/share/icons/Paper/512x512/status/error.png -t 10000' \
-             timeout 150 'swaylock -elfF -s fill -i ${../nixos-bg.png}' \
+             timeout 150 'swaylock -elfF -s fill -i ${../dotfiles/img/nixos-bg.png}' \
              timeout 300 'swaymsg "output * dpms off"' \
              resume 'swaymsg "output * dpms on"' \
-             before-sleep 'swaylock -elfF -s fill -i ${../nixos-bg.png}'
+             before-sleep 'swaylock -elfF -s fill -i ${../dotfiles/img/nixos-bg.png}'
         '';
         RestartSec = 3;
         Restart = "always";
