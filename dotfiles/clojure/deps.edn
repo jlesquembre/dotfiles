@@ -91,7 +91,7 @@
                                lambdaisland/deep-diff      {:mvn/version "0.0-47"}
                                com.gfredericks/dot-slash-2 {:mvn/version "0.1.5"}
                                com.gfredericks/repl-utils  {:mvn/version "0.2.22"}}
-                  :extra-paths ["$CLJ_PATH/src/user"]}
+                  :extra-paths ["$CLJ_USER_PATH"]}
 
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.7.0"}
                                 cider/cider-nrepl {:mvn/version "0.24.0"}

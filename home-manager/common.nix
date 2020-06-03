@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  dotfiles = ../dotfiles;
+  dotfiles = toString ../dotfiles;
 in
 {
   # Let Home Manager install and manage itself.
@@ -84,8 +84,11 @@ in
     target = ".clojure/deps.edn";
     text = (
       with builtins;
-      let cljPath = toString ./clojure; in
-      replaceStrings [ "$HOME" "$CLJ_PATH" ] [ "${config.home.homeDirectory}" cljPath ] (readFile "${dotfiles}/deps.edn")
+      # let cljPath = "${dotfiles}/clojure"; in
+      replaceStrings
+        [ "$HOME" "$CLJ_USER_PATH" ]
+        [ "${config.home.homeDirectory}" "${dotfiles}/clojure/src" ]
+        (readFile "${dotfiles}/clojure/deps.edn")
     );
   };
 
