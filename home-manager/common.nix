@@ -38,6 +38,24 @@ in
 
   xdg.enable = true;
 
+  xdg.configFile.chromium = {
+    target = "chromium-flags.conf";
+    text =
+      ''
+        --password-store=basic
+      '';
+  };
+  xdg.configFile.chrome = {
+    target = "chrome-flags.conf";
+    text =
+      ''
+        # http://peter.sh/experiments/chromium-command-line-switches/
+        # https://wiki.archlinux.org/index.php/Chromium/Tips_and_tricks#Making_flags_persistent
+        --enable-devtools-experiments
+        --password-store=basic
+      '';
+  };
+
   # For debugging config files
   # See https://github.com/rycee/home-manager/issues/257#issuecomment-388146775
   #
