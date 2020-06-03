@@ -177,6 +177,12 @@ in
         # "XF86KbdBrightnessDown" = "exec kbdlight down 20";
       };
 
+    extraConfig = ''
+      seat * hide_cursor 5000
+      # seat * keyboard_grouping none
+      # seat * xcursor_theme default 24
+    '';
+
     config.bars = [ ];
   };
 

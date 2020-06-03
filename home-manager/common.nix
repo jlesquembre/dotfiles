@@ -176,7 +176,7 @@ in
     settings = {
       shell.program = "${pkgs.fish}/bin/fish";
       url.launcher.program = "${pkgs.xdg_utils}/bin/xdg-open";
-      mouse.hide_when_typing = true;
+      mouse.hide_when_typing = false;
       cursor.style = "Block";
       window = {
         padding = {

@@ -159,7 +159,7 @@ in rec
     gettext
     glances
     glxinfo
-    gnome3.zenity gnome3.dconf gnome3.dconf-editor
+    # gnome3.zenity gnome3.dconf gnome3.dconf-editor
     gnumake
     gnupg blackbox
     go golint # gotools
@@ -201,7 +201,7 @@ in rec
     # okular
     libressl
     page
-    paper-icon-theme
+    # paper-icon-theme
     pass
     pavucontrol
     pciutils
@@ -234,7 +234,6 @@ in rec
     upower
     # (pkgs.xdg_utils.override { mimiSupport = true; })
     # volnoti
-    volumeicon
     w3m
     wget
     # whois # Included in inetutils
@@ -251,8 +250,8 @@ in rec
 
 
     # QT apps helpers
-    qt5.qtbase qt5.qtsvg
-    breeze-gtk breeze-icons breeze-qt5 gnome-breeze # kde-gtk-config
+    qt5.qtbase qt5.qtsvg qt5.qtwayland
+    # breeze-icons breeze-gtk breeze-qt5 gnome-breeze # kde-gtk-config
 
     # dhall-lang
     dhall dhall-bash dhall-json # dhall-text dhall-nix
