@@ -22,6 +22,8 @@ in
   ];
 
   home.packages = with pkgs; [
+    clipman
+    wl-clipboard
     ripgrep-all
     gnome3.zenity
   ];

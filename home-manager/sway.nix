@@ -14,7 +14,7 @@ let
     text = ''
       background-color=#285577FF
       # time in milliseconds
-      default-timeout=5000
+      default-timeout=10000
     '';
   };
 
@@ -163,9 +163,11 @@ in
         "${modifier}+Shift+p" = ''exec "zenity --question --text 'Poweroff the system\nAre you sure?' && systemctl poweroff"'';
 
         "${modifier}+y" = "exec --no-startup-id ${cycle-workspace}/bin/cycle-workspace.sh";
-        "${modifier}+u" = "exec --no-startup-id ${focus-window}/bin/focus-window.sh";
+        "${modifier}+o" = "exec --no-startup-id ${focus-window}/bin/focus-window.sh";
         "${modifier}+i" = "exec ${pkgs.wdisplays}/bin/wdisplays";
         "${modifier}+p" = "exec ${pkgs.pavucontrol}/bin/pavucontrol";
+
+        "${modifier}+u" = "exec ${pkgs.clipman}/bin/clipman pick -t wofi -T'-i'";
 
         # see https://github.com/grahamc/nixos-config/blob/aef2a2c1b0ca584b2c7c04dfbbd5d2615e3448d8/packages/volume/volume.sh
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${volume-sh}/bin/volume.sh up";
@@ -296,6 +298,21 @@ in
       };
     };
 
+  systemd.user.services.clipman =
+    {
+      Unit = {
+        Description = pkgs.clipman.meta.description;
+        PartOf = [ "graphical-session.target" ];
+      };
+      Install = {
+        WantedBy = [ "sway-session.target" ];
+      };
+      Service = {
+        ExecStart = ''${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store'';
+        RestartSec = 3;
+        Restart = "always";
+      };
+    };
 
   xdg.configFile."kanshi/config".source = "${kanshiConfig}/kanshi/config";
   systemd.user.services.kanshi = {
