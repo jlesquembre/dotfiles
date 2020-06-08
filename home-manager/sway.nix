@@ -9,21 +9,15 @@ let
 
   waybarStyle = ../dotfiles/waybar.css;
 
-  makoConfig = pkgs.writeTextFile {
-    name = "mako.config";
-    text = ''
-      background-color=#285577FF
-      # time in milliseconds
-      default-timeout=10000
-    '';
-  };
-
   kanshiConfig = pkgs.writeTextFile {
     name = "kanshi_config";
     text = ''
       profile {
         output eDP-1 disable
         output HDMI-A-2 position 0,0
+      }
+      profile {
+        output eDP-1 enable position 0,0
       }
     '';
     destination = "/kanshi/config";
@@ -237,6 +231,7 @@ in
 
   xdg.configFile."wofi/style.css".source = ../dotfiles/wofi.css;
 
+  # Makes easier to find the default config, and the systemd unit is restarted on changes
   xdg.configFile."waybar/config".source = waybarConfig;
   xdg.configFile."waybar/style.css".source = waybarStyle;
   systemd.user.services = {
@@ -280,8 +275,16 @@ in
   };
 
 
-  # Easy to find the default config, and the systemd unit is restarted on changes
-  xdg.configFile."mako/config".source = makoConfig;
+  # Using the home-manager module, the systemd unit is NOT restarted on
+  # changes, but we get a warning if the configuration is wrong
+  programs.mako = {
+    enable = true;
+    padding = "10";
+    margin = "15";
+    backgroundColor = "#285577FF";
+    defaultTimeout = 10000;
+  };
+  # xdg.configFile."mako/config".source = makoConfig;
   systemd.user.services.mako =
     {
       Unit = {
@@ -292,7 +295,8 @@ in
         WantedBy = [ "sway-session.target" ];
       };
       Service = {
-        ExecStart = "${pkgs.mako}/bin/mako -c ${makoConfig}";
+        # ExecStart = "${pkgs.mako}/bin/mako -c ${makoConfig}";
+        ExecStart = "${pkgs.mako}/bin/mako";
         RestartSec = 3;
         Restart = "always";
       };

@@ -450,9 +450,13 @@ address=/.local/127.0.0.1
         export _JAVA_AWT_WM_NONREPARENTING=1
         export MOZ_ENABLE_WAYLAND=1
         export MOZ_DBUS_REMOTE=1
+        export XDG_CURRENT_DESKTOP=sway
         # export XCURSOR_THEME
         # export XCURSOR_SIZE
         # export XCURSOR_PATH="${pkgs.gnome3.adwaita-icon-theme}/share/icons:$XCURSOR_PATH";
+
+        # Force gpg-agent initialization
+        echo foo | gpg -ear E2BA57CA52D5867B | gpg -d
       '';
   };
   services.xserver.enable = true;
