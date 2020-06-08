@@ -278,11 +278,18 @@ in
   # Using the home-manager module, the systemd unit is NOT restarted on
   # changes, but we get a warning if the configuration is wrong
   programs.mako = {
+    font = "Hack 14";
     enable = true;
     padding = "10";
-    margin = "15";
+    margin = "30";
+    format = ''<i>%a</i>\n<b>%s</b>\n%b'';
+    height = 1500;
+    width = 700;
     backgroundColor = "#285577FF";
     defaultTimeout = 10000;
+    ignoreTimeout = false;
+    anchor = "top-right";
+    borderSize = 3;
   };
   # xdg.configFile."mako/config".source = makoConfig;
   systemd.user.services.mako =
