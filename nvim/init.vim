@@ -412,7 +412,10 @@ augroup user_augroup
   autocmd WinLeave,FocusLost   * setlocal nocursorline
 
   " jsonc support
-  autocmd FileType json syntax match Comment +\/\/.\+$+
+  autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
+  autocmd FileType jsonc source $VIMRUNTIME/syntax/json.vim
+  autocmd FileType jsonc syntax match Comment +\/\/.\+$+
+  autocmd FileType json  syntax match Comment +\/\/.\+$+
 
 augroup END
 
