@@ -135,7 +135,12 @@ in
     config.window.commands =
       [
         { command = ''floating enable''; criteria = { app_id = "zenity"; }; }
-        { command = ''title_format "%title :: %shell"''; criteria = { shell = ".*"; }; }
+        {
+          # command = ''floating enable, move position 877 450, sticky enable, border none'';
+          command = ''floating enable, sticky enable, border normal 3'';
+          criteria = { app_id = "firefox"; title = "^Picture-in-Picture$"; };
+        }
+        # { command = ''title_format "%title :: %shell"''; criteria = { shell = ".*"; }; }
       ];
     config.keybindings =
       let
