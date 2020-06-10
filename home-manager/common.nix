@@ -377,6 +377,18 @@ in
           version = "0.117.1";
           sha256 = "0kq3wfwxjnbhbq1ssj7h704gvv1rr0vkv7aj8gimnkj50jw87ryd";
         }
+        {
+          publisher = "bierner";
+          name = "lit-html";
+          version = "1.11.1";
+          sha256 = "1qpkxri9ja4lsq7ga99vlg13byfpr5pkh5252wmlfank73mgrpkc";
+        }
+        {
+          publisher = "esbenp";
+          name = "prettier-vscode";
+          version = "5.0.0";
+          sha256 = "018n0632gp65b3qwww8ijyb149v8dvbhlys548wvjfax8926jm5j";
+        }
         # {
         #   publisher = "sdras";
         #   name = "night-owl";
@@ -386,7 +398,10 @@ in
       ];
     userSettings = {
       # "update.mode" = "none";
-      "[nix]"."editor.tabSize" = 2;
+      "editor.formatOnSave" = true;
+      "[nix]" = {
+        "editor.tabSize" = 2;
+      };
     };
   };
 

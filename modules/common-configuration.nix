@@ -8,15 +8,11 @@ let
 
   secrets = import ../secrets/secrets.nix;
 
-  customEmacs = (import ./emacs.nix { inherit pkgs; });
-
-  customVscode = (import ./vscode.nix { inherit pkgs; });
-
   # bleeding edge
-  #pkgs-unstable = import (fetchTarball https://github.com/nixos/nixpkgs/archive/master.tar.gz) {};
+  # pkgs-unstable = import (fetchTarball https://github.com/nixos/nixpkgs/archive/master.tar.gz) {};
 
   # unstable channel
-  #channel-unstable = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz) {};
+  # channel-unstable = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz) {};
 
   # latest stable channel
   channel-19_09 = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-19.09.tar.gz) {};
@@ -267,7 +263,7 @@ in rec
     kdenlive
 
     # editors
-    neovim neovim-remote vim customVscode customEmacs
+    neovim neovim-remote vim
 
     # JS
     nodejs yarn
