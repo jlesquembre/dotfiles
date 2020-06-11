@@ -177,11 +177,16 @@ Plug 'chr4/nginx.vim'
 Plug 'Matt-Deacalion/vim-systemd-syntax'
 Plug 'rust-lang/rust.vim'
 "PLug 'wting/rust.vim'
+
+" JS / TS
 Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'jonsmithers/vim-html-template-literals'
 Plug 'jxnblk/vim-mdx-js'
 " Plug 'mxw/vim-jsx'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'HerringtonDarkholme/yats.vim'  " Typescript
+" Plug 'MaxMEllon/vim-jsx-pretty'
+" Plug 'HerringtonDarkholme/yats.vim'  " Typescript
+
 "Plug 'LaTeX-Box-Team/LaTeX-Box', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'PotatoesMaster/i3-vim-syntax'
@@ -413,12 +418,16 @@ augroup user_augroup
 
   " jsonc support
   autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
-  autocmd FileType jsonc source $VIMRUNTIME/syntax/json.vim
-  autocmd FileType jsonc syntax match Comment +\/\/.\+$+
+  autocmd FileType jsonc call SetJsoncOptions()
   autocmd FileType json  syntax match Comment +\/\/.\+$+
 
 augroup END
 
+function SetJsoncOptions()
+  source $VIMRUNTIME/syntax/json.vim
+  syntax match Comment +\/\/.\+$+
+  setlocal commentstring=//\ %s
+endfunction
 
 " END BASIC SETTINGS
 
@@ -790,8 +799,8 @@ augroup AutoBreakpoint
   autocmd!
   autocmd FileType python map <silent><buffer> <leader><leader>b oimport ipdb; ipdb.set_trace()<esc>
   autocmd FileType python map <silent><buffer> <leader><leader>B Oimport ipdb; ipdb.set_trace()<esc>
-  autocmd FileType javascript map <silent><buffer> <leader><leader>b odebugger;<esc>
-  autocmd FileType javascript map <silent><buffer> <leader><leader>B Odebugger;<esc>
+  autocmd FileType javascript,typescript map <silent><buffer> <leader><leader>b odebugger;<esc>
+  autocmd FileType javascript,typescript map <silent><buffer> <leader><leader>B Odebugger;<esc>
 
   autocmd FileType clojure map <silent><expr><buffer> <leader><leader>b 'saa((i./spy <esc>'
 augroup END
@@ -867,21 +876,17 @@ augroup END
 " END MAPPINGS
 
 " ============================================================================
-" VIM STARTIFY {{{1
+" VIM PLUGINS {{{1
 " ============================================================================
+
+let g:htl_css_templates=1
 
 let g:startify_change_to_vcs_root = 1
 let g:startify_session_dir = '~/.config/nvim/session'
 
-" END STARTIFY
-
-" ============================================================================
-" VIM ROOTER {{{1
-" ============================================================================
-
 let g:rooter_silent_chdir = 1
 
-" END ROOTER
+" END PLUGINS
 
 " ============================================================================
 " VIM SANDWICH {{{1
@@ -1342,7 +1347,7 @@ function! s:dirvish_customizations() abort
   nnoremap <buffer> D :!mkdir %
   nnoremap <buffer> N :e %
   nnoremap <buffer><expr> M ':e %' . strftime("%Y-%m-%d-") . '.md' . repeat('<Left>', 3)
-  call dirvish#add_icon_fn({p -> p[-1:]=='/'?'📂':'📄'})
+  " call dirvish#add_icon_fn({p -> p[-1:]=='/'?'📂':'📄'})
   " nnoremap <silent><buffer><expr> <BS>
 endfunction
 
