@@ -393,6 +393,12 @@ in
           sha256 = "1qpkxri9ja4lsq7ga99vlg13byfpr5pkh5252wmlfank73mgrpkc";
         }
         {
+          publisher = "runem";
+          name = "lit-plugin";
+          version = "1.1.10";
+          sha256 = "0bn9dfbvc639wkjj6hw1mc6qij7m2abwsjzjsw7mhfm64anrw882";
+        }
+        {
           publisher = "esbenp";
           name = "prettier-vscode";
           version = "5.0.0";
