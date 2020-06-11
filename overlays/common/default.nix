@@ -29,6 +29,10 @@ self: super: {
       };
     });
 
+  pass = super.pass.override {
+    waylandSupport = true;
+  };
+
   waybar = super.waybar.override {
     pulseSupport = true;
     # withMediaPlayer = true;

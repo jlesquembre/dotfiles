@@ -194,6 +194,15 @@ in
 
   systemd.user.startServices = true;
 
+  programs.password-store = {
+    enable = true;
+    settings = lib.mkForce {
+      PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
+      PASSWORD_STORE_KEY = "E2BA57CA52D5867B";
+      PASSWORD_STORE_CLIP_TIME = "60";
+    };
+  };
+
   programs.alacritty = {
     enable = true;
     settings = {
