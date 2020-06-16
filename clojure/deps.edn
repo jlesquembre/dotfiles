@@ -31,7 +31,7 @@
                         :main-opts  ["-m" "rebel-readline.main"]}
 
            :rebel-cljs {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
-                                     com.bhauman/figwheel-main       {:mvn/version "0.2.4"}}
+                                     com.bhauman/figwheel-main       {:mvn/version "0.2.9"}}
                         :main-opts  ["-m" "figwheel.main"]}
 
            :server {:extra-deps {nasus {:mvn/version "0.1.7"}}
@@ -53,7 +53,7 @@
            :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.94"}}
                  :main-opts ["-m" "hf.depstar.jar"]}
 
-           :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.1.10"}}
+           :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.1.11"}}
                       :jvm-opts   []
                       :main-opts  ["--main" "org.rssys.pbuilder.core"]}
 
@@ -69,7 +69,7 @@
                               "-Dclojure.server.node={:port,5556,:accept,cljs.server.node/prepl}"
                               "-Dclojure.server.browser={:port,5557,:accept,cljs.server.browser/prepl}"]}
            :rebl
-           {:extra-deps {org.clojure/core.async {:mvn/version "1.1.587"}
+           {:extra-deps {org.clojure/core.async {:mvn/version "1.2.603"}
                          ;; deps for file datafication (0.9.149 or later)
                          org.clojure/data.csv {:mvn/version "1.0.0"}
                          org.clojure/data.json {:mvn/version "1.0.0"}
@@ -87,16 +87,16 @@
             ; :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:extra-deps {vvvvalvalval/scope-capture  {:mvn/version "0.3.2"}
-                               hashp                       {:mvn/version "0.1.1"}
+                               hashp                       {:mvn/version "0.2.0"}
                                lambdaisland/deep-diff      {:mvn/version "0.0-47"}
                                com.gfredericks/dot-slash-2 {:mvn/version "0.1.5"}
                                com.gfredericks/repl-utils  {:mvn/version "0.2.22"}}
                   :extra-paths ["/home/jlle/dotfiles/clojure/src/user"]}
 
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.7.0"}
-                                cider/cider-nrepl {:mvn/version "0.24.0"}
+                                cider/cider-nrepl {:mvn/version "0.25.2"}
                                 org.clojure/clojure {:mvn/version "1.10.1"}
-                                cider/piggieback {:mvn/version "0.4.2"}}
+                                cider/piggieback {:mvn/version "0.5.0"}}
                                 ; refactor-nrepl {:mvn/version "2.5.0"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}}}
                    ; :extra-paths ["/home/jlle/dotfiles/clojure/src/nrepl"]}}}
