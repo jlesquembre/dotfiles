@@ -156,7 +156,8 @@ in
         # "${modifier}+Shift+q" = "kill";
         # "${modifier}+d" = "exec ${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu | ${pkgs.findutils}/bin/xargs swaymsg exec --";
         "${modifier}+d" = "exec ${pkgs.wofi}/bin/wofi --show run";
-        "${modifier}+Shift+s" = "exec \"swaylock -f -c 000000 && systemctl suspend\"";
+        # "${modifier}+Shift+s" = "exec \"swaylock -f -c 000000 && systemctl suspend\"";
+        "${modifier}+Shift+s" = "exec \"systemctl suspend\"";
         "${modifier}+Shift+b" = "exec \"swaylock -f -c 000000\"";
         "${modifier}+Shift+o" = ''exec "zenity --question --text 'Reboot the system\nAre you sure?' && systemctl reboot"'';
         "${modifier}+Shift+p" = ''exec "zenity --question --text 'Poweroff the system\nAre you sure?' && systemctl poweroff"'';
@@ -324,6 +325,8 @@ in
         WantedBy = [ "sway-session.target" ];
       };
       Service = {
+        # Wait for next clipman release
+        # ExecStart = ''${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store --unix'';
         ExecStart = ''${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store'';
         RestartSec = 3;
         Restart = "always";
