@@ -340,6 +340,18 @@ in
     };
   };
 
+  programs.mpv = {
+    enable = true;
+    config = {
+      gpu-context = "wayland";
+
+      # Always use 1080p+ or 60 fps where available. Prefer VP9
+      # over AVC and VP8 for high-resolution streams.
+      ytdl = "yes";
+      ytdl-format = "(bestvideo[ext=webm]/bestvideo[height>720]/bestvideo[fps=60])[tbr<13000]+(bestaudio[acodec=opus]/bestaudio[ext=webm]/bestaudio)/best";
+    };
+  };
+
   programs.vscode = {
     enable = true;
     # package = pkgs.vscodium;
