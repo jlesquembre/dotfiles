@@ -52,9 +52,8 @@ in rec
   imports = [
     /etc/nixos/hardware-configuration.nix
     ./cachix.nix
+    (import ./network.nix { inherit hostName userHome; })
   ]
-  ++
-    lib.lists.optional (builtins.pathExists ../secrets/nginx/docs/default.nix)  ../secrets/nginx/docs
   ;
 
   nix.trustedUsers = [ "root" user ];
@@ -64,10 +63,6 @@ in rec
     "nixos-config=/etc/nixos/configuration.nix"
     "nixpkgs-overlays=${userHome}/dotfiles/overlays/overlays-compat"
   ];
-
-  networking.hostName = hostName;
-  # networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [ 8000 8080 ];
 
   # mount /tmp on tmpfs
   boot.tmpOnTmpfs = true;
@@ -130,6 +125,7 @@ in rec
     bat
     bazel bazel-buildtools
     cachix
+    caddy2
     calibre
     # conky
     cheat
@@ -404,36 +400,10 @@ in rec
   programs.seahorse.enable = true;
   services.dbus.socketActivated = true;
 
-  # DNS configuration
-  networking.networkmanager.insertNameservers = ["127.0.0.1"];
-  # Don't use dns server provided by dhcp server
-  networking.dhcpcd.extraConfig = ''
-nohook resolv.conf
-'';
-  services.dnsmasq.enable = true;
-  # For dnscrypt use:
-  #services.dnsmasq.servers = [ "127.0.0.1#43" ];
-  services.dnsmasq.servers = [
-    # Cloudflare
-    "1.1.1.1"
-    "1.0.0.1"
-
-    # OpenDNS
-    "208.67.222.222"
-    "208.67.220.220"
-
-    # Google
-    "8.8.8.8"
-    "8.8.4.4"
-  ];
-  services.dnsmasq.extraConfig = ''
-address=/.local/127.0.0.1
-'';
-
   programs.sway =
   {
     enable = true;
-    extraPackages = with pkgs; [ mako wofi wdisplays waybar swaylock swayidle xwayland kanshi ];
+    extraPackages = with pkgs; [ mako wofi wdisplays waybar swaylock swayidle xwayland kanshi xdg-desktop-portal-wlr ];
     wrapperFeatures.gtk = true;
     extraSessionCommands =
       ''
