@@ -21,7 +21,7 @@ set -x SHELL (which fish)
 set -x EDITOR nvim
 set -x HOSTNAME (hostname)
 set -x PROJECT_HOME $HOME/projects
-set -x BROWSER chromium
+set -x BROWSER firefox
 set -x MANPAGER "nvim -c 'set ft=man' -"
 set -x KUBECTL_EXTERNAL_DIFF meld
 # set -x BAT_PAGER less
