@@ -17,10 +17,8 @@ plug.vim.old
 /.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg
-/secrets/nginx/docs/default.nix
 /secrets/nginx/webdav/default.nix
 /secrets/secrets.nix
 /secrets/vpn/default.nix
 /secrets/wireless-networks.nix
-/secrets/nginx/docs/docs.nginx.conf
 /secrets/nginx/webdav/webdav.nginx.conf
