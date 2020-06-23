@@ -464,6 +464,9 @@ abbr -a kd 'kubectl delete -f'
 abbr -a ns 'nix_switch'
 abbr -a nb 'nix_build'
 
+# Caddy
+abbr -a s 'caddy file-server --browse --listen :8080'
+
 
 function nix_switch
   set -lx BLACKBOX_REPOBASE $HOME/dotfiles;
