@@ -1595,49 +1595,46 @@ endfunction
 " " let g:conjure_log_auto_open = ['eval', 'ret', 'ret-multiline', 'out', 'err', 'tap', 'doc', 'load-file', 'test']
 " let g:conjure_log_blacklist = ["ret", "ret-multiline", "load-file", "eval"]
 
-let g:conjure_config = {
- \ "log.hud.enabled?": v:true,
- \ "mappings.prefix": "c",
- \ "mappings.log-split": "Ls",
- \ "mappings.log-vsplit": "ll",
- \ "mappings.log-tab": "Lt",
- \ "mappings.log-close-visible": "lq",
- \ "mappings.eval-current-form": "pp",
- \ "mappings.eval-root-form": "pr",
- \ "mappings.eval-marked-form": "pm",
- \ "mappings.eval-word": "pw",
- \ "mappings.eval-file": "pf",
- \ "mappings.eval-buf": "pb",
- \ "mappings.eval-visual": "p",
- \ "mappings.eval-motion": "m",
- \ "mappings.doc-word": ["K"],
- \ "mappings.def-word": ["gd"],
- \ "clients.clojure": "conjure.client.clojure.nrepl",
- \ "clojure.nrepl/mappings.disconnect": "ud",
- \ "clojure.nrepl/mappings.connect-port-file": "uu",
- \ "clojure.nrepl/mappings.interrupt": "ui",
- \ "clojure.nrepl/mappings.last-exception": "ve",
- \ "clojure.nrepl/mappings.result-1": "v1",
- \ "clojure.nrepl/mappings.result-2": "v2",
- \ "clojure.nrepl/mappings.result-3": "v3",
- \ "clojure.nrepl/mappings.view-source": "vs",
- \ "clojure.nrepl/mappings.session-clone": "sc",
- \ "clojure.nrepl/mappings.session-fresh": "sf",
- \ "clojure.nrepl/mappings.session-close": "sq",
- \ "clojure.nrepl/mappings.session-close-all": "sQ",
- \ "clojure.nrepl/mappings.session-list": "sl",
- \ "clojure.nrepl/mappings.session-next": "sn",
- \ "clojure.nrepl/mappings.session-prev": "sp",
- \ "clojure.nrepl/mappings.session-select": "ss",
- \ "clojure.nrepl/mappings.session-type": "st",
- \ "clojure.nrepl/mappings.run-all-tests": "pta",
- \ "clojure.nrepl/mappings.run-current-ns-tests": "ptn",
- \ "clojure.nrepl/mappings.run-alternate-ns-tests": "ptN",
- \ "clojure.nrepl/mappings.run-current-test": "ptc",
- \ "clojure.nrepl/mappings.refresh-changed": "rr",
- \ "clojure.nrepl/mappings.refresh-all": "ra",
- \ "clojure.nrepl/mappings.refresh-clear": "rc",
- \ }
+let g:conjure#mapping#prefix = "c"
+let g:conjure#mapping#log_split = "ls"
+let g:conjure#mapping#log_vsplit = "ll"
+let g:conjure#mapping#log_tab = "lt"
+let g:conjure#mapping#log_close_visible = "lq"
+let g:conjure#mapping#eval_current_form = "pp"
+let g:conjure#mapping#eval_root_form = "pr"
+let g:conjure#mapping#eval_replace_form = "p!"
+let g:conjure#mapping#eval_marked_form = "pm"
+let g:conjure#mapping#eval_word = "pw"
+let g:conjure#mapping#eval_file = "pf"
+let g:conjure#mapping#eval_buf = "pb"
+let g:conjure#mapping#eval_visual = "p"
+let g:conjure#mapping#eval_motion = "m"
+" let g:conjure#mapping#doc_word = ["K"]
+" let g:conjure#mapping#def_word = ["gd"]
+
+" let g:conjure#client#clojure#nrepl#mapping#disconnect = "cd"
+let g:conjure#client#clojure#nrepl#mapping#connect_port_file = "u"
+let g:conjure#client#clojure#nrepl#mapping#interrupt = "ui"
+" let g:conjure#client#clojure#nrepl#mapping#last_exception = "ve"
+" let g:conjure#client#clojure#nrepl#mapping#result_1 = "v1"
+" let g:conjure#client#clojure#nrepl#mapping#result_2 = "v2"
+" let g:conjure#client#clojure#nrepl#mapping#result_3 = "v3"
+" let g:conjure#client#clojure#nrepl#mapping#view_source = "sv"
+" let g:conjure#client#clojure#nrepl#mapping#session_clone = "sc"
+" let g:conjure#client#clojure#nrepl#mapping#session_fresh = "sf"
+" let g:conjure#client#clojure#nrepl#mapping#session_close = "sq"
+" let g:conjure#client#clojure#nrepl#mapping#session_close_all = "sQ"
+" let g:conjure#client#clojure#nrepl#mapping#session_list = "sl"
+" let g:conjure#client#clojure#nrepl#mapping#session_next = "sn"
+" let g:conjure#client#clojure#nrepl#mapping#session_prev = "sp"
+" let g:conjure#client#clojure#nrepl#mapping#session_select = "ss"
+let g:conjure#client#clojure#nrepl#mapping#run_all_tests = "pta"
+let g:conjure#client#clojure#nrepl#mapping#run_current_ns_tests = "ptn"
+let g:conjure#client#clojure#nrepl#mapping#run_alternate_ns_tests = "ptN"
+let g:conjure#client#clojure#nrepl#mapping#run_current_test = "ptc"
+" let g:conjure#client#clojure#nrepl#mapping#refresh_changed = "rr"
+" let g:conjure#client#clojure#nrepl#mapping#refresh_all = "ra"
+" let g:conjure#client#clojure#nrepl#mapping#refresh_clear = "rc"
 
 function! ClojureCustomSettings()
   if exists("g:use_conjure")
