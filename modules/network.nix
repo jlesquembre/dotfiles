@@ -11,7 +11,7 @@ let
       }
 
       http://docs.local {
-        # bind 127.0.0.1
+        bind 127.0.0.1
         root * ${userHome}/projects/docs2/public
         file_server
         header {
@@ -76,7 +76,7 @@ in
   systemd.services.caddy = {
     description = "Caddy web server";
     after = [ "network-online.target" ];
-    wants = [ "network-online.target" ]; # systemd-networkd-wait-online.service
+    wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       User = "caddy";
