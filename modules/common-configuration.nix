@@ -36,6 +36,7 @@ let
           # paths it should manage.
           home.username = "${user}";
           home.homeDirectory = "${userHome}";
+          home.sessionVariables.HOSTNAME = ${hostName};
           imports = [ ${config-path} ];
         }
       '';
@@ -159,10 +160,10 @@ in rec
     gwenview
     # highlight
     htop
-    i3lock i3status-rust
+    # i3lock i3status-rust
     imv
     inkscape
-    jetbrains.idea-community
+    # jetbrains.idea-community
     jump
     just
     jq
