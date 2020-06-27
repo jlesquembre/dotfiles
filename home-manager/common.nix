@@ -19,6 +19,7 @@ in
   imports = [
     ./custom-options.nix
     ./sway.nix
+    ./fish.nix
   ];
 
   home.packages = with pkgs; [
@@ -28,8 +29,14 @@ in
     gnome3.zenity
   ];
 
+  programs.command-not-found.enable = true;
+
   home.sessionVariables = {
     EDITOR = "nvim";
+    SHELL = "fish";
+    BROWSER = "firefox";
+    MANPAGER = "nvim -c 'set ft=man' -";
+    KUBECTL_EXTERNAL_DIFF = "meld";
   };
 
   # xdg.configFile."nvim" = {
@@ -201,6 +208,33 @@ in
       PASSWORD_STORE_KEY = "E2BA57CA52D5867B";
       PASSWORD_STORE_CLIP_TIME = "60";
     };
+  };
+
+  programs.broot = {
+    enable = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    # enableNixDirenvIntegration = false;
+  };
+
+  programs.fzf = {
+    enable = true;
+
+    defaultCommand = "fd --type f --hidden --follow";
+    defaultOptions = [ "--height 40% --layout=reverse --border" ];
+
+    # ALT-C
+    changeDirWidgetCommand = "fd -t d . $HOME";
+    changeDirWidgetOptions = [ "--preview 'fzf_preview_all {}'" ];
+
+    # CTRL-T
+    # fileWidgetCommand = "";
+    fileWidgetOptions = [ "--preview 'fzf_preview_all {}'" ];
+
+    # CTRL-R
+    # historyWidgetOptions = [ "--preview 'echo {}' --preview-window down:3:hidden --bind '?:toggle-preview'" ];
   };
 
   programs.alacritty = {

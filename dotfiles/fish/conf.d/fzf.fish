@@ -1,33 +1,3 @@
-set fzf_preview_all '--preview "if test -d {};\
-                                    tree -C {} | head -200;\
-                                else;\
-                                    file -ib {} | rg binary ^ /tmp/null; or bat --color always --style changes --paging never --line-range :200 {} ^ /dev/null;\
-                                end;"'
-
-set fzf_preview_dir '--preview "tree -C {} | head -200"'
-
-set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow'
-set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-set -x FZF_CTRL_T_OPTS $fzf_preview_all
-
-set -x FZF_ALT_C_COMMAND "fd -t d . $HOME"
-set -x FZF_ALT_C_OPTS $fzf_preview_dir
-
-set -x FZF_CTRL_R_OPTS '--preview "echo {}" --preview-window down:3:hidden --bind "?:toggle-preview"'
-
-set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border'
-
-# function fshow
-#   git log --graph --color=always \
-#       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$argv" | \
-#   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-#       --bind "ctrl-m:execute:
-#                 (grep -o '[a-f0-9]\{7\}' | head -1 |
-#                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
-#                 {}
-# FZF-EOF"
-# end
-
 function fssh -d "Fuzzy-find ssh host"
   set -q FZF_TMUX_HEIGHT; or set FZF_TMUX_HEIGHT 20%
     begin
@@ -140,20 +110,6 @@ function jj -d 'autojump with fzf'
     end
 
     cd (cat $tempfile)
-    rm $tempfile
-end
-
-
-function fp -d 'pew workon with fzf'
-    if test (count $argv) -eq 0; set argv ''; end
-    set -l cmd "ls $HOME/.local/share/virtualenvs | fzf -1 --query=\"$argv\""
-
-    set -l tempfile (mktemp)
-    _run_fzf_cmd $tempfile $cmd; set -l last_status $status
-    if test $last_status -ne 0; rm $tempfile; return $last_status
-    end
-
-    pew workon (cat $tempfile)
     rm $tempfile
 end
 
