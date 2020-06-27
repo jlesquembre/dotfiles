@@ -36,7 +36,7 @@ let
           # paths it should manage.
           home.username = "${user}";
           home.homeDirectory = "${userHome}";
-          home.sessionVariables.HOSTNAME = ${hostName};
+          home.sessionVariables.HOSTNAME = "${hostName}";
           imports = [ ${config-path} ];
         }
       '';
@@ -161,7 +161,7 @@ in rec
     # highlight
     htop
     # i3lock i3status-rust
-    imv
+    # imv
     inkscape
     # jetbrains.idea-community
     jump
@@ -287,7 +287,7 @@ in rec
     clojure leiningen pkgs.boot clj-kondo #babashka # joker
 
     # scala
-    bloop sbt
+    # bloop sbt
 
     # purescript
     # purescript psc-package nodePackages.pulp
@@ -296,8 +296,8 @@ in rec
     rustc cargo rustfmt
 
     # DB utils
-    libmysqlclient mariadb.client
     postgresql pspg # pgcli
+    # libmysqlclient mariadb.client
 
     # Kubernetes
     minikube kubectl kubectx kubernetes-helm kustomize pulumi-bin
@@ -404,7 +404,9 @@ in rec
   programs.sway =
   {
     enable = true;
-    extraPackages = with pkgs; [ mako wofi wdisplays waybar swaylock swayidle xwayland kanshi xdg-desktop-portal-wlr ];
+    extraPackages = with pkgs; [ mako wofi wdisplays waybar swaylock swayidle
+                                 (xwayland.overrideAttrs (attrs: {meta.priority=1;}))
+                                 kanshi xdg-desktop-portal-wlr ];
     wrapperFeatures.gtk = true;
     extraSessionCommands =
       ''
