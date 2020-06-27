@@ -39,11 +39,13 @@ in
     KUBECTL_EXTERNAL_DIFF = "meld";
   };
 
-  # xdg.configFile."nvim" = {
-  #   source = ./configs;
-  #   recursive = true;
-  # };
-  # xdg.configFile."foo.txt".source = ./dotfiles/foo.txt;
+  # For debugging config files
+  # See https://github.com/rycee/home-manager/issues/257#issuecomment-388146775
+  #
+  # home.activation.myActivationAction = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  #   $DRY_RUN_CMD ln -sv $VERBOSE_ARG \
+  #       ${builtins.toPath ./dotfiles/foo.txt} $HOME/.config/foo.txt
+  # '';
 
   xdg.enable = true;
 
@@ -65,15 +67,11 @@ in
       '';
   };
 
-  # For debugging config files
-  # See https://github.com/rycee/home-manager/issues/257#issuecomment-388146775
-  #
-  # home.activation.myActivationAction = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-  #   $DRY_RUN_CMD ln -sv $VERBOSE_ARG \
-  #       ${builtins.toPath ./dotfiles/foo.txt} $HOME/.config/foo.txt
-  # '';
+  xdg.configFile.ranger = {
+    source = "${dotfiles}/ranger";
+    recursive = true;
+  };
 
-  # home.file = {
   home.file.editorconfig = {
     source = "${dotfiles}/editorconfig.ini";
     target = ".editorconfig";
