@@ -1,11 +1,21 @@
 { config, pkgs, lib, ... }:
+let
+  fishFunctionsDir = "${config.xdg.configHome}/fish/functions";
+in
 {
   programs.fish = {
     enable = true;
+
     # For the scripts you usually write like
     # status --is-interactive; and ...
     promptInit = ''
       source (jump shell fish | psub)
+    '';
+
+    # Override default fish functions
+    interactiveShellInit = ''
+      source ${fishFunctionsDir}/l.fish
+      source ${fishFunctionsDir}/ll.fish
     '';
 
     shellAbbrs = {
