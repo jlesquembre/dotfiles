@@ -446,6 +446,8 @@ in rec
     }
   ];
 
+  services.tumbler.enable = true;
+
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;

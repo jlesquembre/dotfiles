@@ -25,6 +25,7 @@ in
   home.packages = with pkgs; [
     clipman
     wl-clipboard
+    xfce.ristretto
     ripgrep-all
     gnome3.zenity
   ];
