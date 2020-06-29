@@ -8,6 +8,7 @@ self: super: {
 
     # Delete generations older than a week
     nix-collect-garbage --delete-older-than 7d
+    sudo nix-collect-garbage --delete-older-than 7d
 
     # Optimize
     # nix-store --gc --print-dead  # --> Not needed (done by nix-collect-garbage)
@@ -37,4 +38,7 @@ self: super: {
     pulseSupport = true;
     # withMediaPlayer = true;
   };
+
+  firefox = super.firefox.override { gdkWayland = true; };
+  firefox-wayland = super.firefox.override { gdkWayland = true; };
 }

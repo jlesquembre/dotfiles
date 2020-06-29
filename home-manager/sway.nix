@@ -118,6 +118,7 @@ in
 {
   wayland.windowManager.sway = {
     enable = true;
+    package = null;
     config.modifier = "Mod4";
     config.fonts = [ "Hack 10" ];
     config.window.titlebar = true;
@@ -139,6 +140,10 @@ in
           # command = ''floating enable, move position 877 450, sticky enable, border none'';
           command = ''floating enable, sticky enable, border normal 3'';
           criteria = { app_id = "firefox"; title = "^Picture-in-Picture$"; };
+        }
+        {
+          command = ''floating enable, sticky enable'';
+          criteria = { app_id = "firefox"; title = "Firefox - Sharing Indicator$"; };
         }
         # { command = ''title_format "%title :: %shell"''; criteria = { shell = ".*"; }; }
       ];

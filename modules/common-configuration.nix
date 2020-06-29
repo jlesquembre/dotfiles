@@ -406,7 +406,9 @@ in rec
     enable = true;
     extraPackages = with pkgs; [ mako wofi wdisplays waybar swaylock swayidle
                                  (xwayland.overrideAttrs (attrs: {meta.priority=1;}))
-                                 kanshi xdg-desktop-portal-wlr ];
+                                 kanshi xdg-desktop-portal-wlr
+                                 sway-contrib.grimshot
+                               ];
     wrapperFeatures.gtk = true;
     extraSessionCommands =
       ''
