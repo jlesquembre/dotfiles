@@ -24,6 +24,7 @@ in
 
   home.packages = with pkgs; [
     clipman
+    babashka-bin
     wl-clipboard
     xfce.ristretto
     ripgrep-all

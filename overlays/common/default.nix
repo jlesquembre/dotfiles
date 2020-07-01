@@ -41,4 +41,22 @@ self: super: {
 
   firefox = super.firefox.override { gdkWayland = true; };
   firefox-wayland = super.firefox.override { gdkWayland = true; };
+
+  babashka-bin =
+    let
+      version = "0.1.3";
+    in
+    self.stdenv.mkDerivation {
+      inherit version;
+      pname = "babashka-bin";
+      dontBuild = true;
+      installPhase = ''
+        mkdir -p $out/bin
+        cp bb $out/bin
+      '';
+      src = self.fetchzip {
+        url = "https://github.com/borkdude/babashka/releases/download/v${version}/babashka-${version}-linux-static-amd64.zip";
+        sha256 = "0jxxryx5a0jv405i3ch9n08di4ryv9wyfb3ibh7s20ccijlfj35p";
+      };
+    };
 }
