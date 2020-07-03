@@ -51,6 +51,19 @@ in
 
   xdg.enable = true;
 
+  # Set it explicitly, not really necessary
+  home.sessionVariables.CLJ_CONFIG = "${config.xdg.configHome}/clojure";
+  xdg.configFile.clojure = {
+    target = "clojure/deps.edn";
+    text = (
+      with builtins;
+      replaceStrings
+        [ "$HOME" "$CLJ_USER_PATH" ]
+        [ "${config.home.homeDirectory}" "${dotfiles}/clojure/src" ]
+        (readFile "${dotfiles}/clojure/deps.edn")
+    );
+  };
+
   xdg.configFile.chromium = {
     target = "chromium-flags.conf";
     text =
@@ -87,18 +100,6 @@ in
   home.file.githudrc = {
     source = "${dotfiles}/githudrc";
     target = ".githudrc";
-  };
-
-  home.file.clojure = {
-    target = ".clojure/deps.edn";
-    text = (
-      with builtins;
-      # let cljPath = "${dotfiles}/clojure"; in
-      replaceStrings
-        [ "$HOME" "$CLJ_USER_PATH" ]
-        [ "${config.home.homeDirectory}" "${dotfiles}/clojure/src" ]
-        (readFile "${dotfiles}/clojure/deps.edn")
-    );
   };
 
   # NixOS already manage gpg-agent per user, add only some extra config
