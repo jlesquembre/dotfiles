@@ -31,6 +31,7 @@ in
       gfa = "git fetch --all";
       gp = "git pull --ff-only";
       p = "git push";
+      pt = "git push --tags";
       ps = "git push --set-upstream origin HEAD";
       gr = "git branch -d";
       grr = "git push origin --delete";
