@@ -86,11 +86,11 @@
                          org.openjfx/javafx-web      {:mvn/version "14.0.1"}}}
             ; :main-opts ["-m" "cognitect.rebl"]}
 
-           :user {:extra-deps {vvvvalvalval/scope-capture  {:mvn/version "0.3.2"}
-                               hashp                       {:mvn/version "0.2.0"}
-                               lambdaisland/deep-diff      {:mvn/version "0.0-47"}
-                               com.gfredericks/dot-slash-2 {:mvn/version "0.1.5"}
-                               com.gfredericks/repl-utils  {:mvn/version "0.2.22"}}
+           :user {:extra-deps {vvvvalvalval/scope-capture   {:mvn/version "0.3.2"}
+                               hashp                        {:mvn/version "0.2.0"}
+                               lambdaisland/deep-diff2      {:mvn/version "2.0.0-93"}
+                               com.gfredericks/dot-slash-2  {:mvn/version "0.1.5"}
+                               com.gfredericks/repl-utils   {:mvn/version "0.2.22"}}
                   :extra-paths ["$CLJ_USER_PATH"]}
 
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.7.0"}

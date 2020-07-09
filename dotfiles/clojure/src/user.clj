@@ -3,7 +3,7 @@
     [clojure.java.classpath :as classpath]
     [clojure.java.io :as io]
     [clojure.reflect :refer [reflect]]
-    [lambdaisland.deep-diff :as ddiff]
+    [lambdaisland.deep-diff2 :as ddiff]
     [com.gfredericks.dot-slash-2 :as dot-slash-2]
     [hashp.core]))
 
@@ -44,7 +44,7 @@
  '{. [{:var clojure.repl/doc
        :name d}
 
-      {:var lambdaisland.deep-diff/diff
+      {:var lambdaisland.deep-diff2/diff
        :name diff}
 
       {:var user/letsc*
