@@ -32,6 +32,7 @@ in
       gp = "git pull --ff-only";
       p = "git push";
       pt = "git push --tags";
+      pf = "git push --force-with-lease";
       ps = "git push --set-upstream origin HEAD";
       gr = "git branch -d";
       grr = "git push origin --delete";
