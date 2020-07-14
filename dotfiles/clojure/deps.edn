@@ -31,7 +31,7 @@
                         :main-opts  ["-m" "rebel-readline.main"]}
 
            :rebel-cljs {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
-                                     com.bhauman/figwheel-main       {:mvn/version "0.2.9"}}
+                                     com.bhauman/figwheel-main       {:mvn/version "0.2.10"}}
                         :main-opts  ["-m" "figwheel.main"]}
 
            :server {:extra-deps {nasus {:mvn/version "0.1.7"}}
