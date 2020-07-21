@@ -28,7 +28,7 @@ let
       buildCommand =
   let
     home-mananger-bootstrap = pkgs.writeTextFile {
-      name = "home-mananger-bootstrap.nix";
+      name = "home-manager-bootstrap.nix";
       text = ''
         { config, pkgs, ... }:
         {
