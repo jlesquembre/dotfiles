@@ -28,18 +28,3 @@ My personal dotfiles
   # channels_root -> /nix/var/nix/profiles/per-user/root/channels/
   rm ~/.nix-defexpr/channels_root
   ```
-
-# NixOS install
-
-Check if there is an user and is on `wheel` group:
-
-```
-extraGroups = [ "wheel" ];
-```
-
-```
-wget http://bit.do/jlnix -O init.sh
-bash init.sh
-spark deploy main.sus
-nix-env -ir all
-```

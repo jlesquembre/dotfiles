@@ -23,12 +23,20 @@ in
   ];
 
   home.packages = with pkgs; [
+    nix-update
+    # nix_graph
     clipman
+    clj-kondo
+    graalvm11-ce
     babashka-bin
     wl-clipboard
     xfce.ristretto
     ripgrep-all
     gnome3.zenity
+    wf-recorder
+    imv
+    # wob
+    # xorg.xeyes
   ];
 
   programs.command-not-found.enable = true;
