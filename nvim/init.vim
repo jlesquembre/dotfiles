@@ -177,6 +177,8 @@ Plug 'chr4/nginx.vim'
 Plug 'Matt-Deacalion/vim-systemd-syntax'
 Plug 'rust-lang/rust.vim'
 "PLug 'wting/rust.vim'
+Plug 'bakpakin/fennel.vim'
+Plug 'bakpakin/janet.vim'
 
 " JS / TS
 Plug 'pangloss/vim-javascript'
@@ -267,7 +269,7 @@ Plug 'eraserhd/parinfer-rust', {'do': 'nix-shell --run \"cargo build --release \
 Plug 'humorless/vim-kibit'
 
 if exists("g:use_conjure")
-  Plug 'Olical/conjure', {'branch': 'develop'}
+  Plug 'Olical/conjure', {'branch': 'master'}
 else
   Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 endif
@@ -1595,6 +1597,8 @@ endfunction
 " " let g:conjure_log_auto_open = ['eval', 'ret', 'ret-multiline', 'out', 'err', 'tap', 'doc', 'load-file', 'test']
 " let g:conjure_log_blacklist = ["ret", "ret-multiline", "load-file", "eval"]
 
+let conjure#log#wrap = v:true
+
 let g:conjure#mapping#prefix = "c"
 let g:conjure#mapping#log_split = "ls"
 let g:conjure#mapping#log_vsplit = "ll"
@@ -1619,7 +1623,7 @@ let g:conjure#client#clojure#nrepl#mapping#interrupt = "ui"
 " let g:conjure#client#clojure#nrepl#mapping#result_1 = "v1"
 " let g:conjure#client#clojure#nrepl#mapping#result_2 = "v2"
 " let g:conjure#client#clojure#nrepl#mapping#result_3 = "v3"
-" let g:conjure#client#clojure#nrepl#mapping#view_source = "sv"
+" let g:conjure#client#clojure#nrepl#mapping#view_source = "vs"
 " let g:conjure#client#clojure#nrepl#mapping#session_clone = "sc"
 " let g:conjure#client#clojure#nrepl#mapping#session_fresh = "sf"
 " let g:conjure#client#clojure#nrepl#mapping#session_close = "sq"
@@ -1689,6 +1693,8 @@ augroup clojure
   autocmd!
   autocmd FileType lisp,clojure,scheme call LispCustomSettings()
   autocmd FileType clojure call ClojureCustomSettings()
+  autocmd BufEnter conjure-log-* nnoremap <buffer><silent> <leader>q :lua require('conjure.log')['close-visible']()<CR>
+
   " if exists("g:use_conjure")
   "   autocmd InsertEnter *.edn,*.clj,*.clj[cs] :call conjure#close_unused_log()
   "   autocmd CursorMoved *.edn,*.clj,*.clj[cs] :call conjure#quick_doc()
@@ -2116,7 +2122,7 @@ vnoremap <silent> <Leader>ts :TREPLSendSelection<cr>
 
 function! s:neoterm_extra_maps() abort
   " Don't add on these filetypes
-  if &ft =~ 'clojure\|clojurescript\|sql\|scala'
+  if &ft =~ 'clojure\|clojurescript\|sql\|scala\|fennel\|janet'
     return
   endif
   nnoremap <buffer><silent> cpp :TREPLSendLine<cr>
