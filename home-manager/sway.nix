@@ -54,6 +54,16 @@ let
       fi
     '';
 
+  take-screenshot = pkgs.writeScriptBin "screenshot.sh"
+    ''
+      #!${pkgs.bash}/bin/bash
+
+      set -u
+
+      PATH="${pkgs.coreutils}/bin/:${pkgs.sway-contrib.grimshot}/bin/"
+      grimshot save area "/tmp/screenshot__''$(date +%F_%H%M%S).png";
+    '';
+
   # https://github.com/grahamc/nixos-config/blob/master/packages/sway-cycle-workspace/cycle-workspace.sh
   cycle-workspace = pkgs.writeScriptBin "cycle-workspace.sh"
     ''
@@ -173,6 +183,8 @@ in
         "${modifier}+p" = "exec ${pkgs.pavucontrol}/bin/pavucontrol";
 
         "${modifier}+u" = "exec ${pkgs.clipman}/bin/clipman pick -t wofi -T'-i'";
+
+        "${modifier}+c" = "exec ${take-screenshot}/bin/screenshot.sh";
 
         # see https://github.com/grahamc/nixos-config/blob/aef2a2c1b0ca584b2c7c04dfbbd5d2615e3448d8/packages/volume/volume.sh
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${volume-sh}/bin/volume.sh up";
