@@ -120,9 +120,18 @@ in
     '';
   };
 
+  home.file.sqlite = {
+    target = ".sqliterc";
+    text = ''
+      .headers on
+      .mode column
+    '';
+  };
+
   # config.psql.historyDir is defined in custom-options.nix
   home.file."${config.psql.historyDir}/.keep".text = "";
   home.file.psqlrc = {
+    target = ".psqlrc";
     text = ''
       \set QUIET 1
 
@@ -159,7 +168,6 @@ in
 
       \unset QUIET
     '';
-    target = ".psqlrc";
   };
 
   home.file.maven = {
