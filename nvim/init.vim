@@ -1,24 +1,5 @@
-" vim: fdm=marker
-"
-"     ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-"     ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-"     ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-"     ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-"     ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-"     ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
-"
-"      ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗
-"     ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝
-"     ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗
-"     ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║
-"     ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝
-"      ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝
-"
-" Author: José Luis Lafuente <jl@lafuente.me>
-"
-"
 " ============================================================================
-" Neovim default {{{1
+" Neovim default
 " ============================================================================
 " See https://github.com/neovim/neovim/issues/2676
 "
@@ -481,7 +462,8 @@ endfunction
 
 
 function! g:Base16_customize() abort
-  let s:gui_bg = "0F1419"  " From ayu colors
+  " let s:gui_bg = "0F1419"  " From ayu colors
+  let s:gui_bg = "080808"  " From moonfly colors
   " let g:base16_gui00 = "0F1419"
   call Base16hi("Normal",     "",             s:gui_bg,       "", "", "", "")
   call Base16hi("Error",      s:gui_bg,                       "", "", "", "", "")
@@ -1579,7 +1561,7 @@ let g:conjure#client#clojure#nrepl#mapping#interrupt = "ui"
 " let g:conjure#client#clojure#nrepl#mapping#session_prev = "sp"
 " let g:conjure#client#clojure#nrepl#mapping#session_select = "ss"
 let g:conjure#client#clojure#nrepl#mapping#run_all_tests = "pta"
-let g:conjure#client#clojure#nrepl#mapping#run_current_ns_tests = "ptn"
+let g:conjure#client#clojure#nrepl#mapping#run_current_ns_tests = "ptt"
 let g:conjure#client#clojure#nrepl#mapping#run_alternate_ns_tests = "ptN"
 let g:conjure#client#clojure#nrepl#mapping#run_current_test = "ptc"
 " let g:conjure#client#clojure#nrepl#mapping#refresh_changed = "rr"
@@ -1790,6 +1772,7 @@ let g:ale_sign_warning = '⬥'
 let g:ale_linters = {
 \   'javascript': [],
 \   'typescript': [],
+\   'json': [],
 \}
 
 let g:ale_pattern_options = {
