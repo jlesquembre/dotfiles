@@ -205,8 +205,7 @@ Plug 'kassio/neoterm'
 Plug 'metakirby5/codi.vim'
 Plug 'mhinz/vim-sayonara'
 " Plug 'semanser/vim-outdated-plugins'
-Plug 'yssl/QFEnter'
-Plug 'milkypostman/vim-togglelist'
+Plug 'romainl/vim-qf'
 " Plug 'junegunn/vim-peekaboo'
 Plug 'chrisbra/Recover.vim'
 Plug 'embear/vim-localvimrc'
@@ -790,12 +789,6 @@ augroup AutoBreakpoint
   autocmd FileType javascript,typescript map <silent><buffer> <leader><leader>B Odebugger;<esc>
 
   autocmd FileType clojure map <silent><expr><buffer> <leader><leader>b 'saa((i./spy <esc>'
-augroup END
-
-augroup QfLists
-  autocmd!
-  autocmd FileType qf nnoremap <silent> <buffer> <Left> :call quickfixed#older()<CR>
-  autocmd FileType qf nnoremap <silent> <buffer> <Right> :call quickfixed#newer()<CR>
 augroup END
 
 " Select last inserted text
@@ -2149,20 +2142,15 @@ nnoremap <leader>Q :Sayonara!<cr>
 
 
 " ============================================================================
-" QFENTER / TOGGLELIST {{{1
+" VIM-QF {{{1
 " ============================================================================
 
-let g:qfenter_keymap = {}
-let g:qfenter_keymap.open  = ['<CR>']
-let g:qfenter_keymap.vopen = ['<C-v>']
-let g:qfenter_keymap.hopen = ['<C-x>']
-let g:qfenter_keymap.topen = ['<C-t>']
+let g:qf_mapping_ack_style = 1
 
-let g:toggle_list_no_mappings = 1
-nnoremap <script> <silent> <leader>x :call ToggleQuickfixList()<CR>
-nnoremap <script> <silent> <leader>v :call ToggleLocationList()<CR>
+nmap <leader>x <Plug>(qf_qf_toggle)
+nmap <leader>v <Plug>(qf_loc_toggle)
 
-" QFENTER / TOGGLELIST
+" VIM-QF
 
 
 " ============================================================================
