@@ -96,8 +96,11 @@ Plug 'tpope/vim-repeat'
 "Plug 'tpope/vim-vinegar'
 " Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'kristijanhusak/defx-icons'
-Plug 'justinmk/vim-dirvish'
-Plug 'kristijanhusak/vim-dirvish-git'
+" Plug 'justinmk/vim-dirvish'
+" Plug 'kristijanhusak/vim-dirvish-git'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/nerdfont.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'yuki-ycino/fzf-preview.vim'
@@ -1331,120 +1334,63 @@ augroup END
 
 
 " ============================================================================
-" DIRVISH {{{1
+" FERN {{{1
 " ============================================================================
 
 let g:loaded_netrwPlugin = 1 " Disable netrw.vim
+let g:fern#disable_default_mappings = 1
+let g:fern#renderer = "nerdfont"
 
-let g:dirvish_mode = ':sort ,^.*[\/],'
-
-augroup dirvishConfig
-  autocmd!
-  autocmd FileType dirvish call s:dirvish_customizations()
-augroup END
-
-nnoremap <leader>- :vnew +Dirvish<cr>
-
-function! s:dirvish_customizations() abort
-  nnoremap <buffer> D :!mkdir %
-  nnoremap <buffer> N :e %
-  nnoremap <buffer><expr> M ':e %' . strftime("%Y-%m-%d-") . '.md' . repeat('<Left>', 3)
-  " call dirvish#add_icon_fn({p -> p[-1:]=='/'?'📂':'📄'})
-  " nnoremap <silent><buffer><expr> <BS>
+" Return a parent directory of the current buffer when the buffer is a file.
+" Otherwise it returns a current working directory.
+function! s:smart_path() abort
+  if !empty(&buftype) || bufname('%') =~# '^[^:]\+://'
+    return fnamemodify('.', ':p')
+  endif
+  return fnamemodify(expand('%'), ':p:h')
 endfunction
 
-
-"" autocmd FileType defx call s:defx_my_settings()
-
-"augroup defxConfig
-"  autocmd!
-"  autocmd FileType defx call s:defx_my_settings()
-"augroup END
+" noremap <silent>  :Fern . -drawer -width=35 -toggle<CR><C-w>=
+noremap <silent> <Leader>ee :Fern . -toggle -drawer -reveal=% -width=35<CR><C-w>=
+noremap <silent> - :Fern <C-r>=<SID>smart_path()<CR> -reveal=%<CR>
 
 
-"function! s:defx_my_settings() abort
+function! FernInit() abort
+  nmap <buffer><expr>
+        \ <Plug>(fern-my-open-expand-collapse)
+        \ fern#smart#leaf(
+        \   "\<Plug>(fern-action-open:select)",
+        \   "\<Plug>(fern-action-expand)",
+        \   "\<Plug>(fern-action-collapse)",
+        \ )
+  nmap <buffer> <CR> <Plug>(fern-my-open-expand-collapse)
+  nmap <buffer> <2-LeftMouse> <Plug>(fern-my-open-expand-collapse)
+  nmap <buffer> N <Plug>(fern-action-new-file)
+  " nmap <buffer> A <Plug>(fern-action-new-file)<C-r>=strftime("%Y-%m-%d-")<cr>.md<Left><Left><Left>
+  nmap <buffer> K <Plug>(fern-action-new-dir)
+  nmap <buffer> D <Plug>(fern-action-remove)
+  nmap <buffer> H <Plug>(fern-action-hidden-toggle)
+  nmap <buffer> R <Plug>(fern-action-rename)
+  nmap <buffer> M <Plug>(fern-action-move)
+  nmap <buffer> C <Plug>(fern-action-copy)
+  nmap <buffer><nowait> r <Plug>(fern-action-reload)
+  nmap <buffer><nowait> m <Plug>(fern-action-mark-toggle)j
+  nmap <buffer> e <Plug>(fern-action-open)
+  nmap <buffer> s <Plug>(fern-action-open:split)
+  nmap <buffer> v <Plug>(fern-action-open:vsplit)
+  nmap <buffer> p <Plug>(fern-action-open:side)<C-w>p
+  nmap <buffer> t <Plug>(fern-action-open:tabedit)
+  nmap <buffer><nowait> <Right> <Plug>(fern-action-enter)
+  nmap <buffer><nowait> <Left> <Plug>(fern-action-leave)
+  nmap <buffer><nowait> - <Plug>(fern-action-leave)
+endfunction
 
-"  " Open commands
-"  nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
-"  " nnoremap <silent><buffer><expr> <CR> defx#do_action('open', 'wincmd w \| drop')
-"  nnoremap <silent><buffer><expr> l defx#do_action('open')
-"  nnoremap <silent><buffer><expr> v defx#do_action('open', 'vsplit')
-"  " Preview current file
-"  " nnoremap <silent><buffer><expr> s defx#do_action('open', 'pedit')
+augroup FernGroup
+  autocmd!
+  autocmd FileType fern call FernInit()
+augroup END
 
-"  " File manipulation
-"  nnoremap <silent><buffer><expr> K defx#do_action('new_directory')
-"  nnoremap <silent><buffer><expr> N defx#do_action('new_file')
-"  nnoremap <silent><buffer><expr> M defx#do_action('new_multiple_files')
-"  nnoremap <silent><buffer><expr> <Del> defx#do_action('remove')
-"  nnoremap <silent><buffer><expr> r defx#do_action('rename')
-"  nnoremap <silent><buffer><expr> yy defx#do_action('copy')
-"  nnoremap <silent><buffer><expr> dd defx#do_action('move')
-"  nnoremap <silent><buffer><expr> pp defx#do_action('paste')
-
-"  "Navigation
-"  nnoremap <silent><buffer><expr> - defx#do_action('cd', ['..'])
-"  nnoremap <silent><buffer><expr> h defx#do_action('cd', ['..'])
-"  nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
-"  nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
-"  nnoremap <silent><buffer><expr> ~ defx#do_action('cd', [getcwd()])
-"  nnoremap <silent><buffer><expr> o defx#do_action('open_or_close_tree')
-
-"  " Miscellaneous actions
-"  nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
-"  nnoremap <silent><buffer><expr> q defx#do_action('quit')
-"  nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
-"  nnoremap <silent><buffer><expr> yp defx#do_action('yank_path')
-"  nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
-"  nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw') . ':nohlsearch<cr>:syntax sync fromstart<cr><c-l>'
-
-"  nnoremap <silent><buffer><expr><nowait> <Space> defx#do_action('toggle_select') . 'j'
-"  nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
-
-"  nnoremap <silent><buffer><expr> C defx#do_action('toggle_columns', 'mark:filename:type:size:time')
-"  nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'time')
-
-"  " nnoremap <silent><buffer><expr>e defx#do_action('call', 'DefxExternalExplorer')
-"  nnoremap <silent><buffer><expr> e defx#do_action('call', 'OpenRanger')
-"endfunction
-
-"" nnoremap <silent> <leader>o :call OpenRanger()<cr>
-"nnoremap <silent>- :Defx `expand('%:p:h')` -columns=icons:filename:type -show-ignored-files -search=`expand('%:p')`<CR>
-"nnoremap <Leader>- :Defx -split=vertical -columns=icons:filename:type -winwidth=50 -direction=topleft<CR>
-
-
-"function! s:defx_directory_from_context(context) abort
-"  let l:target = a:context['targets'][0]
-"  if a:context['cursor'] == 1
-"    return l:target
-"  endif
-"  return fnamemodify(l:target, ':h')
-"endfunction
-
-"" Open file-explorer
-"function! g:DefxExternalExplorer(context) abort
-"  if executable('ranger')
-"    let l:explorer = 'ranger'
-"  endif
-"  if empty('$KITTY_WINDOW_ID') || empty(l:explorer)
-"    return
-"  endif
-"  let l:dir = s:defx_directory_from_context(context)
-"  silent execute '!kitty @ new-window --new-tab --title ranger ranger ' . shellescape(l:dir)
-"endfunction
-
-"function! g:OpenRanger(context) abort
-"  let l:dir = s:defx_directory_from_context(a:context)
-"  execute '-tabnew +set\ filetype=custom_term'
-"  setlocal nonumber norelativenumber
-"  call termopen('ranger ' . l:dir)
-"  execute 'let b:term_title="ranger"'
-"  execute 'startinsert'
-"  execute 'autocmd TermClose <buffer> Sayonara'
-"endfunction
-
-
-" END DEFX.NVIM
+" END FERN
 
 
 " ============================================================================
