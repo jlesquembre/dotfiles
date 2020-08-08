@@ -164,7 +164,7 @@ in rec
     # imv
     inkscape
     # jetbrains.idea-community
-    jump
+    # jump
     just
     jq
     jsonnet

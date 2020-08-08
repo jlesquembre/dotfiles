@@ -8,9 +8,9 @@ in
 
     # For the scripts you usually write like
     # status --is-interactive; and ...
-    promptInit = ''
-      source (jump shell fish | psub)
-    '';
+    # promptInit = ''
+    #   source (jump shell fish | psub)
+    # '';
 
     # Override default fish functions
     interactiveShellInit = ''

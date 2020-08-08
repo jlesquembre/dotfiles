@@ -37,6 +37,12 @@ in
     imv
     # wob
     # xorg.xeyes
+
+    # Rust tools
+    bandwhich
+    dust
+    procs
+    sd
   ];
 
   programs.command-not-found.enable = true;
@@ -234,6 +240,11 @@ in
   programs.direnv = {
     enable = true;
     # enableNixDirenvIntegration = false;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    options = [ "--cmd j" ];
   };
 
   programs.fzf = {
