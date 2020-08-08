@@ -188,6 +188,7 @@ Plug 'vmchale/just-vim'
 Plug 'RRethy/vim-hexokinase'
 
 " General utils
+Plug 'Konfekt/vim-alias'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-eunuch'
@@ -646,11 +647,47 @@ command! DeleteWhitespace execute "StripWhitespace"
 cnoreabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
 "command! Sudow execute "w !sudo tee > /dev/null %"
 
-" Create parent directories
-cnoreabbrev mk Mkdir! \| update
-
 " Expand the Active File Directory
 cnoremap <expr> %% getcmdtype() == ':' ? fnameescape(expand('%:h')) . '/' : '%%'
+
+" Better abbreviations
+nnoremap : ,
+xnoremap : ,
+onoremap : ,
+
+nnoremap , :
+xnoremap , :
+onoremap , :
+
+nnoremap g: g,
+nnoremap g, <NOP>
+
+nnoremap @, @:
+nnoremap @: <NOP>
+
+nnoremap c, q:
+xnoremap c, q:
+
+nnoremap q: <NOP>
+xnoremap q: <NOP>
+
+function SetAliases()
+  execute 'Alias gp Git\ pull\ --ff-only'
+  execute 'Alias gs Git\ switch'
+  execute 'Alias gsc Git\ switch\ --create'
+  " Create parent directories
+  execute 'Alias mk Mkdir!\ |\ update'
+endfunction
+
+if exists('s:loaded_vimafter')
+  silent doautocmd VimAfter VimEnter *
+else
+  let s:loaded_vimafter = 1
+  augroup VimAfter
+    autocmd!
+    autocmd VimEnter * call SetAliases()
+  augroup END
+endif
 
 " END COMMANDS
 
@@ -1038,11 +1075,6 @@ xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 " ============================================================================
 " FUGITIVE {{{1
 " ============================================================================
-
-" Git abbreviations
-cnoreabbrev gp Git pull --ff-only
-cnoreabbrev gs Git switch
-cnoreabbrev gsc Git switch --create
 
 nnoremap <leader>gww :Gwrite<CR>
 nnoremap <leader>grr :Gread<CR>
@@ -2029,6 +2061,8 @@ let g:neoterm_default_mod ='vertical botright'
 
 let g:codi#rightsplit = 0
 let g:codi#rightalign = 1
+
+let g:neoterm_automap_keys = '<Leader>tm'
 
 nnoremap <silent> <Leader>tt :Ttoggle<cr>
 nnoremap <silent> <Leader>tl :call neoterm#clear()<cr>
