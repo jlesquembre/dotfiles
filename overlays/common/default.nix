@@ -59,4 +59,21 @@ self: super: {
         sha256 = "0jxxryx5a0jv405i3ch9n08di4ryv9wyfb3ibh7s20ccijlfj35p";
       };
     };
+
+  clap-maple =
+    let
+      version = "0.20";
+    in
+    self.rustPlatform.buildRustPackage {
+      buildInputs = [ self.openssl ];
+      nativeBuildInputs = [ self.pkgconfig ];
+      pname = "clap-bin";
+      inherit version;
+
+      src = self.fetchzip {
+        url = "https://github.com/liuchengxu/vim-clap/archive/v${version}.zip";
+        sha256 = "00ql03s95zdv7gibdw0cfz4pg4fhdjfrsmrjkmxizk4hjim93vsp";
+      };
+      cargoSha256 = "1qbsx0lir161ybfvmmzq0pg96bmhkvkjwdlk2ji2f2gkrgc4h9bx";
+    };
 }

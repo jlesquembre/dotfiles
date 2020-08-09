@@ -29,6 +29,7 @@ in
     clj-kondo
     graalvm11-ce
     babashka-bin
+    clap-maple
     wl-clipboard
     xfce.ristretto
     ripgrep-all
