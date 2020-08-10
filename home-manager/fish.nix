@@ -24,8 +24,8 @@ in
       gcl = "git clone";
       gco = "git checkout";
       gcon = "git checkout -b";
-      gsw = "git switch";
-      gswc = "git switch --create";
+      gss = "git switch";
+      gsc = "git switch --create";
       grs = "git restore --";
       gf = "git fetch";
       gfa = "git fetch --all";
@@ -83,6 +83,14 @@ in
       clj-rebel = "clojure -A:rebel";
       cljs-rebel = "clojure -A:rebel-cljs";
       clj-find-deps = "clj -A:find-deps -F:table -l 10";
+
+      # zoxide
+      jj = "j -i";
+      ja = "zoxide add";
+      # jq = "zoxide query";
+      jqq = "zoxide query -i";
+      jr = "zoxide remove -i";
+      # jri = "zoxide remove -i";
 
     };
 

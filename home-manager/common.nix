@@ -245,7 +245,10 @@ in
 
   programs.zoxide = {
     enable = true;
-    options = [ "--cmd j" ];
+    options = [
+      "--cmd j"
+      "--no-aliases"
+    ];
   };
 
   programs.fzf = {

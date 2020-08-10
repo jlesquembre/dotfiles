@@ -100,18 +100,18 @@ function fcdd --description 'fzf cd (only match basename)'
 end
 
 
-function jj -d 'autojump with fzf'
-    if test (count $argv) -eq 0; set argv ''; end
-    set -l cmd "jump top | fzf +s --query=\"$argv\" $fzf_preview_dir"
+# function jj -d 'autojump with fzf'
+#     if test (count $argv) -eq 0; set argv ''; end
+#     set -l cmd "jump top | fzf +s --query=\"$argv\" $fzf_preview_dir"
 
-    set -l tempfile (mktemp)
-    _run_fzf_cmd $tempfile $cmd; set -l last_status $status
-    if test $last_status -ne 0; rm $tempfile; return $last_status
-    end
+#     set -l tempfile (mktemp)
+#     _run_fzf_cmd $tempfile $cmd; set -l last_status $status
+#     if test $last_status -ne 0; rm $tempfile; return $last_status
+#     end
 
-    cd (cat $tempfile)
-    rm $tempfile
-end
+#     cd (cat $tempfile)
+#     rm $tempfile
+# end
 
 # Recoll utils, see https://github.com/soleblaze/dotfiles/blob/master/zsh/recoll.zsh
 
