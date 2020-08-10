@@ -668,9 +668,6 @@ nnoremap @: <NOP>
 nnoremap c, q:
 xnoremap c, q:
 
-nnoremap q: <NOP>
-xnoremap q: <NOP>
-
 function SetAliases()
   execute 'Alias gp Git\ pull\ --ff-only'
   execute 'Alias gs Git\ switch'
