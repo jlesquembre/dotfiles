@@ -48,9 +48,9 @@
            ;;   - java -cp result.jar clojure.main -m mymain.namespace
            ;; - build a library JAR:
            ;;   - clj -A:jar result-lib.jar
-           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.96"}}
+           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.97"}}
                      :main-opts ["-m" "hf.depstar.uberjar"]}
-           :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.96"}}
+           :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.97"}}
                  :main-opts ["-m" "hf.depstar.jar"]}
 
            :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.1.11"}}
