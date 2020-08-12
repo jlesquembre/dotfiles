@@ -54,6 +54,7 @@ in
     BROWSER = "firefox";
     MANPAGER = "nvim -c 'set ft=man' -";
     KUBECTL_EXTERNAL_DIFF = "meld";
+    DOCKER_BUILDKIT = "1";
   };
 
   # For debugging config files
