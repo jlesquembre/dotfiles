@@ -34,7 +34,7 @@
                                      com.bhauman/figwheel-main       {:mvn/version "0.2.11"}}
                         :main-opts  ["-m" "figwheel.main"]}
 
-           :server {:extra-deps {nasus {:mvn/version "0.1.7"}}
+           :server {:extra-deps {nasus/nasus {:mvn/version "0.1.7"}}
                     :main-opts ["-m" "http.server"]}
 
            ;; see https://github.com/jonase/eastwood#running-eastwood-in-a-repl
@@ -57,8 +57,8 @@
                       :jvm-opts   []
                       :main-opts  ["--main" "org.rssys.pbuilder.core"]}
 
-           :find-deps  {:extra-deps {find-deps {:git/url "https://github.com/hagmonk/find-deps"
-                                                :sha     "9bf23a52cb0a8190c9c2c7ad1d796da802f8ce7a"}}
+           :find-deps  {:extra-deps {find-deps/find-deps {:git/url "https://github.com/hagmonk/find-deps"
+                                                          :sha     "9bf23a52cb0a8190c9c2c7ad1d796da802f8ce7a"}}
                         :main-opts  ["-m" "find-deps.core"]}
 
            ;; start a Socket REPL
@@ -87,7 +87,7 @@
             ; :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:extra-deps {vvvvalvalval/scope-capture   {:mvn/version "0.3.2"}
-                               hashp                        {:mvn/version "0.2.0"}
+                               hashp/hashp                  {:mvn/version "0.2.0"}
                                lambdaisland/deep-diff2      {:mvn/version "2.0.0-93"}
                                com.gfredericks/dot-slash-2  {:mvn/version "0.1.5"}
                                com.gfredericks/repl-utils   {:mvn/version "0.2.22"}}
