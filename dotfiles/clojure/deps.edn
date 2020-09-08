@@ -23,7 +23,7 @@
            ;;   - clj -A:new lib myname/my-cool-lib
            ;;   - cd my-cool-lib
            ;;   - clj -A:test:runner # run the tests!
-           :new {:extra-deps {seancorfield/clj-new {:mvn/version "1.0.211"}}
+           :new {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.216"}}
                  :main-opts ["-m" "clj-new.create"]}
 
            :rebel      {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}
@@ -93,11 +93,11 @@
                                com.gfredericks/repl-utils   {:mvn/version "0.2.22"}}
                   :extra-paths ["$CLJ_USER_PATH"]}
 
-           :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.0"}
+           :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.1"}
                                 cider/cider-nrepl {:mvn/version "0.25.3"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
-           :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.0"}
+           :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.1"}
                                      cider/cider-nrepl {:mvn/version "0.25.3"}
                                      cider/piggieback {:mvn/version "0.5.1"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
