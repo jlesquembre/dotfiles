@@ -669,6 +669,7 @@ nnoremap c, q:
 xnoremap c, q:
 
 function SetAliases()
+  execute 'Alias g Git'
   execute 'Alias gp Git\ pull\ --ff-only'
   execute 'Alias gs Git\ switch'
   execute 'Alias gsc Git\ switch\ --create'
@@ -1508,7 +1509,7 @@ let g:sexp_mappings = {
     \ 'sexp_curly_tail_wrap_element':   '',
     \ 'sexp_insert_at_list_head':       '',
     \ 'sexp_insert_at_list_tail':       '',
-    \ 'sexp_splice_list':               '',
+    \ 'sexp_splice_list':               '<leader>-',
     \ 'sexp_convolute':                 '<leader>?',
     \ 'sexp_raise_list':                '<leader>o',
     \ 'sexp_raise_element':             '<leader>O',
@@ -1528,7 +1529,38 @@ let g:sexp_insert_after_wrap = 0
 
 let g:clojure_align_multiline_strings = 1
 
+function! EvalForms(scope)
+
+  " execute "lua require('conjure.eval')['current-form']()"
+  if a:scope == 'current'
+    execute 'normal cPP'
+  elseif a:scope == 'root'
+    execute 'normal cPR'
+  endif
+
+  if getpos("'M")[2] != 0
+    execute 'normal cpmM'
+  elseif getpos("'m")[2] != 0
+    execute 'normal cpmm'
+  endif
+endfunction
+
+function! DeleteMark()
+  echo 'Mark to delete?'
+  let mark = nr2char(getchar())
+  if match(mark, '\a') == -1
+    echo 'Invalid mark'
+  else
+    execute 'delmarks ' . mark
+  endif
+endfunction
+
+nnoremap <silent> dm :call DeleteMark()<cr>
+
 function! LispCustomSettings()
+  nnoremap cpp :call EvalForms('current')<cr>
+  nnoremap cpr :call EvalForms('root')<cr>
+
   execute 'RainbowParentheses'
 
   " It's not possible to remap CTRL-M in insert mode, see
@@ -1554,8 +1586,8 @@ let g:conjure#mapping#log_split = "ls"
 let g:conjure#mapping#log_vsplit = "ll"
 let g:conjure#mapping#log_tab = "lt"
 let g:conjure#mapping#log_close_visible = "lq"
-let g:conjure#mapping#eval_current_form = "pp"
-let g:conjure#mapping#eval_root_form = "pr"
+let g:conjure#mapping#eval_current_form = "PP"
+let g:conjure#mapping#eval_root_form = "PR"
 let g:conjure#mapping#eval_replace_form = "p!"
 let g:conjure#mapping#eval_marked_form = "pm"
 let g:conjure#mapping#eval_word = "pw"
