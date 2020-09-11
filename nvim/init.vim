@@ -353,7 +353,7 @@ execute "set backupdir=".tmpvim_dir."backup/"
 execute "set undodir=".tmpvim_dir."undo/"
 " the double // at the end is import see :h dir
 execute "set directory=".tmpvim_dir."swap//"
-set shada='1000,<500,s100,h " file saved at ~/.local/share/nvim
+set shada='1000,<500,s100,h,f0 " file saved at ~/.local/share/nvim
 set viewdir=$HOME/.config/nvim/views
 
 " make this dirs if no exists previously
