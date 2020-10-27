@@ -77,13 +77,13 @@
                          com.cognitect/rebl
                          ;; adjust to match your install location
                          {:local/root "$HOME/projects/REBL/REBL-0.9.220.jar"}
-                         org.openjfx/javafx-fxml     {:mvn/version "15"}
-                         org.openjfx/javafx-controls {:mvn/version "15"}
-                         org.openjfx/javafx-graphics {:mvn/version "15"}
-                         org.openjfx/javafx-media    {:mvn/version "15"}
-                         org.openjfx/javafx-swing    {:mvn/version "15"}
-                         org.openjfx/javafx-base     {:mvn/version "15"}
-                         org.openjfx/javafx-web      {:mvn/version "15"}}}
+                         org.openjfx/javafx-fxml     {:mvn/version "15.0.1"}
+                         org.openjfx/javafx-controls {:mvn/version "15.0.1"}
+                         org.openjfx/javafx-graphics {:mvn/version "15.0.1"}
+                         org.openjfx/javafx-media    {:mvn/version "15.0.1"}
+                         org.openjfx/javafx-swing    {:mvn/version "15.0.1"}
+                         org.openjfx/javafx-base     {:mvn/version "15.0.1"}
+                         org.openjfx/javafx-web      {:mvn/version "15.0.1"}}}
             ; :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:extra-deps {vvvvalvalval/scope-capture   {:mvn/version "0.3.2"}
@@ -93,11 +93,11 @@
                                com.gfredericks/repl-utils   {:mvn/version "0.2.22"}}
                   :extra-paths ["$CLJ_USER_PATH"]}
 
-           :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.2"}
+           :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.3"}
                                 cider/cider-nrepl {:mvn/version "0.25.4"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
-           :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.2"}
+           :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.3"}
                                      cider/cider-nrepl {:mvn/version "0.25.4"}
                                      cider/piggieback {:mvn/version "0.5.1"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
