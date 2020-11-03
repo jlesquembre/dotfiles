@@ -31,7 +31,7 @@
                         :main-opts  ["-m" "rebel-readline.main"]}
 
            :rebel-cljs {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
-                                     com.bhauman/figwheel-main       {:mvn/version "0.2.11"}}
+                                     com.bhauman/figwheel-main       {:mvn/version "0.2.12"}}
                         :main-opts  ["-m" "figwheel.main"]}
 
            :server {:extra-deps {nasus/nasus {:mvn/version "0.1.7"}}
@@ -53,7 +53,7 @@
            :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.1.132"}}
                  :main-opts ["-m" "hf.depstar.jar"]}
 
-           :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.2.1"}}
+           :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.2.2"}}
                       :jvm-opts   []
                       :main-opts  ["--main" "org.rssys.pbuilder.core"]}
 
@@ -99,7 +99,7 @@
 
            :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.3"}
                                      cider/cider-nrepl {:mvn/version "0.25.4"}
-                                     cider/piggieback {:mvn/version "0.5.1"}}
+                                     cider/piggieback {:mvn/version "0.5.2"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
                                     "[cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl]"]}
            :extra {:extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
