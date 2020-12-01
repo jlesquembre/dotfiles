@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: DeLaGuardo/setup-clojure@2.0
+      - uses: DeLaGuardo/setup-clojure@master
         with:
           tools-deps: latest
       - name: Update clj dependencies
