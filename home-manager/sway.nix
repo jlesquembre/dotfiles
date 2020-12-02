@@ -1,3 +1,9 @@
+# TODO
+# See https://www.youtube.com/watch?v=qTF9Nmt3iXY
+# Use qogir theme and icon theme
+# Maybe https://github.com/vinceliuice/Tela-circle-icon-theme ???
+
+
 { config, pkgs, lib, ... }:
 let
   customKeyboardName = "isodev";
@@ -170,6 +176,8 @@ in
         # "${modifier}+Shift+Space" = "exec ${pkgs.kitty}/bin/kitty";
         # "${modifier}+Shift+q" = "kill";
         # "${modifier}+d" = "exec ${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu | ${pkgs.findutils}/bin/xargs swaymsg exec --";
+
+        # TODO replace wofi with ulauncher? https://ulauncher.io/
         "${modifier}+d" = "exec ${pkgs.wofi}/bin/wofi --show run";
         # "${modifier}+Shift+s" = "exec \"swaylock -f -c 000000 && systemctl suspend\"";
         "${modifier}+Shift+s" = "exec \"systemctl suspend\"";

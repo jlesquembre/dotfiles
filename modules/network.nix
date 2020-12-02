@@ -12,7 +12,7 @@ let
 
       http://docs.local {
         bind 127.0.0.1
-        root * ${userHome}/projects/docs2/public
+        root * ${userHome}/projects/docs/public
         file_server
         header {
           -Last-Modified

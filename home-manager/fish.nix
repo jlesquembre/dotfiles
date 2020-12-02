@@ -123,6 +123,8 @@ in
         end
       '';
 
+      # TODO unify with function in overlays
+      # TODO do something like https://github.com/hlissner/dotfiles/blob/master/bin/hey
       nix_switch =
         ''
           set -lx BLACKBOX_REPOBASE $HOME/dotfiles;

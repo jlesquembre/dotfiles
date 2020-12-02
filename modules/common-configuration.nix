@@ -190,7 +190,6 @@ in rec
     noti libnotify
     notify-osd
     ntfs3g
-    nushell
     # okular
     libressl
     page
@@ -300,7 +299,7 @@ in rec
     # libmysqlclient mariadb.client
 
     # Kubernetes
-    minikube kubectl kubectx kubernetes-helm kustomize pulumi-bin
+    kubectl kubectx kustomize
     # kubectl-fzf
     kubeprompt
     # istioctl
