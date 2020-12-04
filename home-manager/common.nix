@@ -15,23 +15,24 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "20.09";
+  home.stateVersion = "21.03";
   imports = [
     ./custom-options.nix
     ./sway.nix
     ./fish.nix
+    ./custom-scripts.nix
+    # ./neovim.nix
   ];
 
   home.packages = with pkgs; [
     nix-update
     # nix_graph
     clipman
-    clj-kondo
-    graalvm11-ce
-    babashka-bin
+    deadbeef # ???
     clap-maple
     wl-clipboard
     xfce.ristretto
+    ripgrep
     ripgrep-all
     gnome3.zenity
     wf-recorder
@@ -39,11 +40,35 @@ in
     # wob
     # xorg.xeyes
 
+    # clojure
+    clojure
+    leiningen
+    pkgs.boot
+    clj-kondo
+    babashka
+    joker
+
     # Rust tools
     bandwhich
     dust
     procs
     sd
+    bat
+    exa
+    fd
+
+    # dev tools
+    httpstat
+    httplab
+    httping
+    httpie
+    wuzz
+    dnsutils
+    tcpdump
+    socat
+    entr
+    watchman # postman
+    siege
   ];
 
   programs.command-not-found.enable = true;
@@ -226,8 +251,19 @@ in
 
   systemd.user.startServices = true;
 
+  # TODO See
+  # https://www.youtube.com/watch?v=sVkURNfxPd4
+  # integrate with menu launcher
+  # Add
+  # https://github.com/tadfisher/pass-otp
   programs.password-store = {
     enable = true;
+    package = pkgs.pass-wayland.withExtensions (exts:
+      [
+        exts.pass-otp
+        exts.pass-genphrase
+      ]
+    );
     settings = lib.mkForce {
       PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
       PASSWORD_STORE_KEY = "E2BA57CA52D5867B";
@@ -244,13 +280,39 @@ in
     # enableNixDirenvIntegration = false;
   };
 
+  # jump program
   programs.zoxide = {
     enable = true;
+    enableFishIntegration = true;
     options = [
       "--cmd j"
       "--no-aliases"
     ];
   };
+  programs.fish.interactiveShellInit =
+    ''
+      # zoxide
+      function j
+          __zoxide_z $argv
+      end
+
+      function jj
+          __zoxide_zi $argv
+      end
+
+      function ja
+          __zoxide_za $argv
+      end
+
+      function jr
+          __zoxide_zr $argv
+      end
+
+      function jri
+          __zoxide_zri $argv
+      end
+
+    '';
 
   programs.fzf = {
     enable = true;
@@ -383,7 +445,19 @@ in
         };
     };
     delta.enable = true;
-    delta.options = [ "--dark" "--theme base16" "--file-color #ffff00" "--file-style box" ];
+    delta.options = #[ "--dark" "--theme base16" "--file-color #ffff00" "--file-style box" ];
+      {
+        # side-by-side = true;
+        decorations = {
+          # commit-decoration-style = "bold yellow box ul";
+          file-decoration-style = "box";
+          file-style = "bold #ffff00";
+          # file-style = "bold yellow ul";
+        };
+        features = "decorations";
+        whitespace-error-style = "22 reverse";
+        syntax-theme = "base16";
+      };
     aliases = {
       lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short --all";
       cloner = "clone --recursive";
@@ -420,14 +494,14 @@ in
   };
 
   programs.vscode = {
-    enable = true;
+    enable = false;
     # package = pkgs.vscodium;
     extensions =
       with pkgs.vscode-extensions; [
         bbenoist.Nix
         ms-azuretools.vscode-docker
         ms-kubernetes-tools.vscode-kubernetes-tools
-        ms-vscode.Go
+        # ms-vscode.Go
         ms-vscode-remote.remote-ssh
         ms-python.python
         redhat.vscode-yaml
@@ -541,9 +615,5 @@ in
   # };
 
   # services.pasystray.enable = true;
-
-  # fish.functions = {
-  #   gitignore = "curl -sL https://www.gitignore.io/api/$argv";
-  # };
 
 }

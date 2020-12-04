@@ -84,14 +84,6 @@ in
       cljs-rebel = "clojure -A:rebel-cljs";
       clj-find-deps = "clj -A:find-deps -F:table -l 10";
 
-      # zoxide
-      jj = "j -i";
-      ja = "zoxide add";
-      # jq = "zoxide query";
-      jqq = "zoxide query -i";
-      jr = "zoxide remove -i";
-      # jri = "zoxide remove -i";
-
     };
 
     shellAliases = {
@@ -279,7 +271,7 @@ in
           let
             file = pkgs.fetchurl {
               url = "https://raw.githubusercontent.com/fishpkg/fish-humanize-duration/master/humanize_duration.fish";
-              sha256 = "0abjc9dab8sx2lr28dp36vy9c4rd95badiypbkfjyvdxd9nig6zr";
+              sha256 = "0qvhafrddymhry7k7k8ib1mkda600gsbpa22fza3q7i01ja0cw0a";
             };
           in
           pkgs.runCommand "humanize_duration"
