@@ -1,26 +1,7 @@
 { hostName, userHome }:
 { config, options, pkgs, lib, ... }:
 let
-  caddyDir = "/var/lib/caddy";
-  caddyConfig = pkgs.writeText "Caddyfile"
-    ''
-      {
-        storage file_system {
-          root ${caddyDir}
-        }
-      }
-
-      http://docs.local {
-        bind 127.0.0.1
-        root * ${userHome}/projects/docs/public
-        file_server
-        header {
-          -Last-Modified
-          -Etag
-          Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
-        }
-      }
-    '';
+  docsPath = "${userHome}/projects/docs/public";
 in
 {
 
@@ -35,7 +16,6 @@ in
     ''
       nohook resolv.conf
     '';
-
 
   services.coredns.enable = true;
   services.coredns.config =
@@ -71,41 +51,31 @@ in
       }
     '';
 
+  services.caddy = {
+    enable = true;
+    config =
+      ''
+        http://docs.local {
+          bind 127.0.0.1
+          root * ${docsPath}
+          file_server
+          header {
+            -Last-Modified
+            -Etag
+            Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+          }
+        }
+      '';
 
-  # https://github.com/caddyserver/dist/blob/master/init/caddy.service
-  systemd.services.caddy = {
-    description = "Caddy web server";
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      User = "caddy";
-      Group = "caddy";
-      ExecStart = ''
-        ${pkgs.caddy2}/bin/caddy run --config ${caddyConfig} --adapter caddyfile
-      '';
-      ExecReload = ''
-        ${pkgs.caddy2}/bin/caddy reload --config ${caddyConfig} --adapter caddyfile
-      '';
-      TimeoutStopSec = "5s";
-      LimitNOFILE = 1048576;
-      LimitNPROC = 512;
-      PrivateTmp = true;
-      ProtectSystem = "full";
-      AmbientCapabilities = "cap_net_bind_service";
-    };
   };
 
-  users.users.caddy = {
-    group = "caddy";
-    uid = config.ids.uids.caddy;
-    home = caddyDir;
-    createHome = true;
-    extraGroups = [ "users" ];
+  # Needed to make the directory visible to Caddy
+  systemd.services.caddy.serviceConfig = {
+    ProtectHome = lib.mkForce "tmpfs";
+    BindReadOnlyPaths = "${docsPath}";
   };
 
-  users.groups.caddy.gid = config.ids.uids.caddy;
-
+  # Old dnsmasq config, replaced by CoreDNS
 
   # services.dnsmasq.enable = true;
   # # For dnscrypt use:
