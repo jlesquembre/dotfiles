@@ -25,7 +25,13 @@ in
   ];
 
   home.packages = with pkgs; [
+    # nix tools
     nix-update
+    nixpkgs-review
+    nix-serve
+    nixpkgs-fmt
+    niv
+
     # nix_graph
     clipman
     deadbeef # ???
@@ -39,6 +45,12 @@ in
     imv
     # wob
     # xorg.xeyes
+
+    # JDK tools
+    jdk11
+    visualvm
+    maven
+    gradle
 
     # clojure
     clojure

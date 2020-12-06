@@ -15,11 +15,20 @@ let
   # channel-unstable = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz) {};
 
   # latest stable channel
-  channel-19_09 = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-19.09.tar.gz) {};
+  # channel-19_09 = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-19.09.tar.gz) {};
 
   # specific commit
   # pkgs-58d44a3 = import (fetchTarball https://github.com/nixos/nixpkgs/archive/58d44a3.tar.gz) {};
 
+  githud = import (pkgs.fetchFromGitHub {
+    owner = "gbataille";
+    repo = "gitHUD";
+    rev = "3.2.2";
+    sha256 = "1csb3xqkayr73k331id41n9j3wnvb35nyi21bm244yz4a2a9z1i9";
+  }) {};
+
+
+  # TODO extract
   home-manager = { home-manager-path, config-path }:
     assert builtins.typeOf home-manager-path == "string";
     assert builtins.typeOf config-path == "string";
@@ -116,59 +125,46 @@ in rec
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
 
-    # Custom packages
-    nix-freespace
-
-    # Nixpkgs
     abcde
     appimage-run
     arandr
-    bat
-    bazel bazel-buildtools
+    # bat
+    # bazel bazel-buildtools
     cachix
-    caddy2
+    caddy
     calibre
-    # conky
     cheat
     chromium google-chrome google-chrome-dev
     # (pkgs.chromium.override { useVaapi = true; })
     clementine
     cmatrix
-    cue
-    #mpd cantata
-    #mopidy mopidy-musicbox-webclient mopidy-moped mopidy-mopify
+    # cue
+    # mpd cantata
+    # mopidy mopidy-musicbox-webclient mopidy-moped mopidy-mopify
     docker_compose
-    electron
+    # electron
     etcher
-    exa
     exiftool
-    Fabric
-    fd
     file
-    firefox
+    firefox-wayland
     fish
     fzf
     gcc6
-    gettext
     glances
     glxinfo
     # gnome3.zenity gnome3.dconf gnome3.dconf-editor
     gnumake
     gnupg blackbox
-    go golint # gotools
+    # go  golint gotools
     graphicsmagick
     gwenview
-    # highlight
     htop
-    # i3lock i3status-rust
     # imv
     inkscape
     # jetbrains.idea-community
     # jump
     just
     jq
-    jsonnet
-    k3b
     keychain
     # kodi
     kondo
@@ -198,15 +194,12 @@ in rec
     pavucontrol
     pciutils
     pdftk poppler_utils # xpdf
-    php
-    phpPackages.composer
     prettyping
     proselint
     pwgen
     python3
     ranger
     recoll
-    ripgrep ripgrep-all
     rlwrap
     rsync
     shellcheck
@@ -224,29 +217,14 @@ in rec
     udevil
     unrar
     upower
-    # (pkgs.xdg_utils.override { mimiSupport = true; })
-    # volnoti
     w3m
     wget
-    # whois # Included in inetutils
-    xclip
-    # xonsh
-    xorg.xkbcomp
-    #xorg.xcursorthemes
     youtube-dl
     yubikey-personalization
-
-    # nix dev tools
-    nixpkgs-review nix-serve nixpkgs-fmt
-    direnv niv # lorri installed via the service
-
 
     # QT apps helpers
     qt5.qtbase qt5.qtsvg qt5.qtwayland
     # breeze-icons breeze-gtk breeze-qt5 gnome-breeze # kde-gtk-config
-
-    # dhall-lang
-    dhall dhall-bash dhall-json # dhall-text dhall-nix
 
     # terminals
     alacritty kitty # hyper
@@ -262,12 +240,7 @@ in rec
     neovim neovim-remote vim
 
     # JS
-    nodejs yarn
-
-    # dev tools
-    httpstat httplab httping httpie wuzz
-    dnsutils tcpdump socat entr watchman # postman
-    siege
+    nodejs
 
     # compress tools
     atool zip unzip unar dpkg
@@ -276,23 +249,8 @@ in rec
     # audio/video tools
     ffmpeg-full mpv vlc x265 libopus opusfile opusTools
 
-    # JDK tools
-    jdk11 visualvm maven gradle
-    mx
-    # graalvm11-ee
-    (pkgs.graalvm11-ee.overrideAttrs ( attrs: rec{ meta.priority = 1; }))
-
-    # clojure
-    clojure leiningen pkgs.boot clj-kondo #babashka # joker
-
     # scala
     # bloop sbt
-
-    # purescript
-    # purescript psc-package nodePackages.pulp
-
-    # Rust
-    rustc cargo rustfmt
 
     # DB utils
     postgresql pspg # pgcli
@@ -313,15 +271,7 @@ in rec
     skaffold tilt
     stern
 
-    # Erlang
-    erlang elixir
-
-    # Prolog
-    gprolog swiPrologWithGui
-
-    # Digital currencies
-    monero go-ethereum
-    # electrum
+    githud
   ]
   ++ (with pkgs.gitAndTools; [
     delta
@@ -350,26 +300,8 @@ in rec
   # ]))])
 
   ++ (with pkgs.python38Packages; [
-    # cookiecutter
-    # csvkit
     ipython
     neovim
-    poetry
-    virtualenv
-  ])
-  # ++ (with pkgs.kdeApplications; [
-  #   okular
-  # ])
-  ++ (with haskellPackages; [
-    cabal-install
-    cabal2nix
-    ghc
-    # githud
-    # stack
-    # stack2nix
-  ])
-  ++ (with channel-19_09; [
-    haskellPackages.githud
   ])
   ;
 
@@ -380,11 +312,6 @@ in rec
     enable = true;
     dockerCompat = false;
   };
-  virtualisation.containers.users = [ user ];
-
-  # virtualisation.virtualbox.host = {
-  #   enable = true;
-  # };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -398,7 +325,18 @@ in rec
   services.gnome3.gnome-keyring.enable = true;
   security.pam.services.gdm.enableGnomeKeyring = true;
   programs.seahorse.enable = true;
-  services.dbus.socketActivated = true;
+
+  services.gnome3.gnome-remote-desktop.enable = true;
+  services.pipewire.enable = true;
+  xdg.portal = {
+    enable = true;
+    gtkUsePortal = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  };
+  systemd.packages = [ pkgs.xdg-desktop-portal-wlr ];
 
   programs.sway =
   {
@@ -507,7 +445,7 @@ in rec
   };
 
   fonts = {
-    enableFontDir = true;
+    fontDir.enable = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
       corefonts
