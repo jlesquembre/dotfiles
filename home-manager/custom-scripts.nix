@@ -20,6 +20,7 @@ let
   # TODO use babashka
   nix-graph = pkgs.writeScriptBin "nix_graph" ''
     #!${pkgs.bash}/bin/bash
+    # nix-store -q --graph $(nix-store --realise $(nix-instantiate -A pgpdump)) | dot -Tpdf | zathura -
     # if is a .nix file or a folder with a default.nix file:
     nix-store --query --graph (nix-build --show-trace --no-out-link $@) | ${pkgs.graphviz}/bin/dot -Tx11
 

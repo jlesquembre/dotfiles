@@ -5,6 +5,8 @@ self: super: {
     waylandSupport = true;
   };
 
+  # chromium = super.override { enableVaapi = true; };
+
   clipman = super.clipman.overrideAttrs (oldAttrs: rec {
     pname = "clipman";
     version = "unstable-1.5.3";

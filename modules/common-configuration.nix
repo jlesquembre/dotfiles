@@ -134,8 +134,7 @@ in rec
     caddy
     calibre
     cheat
-    chromium google-chrome google-chrome-dev
-    # (pkgs.chromium.override { useVaapi = true; })
+    chromium google-chrome google-chrome-dev # see overlays
     clementine
     cmatrix
     # cue
