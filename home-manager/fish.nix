@@ -174,9 +174,22 @@ in
           echo $PWD | sed -e "s|^$HOME|~|"
         '';
 
+      prepend_to_command =
+        ''
+          set -l cmd (commandline -poc)
+          if test "$cmd[1]" != "$argv"
+              commandline -C 0
+              commandline -i "$argv "
+              commandline -f end-of-line
+          end
+        '';
+
       fish_user_key_bindings =
         ''
           bind \cc 'commandline ""'
+
+          bind \ew 'prepend_to_command watch'
+
           bind \cs 'fssh'
           if type -q fzf-share
               # source (fzf-share)/key-bindings.fish
@@ -262,25 +275,69 @@ in
           set -l now (date "+%T %F")
           printf "$now [ $last_duration ]"
         '';
+
+      humanize_duration =
+        ''
+          if not string length --quiet $argv
+              function hmTime(time,   stamp) {
+               set --erase argv
+                  split("h:m:s:ms", units, ":")
+               read --line argv
+                  for (i = 2; i >= -1; i--) {
+          end
+                      if (t = int( i < 0 ? time % 1000 : time / (60 ^ i * 1000) % 60 )) {
+          set hours (math --scale=0 $argv/\(3600 \*1000\))
+                          stamp = stamp t units[sqrt((i - 2) ^ 2) + 1] " "
+          set mins (math --scale=0 $argv/\(60 \*1000\) % 60)
+                      }
+          set secs (math --scale=0 $argv/1000 % 60)
+                  }
+          if test $hours -gt 0
+                  if (stamp ~ /^ *$/) {
+              set --append output $hours"h"
+                      return "0ms"
+          end
+                  }
+          if test $mins -gt 0
+                  return substr(stamp, 1, length(stamp) - 1)
+              set --append output $mins"m"
+              }
+          end
+              {
+          if test $secs -gt 0
+                  print hmTime($0)
+              set --append output $secs"s"
+              }
+          end
+          '
+          if not set --query output
+              echo $argv"ms"
+          else
+              echo $output
+          end
+        '';
+
     };
 
     plugins = [
-      {
-        name = "humanize_duration";
-        src =
-          let
-            file = pkgs.fetchurl {
-              url = "https://raw.githubusercontent.com/fishpkg/fish-humanize-duration/master/humanize_duration.fish";
-              sha256 = "0qvhafrddymhry7k7k8ib1mkda600gsbpa22fza3q7i01ja0cw0a";
-            };
-          in
-          pkgs.runCommand "humanize_duration"
-            { } ''
-            mkdir -p $out/functions
-            cp ${file} $out/functions/humanize_duration.fish
-          '';
-      }
+      # Move to funtions, git repo moves too much
+      # {
+      #   name = "humanize_duration";
+      #   src =
+      #     let
+      #       file = pkgs.fetchurl {
+      #         url = "https://raw.githubusercontent.com/fishpkg/fish-humanize-duration/master/humanize_duration.fish";
+      #         sha256 = "0qvhafrddymhry7k7k8ib1mkda600gsbpa22fza3q7i01ja0cw0a";
+      #       };
+      #     in
+      #     pkgs.runCommand "humanize_duration"
+      #       { } ''
+      #       mkdir -p $out/functions
+      #       cp ${file} $out/functions/humanize_duration.fish
+      #     '';
+      # }
 
+      # TODO unify with function in overlays, as previous examples
       {
         name = "custom_functions";
         src = ../dotfiles/fish;
