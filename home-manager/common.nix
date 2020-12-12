@@ -21,7 +21,7 @@ in
     ./sway.nix
     ./fish.nix
     ./custom-scripts.nix
-    # ./neovim.nix
+    ./neovim.nix
   ];
 
   home.packages = with pkgs; [
@@ -68,6 +68,29 @@ in
     bat
     exa
     fd
+
+    # Kubernetes
+    # lens
+    kubectl
+    kubectx
+    kubeprompt
+    kustomize
+    # kubectl-fzf
+    # istioctl
+    # gomplate
+    google-cloud-sdk
+    kind
+    kube3d
+    dapper
+    kubeval
+    click
+    kube-prompt
+    k9s
+    # kubelive
+    buildah
+    skaffold
+    tilt
+    stern
 
     # dev tools
     httpstat

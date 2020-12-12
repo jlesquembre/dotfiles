@@ -63,16 +63,21 @@ in rec
     /etc/nixos/hardware-configuration.nix
     ./cachix.nix
     (import ./network.nix { inherit hostName userHome; })
-  ]
-  ;
-
-  nix.trustedUsers = [ "root" user ];
-  nix.useSandbox = true;
-  nix.nixPath = [
-    "nixpkgs=${userHome}/nixpkgs"
-    "nixos-config=/etc/nixos/configuration.nix"
-    "nixpkgs-overlays=${userHome}/dotfiles/overlays/overlays-compat"
   ];
+
+  nix = {
+    # package = pkgs.nixFlakes;
+    # extraOptions = ''
+    #   experimental-features = nix-command flakes
+    # '';
+    trustedUsers = [ "root" user ];
+    useSandbox = true;
+    nixPath = [
+      "nixpkgs=${userHome}/nixpkgs"
+      "nixos-config=/etc/nixos/configuration.nix"
+      "nixpkgs-overlays=${userHome}/dotfiles/overlays/overlays-compat"
+    ];
+  };
 
   # mount /tmp on tmpfs
   boot.tmpOnTmpfs = true;
@@ -103,6 +108,7 @@ in rec
   #       luaCairoSupport = false;
   #     };
 
+  # TODO move to overlays?
   #     # okular = super.kdeApplications.okular.overrideDerivation (old: {
   #     #   nativeBuildInputs = old.nativeBuildInputs ++ [ super.makeWrapper ];
   #     #   fixupPhase = ''
@@ -254,21 +260,6 @@ in rec
     # DB utils
     postgresql pspg # pgcli
     # libmysqlclient mariadb.client
-
-    # Kubernetes
-    kubectl kubectx kustomize
-    # kubectl-fzf
-    kubeprompt
-    # istioctl
-    # gomplate
-    google-cloud-sdk
-    kind kube3d dapper
-    kubeval
-    click kube-prompt k9s
-    # kubelive
-    buildah
-    skaffold tilt
-    stern
 
     githud
   ]
