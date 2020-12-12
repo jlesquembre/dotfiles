@@ -274,7 +274,6 @@ in rec
     transcrypt
   ])
   ++ (with pkgs.nodePackages; [
-    bash-language-server
     fkill-cli
     node2nix
     prettier

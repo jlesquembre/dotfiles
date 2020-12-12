@@ -17,7 +17,10 @@ let
       (builtins.readFile f)
     else
       "";
-  pluginWithConfig2 = dir: p: {
+  /*
+
+  */
+  pluginWithConfig' = dir: p: {
     plugin = p;
     config =
       let
@@ -38,7 +41,7 @@ let
         '';
   };
 
-  pluginWithConfig = pluginWithConfig2 vimDir;
+  pluginWithConfig = pluginWithConfig' vimDir;
 
 in
 {
@@ -51,6 +54,31 @@ in
     withPython3 = true;
     withRuby = true;
     extraConfig = (builtins.readFile "${vimDir}/init2.vim");
+
+    # Needed to start the LSP servers
+    extraPackages = [
+      # typescript is needed because it provides the tsserver command.
+      # First, it will try to find a tsserver installed with npm install,
+      # if not found, it will look in our $PATH
+      # See https://github.com/theia-ide/typescript-language-server/blob/a92027377b7ba8b1c9318baad98045e5128baa8e/server/src/lsp-server.ts#L75-L94
+      pkgs.nodePackages.typescript
+      pkgs.nodePackages.typescript-language-server
+
+      pkgs.nodePackages.bash-language-server
+      pkgs.nodePackages.vim-language-server
+      pkgs.nodePackages.yaml-language-server
+      pkgs.nodePackages.vscode-css-languageserver-bin
+      pkgs.nodePackages.dockerfile-language-server-nodejs
+      pkgs.nodePackages.dockerfile-language-server-nodejs
+      pkgs.nodePackages.vscode-html-languageserver-bin
+      pkgs.nodePackages.vscode-json-languageserver
+
+      pkgs.clojure-lsp
+      pkgs.gopls
+      pkgs.rls
+      pkgs.rnix-lsp
+      pkgs.terraform-ls
+    ];
     plugins = with pkgs.vimPlugins; [
 
 
@@ -73,19 +101,15 @@ in
           '';
       }
       (pluginWithConfig pkgs.vimPlugins.telescope-nvim)
-      # {
-      #   plugin = pkgs.vimPlugins.telescope-nvim;
-      #   config =
-      #     ''
-      #     '';
-      # }
+      (pluginWithConfig pkgs.vimPlugins.nvim-lspconfig)
       {
-        plugin = pkgs.vimPlugins.nvim-tree-lua;
+        plugin = pkgs.vimPlugins.completion-nvim;
         config =
           ''
+            autocmd BufEnter * lua require'completion'.on_attach()
           '';
       }
-
+      pkgs.vimPlugins.completion-treesitter
 
       pkgs.vimPlugins.base16-vim
       pkgs.vimPlugins.oceanic-next
