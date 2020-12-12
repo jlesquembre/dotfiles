@@ -54,6 +54,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Color schemas
 Plug 'chriskempson/base16-vim'
+Plug 'bluz71/vim-moonfly-colors'
 Plug 'mhartington/oceanic-next'
 " Plug 'srcery-colors/srcery-vim'
 " Plug 'junegunn/seoul256.vim'
@@ -66,6 +67,7 @@ Plug 'mhartington/oceanic-next'
 " Plug 'liuchengxu/space-vim-dark'
 " Plug 'romainl/Apprentice'
 " Plug 'ayu-theme/ayu-vim'
+Plug 'tomasiser/vim-code-dark'
 
 
 Plug 'ryanoasis/vim-devicons'
@@ -84,8 +86,13 @@ Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'
-Plug 'yuki-ycino/fzf-preview.vim'
-Plug 'stsewd/fzf-checkout.vim'
+" Plug 'yuki-ycino/fzf-preview.vim'
+" Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
+" Plug 'stsewd/fzf-checkout.vim'
+
+Plug 'liuchengxu/vim-clap'
+Plug 'voldikss/vim-floaterm'
+
 Plug 'mhinz/vim-grepper'
 Plug 'dyng/ctrlsf.vim'
 "Plug 'justinmk/vim-sneak'
@@ -94,6 +101,11 @@ Plug 'easymotion/vim-easymotion'
 " Plug 'takac/vim-hardtime'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'michaeljsmith/vim-indent-object'
+
+
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-lua/telescope.nvim'
 
 
 " Text edition
@@ -203,7 +215,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'w0rp/ale'
 Plug 'jamessan/vim-gnupg'
 Plug 'kassio/neoterm'
-Plug 'metakirby5/codi.vim'
+" Plug 'metakirby5/codi.vim'
 Plug 'mhinz/vim-sayonara'
 " Plug 'semanser/vim-outdated-plugins'
 Plug 'romainl/vim-qf'
@@ -401,6 +413,8 @@ augroup user_augroup
   " Only use cursorline for current window
   autocmd WinEnter,FocusGained * setlocal cursorline
   autocmd WinLeave,FocusLost   * setlocal nocursorline
+
+  " autocmd FileType direnv setlocal commentstring=#\ %s
 
   " jsonc support
   autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
@@ -634,8 +648,8 @@ endfunction
 " COMMANDS {{{1
 " ============================================================================
 
-cnoreabbrev Q q
-cnoreabbrev Qa qa
+" cnoreabbrev Q q
+" cnoreabbrev Qa qa
 
 " I never remember the StripWhitespace command
 command! RemoveWhitespace execute "StripWhitespace"
@@ -675,6 +689,8 @@ function SetAliases()
   execute 'Alias gsc Git\ switch\ --create'
   " Create parent directories
   execute 'Alias mk Mkdir!\ |\ update'
+
+  execute 'Alias t FloatermNew'
 endfunction
 
 if exists('s:loaded_vimafter')
@@ -1197,31 +1213,55 @@ nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
-" let g:fzf_preview_filelist_command = 'fd --hidden --follow --exclude ".git" --type file --type symlink'
-" let g:fzf_preview_directory_files_command = 'fd --hidden --follow --no-ignore'
-let g:fzf_preview_command = 'bat --color always --paging never --style plain --line-range :100 {-1}'
-" let g:fzf_preview_command = 'bat --color always --paging never --style plain {-1}'
-let g:fzf_preview_floating_window_winblend = 0
-let g:fzf_preview_floating_window_rate = 0.8
-let g:fzf_preview_use_dev_icons = 1
-" let g:fzf_preview_filelist_postprocess_command = 'xargs -d "\n" exa --color=always' " Use exa
+" " let g:fzf_preview_filelist_command = 'fd --hidden --follow --exclude ".git" --type file --type symlink'
+" " let g:fzf_preview_directory_files_command = 'fd --hidden --follow --no-ignore'
+" let g:fzf_preview_command = 'bat --color always --paging never --style plain --line-range :100 {-1}'
+" " let g:fzf_preview_command = 'bat --color always --paging never --style plain {-1}'
+" let g:fzf_preview_floating_window_winblend = 0
+" let g:fzf_preview_floating_window_rate = 0.8
+" let g:fzf_preview_use_dev_icons = 1
+" " let g:fzf_preview_filelist_postprocess_command = 'xargs -d "\n" exa --color=always' " Use exa
 
-nmap <Leader>f [fzf-p]
-xmap <Leader>f [fzf-p]
 
-nnoremap <silent> [fzf-p]f     :<C-u>FzfPreviewProjectFiles<CR>
-nnoremap <silent> [fzf-p]a     :<C-u>FzfPreviewDirectoryFiles<CR>
-nnoremap <silent> [fzf-p]gg    :<C-u>FzfPreviewGitStatus<CR>
-nnoremap <silent> <Leader><CR> :<C-u>FzfPreviewBuffers<CR>
-nnoremap <silent> [fzf-p]b     :<C-u>FzfPreviewAllBuffers<CR>
-nnoremap <silent> [fzf-p]j     :<C-u>FzfPreviewJumps<CR>
-nnoremap <silent> [fzf-p]/     :<C-u>FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"<CR>
-nnoremap <silent> [fzf-p]*     :<C-u>FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
-nnoremap          [fzf-p]s     :<C-u>FzfPreviewProjectGrep<Space>
-xnoremap          [fzf-p]s     "sy:FzfPreviewProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
-nnoremap <silent> [fzf-p]q     :<C-u>FzfPreviewQuickFix<CR>
-nnoremap <silent> [fzf-p]l     :<C-u>FzfPreviewLocationList<CR>
-nnoremap <silent> [fzf-p]m     :<C-u>FzfPreviewMarks<CR>
+" let g:clap_theme = 'material_design_dark'
+let g:clap_insert_mode_only = v:true
+" let g:clap_preview_size = { '*': 5, 'files': 10 }
+let g:clap_preview_size = 30
+" nnoremap <silent> <Leader>ff     :Clap gfiles<CR>
+nnoremap <silent> <Leader>ff     :Clap files --hidden<CR>
+nnoremap <silent> <Leader>fa     :Clap filer<CR>
+nnoremap <silent> <Leader>fg     :Clap git_diff_files<CR>
+nnoremap <silent> <Leader>fs     :Clap grep2<CR>
+nnoremap <silent> <Leader>fc     :Clap bcommits<CR>
+nnoremap <silent> <Leader>fd     :Clap commits<CR>
+nnoremap <silent> <Leader>fm     :Clap maps<CR>
+nnoremap <silent> <Leader><cr>   :Clap buffers<CR>
+nnoremap <silent> <Leader>fh     :Clap history<CR>
+nnoremap <silent> <Leader>f,     :Clap command_history<CR>
+nnoremap <silent> <Leader>fw     :Clap grep ++query=<cword><CR>
+vnoremap <silent> <Leader>fw     :Clap grep ++query=@visual<CR>
+
+" nmap <Leader>f [fzf-p]
+" xmap <Leader>f [fzf-p]
+" " nnoremap <silent> [fzf-p]f     :<C-u>FzfPreviewProjectFiles<CR>
+" " nnoremap <silent> [fzf-p]f     :<C-u>CocCommand fzf-preview.ProjectFiles<CR>
+" " nnoremap <silent> [fzf-p]f     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
+" nnoremap <silent> [fzf-p]a     :<C-u>FzfPreviewDirectoryFiles<CR>
+" " nnoremap <silent> [fzf-p]gg    :<C-u>FzfPreviewGitStatus<CR>
+" nnoremap <silent> [fzf-p]gg    :<C-u>CocCommand fzf-preview.GitStatus<CR>
+" " nnoremap <silent> <Leader><CR> :<C-u>FzfPreviewBuffers<CR>
+" nnoremap <silent> <Leader><CR>     :<C-u>CocCommand fzf-preview.Buffers<CR>
+" " nnoremap <silent> [fzf-p]b     :<C-u>FzfPreviewAllBuffers<CR>
+" nnoremap <silent> [fzf-p]b     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
+" nnoremap <silent> [fzf-p]j     :<C-u>FzfPreviewJumps<CR>
+" " nnoremap <silent> [fzf-p]/     :<C-u>FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"<CR>
+" nnoremap <silent> [fzf-p]/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+" nnoremap <silent> [fzf-p]*     :<C-u>FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+" nnoremap          [fzf-p]s     :<C-u>FzfPreviewProjectGrep<Space>
+" xnoremap          [fzf-p]s     "sy:FzfPreviewProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+" nnoremap <silent> [fzf-p]q     :<C-u>FzfPreviewQuickFix<CR>
+" nnoremap <silent> [fzf-p]l     :<C-u>FzfPreviewLocationList<CR>
+" nnoremap <silent> [fzf-p]m     :<C-u>FzfPreviewMarks<CR>
 " nnoremap <silent> [fzf-p]g;    :<C-u>FzfPreviewChanges<CR>
 " nnoremap <silent> [fzf-p]t     :<C-u>FzfPreviewBufferTags<CR>
 
@@ -1827,6 +1867,7 @@ let g:ale_linters = {
 \   'javascript': [],
 \   'typescript': [],
 \   'json': [],
+\   'java': [],
 \}
 
 let g:ale_pattern_options = {
@@ -1845,6 +1886,8 @@ let g:ale_fixers = {
 \   'rust'       : [ 'rustfmt' ],
 \   'sh'         : [ 'shfmt' ],
 \}
+" \   'java'       : [ 'google_java_format' ],
+" \   'java'       : [ 'uncrustify' ],
 
 " let g:ale_pattern_options = {
 " \   '\.min\.js$' : {'ale_enabled': 0},
@@ -1896,6 +1939,7 @@ if exists("g:use_coc") && exists("g:use_conjure")
         \'coc-lists',
         \'coc-prettier',
         \'coc-json',
+        \'coc-java',
         \'coc-css',
         \'coc-html',
         \'coc-tsserver',
@@ -2058,6 +2102,41 @@ endif
 " ============================================================================
 " NEOTERM / CODI {{{1
 " ============================================================================
+
+let g:floaterm_shell = 'fish'
+let g:floaterm_height = 0.85
+let g:floaterm_width = 0.85
+
+nnoremap <c-t><c-e> :FloatermNew --autoclose=2 ranger<cr>
+
+nnoremap <c-t><c-t> :FloatermToggle<cr>
+tnoremap <c-t><c-t> <cmd>FloatermToggle<cr>
+
+tnoremap <c-t><c-k> <cmd>FloatermNext<cr>i
+tnoremap <c-t><c-j> <cmd>FloatermPrev<cr>i
+
+tnoremap <c-t><c-g> <cmd>FloatermUpdate --wintype=normal --height=0.5 --width=0.5 --position=right<cr>
+tnoremap <c-t><c-f> <cmd>FloatermUpdate --wintype=floating  --height=0.85 --width=0.85 --position=center<cr>
+nnoremap <c-t><c-g> <cmd>FloatermUpdate --wintype=normal<cr>
+nnoremap <c-t><c-f> <cmd>FloatermUpdate --wintype=floating<cr>
+
+nnoremap <c-t><c-s> :FloatermSend<cr>
+" tnoremap <m-t><m-k> <c-o>:FloatermNext<cr>
+" tnoremap <m-t><m-j> <c-o>:FloatermPrev<cr>
+" nnoremap <c-t><c-f> :FloatermNew!  fzf --preview 'fzf_preview_all {}'<cr>
+" nnoremap <c-t>e :FloatermNew --wintype=floating --name=floaterm1 --position=topleft --autoclose=2 ranger<cr>
+
+" function! SetFloatermMappings()
+"      tnoremap <buffer> <c-t> <cmd>let g:floaterm_open_command = 'tabedit' \| call feedkeys("l", "i")<cr>
+"      tnoremap <buffer> <c-o> <cmd>let g:floaterm_open_command = 'edit'    \| call feedkeys("l", "i")<CR>
+"      tnoremap <buffer> <c-v> <cmd>let g:floaterm_open_command = 'vsplit'  \| call feedkeys("l", "i")<CR>
+"      tnoremap <buffer> <c-s> <cmd>let g:floaterm_open_command = 'splqit'  \| call feedkeys("l", "i")<CR>
+" endfunction
+
+" augroup floaterm_extra_maps
+"   autocmd!
+"   autocmd filetype floaterm call SetFloatermMappings()
+" augroup END
 
 " See :h :map-operator
 function! SendToNeoterm(type, ...)
