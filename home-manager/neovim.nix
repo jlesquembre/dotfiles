@@ -82,18 +82,19 @@ in
     plugins = with pkgs.vimPlugins; [
 
 
-      {
-        plugin = pkgs.vimPlugins.nvim-treesitter;
-        config =
-          ''
-          '';
-      }
+      pkgs.vimPlugins.vim-nix
+      pkgs.vimPlugins.nvim-web-devicons
+
+      (pluginWithConfig pkgs.vimPlugins.nvim-treesitter)
+      pkgs.vimPlugins.nvim-ts-rainbow
+
       {
         plugin = pkgs.vimPlugins.popup-nvim;
         config =
           ''
           '';
       }
+      /* bitOr */ 
       {
         plugin = pkgs.vimPlugins.plenary-nvim;
         config =
@@ -111,6 +112,7 @@ in
       }
       pkgs.vimPlugins.completion-treesitter
 
+      # UI
       pkgs.vimPlugins.base16-vim
       pkgs.vimPlugins.oceanic-next
       {
@@ -121,79 +123,60 @@ in
             let g:startify_session_dir = '~/.config/nvim/session'
           '';
       }
-      # vim-devicons
 
       # # Navigation
       # fern-vim
       # fern-nerdfont
       # nerdfont
-      # vim-unimpaired
+      pkgs.vimPlugins.vim-unimpaired
       # fzf-vim
-      # # fzf-preview
-      # # fzf-checkout
-      # vim-grepper
-      # # ctrlsf
-      # vim-easymotion
+      # vim-grepper TODO needed?
       (pluginWithConfig pkgs.vimPlugins.vim-easymotion)
-      # {
-      #   plugin = pkgs.vimPlugins.vim-easymotion;
-      #   config =
-      #     ''
-      #     '';
-      # }
 
       # visual-star
-      # vim-indent-object
+      # vim-indent-object TODO ?
 
       # # Text edition
-      # vim-repeat
-      # vim-sandwich
-      {
-        plugin = pkgs.vimPlugins.vim-sandwich;
-        config =
-          ''
-            nmap s <Nop>
-            xmap s <Nop>
-
-            "let g:sandwich_no_default_key_mappings = 1
-
-            onoremap <SID>line :normal! ^vg_<CR>
-            nmap sa <Plug>(operator-sandwich-add)
-            nmap sal <Plug>(operator-sandwich-add)<SID>line
-
-            nmap sdd <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
-            nmap srr <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
-
-            " select the nearest surrounded text automatically
-            xmap iss <Plug>(textobj-sandwich-auto-i)
-            xmap ass <Plug>(textobj-sandwich-auto-a)
-            omap iss <Plug>(textobj-sandwich-auto-i)
-            omap ass <Plug>(textobj-sandwich-auto-a)
-          '';
-      }
-      # vim-commentary
-      # jdaddy-vim
+      pkgs.vimPlugins.vim-repeat
+      (pluginWithConfig pkgs.vimPlugins.vim-sandwich)
+      pkgs.vimPlugins.vim-commentary
+      # jdaddy-vim TODO needed? tree sitter can replace it?
       # vim-speeddating
       # ultisnips
       # vim-snippets
-      # NrrwRgn
+      pkgs.vimPlugins.NrrwRgn
       # vim-exchange
       # transpose-words
       # capslock
 
       # # UI
+      (pluginWithConfig pkgs.vimPlugins.galaxyline-nvim)
       # vim-airline
       # vim-startify
-      # vim-highlightedyank
       # # vim-airline-themes
+      pkgs.vimPlugins.vim-highlightedyank
 
       # # Utils
-      # vim-alias
+      custom.vim-alias
       # vim-dispatch
       # vim-abolish
       # vim-eunuch
       # vim-dotenv
       # vim-rsi
+      {
+        plugin = pkgs.vimPlugins.vim-rsi;
+        config =
+          ''
+            " Add insertmode commands and remove some from rsi.vim
+            " augroup readline
+            "   autocmd!
+            "   autocmd VimEnter * iunmap   <C-d>
+            "   autocmd VimEnter * iunmap   <C-f>
+            "   autocmd VimEnter * inoremap <C-y> <C-r><C-o>+
+            "   autocmd VimEnter * cnoremap <C-y> <C-r><C-o>+
+            " augroup END
+          '';
+      }
       # # vim-dispatch-neovim
       # editorconfig-vim
       # rainbow_parentheses-vim
