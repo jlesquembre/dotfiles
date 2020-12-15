@@ -88,28 +88,11 @@ in
       (pluginWithConfig pkgs.vimPlugins.nvim-treesitter)
       pkgs.vimPlugins.nvim-ts-rainbow
 
-      {
-        plugin = pkgs.vimPlugins.popup-nvim;
-        config =
-          ''
-          '';
-      }
-      /* bitOr */ 
-      {
-        plugin = pkgs.vimPlugins.plenary-nvim;
-        config =
-          ''
-          '';
-      }
+      pkgs.vimPlugins.popup-nvim
+      pkgs.vimPlugins.plenary-nvim
       (pluginWithConfig pkgs.vimPlugins.telescope-nvim)
       (pluginWithConfig pkgs.vimPlugins.nvim-lspconfig)
-      {
-        plugin = pkgs.vimPlugins.completion-nvim;
-        config =
-          ''
-            autocmd BufEnter * lua require'completion'.on_attach()
-          '';
-      }
+      (pluginWithConfig pkgs.vimPlugins.completion-nvim)
       pkgs.vimPlugins.completion-treesitter
 
       # UI
@@ -178,13 +161,29 @@ in
           '';
       }
       # # vim-dispatch-neovim
-      # editorconfig-vim
+      {
+        plugin = pkgs.vimPlugins.editorconfig-vim;
+        config =
+          ''
+            let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+          '';
+      }
+      
       # rainbow_parentheses-vim
       # vim-projectionist
       # ale
       # vim-gnupg
       # neoterm
-      # vim-sayonara
+      {
+        plugin = pkgs.vimPlugins.vim-sayonara;
+        config =
+          ''
+            let g:sayonara_confirm_quit = 0
+            nnoremap <leader>q :Sayonara<cr>
+            nnoremap <leader>Q :Sayonara!<cr>
+          '';
+      }
+      # 
       # vim-qf
       # Recover-vim
       # # vim-localvimrc
@@ -284,13 +283,13 @@ in
       # vim-git
 
       # vim-markdown
-      {
-        plugin = pkgs.vimPlugins.vim-markdown;
-        config =
-          ''
-            let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
-          '';
-      }
+      # {
+      #   plugin = pkgs.vimPlugins.vim-markdown;
+      #   config =
+      #     ''
+      #       let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+      #     '';
+      # }
       # vim-fish
       # vim-yaml
       # vim-mustache-handlebars
