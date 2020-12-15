@@ -26,6 +26,8 @@ local buffer_not_empty = function()
   return false
 end
 
+local git_project = require('galaxyline.provider_vcs').check_git_workspace
+
 gls.left[1] = {
   FirstElement = {
     provider = function() return '▊ ' end,
@@ -60,20 +62,29 @@ gls.left[4] = {
   FileName = {
     provider = {'FileName','FileSize'},
     condition = buffer_not_empty,
+    condition = function() return buffer_not_empty() and git_project() end,
     highlight = {colors.fg,colors.line_bg,'bold'},
     separator = '',
     separator_highlight = {colors.purple,colors.line_bg},
   }
 }
-
 gls.left[5] = {
+  FileName = {
+    provider = {'FileName','FileSize'},
+    condition = buffer_not_empty,
+    condition = function() return buffer_not_empty() and not git_project() end,
+    highlight = {colors.fg,colors.line_bg,'bold'},
+  }
+}
+
+gls.left[6] = {
   GitIcon = {
     provider = function() return '  ' end,
     condition = require('galaxyline.provider_vcs').check_git_workspace,
     highlight = {colors.line_fg,colors.purple},
   }
 }
-gls.left[6] = {
+gls.left[7] = {
   GitBranch = {
     provider = 'GitBranch',
     condition = require('galaxyline.provider_vcs').check_git_workspace,
@@ -91,7 +102,7 @@ local checkwidth = function()
   return false
 end
 
-gls.left[7] = {
+gls.left[8] = {
   DiffAdd = {
     provider = 'DiffAdd',
     condition = checkwidth,
@@ -99,7 +110,7 @@ gls.left[7] = {
     highlight = {colors.green,colors.line_bg},
   }
 }
-gls.left[8] = {
+gls.left[9] = {
   DiffModified = {
     provider = 'DiffModified',
     condition = checkwidth,
@@ -107,7 +118,7 @@ gls.left[8] = {
     highlight = {colors.orange,colors.line_bg,'bold'},
   }
 }
-gls.left[9] = {
+gls.left[10] = {
   DiffRemove = {
     provider = 'DiffRemove',
     condition = checkwidth,
@@ -115,7 +126,7 @@ gls.left[9] = {
     highlight = {colors.red,colors.line_bg},
   }
 }
-gls.left[10] = {
+gls.left[11] = {
   LeftEnd = {
     provider = function() return '' end,
     separator = '',
@@ -123,19 +134,19 @@ gls.left[10] = {
     highlight = {colors.line_bg,colors.line_bg}
   }
 }
-gls.left[11] = {
+gls.left[12] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
     highlight = {colors.red,colors.bg}
   }
 }
-gls.left[12] = {
+gls.left[13] = {
   Space = {
     provider = function () return ' ' end
   }
 }
-gls.left[13] = {
+gls.left[14] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
@@ -179,6 +190,14 @@ gls.short_line_left[1] = {
     separator = '',
     separator_highlight = {colors.purple,colors.bg},
     highlight = {colors.fg,colors.purple}
+  }
+}
+gls.short_line_left[2] = {
+  FileName = {
+    provider = {'FileName','FileSize'},
+    condition = buffer_not_empty,
+    highlight = {colors.fg,colors.line_bg,'bold'},
+    separator_highlight = {colors.purple,colors.line_bg},
   }
 }
 
