@@ -19,7 +19,7 @@ require'lspconfig'.html.setup{}
 require'lspconfig'.jdtls.setup{}
 require'lspconfig'.jsonls.setup{}
 require'lspconfig'.rls.setup{}
-require'lspconfig'.rnix.setup{}
+-- require'lspconfig'.rnix.setup{}
 require'lspconfig'.terraformls.setup{}
 
 

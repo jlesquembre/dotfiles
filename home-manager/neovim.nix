@@ -1,13 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   custom = (import ./neovim-deps.nix) { pkgs = pkgs; };
-  # neovim-nightly = import
-  #   (builtins.fetchTarball {
-  #     url = https://github.com/mjlbach/neovim-nightly-overlay/archive/2abd19b4964d1f15617d04b4fba6bdc0db39d27e.tar.gz;
-  #     sha256 = "1x7cwsbhp6vz25x2lkilhn938xa7na9xvg99mfyaww84hl7v1frv";
-  #   })
-  #   { }
-  #   { };
 
   vimDir = toString ../dotfiles/neovim;
 
@@ -17,9 +10,31 @@ let
       (builtins.readFile f)
     else
       "";
-  /*
+  compileAniseed = text:
+    let
+      version = "3.11.0";
+      aniseed = pkgs.fetchFromGitHub {
+        owner = "olical";
+        repo = "aniseed";
+        rev = "v${version}";
+        sha256 = "0j424nwms2a6cz3ws16b326ds163fx3r1mdcl7l0rfn3h30w9p43";
+      };
+      input = pkgs.writeText "input.fnl" text;
+    in
+    builtins.readFile (
+      pkgs.runCommand ""
+        {
+          allowSubstitues = false;
+          preferLocalBuild = true;
+        }
+        ''
+          ${pkgs.neovim}/bin/nvim -u NONE -i NONE --headless \
+              -c "let &runtimepath = &runtimepath . ',${aniseed}'" \
+              -c "lua require('aniseed.compile').file('${input}', os.getenv('out'))" \
+              +q
+        ''
+    );
 
-  */
   pluginWithConfig' = dir: p: {
     plugin = p;
     config =
@@ -28,7 +43,7 @@ let
         path = "${dir}/${name}";
         vimConfig = readFileIfExists "${path}.vim";
         luaConfig = readFileIfExists "${path}.lua";
-        # path = if builtins.pathExists "${path}.lua" then "${path}.lua" else "${path}";
+        aniseedConfig = readFileIfExists "${path}.fnl";
       in
       vimConfig
       +
@@ -38,7 +53,20 @@ let
           lua << EOF
           ${luaConfig}
           EOF
-        '';
+        ''
+    ;
+    # + (
+    #   lib.strings.optionalString
+    #     (builtins.stringLength aniseedConfig > 0)
+    #     (
+    #       compileAniseed
+    #         ''
+    #           lua << EOF
+    #           ${aniseedConfig}
+    #           EOF
+    #         ''
+    #     )
+    # );
   };
 
   pluginWithConfig = pluginWithConfig' vimDir;
@@ -47,7 +75,6 @@ in
 {
   programs.neovim = {
     enable = true;
-    # package = custom.(neovim-nightly.neovim-nightly);
     package = custom.neovim-nightly;
     withNodeJs = true;
     # withPython = true;
@@ -78,13 +105,18 @@ in
       pkgs.rls
       pkgs.rnix-lsp
       pkgs.terraform-ls
+
+      # Formatters
+      pkgs.nodePackages.prettier
+      pkgs.nixpkgs-fmt
+      pkgs.rustfmt
     ];
     plugins = with pkgs.vimPlugins; [
-
 
       pkgs.vimPlugins.vim-nix
       pkgs.vimPlugins.nvim-web-devicons
 
+      # config for plugins is also in nvim-treesitter config file
       (pluginWithConfig pkgs.vimPlugins.nvim-treesitter)
       pkgs.vimPlugins.nvim-ts-rainbow
 
@@ -168,10 +200,11 @@ in
             let g:EditorConfig_exclude_patterns = ['fugitive://.*']
           '';
       }
-      
+
       # rainbow_parentheses-vim
       # vim-projectionist
       # ale
+      (pluginWithConfig custom.formatter-nvim)
       # vim-gnupg
       # neoterm
       {
@@ -183,7 +216,7 @@ in
             nnoremap <leader>Q :Sayonara!<cr>
           '';
       }
-      # 
+      #
       # vim-qf
       # Recover-vim
       # # vim-localvimrc

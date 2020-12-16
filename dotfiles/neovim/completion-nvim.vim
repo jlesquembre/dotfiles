@@ -30,6 +30,7 @@ let g:completion_chain_complete_list = {
     \'comment': [],
     \'default' : [
     \    {'complete_items': ['lsp', 'snippet','ts', 'path']},
+    \    {'complete_items': ['ts']},
     \    {'mode': '<c-p>'},
     \    {'mode': '<c-n>'}
     \]

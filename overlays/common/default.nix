@@ -42,4 +42,9 @@ self: super: {
       };
       cargoSha256 = "12gv5z22r8s74nmv75d2bxkpn5rscw8sa8xyklqcjjfhgq61xd34";
     };
+
+  # For an alternative install method see
+  # https://github.com/nix-community/NUR#installation
+  nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { pkgs = self.pkgs; };
+
 }
