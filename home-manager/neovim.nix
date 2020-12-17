@@ -73,6 +73,24 @@ let
 
 in
 {
+  # Create a symlink to test config without a rebuild
+  home.activation.symlink-nvim-lua-config =
+    let
+      targerDir = "$HOME/.config/nvim/lua";
+      targerFile = "${targerDir}/user.lua";
+    in
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      if [[ -L "${targerFile}" ]]; then
+        rm "${targerFile}"
+      elif [[ -e "${targerFile}" ]]; then
+        errorEcho "Existing file '${targerFile}' is in the way"
+        exit 1
+      fi
+      $DRY_RUN_CMD mkdir -p $VERBOSE_ARG ${targerDir}
+      $DRY_RUN_CMD ln -s $VERBOSE_ARG \
+          ${vimDir}/user.lua ${targerFile}
+
+    '';
   programs.neovim = {
     enable = true;
     package = custom.neovim-nightly;
