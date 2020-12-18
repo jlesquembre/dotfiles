@@ -184,6 +184,7 @@ in
 
       # # UI
       (pluginWithConfig pkgs.vimPlugins.galaxyline-nvim)
+      pkgs.vimPlugins.barbar-nvim
       # vim-airline
       # vim-startify
       # # vim-airline-themes
@@ -306,22 +307,7 @@ in
       }
       # vim-rhubarb
       # vim-gitgutter
-      {
-        plugin = pkgs.vimPlugins.vim-gitgutter;
-        config =
-          ''
-            let g:gitgutter_map_keys = 0
-            nmap ]h <Plug>(GitGutterNextHunk)
-            nmap [h <Plug>(GitGutterPrevHunk)
-            nmap <Leader>hs <Plug>(GitGutterStageHunk)
-            nmap <Leader>hd <Plug>(GitGutterUndoHunk)
-            nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
-            omap ih <Plug>(GitGutterTextObjectInnerPending)
-            omap ah <Plug>(GitGutterTextObjectOuterPending)
-            xmap ih <Plug>(GitGutterTextObjectInnerVisual)
-            xmap ah <Plug>(GitGutterTextObjectOuterVisual)
-          '';
-      }
+      (pluginWithConfig custom.gitsigns-nvim)
       # vim-rooter
       # vim-flog
       # # vim-merginal
