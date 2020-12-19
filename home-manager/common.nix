@@ -49,6 +49,7 @@ in
     # JDK tools
     jdk11
     visualvm
+    jetbrains.idea-community
     maven
     gradle
 
