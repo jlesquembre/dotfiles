@@ -137,20 +137,20 @@ gls.left[11] = {
 gls.left[12] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
-    icon = '  ',
-    highlight = {colors.red,colors.bg}
+    -- icon = '  ',
+    -- icon = '  ',
+    icon = '  ',
+    separator = ' ',
+    highlight = {colors.red,colors.bg},
+    separator_highlight = {colors.line_bg,colors.bg},
   }
 }
 gls.left[13] = {
-  Space = {
-    provider = function () return ' ' end
-  }
-}
-gls.left[14] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
-    highlight = {colors.blue,colors.bg},
+    -- icon = '  ',
+    highlight = {colors.orange,colors.bg},
   }
 }
 gls.right[1]= {
