@@ -61,6 +61,8 @@ let
     '';
 
   take-screenshot = pkgs.writeScriptBin "screenshot.sh"
+    # TODO use
+    # https://github.com/jtheoof/swappy
     ''
       #!${pkgs.bash}/bin/bash
 
@@ -395,18 +397,18 @@ in
     };
   };
 
-  systemd.user.services.firefox = {
-    Unit = {
-      Description = "Firefox";
-      After = [ "waybar.service" ];
-    };
-    Install = {
-      WantedBy = [ "sway-session.target" ];
-    };
-    Service = {
-      Type = "simple";
-      Restart = "no";
-      ExecStart = "${pkgs.firefox}/bin/firefox";
-    };
-  };
+  # systemd.user.services.firefox = {
+  #   Unit = {
+  #     Description = "Firefox";
+  #     After = [ "waybar.service" ];
+  #   };
+  #   Install = {
+  #     WantedBy = [ "sway-session.target" ];
+  #   };
+  #   Service = {
+  #     Type = "simple";
+  #     Restart = "no";
+  #     ExecStart = "${pkgs.firefox}/bin/firefox";
+  #   };
+  # };
 }

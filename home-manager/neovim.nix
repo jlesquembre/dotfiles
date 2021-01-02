@@ -118,8 +118,10 @@ in
       pkgs.nodePackages.vscode-html-languageserver-bin
       pkgs.nodePackages.vscode-json-languageserver
 
+      # Language Servers
       pkgs.clojure-lsp
       pkgs.gopls
+      pkgs.jdt-ls
       pkgs.rls
       pkgs.rnix-lsp
       pkgs.terraform-ls
@@ -140,8 +142,12 @@ in
 
       pkgs.vimPlugins.popup-nvim
       pkgs.vimPlugins.plenary-nvim
+      pkgs.vimPlugins.telescope-fzy-native-nvim
       (pluginWithConfig pkgs.vimPlugins.telescope-nvim)
+
       (pluginWithConfig pkgs.vimPlugins.nvim-lspconfig)
+      custom.nvim-jdtls
+
       (pluginWithConfig pkgs.vimPlugins.completion-nvim)
       pkgs.vimPlugins.completion-treesitter
 
@@ -183,12 +189,14 @@ in
       # capslock
 
       # # UI
-      (pluginWithConfig pkgs.vimPlugins.galaxyline-nvim)
-      pkgs.vimPlugins.barbar-nvim
+      (pluginWithConfig custom.galaxyline-nvim)
+      # pkgs.vimPlugins.barbar-nvim
+      custom.nvim-bufferline-lua
       # vim-airline
       # vim-startify
       # # vim-airline-themes
       pkgs.vimPlugins.vim-highlightedyank
+      (pluginWithConfig custom.fern-vim)
 
       # # Utils
       custom.vim-alias

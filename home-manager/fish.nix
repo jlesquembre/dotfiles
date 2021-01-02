@@ -188,7 +188,7 @@ in
         ''
           bind \cc 'commandline ""'
 
-          bind \ew 'prepend_to_command watch'
+          bind \ew 'prepend_to_command "watch"'
 
           bind \cs 'fssh'
           if type -q fzf-share
@@ -279,37 +279,21 @@ in
       humanize_duration =
         ''
           if not string length --quiet $argv
-              function hmTime(time,   stamp) {
                set --erase argv
-                  split("h:m:s:ms", units, ":")
                read --line argv
-                  for (i = 2; i >= -1; i--) {
           end
-                      if (t = int( i < 0 ? time % 1000 : time / (60 ^ i * 1000) % 60 )) {
           set hours (math --scale=0 $argv/\(3600 \*1000\))
-                          stamp = stamp t units[sqrt((i - 2) ^ 2) + 1] " "
           set mins (math --scale=0 $argv/\(60 \*1000\) % 60)
-                      }
           set secs (math --scale=0 $argv/1000 % 60)
-                  }
           if test $hours -gt 0
-                  if (stamp ~ /^ *$/) {
               set --append output $hours"h"
-                      return "0ms"
           end
-                  }
           if test $mins -gt 0
-                  return substr(stamp, 1, length(stamp) - 1)
               set --append output $mins"m"
-              }
           end
-              {
           if test $secs -gt 0
-                  print hmTime($0)
               set --append output $secs"s"
-              }
           end
-          '
           if not set --query output
               echo $argv"ms"
           else
