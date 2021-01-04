@@ -315,17 +315,22 @@ in rec
   security.pam.services.gdm.enableGnomeKeyring = true;
   programs.seahorse.enable = true;
 
-  services.gnome3.gnome-remote-desktop.enable = true;
-  services.pipewire.enable = true;
-  xdg.portal = {
-    enable = true;
-    gtkUsePortal = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-wlr
-      pkgs.xdg-desktop-portal-gtk
-    ];
-  };
-  systemd.packages = [ pkgs.xdg-desktop-portal-wlr ];
+
+  # It breaks GKT apps, see
+  # https://github.com/NixOS/nixpkgs/issues/93199
+  # services.pipewire.enable = true;
+  # xdg.portal = {
+  #   enable = true;
+  #   gtkUsePortal = true;
+  #   extraPortals = [
+  #     pkgs.xdg-desktop-portal-gtk
+  #     pkgs.xdg-desktop-portal-wlr
+  #   ];
+  # };
+
+  # systemd.packages = [ pkgs.xdg-desktop-portal-wlr ];
+  # services.dbus.packages = with pkgs; [ gnome3.dconf ];
+  # services.gnome3.gnome-remote-desktop.enable = true;
 
   programs.sway =
   {
@@ -348,6 +353,7 @@ in rec
         export MOZ_ENABLE_WAYLAND=1
         export MOZ_DBUS_REMOTE=1
         export XDG_CURRENT_DESKTOP=sway
+        export XDG_SESSION_TYPE=wayland;
         # export XCURSOR_THEME
         # export XCURSOR_SIZE
         # export XCURSOR_PATH="${pkgs.gnome3.adwaita-icon-theme}/share/icons:$XCURSOR_PATH";
@@ -436,6 +442,7 @@ in rec
   fonts = {
     fontDir.enable = true;
     enableGhostscriptFonts = true;
+    enableDefaultFonts = true;
     fonts = with pkgs; [
       corefonts
       dejavu_fonts

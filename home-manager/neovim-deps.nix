@@ -78,16 +78,17 @@
       sha256 = "158j0qi0m9nsyv8369drd3b2bscayss57cssc5xc41mhv9393j9v";
     };
   };
-  # telescope-fzy-native-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-  #   pname = "telescope-fzy-native-nvim";
-  #   version = "2020-12-31";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "nvim-telescope";
-  #     repo = "telescope-fzy-native.nvim";
-  #     rev = "654dffd924b29fb9a9252dcbd63528b1498ac9fb";
-  #     sha256 = "13jxrvf7cgzhw5zbf69hcnjf1la3prll780lq07h06wakpyrrm4y";
-  #   };
-  # };
+
+  nvim-toggleterm-lua = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "nvim-toggleterm-lua";
+    version = "2021-01-03";
+    src = pkgs.fetchFromGitHub {
+      owner = "akinsho";
+      repo = "nvim-toggleterm.lua";
+      rev = "7b1ccaf320beefe3e54a3d6b5808aaad37376694";
+      sha256 = "0jk4vja6x8jf9qapbldy78zmamnl5rx711v5a65vffb0zgg7s3jx";
+    };
+  };
 
 
   fern-vim = pkgs.vimUtils.buildVimPluginFrom2Nix rec {

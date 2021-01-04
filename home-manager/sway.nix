@@ -148,6 +148,7 @@ in
       "type:keyboard" = { xkb_layout = customKeyboardName; };
     };
     config.startup = [
+      # { command = "GTK_USE_PORTAL=1 firefox"; }
       # { command = "systemctl --user restart polybar"; always = true; notification = false; }
       # { command = "alacritty"; }
     ];

@@ -98,7 +98,7 @@ in
     # withPython = true;
     withPython3 = true;
     withRuby = true;
-    extraConfig = (builtins.readFile "${vimDir}/init2.vim");
+    extraConfig = (builtins.readFile "${vimDir}/init.vim");
 
     # Needed to start the LSP servers
     extraPackages = [
@@ -133,7 +133,6 @@ in
     ];
     plugins = with pkgs.vimPlugins; [
 
-      pkgs.vimPlugins.vim-nix
       pkgs.vimPlugins.nvim-web-devicons
 
       # config for plugins is also in nvim-treesitter config file
@@ -204,7 +203,6 @@ in
       # vim-abolish
       # vim-eunuch
       # vim-dotenv
-      # vim-rsi
       {
         plugin = pkgs.vimPlugins.vim-rsi;
         config =
@@ -232,7 +230,8 @@ in
       # vim-projectionist
       # ale
       (pluginWithConfig custom.formatter-nvim)
-      # vim-gnupg
+      pkgs.vimPlugins.vim-gnupg
+      custom.nvim-toggleterm-lua
       # neoterm
       {
         plugin = pkgs.vimPlugins.vim-sayonara;
@@ -243,6 +242,7 @@ in
             nnoremap <leader>Q :Sayonara!<cr>
           '';
       }
+      pkgs.vimPlugins.vim-test
       #
       # vim-qf
       # Recover-vim
@@ -320,10 +320,10 @@ in
       # vim-flog
       # # vim-merginal
 
-      # # DB
-      # vim-dadbod
+      # DB
+      pkgs.vimPlugins.vim-dadbod
 
-      # # Syntax
+      # Syntax (prefer treesitter, but some languages are not well supported)
       # pgsql-vim
       # vim-git
 
@@ -335,8 +335,10 @@ in
       #       let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
       #     '';
       # }
-      # vim-fish
-      # vim-yaml
+      pkgs.vimPlugins.vim-fish
+      pkgs.vimPlugins.vim-nix
+      # pkgs.vimPlugins.vim-toml
+      # pkgs.vimPlugins.vim-yaml
       # vim-mustache-handlebars
       # nginx-vim
       # vim-systemd-syntax
@@ -344,8 +346,6 @@ in
       # fennel-vim
       # # janet-vim
       # # i3-vim-syntax
-      # vim-nix
-      # vim-toml
       # vim-jsonnet
       # vim-scala
       # # just-vim

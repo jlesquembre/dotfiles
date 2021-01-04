@@ -159,7 +159,7 @@ in
         ''
           if not set -q WHATSUP
             set -gx WHATSUP 1
-            ${pkgs.neofetch}/bin/neofetch
+            ${pkgs.pfetch}/bin/pfetch
           end
         '';
 

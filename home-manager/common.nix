@@ -116,6 +116,10 @@ in
     MANPAGER = "nvim -c 'set ft=man' -";
     KUBECTL_EXTERNAL_DIFF = "meld";
     DOCKER_BUILDKIT = "1";
+    # FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
+    MOZ_ENABLE_WAYLAND = "1";
+    XDG_CURRENT_DESKTOP = "sway"; # https://github.com/emersion/xdg-desktop-portal-wlr/issues/20
+    XDG_SESSION_TYPE = "wayland";
   };
 
   # For debugging config files
@@ -254,6 +258,8 @@ in
     target = ".m2/settings.xml";
   };
 
+  fonts.fontconfig.enable = true;
+
   gtk = {
     enable = true;
     iconTheme = {
@@ -273,7 +279,16 @@ in
       name = "Arc";
     };
 
-    # font.name = "Sans Serif 10";
+    font = {
+      name = "Noto Sans 11";
+      package = pkgs.noto-fonts;
+    };
+    gtk3.extraConfig = {
+      # gtk-cursor-theme-size = 0;
+      gtk-xft-antialias = 1;
+      gtk-xft-hinting = 1;
+      gtk-xft-hintstyle = "hintfull";
+    };
     gtk3.bookmarks = [ "file:///tmp" ];
   };
 
@@ -615,40 +630,49 @@ in
   #   nixpkgs = fetchTarball "https://github.com/NixOS/nixpkgs/tarball/61cc1f0dc07c2f786e0acfd07444548486f4153b";
   # };
 
-  # programs.browserpass = {
-  #   enable = true;
-  #   browsers = [ "firefox" ];
-  # };
+  programs.browserpass = {
+    enable = true;
+  };
 
-  # programs.firefox = {
-  #   enable = true;
-  #   #   package = pkgs.firefox-wayland;
-  #   profiles = {
-  #     default =
-  #       {
-  #         isDefault = true;
-  #         settings = {
-  #           "browser.display.background_color" = "#bdbdbd";
-  #           "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
-  #           "browser.search.suggest.enabled" = false;
-  #           "browser.startup.page" = 3;
-  #           "browser.tabs.closeWindowWithLastTab" = true;
-  #           # "browser.urlbar.placeholderName" = "DuckDuckGo";
-  #           "devtools.theme" = "dark";
-  #           "experiments.activeExperiment" = false;
-  #           "experiments.enabled" = false;
-  #           "experiments.supported" = false;
-  #           "extensions.pocket.enabled" = false;
-  #           # "general.smoothScroll" = false;
-  #           # "layout.css.devPixelsPerPx" = "1";
-  #           # "network.IDN_show_punycode" = true;
-  #           # "network.allow-experiments" = false;
-  #           # "signon.rememberSignons" = false;
-  #           "widget.content.gtk-theme-override" = "Adwaita:light";
-  #         };
-  #       };
-  #   };
-  # };
+  programs.firefox = {
+    enable = true;
+    package = pkgs.firefox-wayland;
+    extensions =
+      with pkgs.nur.repos.rycee.firefox-addons; [
+        browserpass
+        browserpass-otp
+        ublock-origin
+        # firenvim
+        # https-everywhere
+        # privacy-badger
+      ];
+    profiles = {
+      default =
+        {
+          isDefault = true;
+          settings = {
+            "browser.display.background_color" = "#bdbdbd";
+            "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
+            "browser.search.suggest.enabled" = false;
+            "browser.startup.page" = 3;
+            "browser.tabs.closeWindowWithLastTab" = true;
+            # "browser.urlbar.placeholderName" = "DuckDuckGo";
+            "devtools.theme" = "dark";
+            "experiments.activeExperiment" = false;
+            "experiments.enabled" = false;
+            "experiments.supported" = false;
+            "extensions.pocket.enabled" = true;
+            # "general.smoothScroll" = false;
+            # "layout.css.devPixelsPerPx" = "1";
+            # "network.IDN_show_punycode" = true;
+            # "network.allow-experiments" = false;
+            # "signon.rememberSignons" = false;
+            "widget.content.gtk-theme-override" = "Adwaita:light";
+            "general.useragent.locale" = "en-US";
+          };
+        };
+    };
+  };
 
   # services.pasystray.enable = true;
 
