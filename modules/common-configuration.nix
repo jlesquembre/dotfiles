@@ -1,8 +1,6 @@
 { hostName }:
-{ config, options, pkgs, lib,  ... }:
-
+{ config, options, pkgs, lib, ... }:
 let
-
   user = "jlle";
   userHome = "/home/${user}";
 
@@ -20,12 +18,14 @@ let
   # specific commit
   # pkgs-58d44a3 = import (fetchTarball https://github.com/nixos/nixpkgs/archive/58d44a3.tar.gz) {};
 
-  githud = import (pkgs.fetchFromGitHub {
-    owner = "gbataille";
-    repo = "gitHUD";
-    rev = "3.2.2";
-    sha256 = "1csb3xqkayr73k331id41n9j3wnvb35nyi21bm244yz4a2a9z1i9";
-  }) {};
+  githud = import
+    (pkgs.fetchFromGitHub {
+      owner = "gbataille";
+      repo = "gitHUD";
+      rev = "3.2.2";
+      sha256 = "1csb3xqkayr73k331id41n9j3wnvb35nyi21bm244yz4a2a9z1i9";
+    })
+    { };
 
 
   # TODO extract
@@ -35,28 +35,29 @@ let
     (pkgs.callPackage (/. + home-manager-path + "/home-manager") { path = "${home-manager-path}"; }).overrideAttrs (old: {
       nativeBuildInputs = [ pkgs.makeWrapper ];
       buildCommand =
-  let
-    home-mananger-bootstrap = pkgs.writeTextFile {
-      name = "home-manager-bootstrap.nix";
-      text = ''
-        { config, pkgs, ... }:
-        {
-          # Home Manager needs a bit of information about you and the
-          # paths it should manage.
-          home.username = "${user}";
-          home.homeDirectory = "${userHome}";
-          home.sessionVariables.HOSTNAME = "${hostName}";
-          imports = [ ${config-path} ];
-        }
-      '';
-    }; in
+        let
+          home-mananger-bootstrap = pkgs.writeTextFile {
+            name = "home-manager-bootstrap.nix";
+            text = ''
+              { config, pkgs, ... }:
+              {
+                # Home Manager needs a bit of information about you and the
+                # paths it should manage.
+                home.username = "${user}";
+                home.homeDirectory = "${userHome}";
+                home.sessionVariables.HOSTNAME = "${hostName}";
+                imports = [ ${config-path} ];
+              }
+            '';
+          }; in
         ''
-        ${old.buildCommand}
-        wrapProgram $out/bin/home-manager --set HOME_MANAGER_CONFIG "${home-mananger-bootstrap}"
-      '';
+          ${old.buildCommand}
+          wrapProgram $out/bin/home-manager --set HOME_MANAGER_CONFIG "${home-mananger-bootstrap}"
+        '';
     });
 
-in rec
+in
+rec
 {
 
   imports = [
@@ -93,7 +94,7 @@ in rec
 
   # custom packages
   nixpkgs.overlays = [
-    (import ../overlays/common {})
+    (import ../overlays/common { })
   ];
   # nixpkgs.overlays = [
   #   (self: super: {
@@ -140,7 +141,9 @@ in rec
     caddy
     calibre
     cheat
-    chromium google-chrome google-chrome-dev # see overlays
+    chromium
+    google-chrome
+    google-chrome-dev # see overlays
     clementine
     cmatrix
     # cue
@@ -159,7 +162,8 @@ in rec
     glxinfo
     # gnome3.zenity gnome3.dconf gnome3.dconf-editor
     gnumake
-    gnupg blackbox
+    gnupg
+    blackbox
     # go  golint gotools
     graphicsmagick
     gwenview
@@ -188,7 +192,8 @@ in rec
     ncurses.dev # infocmp and more utils
     neofetch
     nginxMainline # apacheHttpd # apache used for tools like htpasswd
-    noti libnotify
+    noti
+    libnotify
     notify-osd
     ntfs3g
     # okular
@@ -198,7 +203,8 @@ in rec
     pass
     pavucontrol
     pciutils
-    pdftk poppler_utils # xpdf
+    pdftk
+    poppler_utils # xpdf
     prettyping
     proselint
     pwgen
@@ -210,7 +216,8 @@ in rec
     shellcheck
     shfmt
     smbclient
-    sox soxr
+    sox
+    soxr
     sqlite
     sshfs-fuse
     telnet
@@ -228,37 +235,56 @@ in rec
     yubikey-personalization
 
     # QT apps helpers
-    qt5.qtbase qt5.qtsvg qt5.qtwayland
+    qt5.qtbase
+    qt5.qtsvg
+    qt5.qtwayland
     # breeze-icons breeze-gtk breeze-qt5 gnome-breeze # kde-gtk-config
 
     # terminals
-    alacritty kitty # hyper
+    alacritty
+    kitty # hyper
 
     # screenshot utils
-    flameshot xfce.xfce4-screenshooter
+    flameshot
+    xfce.xfce4-screenshooter
 
     # screencasts
-    asciinema obs-studio screenkey # kazam recordmydesktop simplescreenrecorder
+    asciinema
+    obs-studio
+    screenkey # kazam recordmydesktop simplescreenrecorder
     kdenlive
 
     # editors
-    neovim neovim-remote vim
+    neovim
+    neovim-remote
+    vim
 
     # JS
     nodejs
 
     # compress tools
-    atool zip unzip unar dpkg
+    atool
+    zip
+    unzip
+    unar
+    dpkg
     libarchive # replaces p7zip: bsdtar -cf archive.7z --format=7zip ...
 
     # audio/video tools
-    ffmpeg-full mpv vlc x265 libopus opusfile opusTools
+    ffmpeg-full
+    mpv
+    vlc
+    x265
+    libopus
+    opusfile
+    opusTools
 
     # scala
     # bloop sbt
 
     # DB utils
-    postgresql pspg # pgcli
+    postgresql
+    pspg # pgcli
     # libmysqlclient mariadb.client
 
     githud
@@ -282,10 +308,10 @@ in rec
   # Extra packages added to the global python environment, see
   # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.md#installing-python-and-packages
   # ++ (with pkgs; [(python3.withPackages(ps: with ps; [
-    # cookiecutter
-    # ipython
-    # jupyter
-    # pygments
+  # cookiecutter
+  # ipython
+  # jupyter
+  # pygments
   # ]))])
 
   ++ (with pkgs.python38Packages; [
@@ -333,35 +359,42 @@ in rec
   # services.gnome3.gnome-remote-desktop.enable = true;
 
   programs.sway =
-  {
-    enable = true;
-    extraPackages = with pkgs; [ mako wofi wdisplays waybar swaylock swayidle
-                                 (xwayland.overrideAttrs (attrs: {meta.priority=1;}))
-                                 kanshi xdg-desktop-portal-wlr
-                                 sway-contrib.grimshot
-                               ];
-    wrapperFeatures.gtk = true;
-    extraSessionCommands =
-      ''
-        export SDL_VIDEODRIVER=wayland
-        # needs qt5.qtwayland in systemPackages
-        export QT_QPA_PLATFORM=wayland
-        export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-        # Fix for some Java AWT applications (e.g. Android Studio),
-        # use this if they aren't displayed properly:
-        export _JAVA_AWT_WM_NONREPARENTING=1
-        export MOZ_ENABLE_WAYLAND=1
-        export MOZ_DBUS_REMOTE=1
-        export XDG_CURRENT_DESKTOP=sway
-        export XDG_SESSION_TYPE=wayland;
-        # export XCURSOR_THEME
-        # export XCURSOR_SIZE
-        # export XCURSOR_PATH="${pkgs.gnome3.adwaita-icon-theme}/share/icons:$XCURSOR_PATH";
+    {
+      enable = true;
+      extraPackages = with pkgs; [
+        mako
+        wofi
+        wdisplays
+        waybar
+        swaylock
+        swayidle
+        (xwayland.overrideAttrs (attrs: { meta.priority = 1; }))
+        kanshi
+        xdg-desktop-portal-wlr
+        sway-contrib.grimshot
+      ];
+      wrapperFeatures.gtk = true;
+      extraSessionCommands =
+        ''
+          export SDL_VIDEODRIVER=wayland
+          # needs qt5.qtwayland in systemPackages
+          export QT_QPA_PLATFORM=wayland
+          export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+          # Fix for some Java AWT applications (e.g. Android Studio),
+          # use this if they aren't displayed properly:
+          export _JAVA_AWT_WM_NONREPARENTING=1
+          export MOZ_ENABLE_WAYLAND=1
+          export MOZ_DBUS_REMOTE=1
+          export XDG_CURRENT_DESKTOP=sway
+          export XDG_SESSION_TYPE=wayland;
+          # export XCURSOR_THEME
+          # export XCURSOR_SIZE
+          # export XCURSOR_PATH="${pkgs.gnome3.adwaita-icon-theme}/share/icons:$XCURSOR_PATH";
 
-        # Force gpg-agent initialization
-        echo foo | gpg -ear E2BA57CA52D5867B | gpg -d
-      '';
-  };
+          # Force gpg-agent initialization
+          echo foo | gpg -ear E2BA57CA52D5867B | gpg -d
+        '';
+    };
   services.xserver.enable = true;
   services.xserver.layout = "us";
   # services.xserver.displayManager.sddm.enable = true;
@@ -396,9 +429,9 @@ in rec
   # environment.extraOutputsToInstall = ["dev"];
   # services.xserver.desktopManager.gnome3.enable = true;
   # services.xserver.desktopManager.gnome3.extraGSettingsOverrides = ''
-# [org.gtk.Settings.FileChooser]
-# sort-directories-first=true
-# '';
+  # [org.gtk.Settings.FileChooser]
+  # sort-directories-first=true
+  # '';
 
   programs.bash.enableCompletion = true;
   programs.fish.enable = true;
@@ -430,7 +463,7 @@ in rec
     home = userHome;
     hashedPassword = secrets.hashedPassword;
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" "mlocate" "dialout"];
+    extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" "mlocate" "dialout" ];
     packages = [
       (home-manager {
         home-manager-path = "${userHome}/home-manager";
