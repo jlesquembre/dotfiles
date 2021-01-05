@@ -162,13 +162,27 @@ in
           '';
       }
 
-      # # Navigation
-      # fern-vim
-      # fern-nerdfont
-      # nerdfont
+      # Navigation
+      (pluginWithConfig custom.fern-vim)
       pkgs.vimPlugins.vim-unimpaired
       # fzf-vim
-      # vim-grepper TODO needed?
+      {
+        plugin = pkgs.vimPlugins.vim-grepper;
+        config =
+          ''
+            let g:grepper = {
+                \ 'tools': ['rgextra', 'rg', 'git', 'grep'],
+                \ 'highlight': 0,
+                \ 'rgextra':
+                \   { 'grepprg':    "rg --no-heading --vimgrep --hidden -g '!.git/' -S",
+                \     'grepformat': '%f:%l:%c:%m',
+                \     'escape':     '\^$.*+?()[]{}|' },
+                \ }
+            nnoremap gss  :Grepper<cr>
+            nmap gs  <plug>(GrepperOperator)
+            xmap gs  <plug>(GrepperOperator)
+          '';
+      }
       (pluginWithConfig pkgs.vimPlugins.vim-easymotion)
 
       # visual-star
@@ -194,8 +208,14 @@ in
       # vim-airline
       # vim-startify
       # # vim-airline-themes
-      pkgs.vimPlugins.vim-highlightedyank
-      (pluginWithConfig custom.fern-vim)
+      {
+        plugin = pkgs.vimPlugins.vim-highlightedyank;
+        config =
+          ''
+            let g:highlightedyank_highlight_duration = 500
+            hi HighlightedyankRegion cterm=reverse gui=reverse
+          '';
+      }
 
       # # Utils
       custom.vim-alias

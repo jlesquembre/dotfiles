@@ -578,14 +578,23 @@ nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
+nnoremap <silent> [w <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> ]w <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+
 nnoremap <silent> <leader>rn  <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>dc  <cmd>lua vim.lsp.buf.code_action()<CR>
 " vim.lsp.buf.formatting()
 " vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
 
 
-lua require'bufferline'.setup()
+" AUTOFORMATTER ============
 augroup FormatAutogroup
     autocmd!
     autocmd BufWritePost * silent FormatWrite
 augroup END
+
+" Custom Lua config ========
+luafile ~/.config/nvim/lua/user.lua
+
+
+lua require'bufferline'.setup()
