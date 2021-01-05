@@ -442,7 +442,6 @@ in rec
   fonts = {
     fontDir.enable = true;
     enableGhostscriptFonts = true;
-    enableDefaultFonts = true;
     fonts = with pkgs; [
       corefonts
       dejavu_fonts
@@ -462,6 +461,7 @@ in rec
       roboto
       roboto-mono
       roboto-slab
+      source-code-pro
       ttf_bitstream_vera
       ubuntu_font_family
       unifont
