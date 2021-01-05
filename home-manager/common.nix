@@ -260,6 +260,21 @@ in
 
   fonts.fontconfig.enable = true;
 
+  # nix-shell -p gnome3.dconf-editor --command dconf-editor
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      cursor-theme = "Qogir";
+      cursor-size = 32;
+    };
+    "org/gnome/desktop/wm/preferences" = {
+      theme = "Qogir";
+    };
+    "org/gtk/settings/file-chooser" = {
+      sort-directories-first = true;
+
+    };
+  };
+
   gtk = {
     enable = true;
     iconTheme = {
@@ -269,14 +284,16 @@ in
       # name = "Paper";
       # package = pkgs.numix-icon-theme;
       # name = "Numix";
-      package = pkgs.papirus-icon-theme;
-      name = "Papirus";
-      # package = pkgs.qogir-icon-theme;
-      # name = "Qogir";
+      # package = pkgs.papirus-icon-theme;
+      # name = "Papirus";
+      package = pkgs.qogir-icon-theme;
+      name = "Qogir";
     };
     theme = {
-      package = pkgs.arc-theme;
-      name = "Arc";
+      # package = pkgs.arc-theme;
+      # name = "Arc";
+      package = pkgs.qogir-theme;
+      name = "Qogir";
     };
 
     font = {
@@ -667,7 +684,7 @@ in
             # "network.IDN_show_punycode" = true;
             # "network.allow-experiments" = false;
             # "signon.rememberSignons" = false;
-            "widget.content.gtk-theme-override" = "Adwaita:light";
+            # "widget.content.gtk-theme-override" = "Adwaita:light";
             "general.useragent.locale" = "en-US";
           };
         };

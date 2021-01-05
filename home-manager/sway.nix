@@ -1,9 +1,3 @@
-# TODO
-# See https://www.youtube.com/watch?v=qTF9Nmt3iXY
-# Use qogir theme and icon theme
-# Maybe https://github.com/vinceliuice/Tela-circle-icon-theme ???
-
-
 { config, pkgs, lib, ... }:
 let
   customKeyboardName = "isodev";
@@ -211,6 +205,7 @@ in
       seat * hide_cursor 5000
       # seat * keyboard_grouping none
       # seat * xcursor_theme default 24
+      seat seat0 xcursor_theme Qogir 32
     '';
 
     config.bars = [ ];
