@@ -361,30 +361,13 @@ in
       # # Other
       # # vim-hexokinase
 
-      # # COC
-      # coc-nvim
-      # # coc-word
-      # coc-pairs
-      # coc-lists
-      # coc-prettier
-      # coc-json
-      # coc-css
-      # coc-html
-      # coc-tsserver
-      # coc-tslint
-      # coc-yaml
-      # # coc-conjure
-      # coc-snippets
-      # coc-emmet
-      # # coc-angular
-
-      # # Clojure
+      # Clojure
+      pkgs.parinfer-rust
+      pkgs.vimPlugins.conjure
       # vim-sexp
       # vim-sexp-mappings-for-regular-people
       # vim-clojure-highlight
-      # # parinfer-rust
       # # vim-kibit
-      # conjure
       # # vim-slamhound
 
       # # Language specific helpers
