@@ -208,14 +208,14 @@ in
       # vim-airline
       # vim-startify
       # # vim-airline-themes
-      {
-        plugin = pkgs.vimPlugins.vim-highlightedyank;
-        config =
-          ''
-            let g:highlightedyank_highlight_duration = 500
-            hi HighlightedyankRegion cterm=reverse gui=reverse
-          '';
-      }
+      # {
+      #   plugin = pkgs.vimPlugins.vim-highlightedyank;
+      #   config =
+      #     ''
+      #       let g:highlightedyank_highlight_duration = 500
+      #       hi HighlightedyankRegion cterm=reverse gui=reverse
+      #     '';
+      # }
 
       # # Utils
       custom.vim-alias

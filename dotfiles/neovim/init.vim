@@ -188,6 +188,8 @@ function! g:Base16_customize() abort
   call Base16hi("PMenu",         g:base16_gui04, g:base16_gui01, g:base16_cterm04, g:base16_cterm01, "none", "")
   call Base16hi("PMenuSel",      g:base16_gui01, g:base16_gui04, g:base16_cterm01, g:base16_cterm04, "", "")
 
+  call Base16hi("Reverse", "", "", "", "", "reverse", "reverse")
+
   " vimagit / diff colors
   call Base16hi("titleEntry", g:base16_gui0D, "", g:base16_cterm0D, "", "bold", "")
   call Base16hi("fileEntry",  g:base16_gui0E, "", g:base16_cterm0E, "", "bold", "")
@@ -238,6 +240,7 @@ endfunction
 augroup on_change_colorschema
   autocmd!
   autocmd ColorScheme * call g:Base16_customize()
+  autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="Reverse", timeout=350}
 augroup END
 
 colorscheme base16-default-dark
@@ -445,7 +448,7 @@ cnoremap <c-n>  <down>
 cnoremap <c-p>  <up>
 
 " Saner CTRL-L
-nnoremap <leader>l :nohlsearch<cr>:GitGutter<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 
 " Quick saving
 nnoremap <silent> <Leader>s :update<CR>
@@ -563,28 +566,6 @@ augroup java
   autocmd!
   autocmd FileType java call JavaCustomSettings()
 augroup end
-
-
-nnoremap <expr>K v:lua.K_help_hover()
-
-
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-" nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-
-nnoremap <silent> [w <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> ]w <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-
-nnoremap <silent> <leader>rn  <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>dc  <cmd>lua vim.lsp.buf.code_action()<CR>
-" vim.lsp.buf.formatting()
-" vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
 
 
 " AUTOFORMATTER ============
