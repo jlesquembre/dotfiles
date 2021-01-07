@@ -448,7 +448,7 @@ cnoremap <c-n>  <down>
 cnoremap <c-p>  <up>
 
 " Saner CTRL-L
-nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+nnoremap <silent> <leader>l <cmd>nohlsearch<cr><cmd>diffupdate<cr><cmd>syntax sync fromstart<cr><c-l>
 
 " Quick saving
 nnoremap <silent> <Leader>s :update<CR>
@@ -567,12 +567,6 @@ augroup java
   autocmd FileType java call JavaCustomSettings()
 augroup end
 
-
-" AUTOFORMATTER ============
-augroup FormatAutogroup
-    autocmd!
-    autocmd BufWritePost * silent FormatWrite
-augroup END
 
 " Custom Lua config ========
 luafile ~/.config/nvim/lua/user.lua
