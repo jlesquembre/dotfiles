@@ -25,6 +25,9 @@ in
   ];
 
   home.packages = with pkgs; [
+
+    chromium
+
     # nix tools
     nix-update
     nixpkgs-review
