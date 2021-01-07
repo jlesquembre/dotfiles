@@ -273,16 +273,6 @@
     };
   };
 
-  vim-gnupg = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-gnupg";
-    src = pkgs.fetchFromGitHub {
-      owner = "jamessan";
-      repo = "vim-gnupg";
-      rev = "master";
-      sha256 = "0y0g3br54sj0h8s6ashny2km2260qw8psqxq00jn0l2chjwsi0d9";
-    };
-  };
-
   vim-qf = pkgs.vimUtils.buildVimPlugin {
     name = "vim-qf";
     src = pkgs.fetchFromGitHub {

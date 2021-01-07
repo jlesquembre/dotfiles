@@ -151,8 +151,12 @@ in
       pkgs.vimPlugins.completion-treesitter
 
       # UI
+      # TODO use the lua version
       pkgs.vimPlugins.base16-vim
       pkgs.vimPlugins.oceanic-next
+      (pluginWithConfig custom.galaxyline-nvim)
+      # pkgs.vimPlugins.barbar-nvim
+      # custom.nvim-bufferline-lua
       {
         plugin = pkgs.vimPlugins.vim-startify;
         config =
@@ -188,7 +192,7 @@ in
       # visual-star
       # vim-indent-object TODO ?
 
-      # # Text edition
+      # Text edition
       pkgs.vimPlugins.vim-repeat
       (pluginWithConfig pkgs.vimPlugins.vim-sandwich)
       pkgs.vimPlugins.vim-commentary
@@ -199,23 +203,7 @@ in
       pkgs.vimPlugins.NrrwRgn
       # vim-exchange
       # transpose-words
-      # capslock
-
-      # # UI
-      (pluginWithConfig custom.galaxyline-nvim)
-      # pkgs.vimPlugins.barbar-nvim
-      custom.nvim-bufferline-lua
-      # vim-airline
-      # vim-startify
-      # # vim-airline-themes
-      # {
-      #   plugin = pkgs.vimPlugins.vim-highlightedyank;
-      #   config =
-      #     ''
-      #       let g:highlightedyank_highlight_duration = 500
-      #       hi HighlightedyankRegion cterm=reverse gui=reverse
-      #     '';
-      # }
+      pkgs.vimPlugins.vim-capslock
 
       # # Utils
       custom.vim-alias
@@ -284,7 +272,7 @@ in
             nnoremap <leader>gd :Gdiff<CR>
             nnoremap <leader>gg :G<CR>
             nnoremap <leader>gcc :Gcommit<CR>
-            nnoremap <leader>gp :Gpush<CR>
+            "nnoremap <leader>gp :Gpush<CR>
             "nnoremap <leader>gr :Git reset -q -- %<CR>
             " nnoremap <leader>gll :GV!<CR>
             " nnoremap <leader>glr :GV?<CR>
@@ -449,7 +437,6 @@ in
     #       rainbow_parentheses-vim
     #       vim-projectionist
     #       ale
-    #       vim-gnupg
     #       neoterm
     #       vim-sayonara
     #       vim-qf

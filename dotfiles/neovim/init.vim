@@ -570,6 +570,3 @@ augroup end
 
 " Custom Lua config ========
 luafile ~/.config/nvim/lua/user.lua
-
-
-lua require'bufferline'.setup()
