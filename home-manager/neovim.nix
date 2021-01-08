@@ -209,7 +209,7 @@ in
       custom.vim-alias
       # vim-dispatch
       # vim-abolish
-      # vim-eunuch
+      pkgs.vimPlugins.vim-eunuch
       # vim-dotenv
       {
         plugin = pkgs.vimPlugins.vim-rsi;
@@ -370,10 +370,12 @@ in
       # # vim-hexokinase
 
       # Clojure
+      pkgs.vimPlugins.vim-sexp
+      pkgs.vimPlugins.vim-sexp-mappings-for-regular-people
       pkgs.parinfer-rust
-      pkgs.vimPlugins.conjure
-      # vim-sexp
-      # vim-sexp-mappings-for-regular-people
+      pkgs.vimPlugins.fennel-vim
+      pkgs.vimPlugins.aniseed
+      (pluginWithConfig pkgs.vimPlugins.conjure)
       # vim-clojure-highlight
       # # vim-kibit
       # # vim-slamhound

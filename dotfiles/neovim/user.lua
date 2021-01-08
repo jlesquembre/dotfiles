@@ -12,7 +12,7 @@
 
 require"toggleterm".setup{
   size = 20,
-  open_mapping = [[<leader>tt]],
+  open_mapping = [[<c-t>]],
   shade_filetypes = {},
   shade_terminals = true,
   persist_size = true,
