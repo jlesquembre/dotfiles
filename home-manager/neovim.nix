@@ -343,6 +343,7 @@ in
       #       let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
       #     '';
       # }
+      pkgs.vimPlugins.fennel-vim
       pkgs.vimPlugins.vim-fish
       pkgs.vimPlugins.vim-nix
       # pkgs.vimPlugins.vim-toml
@@ -373,7 +374,6 @@ in
       pkgs.vimPlugins.vim-sexp
       pkgs.vimPlugins.vim-sexp-mappings-for-regular-people
       pkgs.parinfer-rust
-      pkgs.vimPlugins.fennel-vim
       pkgs.vimPlugins.aniseed
       (pluginWithConfig pkgs.vimPlugins.conjure)
       # vim-clojure-highlight
