@@ -231,9 +231,9 @@ function! g:Base16_customize() abort
   call Base16hi("CocInfoSign",   g:base16_gui0D, g:base16_gui01, "", "", "", "")
   call Base16hi("CocHintSign",   g:base16_gui0B, g:base16_gui01, "", "", "", "")
 
-  call Base16hi("CocError",     "", "", "", "", "underline", g:base16_gui08)
-  call Base16hi("CocWarning",     "", "", "", "", "underline", g:base16_gui09)
-  call Base16hi("CocHighlightText",     "", g:base16_gui02, "", "", "", "" )
+  call Base16hi("LspReferenceRead",     "", g:base16_gui02, "", "", "", "" )
+  call Base16hi("LspReferenceWrite",     "", g:base16_gui02, "", "", "", "" )
+  call Base16hi("LspReferenceText",     "", g:base16_gui02, "", "", "", "" )
 
 endfunction
 
@@ -547,26 +547,6 @@ endfunction
 " nnoremap @ :<c-u>call RunMacro()<cr>
 " nnoremap Q :<c-u>call RunMacro()<cr>@
 "
-"
-" LSP ==============
-function! JavaCustomSettings()
-  lua require('jdtls').start_or_attach({cmd = {'jdt-ls'}})
-
-  nnoremap <leader>dc <cmd>lua require('jdtls').code_action()<CR>
-  vnoremap <leader>dc <esc><cmd>lua require('jdtls').code_action(true)<CR>
-  " nnoremap <leader>rn <cmd>lua require('jdtls').code_action(false, 'refactor')<CR>
-
-  nnoremap <leader>di <Cmd>lua require'jdtls'.organize_imports()<CR>
-  nnoremap <leader>de <Cmd>lua require('jdtls').extract_variable()<CR>
-  vnoremap <leader>de <Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>
-  vnoremap <leader>dm <Esc><Cmd>lua require('jdtls').extract_method(true)<CR>
-endfunction
-
-augroup java
-  autocmd!
-  autocmd FileType java call JavaCustomSettings()
-augroup end
-
 
 " Custom Lua config ========
 luafile ~/.config/nvim/lua/user.lua

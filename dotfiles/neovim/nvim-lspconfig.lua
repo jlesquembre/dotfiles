@@ -17,31 +17,63 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 local lspconfig = require'lspconfig'
 local root_pattern = lspconfig.util.root_pattern
 
-local function custom_attach()
-  local bufnr = 0
-  local set_keymap = vim.api.nvim_buf_set_keymap
+local function custom_attach(client, bufnr)
+  local function set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local opts = {noremap = true, silent = true}
 
-  set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+  set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
 
-  set_keymap(bufnr, 'n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  set_keymap(bufnr, 'n', 'gD',    '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  set_keymap(bufnr, 'n', 'gd',    '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  set_keymap(bufnr, 'n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  set_keymap(bufnr, 'n', '1gD',   '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  set_keymap(bufnr, 'n', 'gr',    '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  set_keymap(bufnr, 'n', 'g0',    '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
-  set_keymap(bufnr, 'n', 'gW',    '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
+  set_keymap('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  set_keymap('n', 'gD',    '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  set_keymap('n', 'gd',    '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  set_keymap('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  set_keymap('n', '1gD',   '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  set_keymap('n', 'gr',    '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  set_keymap('n', 'g0',    '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
+  set_keymap('n', 'gW',    '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
 
-  set_keymap(bufnr, 'n', '[w', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  set_keymap(bufnr, 'n', ']w', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  set_keymap('n', '[w', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  set_keymap('n', ']w', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
-  set_keymap(bufnr, 'n', '<leader>rn',  '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  set_keymap(bufnr, 'n', '<leader>dc',  '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
--- " vim.lsp.buf.formatting()
--- " vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
+  set_keymap('n', '<leader>rn',  '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  set_keymap('n', '<leader>dc',  '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+
+  if client.resolved_capabilities.document_highlight then
+    lspconfig.util.nvim_multiline_command [[
+      augroup lsp_document_highlight
+        autocmd!
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+        autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMovedI <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]]
+  end
 end
 
+local function jdt_on_attach(client, bufnr)
+  custom_attach(client, bufnr)
+  local function set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local opts = {noremap = true, silent = true}
+
+  set_keymap('n', '<leader>dc', '<cmd>lua require("jdtls").code_action()<CR>', opts)
+  set_keymap('v', '<leader>dc', '<esc><cmd>lua require("jdtls").code_action(true)<CR>', opts)
+  -- set_keymap('n', '<leader>rn', '<cmd>lua require("jdtls").code_action(false, "refactor")<CR>', opts)
+
+  set_keymap('n', '<leader>di', '<Cmd>lua require"jdtls".organize_imports()<CR>', opts)
+  set_keymap('n', '<leader>de', '<Cmd>lua require("jdtls").extract_variable()<CR>', opts)
+  set_keymap('v', '<leader>de', '<Esc><Cmd>lua require("jdtls").extract_variable(true)<CR>', opts)
+  set_keymap('v', '<leader>dm', '<Esc><Cmd>lua require("jdtls").extract_method(true)<CR>', opts)
+
+  require('jdtls.setup').add_commands()
+
+  lspconfig.util.nvim_multiline_command [[
+    augroup FormatLspAutogroup
+      autocmd!
+      autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+    augroup END
+  ]]
+end
 
 lspconfig.bashls.setup{on_attach = custom_attach}
 lspconfig.clojure_lsp.setup{on_attach = custom_attach}
@@ -59,6 +91,24 @@ lspconfig.rls.setup{on_attach = custom_attach}
 -- require'lspconfig'.rnix.setup{}
 lspconfig.terraformls.setup{on_attach = custom_attach}
 
+
+function start_jdtls()
+  local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
+  local root_dir = root_pattern('.git', 'gradlew', 'mvnw', 'pom.xml')(bufname)
+  local workspace_dir = "/tmp/jdtls_workspaces/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+  require('jdtls').start_or_attach({
+      cmd = {'jdt-ls', '-data', workspace_dir},
+      on_attach = jdt_on_attach,
+      root_dir = root_dir,
+      })
+end
+
+vim.api.nvim_exec([[
+augroup LspCustom
+  autocmd!
+  autocmd FileType java lua start_jdtls()
+augroup END
+]], true)
 
 -- java lsp
 -- local finders = require'telescope.finders'
@@ -118,21 +168,3 @@ lspconfig.terraformls.setup{on_attach = custom_attach}
 --         return rt('<S-Tab>')
 --     end
 -- end
-
--- Help
--- function K_help()
---   if vim.tbl_isempty(vim.lsp.buf_get_clients(0)) then
---     vim.api.nvim_command('normal! K')
---   else
---     vim.lsp.buf.hover()
---   end
--- end
--- And the mapping of those is :
-
--- imap <expr><TAB> v:lua.tab_complete()
--- smap <expr><TAB> v:lua.tab_complete()
-
--- imap <expr><S-TAB> v:lua.s_tab_complete()
--- smap <expr><S-TAB> v:lua.s_tab_complete()
-
--- vim.api.nvim_set_keymap('n', 'K', ':lua K_help()<cr>', { noremap = true, silent = true })

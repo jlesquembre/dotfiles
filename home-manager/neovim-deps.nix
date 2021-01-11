@@ -6,8 +6,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "adbf2dd86b8c7d898843bdf47b89b423f62bee4b";
-      sha256 = "10i7mm31vhjddl0s1pjrdcnhyal5la2wa47wscsrx81kn5ili4kc";
+      rev = "b535575acdb037c35a9b688bc2d8adc2f3dece8d";
+      sha256 = "131k93f144z83ham8jq33wiyyq92nfwvk9rbwivsizy6l48y61ph";
     };
 
     buildInputs = oa.buildInputs ++ ([
@@ -42,12 +42,12 @@
 
   nvim-jdtls = pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "nvim-jdtls";
-    version = "2020-18-23";
+    version = "2021-01-10";
     src = pkgs.fetchFromGitHub {
       owner = "mfussenegger";
       repo = "nvim-jdtls";
-      rev = "da0d007798e24b744f0500148b7d5cb003b10c2a";
-      sha256 = "0addxkyvwgadkyn2wzfwx3h3yv6k9jhshd0q908zvif27irinq99";
+      rev = "750432ca50dc1389a9ae637d290497b2e2749557";
+      sha256 = "14py6rrjm8sbkrq13hj6lqqb71ka3dyrq5yl3zdbpyh3kpr1q1r3";
     };
   };
   galaxyline-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {

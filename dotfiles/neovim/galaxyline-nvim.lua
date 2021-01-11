@@ -28,13 +28,22 @@ end
 
 local git_project = require('galaxyline.provider_vcs').check_git_workspace
 
-gls.left[1] = {
+local checkwidth = function()
+  local squeeze_width  = vim.fn.winwidth(0) / 2
+  if squeeze_width > 40 then
+    return true
+  end
+  return false
+end
+
+gls.left = {
+{
   FirstElement = {
     provider = function() return '▊ ' end,
     highlight = {colors.blue,colors.line_bg}
   },
-}
-gls.left[2] = {
+},
+{
   ViMode = {
     provider = function()
       -- auto change color according the vim mode
@@ -50,91 +59,81 @@ gls.left[2] = {
     separator = ' ',
     highlight = {colors.bg,colors.line_fg,'bold'},
   },
-}
-gls.left[3] ={
+},
+{
   FileIcon = {
     provider = 'FileIcon',
     condition = buffer_not_empty,
     highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,colors.line_bg},
   },
-}
-gls.left[4] = {
+},
+{
   FileName = {
     provider = {'FileName','FileSize'},
     condition = buffer_not_empty,
-    condition = function() return buffer_not_empty() and git_project() end,
+    -- condition = function() return buffer_not_empty() and git_project() end,
     highlight = {colors.fg,colors.line_bg,'bold'},
-    separator = '',
-    separator_highlight = {colors.purple,colors.line_bg},
+    -- separator = '',
+    -- separator_highlight = {colors.purple,colors.line_bg},
   }
-}
-gls.left[5] = {
-  FileName = {
-    provider = {'FileName','FileSize'},
-    condition = buffer_not_empty,
-    condition = function() return buffer_not_empty() and not git_project() end,
-    highlight = {colors.fg,colors.line_bg,'bold'},
+},
+{
+  Separator = {
+    provider = function() return '' end,
+    condition = git_project,
+    highlight = {colors.purple,colors.line_bg},
   }
-}
-
-gls.left[6] = {
+},
+{
   GitIcon = {
-    provider = function() return '  ' end,
-    condition = require('galaxyline.provider_vcs').check_git_workspace,
+    provider = function() return '   ' end,
+    condition = git_project,
     highlight = {colors.line_fg,colors.purple},
   }
-}
-gls.left[7] = {
+},
+{
   GitBranch = {
     provider = 'GitBranch',
-    condition = require('galaxyline.provider_vcs').check_git_workspace,
-    highlight = {colors.fg,colors.purple,'bold'},
+    condition = git_project,
     separator = ' ',
+    highlight = {colors.fg,colors.purple,'bold'},
     separator_highlight = {colors.purple,colors.line_bg},
   }
-}
+},
 
-local checkwidth = function()
-  local squeeze_width  = vim.fn.winwidth(0) / 2
-  if squeeze_width > 40 then
-    return true
-  end
-  return false
-end
-
-gls.left[8] = {
+{
   DiffAdd = {
     provider = 'DiffAdd',
     condition = checkwidth,
     icon = '',
     highlight = {colors.green,colors.line_bg},
   }
-}
-gls.left[9] = {
+},
+{
   DiffModified = {
     provider = 'DiffModified',
     condition = checkwidth,
     icon = '~',
     highlight = {colors.orange,colors.line_bg,'bold'},
   }
-}
-gls.left[10] = {
+},
+{
   DiffRemove = {
     provider = 'DiffRemove',
     condition = checkwidth,
     icon = '',
     highlight = {colors.red,colors.line_bg},
   }
-}
-gls.left[11] = {
+},
+{
   LeftEnd = {
     provider = function() return '' end,
     separator = '',
     separator_highlight = {colors.bg,colors.line_bg},
     highlight = {colors.line_bg,colors.line_bg}
   }
-}
-gls.left[12] = {
+},
+{
   DiagnosticError = {
     provider = 'DiagnosticError',
     -- icon = '  ',
@@ -144,14 +143,15 @@ gls.left[12] = {
     highlight = {colors.red,colors.bg},
     separator_highlight = {colors.line_bg,colors.bg},
   }
-}
-gls.left[13] = {
+},
+{
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
     -- icon = '  ',
     highlight = {colors.orange,colors.bg},
   }
+}
 }
 gls.right[1]= {
   FileFormat = {

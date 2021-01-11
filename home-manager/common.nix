@@ -53,7 +53,7 @@ in
     jdk11
     visualvm
     jetbrains.idea-community
-    maven
+    (maven.override { jdk = jdk11; })
     gradle
 
     # clojure

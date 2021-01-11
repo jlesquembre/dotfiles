@@ -24,4 +24,3 @@ require"toggleterm".setup{
 local opts = {noremap = true, silent = false}
 vim.api.nvim_set_keymap('n', '<leader>gp',
                         [[<cmd>lua require'toggleterm'.exec("git push", 10, 12)<cr>]], opts)
-
