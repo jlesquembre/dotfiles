@@ -47,14 +47,38 @@ gls.left = {
   ViMode = {
     provider = function()
       -- auto change color according the vim mode
-      local mode_color = {n = colors.magenta, i = colors.green,v=colors.blue,[''] = colors.blue,V=colors.blue,
-                          c = colors.red,no = colors.magenta,s = colors.orange,S=colors.orange,
-                          [''] = colors.orange,ic = colors.yellow,R = colors.purple,Rv = colors.purple,
-                          cv = colors.red,ce=colors.red, r = colors.cyan,rm = colors.cyan, ['r?'] = colors.cyan,
-                          ['!']  = colors.red,t = colors.red}
+      local mode_color = {
+        n = colors.magenta,
+        i = colors.green,
+        v = colors.blue,
+        [''] = colors.blue,
+        V = colors.blue,
+        c = colors.red,
+        no = colors.magenta,
+        s = colors.orange,
+        S=colors.orange,
+        [''] = colors.orange,
+        ic = colors.yellow,
+        R = colors.purple,
+        Rv = colors.purple,
+        cv = colors.red,
+        cel= colors.red,
+        r = colors.cyan,
+        rm = colors.cyan,
+        ['r?'] = colors.cyan,
+        ['!']  = colors.red,
+        t = colors.green,
+      }
       vim.api.nvim_command('hi GalaxyViMode guibg='..mode_color[vim.fn.mode()])
-      local alias = {n = 'NORMAL',i = 'INSERT',c= 'COMMAND',v= 'VISUAL', [''] = 'VISUAL'}
-      return alias[vim.fn.mode()]
+      local alias = {
+          n = 'NORMAL',
+          i = 'INSERT',
+          c = 'COMMAND',
+          v = 'VISUAL',
+          [''] = 'VISUAL BLK',
+          t = 'TERM',
+        }
+      return alias[vim.fn.mode()] or vim.fn.mode()
     end,
     separator = ' ',
     highlight = {colors.bg,colors.line_fg,'bold'},
