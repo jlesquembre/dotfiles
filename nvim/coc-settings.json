@@ -53,5 +53,8 @@
     }
   },
 
-  "prettier.proseWrap": "always"
+  "java.format.enabled": true,
+
+  "prettier.proseWrap": "always",
+  "java.format.settings.url": "/home/jlle/.config/coc/extensions/node_modules/redhat.java/eclipse-formatter.xml"
 }

@@ -91,6 +91,14 @@ in
           ${vimDir}/user.lua ${targerFile}
 
     '';
+
+  # Add all tree-sitter parsers
+  home.file = lib.attrsets.mapAttrs'
+    (name: drv: lib.attrsets.nameValuePair
+      ("${config.xdg.configHome}/nvim/parser/" + (lib.strings.removePrefix "tree-sitter-" name) + ".so")
+      { source = "${drv}/parser"; })
+    pkgs.tree-sitter.builtGrammars;
+
   programs.neovim = {
     enable = true;
     package = custom.neovim-nightly;
@@ -167,7 +175,7 @@ in
       }
 
       # Navigation
-      (pluginWithConfig custom.fern-vim)
+      (pluginWithConfig pkgs.vimPlugins.fern-vim)
       pkgs.vimPlugins.vim-unimpaired
       # fzf-vim
       {

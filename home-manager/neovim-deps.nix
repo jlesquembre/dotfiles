@@ -6,8 +6,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "b535575acdb037c35a9b688bc2d8adc2f3dece8d";
-      sha256 = "131k93f144z83ham8jq33wiyyq92nfwvk9rbwivsizy6l48y61ph";
+      rev = "d6d4e3d1ae88fd037aadb12a3237fdecfb1c692d";
+      sha256 = "1rlc9m8k00awwvgk0zffnsjgcc0w9j01vvnpv5afh2zbh6sh7778";
     };
 
     buildInputs = oa.buildInputs ++ ([
@@ -35,8 +35,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "lewis6991";
       repo = "gitsigns.nvim";
-      rev = "6433129ce42257e20e6518a0c73ee7636b5a8b3d";
-      sha256 = "16sjfmr4hldl1mh923s539aii1hkl9qwlxim548vzshxk0r26dd0";
+      rev = "4440a0f716b76132f365f5ef5c7f7cdad4b7c98c";
+      sha256 = "19hyqga7xj3dc7p629gih80c72a04z1my8qav37myz0jq3bllg2v";
     };
   };
 
@@ -46,8 +46,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "mfussenegger";
       repo = "nvim-jdtls";
-      rev = "750432ca50dc1389a9ae637d290497b2e2749557";
-      sha256 = "14py6rrjm8sbkrq13hj6lqqb71ka3dyrq5yl3zdbpyh3kpr1q1r3";
+      rev = "357d0b405235e3dfb0b15450f33ad6d10cbf2122";
+      sha256 = "1gd4kjxpb73d6ixxgg4qyzj5alca590whx1i905j3m8j4sjb7vib";
     };
   };
   galaxyline-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
@@ -80,18 +80,6 @@
       repo = "nvim-toggleterm.lua";
       rev = "7b1ccaf320beefe3e54a3d6b5808aaad37376694";
       sha256 = "0jk4vja6x8jf9qapbldy78zmamnl5rx711v5a65vffb0zgg7s3jx";
-    };
-  };
-
-
-  fern-vim = pkgs.vimUtils.buildVimPluginFrom2Nix rec {
-    pname = "fern-vim";
-    version = "1.28.6";
-    src = pkgs.fetchFromGitHub {
-      owner = "lambdalisue";
-      repo = "fern.vim";
-      rev = "v${version}";
-      sha256 = "0hdk7v4ag763lwr2gc2vcryhq8nhy0fp52vmb0ws203h4nkkilaf";
     };
   };
 
@@ -230,16 +218,6 @@
       repo = "vim-systemd-syntax";
       rev = "master";
       sha256 = "0fqk5fxrdf8nazic244ia4bi75midmpj896vdkdmxnv563lnhkcy";
-    };
-  };
-
-  fennel-vim = pkgs.vimUtils.buildVimPlugin {
-    name = "fennel-vim";
-    src = pkgs.fetchFromGitHub {
-      owner = "bakpakin";
-      repo = "fennel.vim";
-      rev = "master";
-      sha256 = "0wpqgylpq45w1cfq63cch7ky2qs9rc052nhh8dhgsfsq8v26233r";
     };
   };
 

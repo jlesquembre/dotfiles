@@ -18,6 +18,7 @@ require('formatter').setup({
     html = {pConf} ,
     yaml = {pConf} ,
     markdown = {pConf} ,
+    ["markdown.mdx"] = {pConf} ,
 
     nix = {
       function()

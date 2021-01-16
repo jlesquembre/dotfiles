@@ -38,7 +38,6 @@ in
     # nix_graph
     clipman
     deadbeef # ???
-    clap-maple
     wl-clipboard
     xfce.ristretto
     ripgrep

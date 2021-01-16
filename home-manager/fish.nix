@@ -191,15 +191,6 @@ in
           bind \ew 'prepend_to_command "watch"'
 
           bind \cs 'fssh'
-          if type -q fzf-share
-              # source (fzf-share)/key-bindings.fish
-              fzf_key_bindings
-
-              bind \cj fzf-cd-widget
-              if bind -M insert > /dev/null 2>&1
-                  bind -M insert \cj fzf-cd-widget
-              end
-          end
         '';
 
       nix_prompt_txt =
