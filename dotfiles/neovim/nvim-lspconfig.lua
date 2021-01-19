@@ -93,6 +93,38 @@ lspconfig.terraformls.setup{on_attach = custom_attach}
 
 
 function start_jdtls()
+  local settings = {
+    java = {
+      signatureHelp = { enabled = true },
+      referenceCodeLens = { enabled = true },
+      implementationsCodeLens = { enabled = true },
+      autobuild = { enabled = true },
+      trace = { server = "verbose" },
+      -- contentProvider = { preferred = 'fernflower' };
+      -- completion = {
+      --   favoriteStaticMembers = {
+      --     "org.hamcrest.MatcherAssert.assertThat",
+      --     "org.hamcrest.Matchers.*",
+      --     "org.hamcrest.CoreMatchers.*",
+      --     "org.junit.jupiter.api.Assertions.*",
+      --     "java.util.Objects.requireNonNull",
+      --     "java.util.Objects.requireNonNullElse",
+      --     "org.mockito.Mockito.*"
+      --   }
+      -- },
+      sources = {
+        organizeImports = {
+          starThreshold = 9999;
+          staticStarThreshold = 9999;
+        },
+      },
+      codeGeneration = {
+        toString = {
+          template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"
+        }
+      },
+    },
+  }
   local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
   local root_dir = root_pattern('.git', 'gradlew', 'mvnw', 'pom.xml')(bufname)
   local workspace_dir = "/tmp/jdtls_workspaces/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
@@ -100,6 +132,10 @@ function start_jdtls()
       cmd = {'jdt-ls', '-data', workspace_dir},
       on_attach = jdt_on_attach,
       root_dir = root_dir,
+      settings = settings,
+      init_options = {
+          extendedCapabilities = require('jdtls').extendedClientCapabilities,
+        },
       })
 end
 
