@@ -453,6 +453,7 @@ rec
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark-qt;
 
+  programs.adb.enable = true;
 
   users.mutableUsers = false;
   users.users.root.hashedPassword = secrets.hashedPassword;
@@ -463,7 +464,7 @@ rec
     home = userHome;
     hashedPassword = secrets.hashedPassword;
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" "mlocate" "dialout" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" "mlocate" "dialout" "adbusers" ];
     packages = [
       (home-manager {
         home-manager-path = "${userHome}/home-manager";
