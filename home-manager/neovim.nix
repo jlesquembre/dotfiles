@@ -12,12 +12,12 @@ let
       "";
   compileAniseed = text:
     let
-      version = "3.11.0";
+      version = "3.12.0";
       aniseed = pkgs.fetchFromGitHub {
         owner = "olical";
         repo = "aniseed";
         rev = "v${version}";
-        sha256 = "0j424nwms2a6cz3ws16b326ds163fx3r1mdcl7l0rfn3h30w9p43";
+        sha256 = "1wy5jd86273q7sxa50kv88flqdgmg9z2m4b6phpw3xnl5d1sj9f7";
       };
       input = pkgs.writeText "input.fnl" text;
     in

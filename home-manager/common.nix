@@ -656,15 +656,15 @@ in
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-wayland;
-    extensions =
-      with pkgs.nur.repos.rycee.firefox-addons; [
-        browserpass
-        browserpass-otp
-        ublock-origin
-        # firenvim
-        # https-everywhere
-        # privacy-badger
-      ];
+    # extensions =
+    #   with pkgs.nur.repos.rycee.firefox-addons; [
+    #     browserpass
+    #     browserpass-otp
+    #     ublock-origin
+    #     # firenvim
+    #     # https-everywhere
+    #     # privacy-badger
+    #   ];
     profiles = {
       default =
         {
