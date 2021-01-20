@@ -6,6 +6,14 @@ local pConf = function ()
   }
 end
 
+local hclConf = function ()
+  return {
+    exe = "terraform",
+    args = {"fmt", '-'},
+    stdin = true
+  }
+end
+
 require('formatter').setup({
   logging = false,
   filetype = {
@@ -19,6 +27,8 @@ require('formatter').setup({
     yaml = {pConf} ,
     markdown = {pConf} ,
     ["markdown.mdx"] = {pConf} ,
+
+    tf = {hclConf},
 
     nix = {
       function()

@@ -69,12 +69,12 @@ in
       c = "bat";
       v = "nvim";
       r = "ranger";
+      t = "terraform";
       diskspace_report = "df -P -kHl";
       disk_usage = "ncdu --color dark -r -x --exclude .git --exclude node_modules";
       myip = "dig +short myip.opendns.com @resolver1.opendns.com";
       dig-short = "dig +nocmd any +multiline +noall +answer";
       getip = "getent hosts";
-
 
       # Clojure
       cljs-repl = "clj -m cljs.repl.node";

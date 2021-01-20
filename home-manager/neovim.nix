@@ -138,6 +138,7 @@ in
       pkgs.nodePackages.prettier
       pkgs.nixpkgs-fmt
       pkgs.rustfmt
+      pkgs.terraform
     ];
     plugins = with pkgs.vimPlugins; [
 

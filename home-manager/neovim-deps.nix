@@ -35,8 +35,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "lewis6991";
       repo = "gitsigns.nvim";
-      rev = "4440a0f716b76132f365f5ef5c7f7cdad4b7c98c";
-      sha256 = "19hyqga7xj3dc7p629gih80c72a04z1my8qav37myz0jq3bllg2v";
+      rev = "59f7091554378794229bccca1faef6cfcc662024";
+      sha256 = "05s2ln800gxw0xk53gf8zsv01hxdznhrqrkprp4iki4k28lay5kd";
     };
   };
 
@@ -56,8 +56,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "glepnir";
       repo = "galaxyline.nvim";
-      rev = "528bb65b00f9ef5081cb524638b3337c4e5f26b5";
-      sha256 = "069ksz4nfhlr5zlkpawh1yak4yk3vc2cd9mgy5f0r6in3wh0iypc";
+      rev = "64d6b8e31459057ba4f9b03a977fce0d2cc3d748";
+      sha256 = "1w5cggvxvmnm3zparnsgb3iz1pkw7d8bwvflcxaxg4pilgsniqsa";
     };
     meta.homepage = "https://github.com/glepnir/galaxyline.nvim/";
   };
