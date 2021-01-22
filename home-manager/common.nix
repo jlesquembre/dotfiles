@@ -408,7 +408,14 @@ in
       shell.program = "${pkgs.fish}/bin/fish";
       url.launcher.program = "${pkgs.xdg_utils}/bin/xdg-open";
       mouse.hide_when_typing = false;
-      cursor.style = "Block";
+      cursor = {
+        style =
+          {
+            shape = "Block";
+            blinking = "Always";
+          };
+        blink_interval = 500;
+      };
       window = {
         padding = {
           x = 5;
