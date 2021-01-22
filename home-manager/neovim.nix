@@ -214,7 +214,7 @@ in
       # transpose-words
       pkgs.vimPlugins.vim-capslock
 
-      # # Utils
+      # Utils
       custom.vim-alias
       # vim-dispatch
       # vim-abolish
@@ -355,6 +355,7 @@ in
       pkgs.vimPlugins.fennel-vim
       pkgs.vimPlugins.vim-fish
       pkgs.vimPlugins.vim-nix
+      pkgs.vimPlugins.vim-terraform
       # pkgs.vimPlugins.vim-toml
       # pkgs.vimPlugins.vim-yaml
       # vim-mustache-handlebars

@@ -28,7 +28,7 @@ require('formatter').setup({
     markdown = {pConf} ,
     ["markdown.mdx"] = {pConf} ,
 
-    tf = {hclConf},
+    terraform = {hclConf},
 
     nix = {
       function()
