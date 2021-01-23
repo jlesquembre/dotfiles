@@ -35,6 +35,63 @@ let
         ''
     );
 
+  /*
+    Compiles an aniseed plugin.
+    fnlDir is the root directory with the fennel source.
+    name and version are required by buildVimPluginFrom2Nix, but its value is
+    not important.
+  */
+  compileAniseedPlugin = { name, version, src, fnlDir ? "fnl" }:
+    let
+      aniseed = pkgs.fetchFromGitHub {
+        owner = "olical";
+        repo = "aniseed";
+        rev = "v3.12.0";
+        sha256 = "1wy5jd86273q7sxa50kv88flqdgmg9z2m4b6phpw3xnl5d1sj9f7";
+      };
+      luaCode = pkgs.runCommand "${name}-compiled"
+        {
+          src = src;
+          allowSubstitues = false;
+          preferLocalBuild = true;
+        }
+        ''
+          mkdir $out
+          # Don't copy fennel src dir
+          shopt -s extglob
+          cp -r ${src}/!(${fnlDir}) $out
+
+          ${pkgs.neovim}/bin/nvim -u NONE -i NONE --headless \
+              -c "let &runtimepath = &runtimepath . ',${aniseed}'" \
+              -c "lua require('aniseed.compile').glob('**/*.fnl', '${src}/${fnlDir}', '$out/lua')" \
+              +q
+        '';
+    in
+    pkgs.vimUtils.buildVimPluginFrom2Nix {
+      pname = name;
+      version = version;
+      src = luaCode;
+    };
+
+
+  /*
+    Wrapper around compileAniseedPlugin. Compiles a local aniseed plugin.
+    src must a string with the absolute path to the plugin directory.
+
+    Example:
+    (compileAniseedPluginLocal {
+      src = "${config.home.homeDirectory}/projects/nterm.nvim";
+      fnlDir = "src";
+    })
+
+  */
+  compileAniseedPluginLocal =
+    { src, name ? "localPlugin", version ? "DEV", fnlDir ? "fnl" }:
+    compileAniseedPlugin {
+      src = pkgs.lib.cleanSource (/. + src);
+      inherit name version fnlDir;
+    };
+
   pluginWithConfig' = dir: p: {
     plugin = p;
     config =
@@ -248,7 +305,11 @@ in
       # ale
       (pluginWithConfig custom.formatter-nvim)
       pkgs.vimPlugins.vim-gnupg
-      custom.nvim-toggleterm-lua
+      # custom.nvim-toggleterm-lua
+      (compileAniseedPluginLocal {
+        src = "${config.home.homeDirectory}/projects/nterm.nvim";
+        fnlDir = "src";
+      })
       # neoterm
       {
         plugin = pkgs.vimPlugins.vim-sayonara;
