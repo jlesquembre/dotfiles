@@ -262,9 +262,11 @@ in
 
       fish_right_prompt =
         ''
-          set -l last_duration (echo $CMD_DURATION | humanize_duration)
-          set -l now (date "+%T %F")
-          printf "$now [ $last_duration ]"
+          if test ! -n "$VIM"
+            set -l last_duration (echo $CMD_DURATION | humanize_duration)
+            set -l now (date "+%T %F")
+            printf "$now [ $last_duration ]"
+          end
         '';
 
       humanize_duration =

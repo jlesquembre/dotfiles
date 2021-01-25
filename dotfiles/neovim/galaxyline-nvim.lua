@@ -26,6 +26,13 @@ local buffer_not_empty = function()
   return false
 end
 
+local term_name = function()
+  if vim.b.nterm_name == nil then
+    return false
+  end
+  return vim.b.nterm_name
+end
+
 local git_project = require('galaxyline.provider_vcs').check_git_workspace
 
 local checkwidth = function()
@@ -94,11 +101,18 @@ gls.left = {
 {
   FileName = {
     provider = {'FileName','FileSize'},
-    condition = buffer_not_empty,
+    condition = function() return buffer_not_empty() and (not term_name()) end ,
     -- condition = function() return buffer_not_empty() and git_project() end,
     highlight = {colors.fg,colors.line_bg,'bold'},
     -- separator = '',
     -- separator_highlight = {colors.purple,colors.line_bg},
+  }
+},
+{
+  TermName = {
+    provider = function() return "NTERM: " .. term_name() end,
+    condition = term_name,
+    highlight = {colors.fg,colors.line_bg,'bold'},
   }
 },
 {
@@ -219,9 +233,20 @@ gls.short_line_left[1] = {
 gls.short_line_left[2] = {
   FileName = {
     provider = {'FileName','FileSize'},
-    condition = buffer_not_empty,
+    condition = function() return buffer_not_empty() and (not term_name()) end ,
     highlight = {colors.fg,colors.line_bg,'bold'},
     separator_highlight = {colors.purple,colors.line_bg},
+  }
+}
+
+gls.short_line_left[3] = {
+  TermNameLeft = {
+    provider = term_name,
+    condition = term_name,
+    highlight = {colors.fg,colors.line_bg,'bold'},
+    separator_highlight = {colors.purple,colors.line_bg},
+    -- highlight = {colors.fg,colors.line_bg,'bold'},
+    -- separator_highlight = {colors.purple,colors.line_bg},
   }
 }
 

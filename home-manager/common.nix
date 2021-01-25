@@ -78,6 +78,7 @@ in
     kubectx
     kubeprompt
     kustomize
+    kubernetes-helm
     # kubectl-fzf
     # istioctl
     # gomplate
