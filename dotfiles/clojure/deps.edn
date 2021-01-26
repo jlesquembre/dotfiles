@@ -38,7 +38,7 @@
                     :main-opts ["-m" "http.server"]}
 
            ;; see https://github.com/jonase/eastwood#running-eastwood-in-a-repl
-           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "0.3.12"}}
+           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "0.3.13"}}
                       :main-opts ["-m" "eastwood.lint" "{:source-paths,[\"src\"],:test-paths,[\"test\"]}"]}
 
            ;; uberjar building:
@@ -94,11 +94,11 @@
                   :extra-paths ["$CLJ_USER_PATH"]}
 
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.3"}
-                                cider/cider-nrepl {:mvn/version "0.25.6"}}
+                                cider/cider-nrepl {:mvn/version "0.25.8"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
            :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.3"}
-                                     cider/cider-nrepl {:mvn/version "0.25.6"}
+                                     cider/cider-nrepl {:mvn/version "0.25.8"}
                                      cider/piggieback {:mvn/version "0.5.2"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
                                     "[cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl]"]}
