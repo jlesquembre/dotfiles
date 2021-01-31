@@ -205,8 +205,12 @@ in
       (pluginWithConfig pkgs.vimPlugins.nvim-treesitter)
       pkgs.vimPlugins.nvim-ts-rainbow
 
+      # Helpers, needed by other plugins
       pkgs.vimPlugins.popup-nvim
       pkgs.vimPlugins.plenary-nvim
+      pkgs.vimPlugins.sql-nvim
+      pkgs.vimPlugins.aniseed
+
       pkgs.vimPlugins.telescope-fzy-native-nvim
       (pluginWithConfig pkgs.vimPlugins.telescope-nvim)
 
@@ -220,7 +224,7 @@ in
       # TODO use the lua version
       pkgs.vimPlugins.base16-vim
       pkgs.vimPlugins.oceanic-next
-      (pluginWithConfig custom.galaxyline-nvim)
+      (pluginWithConfig pkgs.vimPlugins.galaxyline-nvim)
       # pkgs.vimPlugins.barbar-nvim
       # custom.nvim-bufferline-lua
       {
@@ -393,7 +397,7 @@ in
       }
       # vim-rhubarb
       # vim-gitgutter
-      (pluginWithConfig custom.gitsigns-nvim)
+      (pluginWithConfig pkgs.vimPlugins.gitsigns-nvim)
       # vim-rooter
       # vim-flog
       # # vim-merginal
@@ -445,8 +449,14 @@ in
       pkgs.vimPlugins.vim-sexp
       pkgs.vimPlugins.vim-sexp-mappings-for-regular-people
       pkgs.parinfer-rust
-      pkgs.vimPlugins.aniseed
       (pluginWithConfig pkgs.vimPlugins.conjure)
+      {
+        plugin = pkgs.vimPlugins.lispdocs-nvim;
+        config =
+          ''
+            let g:lispdocs_mappings = 0
+          '';
+      }
       # vim-clojure-highlight
       # # vim-kibit
       # # vim-slamhound

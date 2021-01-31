@@ -164,6 +164,7 @@ rec
     gnumake
     gnupg
     blackbox
+    sops
     # go  golint gotools
     graphicsmagick
     gwenview

@@ -6,8 +6,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "d68026c9ed0c161ee98d4b71454ef5a7fad1aeec";
-      sha256 = "1ppdmlacqdwfa87ij0dbgp995p7g37yxdcfns5jmvab2d9m79l88";
+      rev = "271cec291aa732a0fbb11efef30c5d54c20beb73";
+      sha256 = "0zfbrzqfaaz2p1gdpmmyf2y6wm1g4skqhi0d9927c8hcrz3kv238";
     };
 
     buildInputs = oa.buildInputs ++ ([
@@ -29,59 +29,6 @@
     };
   };
 
-  gitsigns-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "gitsigns-nvim";
-    version = "2020-18-12";
-    src = pkgs.fetchFromGitHub {
-      owner = "lewis6991";
-      repo = "gitsigns.nvim";
-      rev = "59f7091554378794229bccca1faef6cfcc662024";
-      sha256 = "05s2ln800gxw0xk53gf8zsv01hxdznhrqrkprp4iki4k28lay5kd";
-    };
-  };
-
-  nvim-jdtls = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "nvim-jdtls";
-    version = "2021-01-10";
-    src = pkgs.fetchFromGitHub {
-      owner = "mfussenegger";
-      repo = "nvim-jdtls";
-      rev = "357d0b405235e3dfb0b15450f33ad6d10cbf2122";
-      sha256 = "1gd4kjxpb73d6ixxgg4qyzj5alca590whx1i905j3m8j4sjb7vib";
-    };
-  };
-  galaxyline-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "galaxyline-nvim";
-    version = "2020-12-14";
-    src = pkgs.fetchFromGitHub {
-      owner = "glepnir";
-      repo = "galaxyline.nvim";
-      rev = "64d6b8e31459057ba4f9b03a977fce0d2cc3d748";
-      sha256 = "1w5cggvxvmnm3zparnsgb3iz1pkw7d8bwvflcxaxg4pilgsniqsa";
-    };
-    meta.homepage = "https://github.com/glepnir/galaxyline.nvim/";
-  };
-  nvim-bufferline-lua = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "nvim-bufferline-lua";
-    version = "2020-12-31";
-    src = pkgs.fetchFromGitHub {
-      owner = "akinsho";
-      repo = "nvim-bufferline.lua";
-      rev = "a872f34fa53cea9a37f608b17804114add4df049";
-      sha256 = "158j0qi0m9nsyv8369drd3b2bscayss57cssc5xc41mhv9393j9v";
-    };
-  };
-
-  nvim-toggleterm-lua = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "nvim-toggleterm-lua";
-    version = "2021-01-03";
-    src = pkgs.fetchFromGitHub {
-      owner = "akinsho";
-      repo = "nvim-toggleterm.lua";
-      rev = "7b1ccaf320beefe3e54a3d6b5808aaad37376694";
-      sha256 = "0jk4vja6x8jf9qapbldy78zmamnl5rx711v5a65vffb0zgg7s3jx";
-    };
-  };
 
   ######
   ######
@@ -128,16 +75,6 @@
       repo = "transpose-words";
       rev = "1.1";
       sha256 = "1ijc1z7jf7cil1k8i27k2208i7avimzrl6vm7mzws68mdz3bqhmg";
-    };
-  };
-
-  capslock = pkgs.vimUtils.buildVimPlugin {
-    name = "capslock";
-    src = pkgs.fetchFromGitHub {
-      owner = "tpope";
-      repo = "vim-capslock";
-      rev = "master";
-      sha256 = "1c2fr8s9im3vxrszsrzm6wvad6disbdslmq6lqdp4603ialy4kja";
     };
   };
 

@@ -30,7 +30,7 @@ vim.api.nvim_exec([[
 augroup CustomActions
   autocmd!
   autocmd BufRead,BufNewFile Tiltfile setfiletype bzl
-  autocmd FileType TelescopePrompt inoremap <buffer> <esc> <cmd>lua require('telescope.actions').close(vim.api.nvim_get_current_buf())<cr>
+  " autocmd FileType TelescopePrompt inoremap <buffer> <esc> <cmd>lua require('telescope.actions').close(vim.api.nvim_get_current_buf())<cr>
   autocmd BufNewFile,BufRead *.mdx set filetype=markdown.mdx
 augroup END
 ]], true)
