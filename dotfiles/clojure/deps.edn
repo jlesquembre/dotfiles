@@ -23,7 +23,7 @@
            ;;   - clj -A:new lib myname/my-cool-lib
            ;;   - cd my-cool-lib
            ;;   - clj -A:test:runner # run the tests!
-           :new {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.234"}}
+           :new {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.243"}}
                  :main-opts ["-m" "clj-new.create"]}
 
            :rebel      {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}
@@ -48,9 +48,9 @@
            ;;   - java -cp result.jar clojure.main -m mymain.namespace
            ;; - build a library JAR:
            ;;   - clj -A:jar result-lib.jar
-           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.165"}}
+           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.171"}}
                      :main-opts ["-m" "hf.depstar.uberjar"]}
-           :jar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.165"}}
+           :jar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.171"}}
                  :main-opts ["-m" "hf.depstar.jar"]}
 
            :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.2.2"}}
