@@ -483,7 +483,17 @@ rec
     home = userHome;
     hashedPassword = secrets.hashedPassword;
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" "docker" "cdrom" "wireshark" "mlocate" "dialout" "adbusers" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "docker"
+      "cdrom"
+      "wireshark"
+      "mlocate"
+      "dialout"
+      "adbusers"
+      config.users.groups.keys.name
+    ];
     packages = [
       (home-manager {
         home-manager-path = "${userHome}/home-manager";
@@ -496,7 +506,7 @@ rec
 
   sops.secrets.ssh-config = {
     owner = user;
-    path = "${userHome}/.ssh/myconf";
+    path = "${userHome}/.ssh/config";
     format = "binary";
     sopsFile = ../sops/ssh_config;
   };
