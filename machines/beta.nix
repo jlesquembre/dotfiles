@@ -1,19 +1,15 @@
 { config, pkgs, lib, ... }:
 let
   hostName = "beta";
+  h = import ../modules/helpers.nix { inherit pkgs; };
 in
 {
 
-  # networking.hostName = "beta";
-
   imports = [
-    # ../modules/common-configuration.nix
     (import ../modules/common-configuration.nix { inherit hostName; })
-    # ../secrets/vpn
-  ]
-  ++
-  lib.lists.optional (builtins.pathExists ../secrets/vpn/default.nix) ../secrets/vpn
-  ;
+  ];
+
+  services.openvpn.servers = h.import-secret ../sops/vpn.nix { inherit pkgs; };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -57,7 +53,8 @@ in
 
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
   networking.wireless.userControlled.enable = true;
-  networking.wireless.networks = import ../secrets/wireless-networks.nix { };
+  networking.wireless.networks = (h.import-secret ../sops/wireless-networks.nix) { };
+
   environment.systemPackages = [
     pkgs.wpa_supplicant_gui
     # pkgs.blueman

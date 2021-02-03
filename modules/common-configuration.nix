@@ -1,10 +1,9 @@
 { hostName }:
+
 { config, options, pkgs, lib, ... }:
 let
   user = "jlle";
   userHome = "/home/${user}";
-
-  secrets = import ../secrets/secrets.nix;
 
   # bleeding edge
   # pkgs-unstable = import (fetchTarball https://github.com/nixos/nixpkgs/archive/master.tar.gz) {};
@@ -27,6 +26,19 @@ let
     })
     { };
 
+
+  sops-nix =
+    let
+      commit = "4a8cb2bd5051cdce7767bc0ea817aedb3896462d";
+    in
+    fetchTarball {
+      url = "https://github.com/Mic92/sops-nix/archive/${commit}.tar.gz";
+      sha256 = "0njfm7rkij94h8sj4vi6aqpr74ddj2vxpa71sz7g82p9cy59db60";
+    };
+
+  h = import ./helpers.nix { inherit pkgs; };
+
+  secrets = h.import-secret ../sops/secrets.nix;
 
   # TODO extract
   home-manager = { home-manager-path, config-path }:
@@ -61,6 +73,7 @@ rec
 {
 
   imports = [
+    "${sops-nix}/modules/sops"
     /etc/nixos/hardware-configuration.nix
     ./cachix.nix
     (import ./network.nix { inherit hostName userHome; })
@@ -68,9 +81,9 @@ rec
 
   nix = {
     # package = pkgs.nixFlakes;
-    # extraOptions = ''
-    #   experimental-features = nix-command flakes
-    # '';
+    extraOptions = ''
+      allow-unsafe-native-code-during-evaluation = true
+    '';
     trustedUsers = [ "root" user ];
     useSandbox = true;
     nixPath = [
@@ -162,9 +175,7 @@ rec
     glxinfo
     # gnome3.zenity gnome3.dconf gnome3.dconf-editor
     gnumake
-    gnupg
-    blackbox
-    sops
+
     # go  golint gotools
     graphicsmagick
     gwenview
@@ -244,6 +255,13 @@ rec
     # terminals
     alacritty
     kitty # hyper
+
+    # encryption
+    age
+    blackbox
+    gnupg
+    magic-wormhole
+    pkgs.sops
 
     # screenshot utils
     flameshot
@@ -472,6 +490,15 @@ rec
         config-path = builtins.toString ../home-manager + "/${hostName}.nix";
       })
     ];
+  };
+
+  sops.sshKeyPaths = [ "/etc/nixos/id_rsa_personal" ];
+
+  sops.secrets.ssh-config = {
+    owner = user;
+    path = "${userHome}/.ssh/myconf";
+    format = "binary";
+    sopsFile = ../sops/ssh_config;
   };
 
   fonts = {

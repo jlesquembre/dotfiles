@@ -1,0 +1,8 @@
+keys:
+  - &jl 861E4236005ACB35220D814709AFB79F061ACD6C
+  - &personal f5a5cfc54a578ddc057d20cac50ce165d967ba53
+creation_rules:
+  - key_groups:
+      - pgp:
+          - *jl
+          - *personal
