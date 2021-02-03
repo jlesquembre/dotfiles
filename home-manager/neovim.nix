@@ -200,6 +200,7 @@ in
     plugins = with pkgs.vimPlugins; [
 
       pkgs.vimPlugins.nvim-web-devicons
+      # (compileAniFile /home/jlle/projects/private-gists/term.fnl)
 
       # config for plugins is also in nvim-treesitter config file
       (pluginWithConfig pkgs.vimPlugins.nvim-treesitter)
@@ -215,10 +216,11 @@ in
       (pluginWithConfig pkgs.vimPlugins.telescope-nvim)
 
       (pluginWithConfig pkgs.vimPlugins.nvim-lspconfig)
-      custom.nvim-jdtls
+      pkgs.vimPlugins.lspsaga-nvim
+      pkgs.vimPlugins.nvim-jdtls
 
       (pluginWithConfig pkgs.vimPlugins.completion-nvim)
-      pkgs.vimPlugins.completion-treesitter
+      # pkgs.vimPlugins.completion-treesitter
 
       # UI
       # TODO use the lua version
