@@ -21,6 +21,15 @@ require('telescope').setup{
       override_generic_sorter = true,
       override_file_sorter = true,
     },
+
+    -- TODO fix it
+    -- lispdocs = {
+    --   mappings = {
+    --     i = {
+    --       ["<cr>"] = actions.goto_file_selection_split,
+    --     },
+    --   },
+    -- },
   },
 }
 require('telescope').load_extension('fzy_native')
