@@ -5,7 +5,7 @@ let
     callPackage
       (fetchTarball {
         url = "https://github.com/Mic92/sops-nix/archive/${commit}.tar.gz";
-        sha256 = "1x0qnxgjlcg35m81nfr17qqx3fdrlc5s9hrz68498isc8132d3p6";
+        sha256 = "0njfm7rkij94h8sj4vi6aqpr74ddj2vxpa71sz7g82p9cy59db60";
       })
       { };
 in
