@@ -105,6 +105,7 @@ in
     stern
 
     # dev tools
+    curlie
     httpstat
     httplab
     httping
@@ -193,6 +194,13 @@ in
     source = "${dotfiles}/githudrc";
     target = ".githudrc";
   };
+
+  home.file.".curlrc".text = ''
+    -w "\n"
+    silent
+    -D /dev/stderr
+  '';
+
 
   # NixOS already manage gpg-agent per user, add only some extra config
   # If home-manager manages it, you need to setup some services with NixOS at
