@@ -198,11 +198,27 @@ in
   # If home-manager manages it, you need to setup some services with NixOS at
   # system level anyways:
   # services.dbus.packages = with pkgs; [ pkgs.gcr gnome3.dconf]
-  home.file.".gnupg/sshcontrol" = {
-    text = ''
-      04DC5CE6C1FCA557E5CDE3C1EA40496D37F50891
-    '';
-  };
+  home.file.".gnupg/gpg.conf".text = ''
+    personal-digest-preferences SHA512
+    cert-digest-algo SHA512
+    default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
+  '';
+  home.file.".gnupg/gpg-agent.conf".text = ''
+    allow-preset-passphrase
+    default-cache-ttl 86400
+    default-cache-ttl-ssh 86400
+    max-cache-ttl 168000
+    max-cache-ttl-ssh 168000
+  '';
+  home.file.".gnupg/sshcontrol".text = ''
+    04DC5CE6C1FCA557E5CDE3C1EA40496D37F50891
+  '';
+
+  xdg.configFile.pam-gnupg.text = ''
+    30DA0A90760A12B4E4145376B0344E8B55D58B1E
+    A29D8CBD198C34FDED137EDC75F0679F017011D8
+    04DC5CE6C1FCA557E5CDE3C1EA40496D37F50891
+  '';
 
   home.file.sqlite = {
     target = ".sqliterc";

@@ -356,9 +356,27 @@ rec
   # programs.gnupg.agent.pinentryFlavor = "qt"; # One of "curses", "tty", "gtk2", "qt", "gnome3", "emacs"
 
   # Enable gnome keyring
-  services.gnome3.gnome-keyring.enable = true;
-  security.pam.services.gdm.enableGnomeKeyring = true;
-  programs.seahorse.enable = true;
+  # services.gnome3.gnome-keyring.enable = true;
+  # programs.seahorse.enable = true;
+  # security.pam.services.gdm.enableGnomeKeyring = true;
+
+  # see /etc/pam.d
+  security.pam.services =
+    {
+      # see
+      # https://github.com/cruegge/pam-gnupg
+      # https://github.com/NixOS/nixpkgs/pull/97726
+      login.gnupg = {
+        enable = true;
+        storeOnly = true;
+        # noAutostart = true;
+      };
+      gdm.gnupg = {
+        enable = true;
+        storeOnly = true;
+      };
+      swaylock.gnupg.enable = true;
+    };
 
 
   # It breaks GKT apps, see
@@ -409,9 +427,6 @@ rec
           # export XCURSOR_THEME
           # export XCURSOR_SIZE
           # export XCURSOR_PATH="${pkgs.gnome3.adwaita-icon-theme}/share/icons:$XCURSOR_PATH";
-
-          # Force gpg-agent initialization
-          echo foo | gpg -ear E2BA57CA52D5867B | gpg -d
         '';
     };
   services.xserver.enable = true;
