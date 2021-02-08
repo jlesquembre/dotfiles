@@ -212,14 +212,19 @@ in
       pkgs.vimPlugins.sql-nvim
       pkgs.vimPlugins.aniseed
 
+      # Telescope
       pkgs.vimPlugins.telescope-fzy-native-nvim
       (pluginWithConfig pkgs.vimPlugins.telescope-nvim)
 
+      # LSP
       (pluginWithConfig pkgs.vimPlugins.nvim-lspconfig)
       pkgs.vimPlugins.lspsaga-nvim
       pkgs.vimPlugins.nvim-jdtls
 
-      (pluginWithConfig pkgs.vimPlugins.completion-nvim)
+      # (pluginWithConfig pkgs.vimPlugins.completion-nvim)
+      (pluginWithConfig pkgs.vimPlugins.nvim-compe)
+      pkgs.vimPlugins.vim-vsnip
+      pkgs.vimPlugins.vim-vsnip-integ
       # pkgs.vimPlugins.completion-treesitter
 
       # UI
@@ -229,6 +234,7 @@ in
       (pluginWithConfig pkgs.vimPlugins.galaxyline-nvim)
       # pkgs.vimPlugins.barbar-nvim
       # custom.nvim-bufferline-lua
+      # pkgs.vimPlugins.dashboard-nvim
       {
         plugin = pkgs.vimPlugins.vim-startify;
         config =

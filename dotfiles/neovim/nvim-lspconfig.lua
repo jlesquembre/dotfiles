@@ -39,7 +39,7 @@ local function custom_attach(client, bufnr)
   set_keymap('n', '<leader>dc',  '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
   if client.resolved_capabilities.document_highlight then
-    lspconfig.util.nvim_multiline_command [[
+    vim.api.nvim_exec([[
       augroup lsp_document_highlight
         autocmd!
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
@@ -47,7 +47,7 @@ local function custom_attach(client, bufnr)
         autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMovedI <buffer> lua vim.lsp.buf.clear_references()
       augroup END
-    ]]
+    ]], false)
   end
 end
 
@@ -67,12 +67,12 @@ local function jdt_on_attach(client, bufnr)
 
   require('jdtls.setup').add_commands()
 
-  lspconfig.util.nvim_multiline_command [[
+  vim.api.nvim_exec([[
     augroup FormatLspAutogroup
       autocmd!
       autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
     augroup END
-  ]]
+  ]], false)
 end
 
 lspconfig.bashls.setup{on_attach = custom_attach}
@@ -80,6 +80,7 @@ lspconfig.clojure_lsp.setup{on_attach = custom_attach}
 lspconfig.cssls.setup{on_attach = custom_attach}
 lspconfig.tsserver.setup{on_attach=custom_attach,
                          root_dir=root_pattern("package.json", "tsconfig.json", ".git", ".")}
+lspconfig.svelte.setup{on_attach = custom_attach}
 lspconfig.vimls.setup{on_attach = custom_attach}
 lspconfig.yamlls.setup{on_attach = custom_attach}
 lspconfig.dockerls.setup{on_attach = custom_attach}
