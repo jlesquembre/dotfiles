@@ -21,22 +21,44 @@ local function custom_attach(client, bufnr)
   local function set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local opts = {noremap = true, silent = true}
 
-  set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+  -- set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
 
   set_keymap('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   set_keymap('n', 'gD',    '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  set_keymap('n', 'gd',    '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  -- set_keymap('n', 'gd',    '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   set_keymap('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   set_keymap('n', '1gD',   '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   set_keymap('n', 'gr',    '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   set_keymap('n', 'g0',    '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
   set_keymap('n', 'gW',    '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
 
-  set_keymap('n', '[w', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  set_keymap('n', ']w', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  -- set_keymap('n', '[w', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  -- set_keymap('n', ']w', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
-  set_keymap('n', '<leader>rn',  '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  set_keymap('n', '<leader>dc',  '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+
+  -- set_keymap('n', '<leader>rn',  '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  -- set_keymap('n', '<leader>dc',  '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+
+  --
+  -- LSPSAGA
+  --
+  set_keymap('n', 'K', [[<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]], opts)
+  set_keymap('n', '<C-f>', [[<cmd>lua require('lspsaga.hover').smart_scroll_hover(1)<CR>]], opts)
+  set_keymap('n', '<C-b>', [[<cmd>lua require('lspsaga.hover').smart_scroll_hover(-1)<CR>]], opts)
+  set_keymap('n', '<leader>ds',  [[<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]], opts)
+
+  set_keymap('n', '<leader>gd',  [[<cmd>lua require'lspsaga.provider'.preview_definition()<CR>]], opts)
+  set_keymap('n', '<leader>dd',  [[<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>]], opts)
+
+  set_keymap('n', 'gh', '<cmd>lua require"lspsaga.provider".lsp_finder()<CR>', opts)
+  set_keymap('n', '[w', '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()<CR>', opts)
+  set_keymap('n', ']w', '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_next()<CR>', opts)
+
+
+  set_keymap('n', '<leader>rn',  [[<cmd>lua require('lspsaga.rename').rename()<CR>]], opts)
+  set_keymap('n', '<leader>dc',  [[<cmd>lua require("lspsaga.codeaction").code_action()<CR>]], opts)
+  set_keymap('v', '<leader>dc',  [[<cmd>'<,'>lua require("lspsaga.codeaction").code_action()<CR>]], opts)
+
 
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_exec([[
@@ -79,7 +101,10 @@ lspconfig.bashls.setup{on_attach = custom_attach}
 lspconfig.clojure_lsp.setup{on_attach = custom_attach}
 lspconfig.cssls.setup{on_attach = custom_attach}
 lspconfig.tsserver.setup{on_attach=custom_attach,
-                         root_dir=root_pattern("package.json", "tsconfig.json", ".git", ".")}
+                         root_dir = function(fname)
+                           return root_pattern("package.json", "tsconfig.json", ".git")(fname) or
+                                  root_pattern(".")(fname)
+                         end;}
 lspconfig.svelte.setup{on_attach = custom_attach}
 lspconfig.vimls.setup{on_attach = custom_attach}
 lspconfig.yamlls.setup{on_attach = custom_attach}
@@ -205,3 +230,9 @@ augroup END
 --         return rt('<S-Tab>')
 --     end
 -- end
+
+local saga = require 'lspsaga'
+saga.init_lsp_saga()
+
+
+vim.lsp.handlers["textDocument/hover"] = require('lspsaga.hover').handler
