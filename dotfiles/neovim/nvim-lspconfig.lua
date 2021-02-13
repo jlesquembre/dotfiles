@@ -58,6 +58,9 @@ local function custom_attach(client, bufnr)
   set_keymap('n', '<leader>rn',  [[<cmd>lua require('lspsaga.rename').rename()<CR>]], opts)
   set_keymap('n', '<leader>dc',  [[<cmd>lua require("lspsaga.codeaction").code_action()<CR>]], opts)
   set_keymap('v', '<leader>dc',  [[<cmd>'<,'>lua require("lspsaga.codeaction").code_action()<CR>]], opts)
+  --
+  -- END LSPSAGA
+  --
 
 
   if client.resolved_capabilities.document_highlight then
@@ -97,25 +100,46 @@ local function jdt_on_attach(client, bufnr)
   ]], false)
 end
 
-lspconfig.bashls.setup{on_attach = custom_attach}
-lspconfig.clojure_lsp.setup{on_attach = custom_attach}
-lspconfig.cssls.setup{on_attach = custom_attach}
-lspconfig.tsserver.setup{on_attach=custom_attach,
-                         root_dir = function(fname)
-                           return root_pattern("package.json", "tsconfig.json", ".git")(fname) or
-                                  root_pattern(".")(fname)
-                         end;}
-lspconfig.svelte.setup{on_attach = custom_attach}
-lspconfig.vimls.setup{on_attach = custom_attach}
-lspconfig.yamlls.setup{on_attach = custom_attach}
-lspconfig.dockerls.setup{on_attach = custom_attach}
-lspconfig.gopls.setup{on_attach = custom_attach}
-lspconfig.html.setup{on_attach = custom_attach}
--- require'lspconfig'.jdtls.setup{}
-lspconfig.jsonls.setup{on_attach = custom_attach}
-lspconfig.rls.setup{on_attach = custom_attach}
--- require'lspconfig'.rnix.setup{}
-lspconfig.terraformls.setup{on_attach = custom_attach}
+
+local function setup_lspconfig()
+
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+  local default_config = {on_attach = custom_attach,
+                          capabilities = capabilities}
+  local function extra_config(t)
+    r = {}
+    for k,v in pairs(default_config) do r[k] = v end
+    for k,v in pairs(t) do r[k] = v end
+    return r
+  end
+
+  lspconfig.bashls.setup(default_config)
+  lspconfig.clojure_lsp.setup(default_config)
+  lspconfig.cssls.setup(default_config)
+  lspconfig.html.setup(default_config)
+  lspconfig.svelte.setup(default_config)
+  lspconfig.vimls.setup(default_config)
+  lspconfig.yamlls.setup(default_config)
+  lspconfig.dockerls.setup(default_config)
+  lspconfig.gopls.setup(default_config)
+  -- require'lspconfig'.jdtls.setup(default_config)
+  lspconfig.jsonls.setup(default_config)
+  lspconfig.rls.setup(default_config)
+  -- require'lspconfig'.rnix.setup(default_config)
+  lspconfig.terraformls.setup(default_config)
+
+  -- Special configs
+  lspconfig.tsserver.setup(extra_config(
+                           {root_dir = function(fname)
+                                         return root_pattern("package.json", "tsconfig.json", ".git")(fname) or
+                                                root_pattern(".")(fname)
+                                       end;
+                           }))
+end
+
+setup_lspconfig()
 
 
 function start_jdtls()
@@ -158,6 +182,7 @@ function start_jdtls()
       cmd = {'jdt-ls', '-data', workspace_dir},
       on_attach = jdt_on_attach,
       root_dir = root_dir,
+      capabilities = capabilities,
       settings = settings,
       init_options = {
           extendedCapabilities = require('jdtls').extendedClientCapabilities,

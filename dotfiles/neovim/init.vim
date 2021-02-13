@@ -60,6 +60,8 @@ set inccommand=split
 set updatetime=100 " Also used for the CursorHold autocommand
 set previewheight=15
 set undofile
+" set spell
+" set spelllang=en_us
 " set lazyredraw
 
 " Better folds

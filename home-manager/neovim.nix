@@ -177,9 +177,12 @@ in
       pkgs.nodePackages.bash-language-server
       pkgs.nodePackages.vim-language-server
       pkgs.nodePackages.yaml-language-server
+      pkgs.nodePackages.dockerfile-language-server-nodejs
+      pkgs.nodePackages.dockerfile-language-server-nodejs
+
+      # TODO replace with vscode-css-languageservice?
       pkgs.nodePackages.vscode-css-languageserver-bin
-      pkgs.nodePackages.dockerfile-language-server-nodejs
-      pkgs.nodePackages.dockerfile-language-server-nodejs
+      # TODO replace with vscode-html-languageservice?
       pkgs.nodePackages.vscode-html-languageserver-bin
       pkgs.nodePackages.vscode-json-languageserver
 
@@ -222,9 +225,9 @@ in
       pkgs.vimPlugins.nvim-jdtls
 
       # (pluginWithConfig pkgs.vimPlugins.completion-nvim)
-      (pluginWithConfig pkgs.vimPlugins.nvim-compe)
-      pkgs.vimPlugins.vim-vsnip
-      pkgs.vimPlugins.vim-vsnip-integ
+      custom.snippets-nvim
+      # (pluginWithConfig pkgs.vimPlugins.nvim-compe)
+      (pluginWithConfig custom.nvim-compe)
       # pkgs.vimPlugins.completion-treesitter
 
       # UI

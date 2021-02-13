@@ -29,6 +29,28 @@
     };
   };
 
+  snippets-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "snippets-nvim";
+    version = "2021-02-12";
+    src = pkgs.fetchFromGitHub {
+      owner = "norcalli";
+      repo = "snippets.nvim";
+      rev = "7b5fd8071d4fb6fa981a899aae56b55897c079fd";
+      sha256 = "1fdsx7d5nyhhklwidgh387ijd485g2836rwd5i1r0di777mp7w80";
+    };
+  };
+
+  nvim-compe = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "nvim-compe";
+    version = "2021-02-12";
+    src = pkgs.fetchFromGitHub {
+      owner = "hrsh7th";
+      repo = "nvim-compe";
+      rev = "4df0108195dfbc36f6143a7d0e1f6bf6418432b8";
+      sha256 = "0xrl4wr6g9ax8xp6lj1b66phfzdqjilr2xglcdi9czib3hs29mf3";
+    };
+  };
+
 
   ######
   ######

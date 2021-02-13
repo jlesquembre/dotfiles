@@ -1,4 +1,4 @@
-vim.o.completeopt = "menu,menuone,noselect"
+vim.o.completeopt = "menuone,noselect"
 vim.o.pumheight = 15
 
 require'compe'.setup {
@@ -19,7 +19,7 @@ require'compe'.setup {
     path = true;
     buffer = true;
     calc = false;
-    vsnip = true;
+    vsnip = false;
     nvim_lsp = true;
     nvim_lua = true;
     spell = true;
@@ -32,7 +32,8 @@ require'compe'.setup {
 
 local set_keymap = vim.api.nvim_set_keymap
 local opts = {noremap = true, silent = true, expr = true}
--- set_keymap('i', "<C-Space>", "compe#complete()", opts)
+
+-- set_keymap("i", "<C-Space>", "compe#complete()", opts)
 set_keymap("i", "<CR>"     , "compe#confirm('<CR>')", opts)
 set_keymap("i", "<C-e>"    , "compe#close('<C-e>')", opts)
 -- set_keymap('i', "<C-f>"    , "compe#scroll({ 'delta': +4 })", opts)
@@ -55,11 +56,16 @@ end
 --  Use (s-)tab to:
 --- move to prev/next item in completion menuone
 --- jump to prev/next snippet's placeholder
+
+local snippets = require'snippets'
+
 _G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
+  -- local pum_selected = vim.fn.complete_info()["selected"] ~= -1
+
+  if snippets.has_active_snippet() then
+    return t "<cmd>lua require'snippets'.advance_snippet(1)<CR>"
+  elseif vim.fn.pumvisible() == 1 then
     return t "<C-n>"
-  elseif vim.fn.call("vsnip#available", {1}) == 1 then
-    return t "<Plug>(vsnip-expand-or-jump)"
   elseif check_back_space() then
     return t "<Tab>"
   else
@@ -67,16 +73,17 @@ _G.tab_complete = function()
   end
 end
 _G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
+  if snippets.has_active_snippet() then
+    return t "<cmd>lua require'snippets'.advance_snippet(-1)<CR>"
+  elseif vim.fn.pumvisible() == 1 then
     return t "<C-p>"
-  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
   else
     return t "<S-Tab>"
   end
 end
 
-set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+local opts2 = {silent = true, expr = true, noremap = false}
+set_keymap("i", "<Tab>", "v:lua.tab_complete()", opts2)
+set_keymap("s", "<Tab>", "v:lua.tab_complete()", opts2)
+set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", opts2)
+set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", opts2)
