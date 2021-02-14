@@ -72,6 +72,7 @@ _G.tab_complete = function()
     return vim.fn['compe#complete']()
   end
 end
+
 _G.s_tab_complete = function()
   if snippets.has_active_snippet() then
     return t "<cmd>lua require'snippets'.advance_snippet(-1)<CR>"

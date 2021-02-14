@@ -225,7 +225,7 @@ in
       pkgs.vimPlugins.nvim-jdtls
 
       # (pluginWithConfig pkgs.vimPlugins.completion-nvim)
-      custom.snippets-nvim
+      (pluginWithConfig custom.snippets-nvim)
       # (pluginWithConfig pkgs.vimPlugins.nvim-compe)
       (pluginWithConfig custom.nvim-compe)
       # pkgs.vimPlugins.completion-treesitter
@@ -289,7 +289,7 @@ in
       # Utils
       custom.vim-alias
       # vim-dispatch
-      # vim-abolish
+      pkgs.vimPlugins.vim-abolish
       pkgs.vimPlugins.vim-eunuch
       # vim-dotenv
       {

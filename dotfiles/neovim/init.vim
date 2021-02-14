@@ -551,4 +551,5 @@ endfunction
 "
 
 " Custom Lua config ========
-luafile ~/.config/nvim/lua/user.lua
+" luafile ~/.config/nvim/lua/user.lua
+lua require('user')
