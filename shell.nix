@@ -15,6 +15,7 @@ pkgs.mkShell {
     coreutils
     curl
     fish
+    git
     imagemagick
     nixUnstable
     paperkey

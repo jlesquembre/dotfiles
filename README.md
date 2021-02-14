@@ -23,7 +23,7 @@ My personal dotfiles
 - Force `nix-env` command to use your cloned `nixpkgs` version
 
   ```bash
-  ln -s ${nixpkgs_dir} ~/.nix-defexpr/nixpkgs
+  ln -s ${HOME}/nixpkgs ~/.nix-defexpr/nixpkgs
 
   # channels_root -> /nix/var/nix/profiles/per-user/root/channels/
   rm ~/.nix-defexpr/channels_root
