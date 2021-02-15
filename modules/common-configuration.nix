@@ -77,6 +77,7 @@ rec
     /etc/nixos/hardware-configuration.nix
     ./cachix.nix
     (import ./network.nix { inherit hostName userHome; })
+    (import ./gsystems.nix { inherit secrets user userHome; })
   ];
 
   nix = {
