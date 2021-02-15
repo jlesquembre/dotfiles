@@ -2,6 +2,9 @@
 let
   dotfiles = toString ../dotfiles;
 
+  h = import ../modules/helpers.nix { inherit pkgs; };
+  secrets = h.import-secret ../sops/secrets.nix;
+
   pkgs-mongo = import
     (builtins.fetchTarball {
       url = "https://github.com/NixOS/nixpkgs/archive/891f607d5301d6730cb1f9dcf3618bcb1ab7f10e.tar.gz";
@@ -238,6 +241,13 @@ in
     text = ''
       .headers on
       .mode column
+    '';
+  };
+
+  home.file.zerotier-token = {
+    target = ".zeroTierOneAuthToken";
+    text = ''
+      ${secrets.g-systems.zerotier-token}
     '';
   };
 

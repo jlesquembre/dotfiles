@@ -3,19 +3,14 @@
 {
   services.zerotierone = {
     enable = true;
-    joinNetworks = secrets.zerotier-networks;
+    joinNetworks = [
+      secrets.g-systems.zerotier-network
+    ];
   };
 
-
-  sops.secrets.zerotiertoken = {
-    owner = user;
-    path = "${userHome}/.zeroTierOneAuthToken";
-    format = "binary";
-    sopsFile = ../sops/gsystems/zerotiertoken.txt;
-  };
 
   security.pki.certificates = [
-    secrets.g-ca-cert
+    secrets.g-systems.ca-cert
   ];
 
   services.coredns.config = lib.mkAfter
