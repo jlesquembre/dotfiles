@@ -14,6 +14,10 @@
     sopsFile = ../sops/gsystems/zerotiertoken.txt;
   };
 
+  security.pki.certificates = [
+    secrets.g-ca-cert
+  ];
+
   services.coredns.config = lib.mkAfter
     ''
       noenv.aws {
