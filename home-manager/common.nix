@@ -144,6 +144,11 @@ in
 
   xdg.enable = true;
 
+  xdg.configFile."nixpkgs/config.nix".text =
+    ''
+      { nixpkgs.config.allowUnfree = true; }
+    '';
+
   # Set it explicitly, not really necessary
   home.sessionVariables.CLJ_CONFIG = "${config.xdg.configHome}/clojure";
   xdg.configFile.clojure = {
