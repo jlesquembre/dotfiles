@@ -149,7 +149,7 @@ in
 
   xdg.configFile."nixpkgs/config.nix".text =
     ''
-      { nixpkgs.config.allowUnfree = true; }
+      { allowUnfree = true; }
     '';
 
   # Set it explicitly, not really necessary
@@ -296,12 +296,16 @@ in
   home.file.maven = {
     text = ''
       <settings>
+        <profiles>
+          ${secrets.g-systems.maven-profiles}
+        </profiles>
         <servers>
           <server>
             <id>clojars</id>
             <username>jlesquembre</username>
             <password>''${clojars.password}</password>
           </server>
+          ${secrets.g-systems.maven-servers}
         </servers>
       </settings>
     '';

@@ -527,6 +527,13 @@ rec
     sopsFile = ../sops/ssh_config;
   };
 
+  sops.secrets."maven-${user}" = {
+    owner = user;
+    path = "${userHome}/.m2/settings-security.xml";
+    format = "binary";
+    sopsFile = ../sops/settings-security.xml;
+  };
+
   fonts = {
     fontDir.enable = true;
     enableGhostscriptFonts = true;
