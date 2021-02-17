@@ -16,16 +16,17 @@
   services.coredns.config = lib.mkAfter
     ''
       noenv.aws {
-        template IN A  {
-            answer "{{ .Name }} 0 IN A 10.100.11.114"
-        }
+        forward . 10.100.11.114
       }
 
       noenv.io {
+        forward . 10.100.11.114
+      }
+
+      lan {
         template IN A  {
-            answer "{{ .Name }} 0 IN A 10.100.11.114"
+            answer "{{ .Name }} 0 IN A 192.168.1.185"
         }
       }
     '';
-
 }

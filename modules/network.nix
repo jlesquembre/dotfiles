@@ -10,7 +10,8 @@ in
   networking.firewall.allowedTCPPorts = [ 8000 8080 ];
 
   # DNS configuration
-  networking.networkmanager.insertNameservers = [ "127.0.0.1" ];
+  # networking.networkmanager.insertNameservers = [ "127.0.0.1" "::1" ];
+  networking.resolvconf.useLocalResolver = true;
   # Don't use dns server provided by dhcp server
   networking.dhcpcd.extraConfig =
     ''
