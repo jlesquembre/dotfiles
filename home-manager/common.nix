@@ -56,6 +56,7 @@ in
     gnome3.zenity
     wf-recorder
     imv
+    keybase-gui
     # wob
     # xorg.xeyes
 
@@ -752,6 +753,6 @@ in
     };
   };
 
-  # services.pasystray.enable = true;
-
+  services.keybase.enable = true;
+  services.kbfs.enable = true;
 }
