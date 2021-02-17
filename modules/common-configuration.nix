@@ -1,4 +1,4 @@
-{ hostName }:
+{ hostName, enable-wifi ? false, enable-bluetooth ? false }:
 
 { config, options, pkgs, lib, ... }:
 let
@@ -78,7 +78,10 @@ rec
     ./cachix.nix
     (import ./network.nix { inherit hostName userHome; })
     (import ./gsystems.nix { inherit secrets user userHome; })
-  ];
+  ]
+  ++ lib.lists.optional enable-wifi (import ./wifi.nix { custom-networks = (h.import-secret ../sops/wireless-networks.nix) { }; })
+  ++ lib.lists.optional enable-bluetooth (import ./bluetooth.nix)
+  ;
 
   nix = {
     # package = pkgs.nixFlakes;
@@ -508,6 +511,7 @@ rec
       "mlocate"
       "dialout"
       "adbusers"
+      # sops-nix group
       config.users.groups.keys.name
     ];
     packages = [

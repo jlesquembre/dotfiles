@@ -12,11 +12,13 @@ in
 {
 
   imports = [
-    (import ../modules/common-configuration.nix { inherit hostName; })
+    (import ../modules/common-configuration.nix {
+      inherit hostName;
+      enable-wifi = true;
+      enable-bluetooth = true;
+    })
     "${nixos-hardware}/dell/xps/13-9370"
   ];
-
-  services.openvpn.servers = h.import-secret ../sops/vpn.nix { inherit pkgs; };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -46,27 +48,5 @@ in
       intel-media-driver
     ];
   };
-
-
   hardware.enableAllFirmware = true;
-
-  networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
-  networking.wireless.userControlled.enable = true;
-  networking.wireless.networks = (h.import-secret ../sops/wireless-networks.nix) { };
-
-  environment.systemPackages = [
-    pkgs.wpa_supplicant_gui
-    # pkgs.blueman
-  ];
-
-
-  hardware.bluetooth = {
-    enable = true;
-    package = pkgs.bluezFull;
-  };
-
-  services.blueman.enable = true;
-
-  hardware.pulseaudio.extraModules = [ pkgs.pulseaudio-modules-bt ];
-
 }
