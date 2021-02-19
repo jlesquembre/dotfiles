@@ -106,15 +106,16 @@
       format = "{path} {free}/{total}";
       path = "/";
       states = {
-        warning = 30;
-        critical = 15;
+        warning = 90;
+        critical = 95;
       };
     };
   network = {
     # "interface"= "wlp2s0"; # (Optional) To force the use of this interface
     format-wifi = ''{essid} {ipaddr} ({signalStrength}%) '';
-    format-ethernet = "{ifname}= {ipaddr}/{cidr} ";
+    format-ethernet = " {ipaddr}/{cidr}";
     format-disconnected = "Disconnected ⚠";
+    tooltip-format = "{ifname}";
     interval = 7;
   };
   pulseaudio = {

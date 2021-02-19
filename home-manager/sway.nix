@@ -19,6 +19,14 @@ let
       profile {
         output eDP-1 enable position 0,0
       }
+      profile {
+        output eDP-1 disable
+        output "Goldstar Company Ltd LG ULTRAWIDE 0x00003BCB" enable position 0,0
+      }
+      profile {
+        output eDP-1 disable
+        output "Goldstar Company Ltd LG HDR 4K 0x0000972A" enable scale 1.7 position 0,0
+      }
     '';
     destination = "/kanshi/config";
   };
