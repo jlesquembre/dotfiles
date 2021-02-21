@@ -110,17 +110,19 @@ in
 
     # dev tools
     curlie
-    httpstat
-    httplab
-    httping
-    httpie
-    wuzz
     dnsutils
-    tcpdump
-    socat
     entr
-    watchman # postman
+    httpie
+    httping
+    httplab
+    httpstat
     siege
+    socat
+    step-ca
+    step-cli
+    tcpdump
+    watchman # postman
+    wuzz
   ];
 
   programs.command-not-found.enable = true;
