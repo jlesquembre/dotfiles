@@ -24,7 +24,7 @@ local function custom_attach(client, bufnr)
   -- set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
 
   set_keymap('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  set_keymap('n', 'gD',    '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  set_keymap('n', 'gd',    '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   -- set_keymap('n', 'gd',    '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   set_keymap('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   set_keymap('n', '1gD',   '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
@@ -43,8 +43,8 @@ local function custom_attach(client, bufnr)
   -- LSPSAGA
   --
   set_keymap('n', 'K', [[<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]], opts)
-  set_keymap('n', '<C-f>', [[<cmd>lua require('lspsaga.hover').smart_scroll_hover(1)<CR>]], opts)
-  set_keymap('n', '<C-b>', [[<cmd>lua require('lspsaga.hover').smart_scroll_hover(-1)<CR>]], opts)
+  set_keymap('n', '<C-f>', [[<cmd>lua require('lspsaga.hover').smart_scroll_with_saga(1)<CR>]], opts)
+  set_keymap('n', '<C-b>', [[<cmd>lua require('lspsaga.hover').smart_scroll_with_saga(-1)<CR>]], opts)
   set_keymap('n', '<leader>ds',  [[<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]], opts)
 
   set_keymap('n', '<leader>gd',  [[<cmd>lua require'lspsaga.provider'.preview_definition()<CR>]], opts)
@@ -77,7 +77,9 @@ local function custom_attach(client, bufnr)
 end
 
 local function jdt_on_attach(client, bufnr)
+  require'jdtls'.setup_dap()
   custom_attach(client, bufnr)
+
   local function set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local opts = {noremap = true, silent = true}
 
@@ -178,6 +180,11 @@ function start_jdtls()
   local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
   local root_dir = root_pattern('.git', 'gradlew', 'mvnw', 'pom.xml')(bufname)
   local workspace_dir = "/tmp/jdtls_workspaces/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+  local bundles = {
+    "@java.debug.plugin@"
+  };
+  vim.list_extend(bundles, vim.split(vim.fn.glob("/home/jlle/tmp/vscode-java-test/server/*.jar"), "\n"))
+
   require('jdtls').start_or_attach({
       cmd = {'jdt-ls', '-data', workspace_dir},
       on_attach = jdt_on_attach,
@@ -185,9 +192,10 @@ function start_jdtls()
       capabilities = capabilities,
       settings = settings,
       init_options = {
-          extendedCapabilities = require('jdtls').extendedClientCapabilities,
-        },
-      })
+        bundles = bundles,
+        extendedCapabilities = require('jdtls').extendedClientCapabilities,
+      },
+    })
 end
 
 vim.api.nvim_exec([[
@@ -257,7 +265,9 @@ augroup END
 -- end
 
 local saga = require 'lspsaga'
-saga.init_lsp_saga()
+saga.init_lsp_saga({
+  server_filetype_map = {["jdt.ls"] = { "java" }}
+})
 
 
 vim.lsp.handlers["textDocument/hover"] = require('lspsaga.hover').handler

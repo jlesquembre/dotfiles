@@ -92,15 +92,21 @@ let
       inherit name version fnlDir;
     };
 
-  pluginWithConfig' = dir: p: {
+  replaceStringsOptional = from: to: s:
+    if (from != null && s != "") then
+      (builtins.replaceStrings from to s)
+    else
+      s;
+
+  pluginWithConfig' = { dir, p, from ? null, to ? null }: {
     plugin = p;
     config =
       let
         name = lib.strings.getName p;
         path = "${dir}/${name}";
-        vimConfig = readFileIfExists "${path}.vim";
-        luaConfig = readFileIfExists "${path}.lua";
-        aniseedConfig = readFileIfExists "${path}.fnl";
+        vimConfig = replaceStringsOptional from to (readFileIfExists "${path}.vim");
+        luaConfig = replaceStringsOptional from to (readFileIfExists "${path}.lua");
+        # aniseedConfig = readFileIfExists "${path}.fnl";
       in
       vimConfig
       +
@@ -126,8 +132,8 @@ let
     # );
   };
 
-  pluginWithConfig = pluginWithConfig' vimDir;
-
+  pluginWithConfig = p: (pluginWithConfig' { dir = vimDir; p = p; });
+  pluginWithConfigTemplate = p: from: to: (pluginWithConfig' { dir = vimDir; inherit p from to; });
 in
 {
   # Create a symlink to test config without a rebuild
@@ -220,9 +226,13 @@ in
       (pluginWithConfig pkgs.vimPlugins.telescope-nvim)
 
       # LSP
-      (pluginWithConfig pkgs.vimPlugins.nvim-lspconfig)
+      (pluginWithConfigTemplate pkgs.vimPlugins.nvim-lspconfig
+        [ "@java.debug.plugin@" ] [ "${custom.java-debug.jar}" ])
       pkgs.vimPlugins.lspsaga-nvim
-      pkgs.vimPlugins.nvim-jdtls
+      custom.lspsaga-nvim
+      # pkgs.vimPlugins.nvim-jdtls
+      custom.nvim-jdtls
+      custom.nvim-dap
 
       # (pluginWithConfig pkgs.vimPlugins.completion-nvim)
       (pluginWithConfig custom.snippets-nvim)

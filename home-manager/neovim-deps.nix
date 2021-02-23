@@ -1,13 +1,31 @@
 { pkgs }:
 {
+
+  # TODO bundle it with jdt-ls?
+  java-debug = pkgs.fetchMavenArtifact
+    {
+      groupId = "com.microsoft.java";
+      artifactId = "com.microsoft.java.debug.plugin";
+      version = "0.30.0";
+      sha256 = "0xz33p397g4pw6y3ydb9yafh2vnws3ym0nljr3369k47gq0w02v5";
+    };
+
+  java-debug-p = pkgs.fetchMavenArtifact
+    {
+      groupId = "com.microsoft.java";
+      artifactId = "java.debug.parent";
+      version = "0.30.0";
+      sha256 = "1111111111111111111111111111111111111111111111111111";
+    };
+
   neovim-nightly = pkgs.neovim-unwrapped.overrideAttrs (oa: {
     version = "master";
 
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "8becdec3919c0925cd274ca8316c9c1c0faad722";
-      sha256 = "1x23p79dg4jpjdr4zwi17whgrvlb3pxa6n6v6jkj97cqi9xacykv";
+      rev = "0450e155d48cb2d8a73358e193931d8966a9d2e0";
+      sha256 = "0nwxjyk3r98jld67cw535z7bhywjk7l59aj1v7jwk9ahv9qxznri";
     };
 
     buildInputs = oa.buildInputs ++ ([
@@ -26,6 +44,39 @@
       repo = "formatter.nvim";
       rev = "4bbf4c83f55aae4162f46bed98db871bdbf783b3";
       sha256 = "1yjxhlf4k2k04qg25n8kia8w0xfnxicxfcfk767mgzmfz6adn462";
+    };
+  };
+
+  nvim-jdtls = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "nvim-jdtls";
+    version = "2021-02-22";
+    src = pkgs.fetchFromGitHub {
+      owner = "mfussenegger";
+      repo = "nvim-jdtls";
+      rev = "58bf37014d1c1c6006bbffeca05839797d701671";
+      sha256 = "0wyn66qg6likav566fgglb48m08bw49zbqcra9wmqxdw7azxh4f5";
+    };
+  };
+
+  nvim-dap = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "nvim-dap";
+    version = "2021-02-22";
+    src = pkgs.fetchFromGitHub {
+      owner = "mfussenegger";
+      repo = "nvim-dap";
+      rev = "273890967e76322f726405e6c6c79d4fc69ae068";
+      sha256 = "0azk7n06kn2n4l0xdyvbhvmgzq0rp24dng7vlkairl0sm3bnb3x9";
+    };
+  };
+
+  lspsaga-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "lspsaga-nvim";
+    version = "2021-02-22";
+    src = pkgs.fetchFromGitHub {
+      owner = "glepnir";
+      repo = "lspsaga.nvim";
+      rev = "1fb30cb0334a0b12aa1dbf40a00e7a06c9539f44";
+      sha256 = "0kvfbcck0f3nj5fb08yr2yfpp0cszxxp556jix59g3y6drah6bnn";
     };
   };
 
