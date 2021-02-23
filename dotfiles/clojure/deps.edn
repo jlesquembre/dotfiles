@@ -48,9 +48,9 @@
            ;;   - java -cp result.jar clojure.main -m mymain.namespace
            ;; - build a library JAR:
            ;;   - clj -A:jar result-lib.jar
-           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.171"}}
+           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.187"}}
                      :main-opts ["-m" "hf.depstar.uberjar"]}
-           :jar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.171"}}
+           :jar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.187"}}
                  :main-opts ["-m" "hf.depstar.jar"]}
 
            :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.2.2"}}
@@ -73,7 +73,7 @@
                          ;; deps for file datafication (0.9.149 or later)
                          org.clojure/data.csv {:mvn/version "1.0.0"}
                          org.clojure/data.json {:mvn/version "1.0.0"}
-                         org.yaml/snakeyaml {:mvn/version "1.27"}
+                         org.yaml/snakeyaml {:mvn/version "1.28"}
                          com.cognitect/rebl
                          ;; adjust to match your install location
                          {:local/root "$HOME/projects/REBL/REBL-0.9.220.jar"}
