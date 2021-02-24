@@ -53,8 +53,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "mfussenegger";
       repo = "nvim-jdtls";
-      rev = "58bf37014d1c1c6006bbffeca05839797d701671";
-      sha256 = "0wyn66qg6likav566fgglb48m08bw49zbqcra9wmqxdw7azxh4f5";
+      rev = "df232630136f93931e0b5e8cf5d68e98231c8684";
+      sha256 = "0vgxwqynpkzm1dzkndss6ssx6niji75hsy77yrnrgx3fm00b9kbj";
     };
   };
 
@@ -64,8 +64,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "mfussenegger";
       repo = "nvim-dap";
-      rev = "273890967e76322f726405e6c6c79d4fc69ae068";
-      sha256 = "0azk7n06kn2n4l0xdyvbhvmgzq0rp24dng7vlkairl0sm3bnb3x9";
+      rev = "6dbb5924dfecb28127171648115f2a9d8675bf0e";
+      sha256 = "1vwra4bf7q5vy2f80fc4cj78i2jnwpci2yclqwy3df5fn3ldri74";
     };
   };
 

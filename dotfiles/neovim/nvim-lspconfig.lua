@@ -92,6 +92,10 @@ local function jdt_on_attach(client, bufnr)
   set_keymap('v', '<leader>de', '<Esc><Cmd>lua require("jdtls").extract_variable(true)<CR>', opts)
   set_keymap('v', '<leader>dm', '<Esc><Cmd>lua require("jdtls").extract_method(true)<CR>', opts)
 
+  -- Run test mappings
+  set_keymap('n', 'cptt', '<Cmd>lua require"jdtls".test_nearest_method()<CR>', opts)
+  set_keymap('n', 'cpta', '<Cmd>lua require"jdtls".test_class()<CR>', opts)
+
   require('jdtls.setup').add_commands()
 
   vim.api.nvim_exec([[
