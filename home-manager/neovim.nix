@@ -4,6 +4,8 @@ let
 
   vimDir = toString ../dotfiles/neovim;
 
+  vimPluginsDir = ../../projects;
+
   # TODO extract
   readFileIfExists = f:
     if builtins.pathExists f then
@@ -90,6 +92,31 @@ let
     compileAniseedPlugin {
       src = pkgs.lib.cleanSource (/. + src);
       inherit name version fnlDir;
+    };
+
+
+  /*
+    Helper to create a symlink to a local vim plugin. Useful to work on vim plugins without a nix rebuild.
+
+    Example:
+
+    programs.neovim.plugins = [
+      (localVimPlugin /path/to/plugin)
+    ];
+  */
+  localVimPlugin = p:
+    assert builtins.isPath p;
+    assert builtins.pathExists p;
+    let
+      p-str = builtins.toString p;
+      name = lib.last (lib.splitString "/" p-str);
+    in
+    {
+      plugin = pkgs.runCommand name { }
+        ''
+          mkdir -p $out/share/vim-plugins
+          ln -s ${p-str} $out/share/vim-plugins/${name}
+        '';
     };
 
   replaceStringsOptional = from: to: s:
@@ -231,7 +258,8 @@ in
       pkgs.vimPlugins.lspsaga-nvim
       custom.lspsaga-nvim
       # pkgs.vimPlugins.nvim-jdtls
-      custom.nvim-jdtls
+      # custom.nvim-jdtls
+      (localVimPlugin (vimPluginsDir + /nvim-jdtls))
       custom.nvim-dap
 
       # (pluginWithConfig pkgs.vimPlugins.completion-nvim)
@@ -333,6 +361,7 @@ in
       # custom.nvim-toggleterm-lua
       (compileAniseedPluginLocal {
         src = "${config.home.homeDirectory}/projects/nterm.nvim";
+        name = "nterm-nvim";
         fnlDir = "src";
       })
       # neoterm
