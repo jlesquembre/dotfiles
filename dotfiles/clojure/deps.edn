@@ -48,9 +48,9 @@
            ;;   - java -cp result.jar clojure.main -m mymain.namespace
            ;; - build a library JAR:
            ;;   - clj -A:jar result-lib.jar
-           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.187"}}
+           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.188"}}
                      :main-opts ["-m" "hf.depstar.uberjar"]}
-           :jar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.187"}}
+           :jar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.188"}}
                  :main-opts ["-m" "hf.depstar.jar"]}
 
            :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.2.2"}}
@@ -87,7 +87,7 @@
             ; :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:extra-deps {vvvvalvalval/scope-capture   {:mvn/version "0.3.2"}
-                               hashp/hashp                  {:mvn/version "0.2.0"}
+                               hashp/hashp                  {:mvn/version "0.2.1"}
                                lambdaisland/deep-diff2      {:mvn/version "2.0.108"}
                                com.gfredericks/dot-slash-2  {:mvn/version "0.1.5"}
                                com.gfredericks/repl-utils   {:mvn/version "0.2.22"}}
