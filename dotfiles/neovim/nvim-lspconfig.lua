@@ -43,8 +43,8 @@ local function custom_attach(client, bufnr)
   -- LSPSAGA
   --
   set_keymap('n', 'K', [[<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]], opts)
-  set_keymap('n', '<C-f>', [[<cmd>lua require('lspsaga.hover').smart_scroll_with_saga(1)<CR>]], opts)
-  set_keymap('n', '<C-b>', [[<cmd>lua require('lspsaga.hover').smart_scroll_with_saga(-1)<CR>]], opts)
+  set_keymap('n', '<C-f>', [[<cmd>lua require('lspsaga.actions').smart_scroll_with_saga(1)<CR>]], opts)
+  set_keymap('n', '<C-b>', [[<cmd>lua require('lspsaga.actions').smart_scroll_with_saga(-1)<CR>]], opts)
   set_keymap('n', '<leader>ds',  [[<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]], opts)
 
   set_keymap('n', '<leader>gd',  [[<cmd>lua require'lspsaga.provider'.preview_definition()<CR>]], opts)

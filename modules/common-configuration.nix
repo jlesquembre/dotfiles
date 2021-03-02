@@ -41,6 +41,9 @@ let
   secrets = h.import-secret ../sops/secrets.nix;
 
   # TODO extract
+  # TODO use paths instead of string, and assert that the path exists.
+  # A path is copied to the store only when used with string interpolation, see
+  # https://stackoverflow.com/q/43850371/799785
   home-manager = { home-manager-path, config-path }:
     assert builtins.typeOf home-manager-path == "string";
     assert builtins.typeOf config-path == "string";
@@ -524,6 +527,7 @@ rec
 
   sops.sshKeyPaths = [ "/etc/nixos/id_rsa_personal" ];
 
+  # TODO move to home-manager
   sops.secrets.ssh-config = {
     owner = user;
     path = "${userHome}/.ssh/config";
