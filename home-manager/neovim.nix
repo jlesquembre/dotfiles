@@ -6,6 +6,8 @@ let
 
   vimPluginsDir = ../../projects;
 
+  h = import ../modules/helpers.nix { inherit pkgs; };
+
   # TODO extract
   readFileIfExists = f:
     if builtins.pathExists f then
@@ -36,88 +38,6 @@ let
               +q
         ''
     );
-
-  /*
-    Compiles an aniseed plugin.
-    fnlDir is the root directory with the fennel source.
-    name and version are required by buildVimPluginFrom2Nix, but its value is
-    not important.
-  */
-  compileAniseedPlugin = { name, version, src, fnlDir ? "fnl" }:
-    let
-      aniseed = pkgs.fetchFromGitHub {
-        owner = "olical";
-        repo = "aniseed";
-        rev = "v3.12.0";
-        sha256 = "1wy5jd86273q7sxa50kv88flqdgmg9z2m4b6phpw3xnl5d1sj9f7";
-      };
-      luaCode = pkgs.runCommand "${name}-compiled"
-        {
-          src = src;
-          allowSubstitues = false;
-          preferLocalBuild = true;
-        }
-        ''
-          mkdir $out
-          # Don't copy fennel src dir
-          shopt -s extglob
-          cp -r ${src}/!(${fnlDir}) $out
-
-          ${pkgs.neovim}/bin/nvim -u NONE -i NONE --headless \
-              -c "let &runtimepath = &runtimepath . ',${aniseed}'" \
-              -c "lua require('aniseed.compile').glob('**/*.fnl', '${src}/${fnlDir}', '$out/lua')" \
-              +q
-        '';
-    in
-    pkgs.vimUtils.buildVimPluginFrom2Nix {
-      pname = name;
-      version = version;
-      src = luaCode;
-    };
-
-
-  /*
-    Wrapper around compileAniseedPlugin. Compiles a local aniseed plugin.
-    src must a string with the absolute path to the plugin directory.
-
-    Example:
-    (compileAniseedPluginLocal {
-      src = "${config.home.homeDirectory}/projects/nterm.nvim";
-      fnlDir = "src";
-    })
-
-  */
-  compileAniseedPluginLocal =
-    { src, name ? "localPlugin", version ? "DEV", fnlDir ? "fnl" }:
-    compileAniseedPlugin {
-      src = pkgs.lib.cleanSource (/. + src);
-      inherit name version fnlDir;
-    };
-
-
-  /*
-    Helper to create a symlink to a local vim plugin. Useful to work on vim plugins without a nix rebuild.
-
-    Example:
-
-    programs.neovim.plugins = [
-      (localVimPlugin /path/to/plugin)
-    ];
-  */
-  localVimPlugin = p:
-    assert builtins.isPath p;
-    assert builtins.pathExists p;
-    let
-      p-str = builtins.toString p;
-      name = lib.last (lib.splitString "/" p-str);
-    in
-    {
-      plugin = pkgs.runCommand name { }
-        ''
-          mkdir -p $out/share/vim-plugins
-          ln -s ${p-str} $out/share/vim-plugins/${name}
-        '';
-    };
 
   replaceStringsOptional = from: to: s:
     if (from != null && s != "") then
@@ -182,6 +102,7 @@ in
 
     '';
 
+  # TODO remove after TS update
   # Add all tree-sitter parsers
   home.file = lib.attrsets.mapAttrs'
     (name: drv: lib.attrsets.nameValuePair
@@ -259,7 +180,7 @@ in
       custom.lspsaga-nvim
       # pkgs.vimPlugins.nvim-jdtls
       # custom.nvim-jdtls
-      (localVimPlugin (vimPluginsDir + /nvim-jdtls))
+      (h.neovim.localVimPlugin (vimPluginsDir + /nvim-jdtls))
       custom.nvim-dap
 
       # (pluginWithConfig pkgs.vimPlugins.completion-nvim)
@@ -359,7 +280,7 @@ in
       (pluginWithConfig custom.formatter-nvim)
       pkgs.vimPlugins.vim-gnupg
       # custom.nvim-toggleterm-lua
-      (compileAniseedPluginLocal {
+      (h.neovim.compileAniseedPluginLocal {
         src = "${config.home.homeDirectory}/projects/nterm.nvim";
         name = "nterm-nvim";
         fnlDir = "src";
