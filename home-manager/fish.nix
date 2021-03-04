@@ -44,9 +44,9 @@ in
       grm = "git_delete_merged";
 
       # Docker
-      d = "docker";
-      dp = "docker ps";
-      dpa = "docker ps --all";
+      d = "podman";
+      dp = "podman ps";
+      dpa = "podman ps --all";
       drm = "docker system prune --all --volumes";
 
       # K8S
