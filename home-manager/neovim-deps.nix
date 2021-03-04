@@ -191,25 +191,6 @@
     };
   };
 
-  vim-git = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-git";
-    src = pkgs.fetchFromGitHub {
-      owner = "tpope";
-      repo = "vim-git";
-      rev = "master";
-      sha256 = "1061l9igdywfbqgwpf2f25yby78phb512hjbyzvqz5l1p7dw1xyd";
-    };
-  };
-
-  vim-mustache-handlebars = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-mustache-handlebars";
-    src = pkgs.fetchFromGitHub {
-      owner = "mustache";
-      repo = "vim-mustache-handlebars";
-      rev = "master";
-      sha256 = "0mhgdah2fg9nvwlvfr3s091f6k3y3x9mk520yv250yg7ywg43hb5";
-    };
-  };
 
   nginx-vim = pkgs.vimUtils.buildVimPlugin {
     name = "nginx-vim";
@@ -251,15 +232,6 @@
   #   };
   # };
 
-  rainbow_parentheses-vim = pkgs.vimUtils.buildVimPlugin {
-    name = "rainbow_parentheses-vim";
-    src = pkgs.fetchFromGitHub {
-      owner = "junegunn";
-      repo = "rainbow_parentheses.vim";
-      rev = "master";
-      sha256 = "0izbjq6qbia013vmd84rdwjmwagln948jh9labhly0asnhqyrkb8";
-    };
-  };
 
   vim-qf = pkgs.vimUtils.buildVimPlugin {
     name = "vim-qf";

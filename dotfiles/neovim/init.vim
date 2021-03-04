@@ -78,7 +78,6 @@ set backup
 set swapfile
 
 
-" TODO move this block to nix file
 let tmpvim_dir = "/tmp/nvim/"
 execute "set backupdir=".tmpvim_dir."backup/"
 execute "set undodir=".tmpvim_dir."undo/"
