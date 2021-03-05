@@ -17,47 +17,63 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 local lspconfig = require'lspconfig'
 local root_pattern = lspconfig.util.root_pattern
 
+local set_telescope_keymap = function(bufnr, mod, lhs, rhs, opts)
+  vim.api.nvim_buf_set_keymap(bufnr, mod, lhs, "<cmd>lua require('telescope.builtin')."..  rhs .. "<cr>", opts)
+end
+
 local function custom_attach(client, bufnr)
+  local function set_keymap_t(...) set_telescope_keymap(bufnr, ...) end
   local function set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local opts = {noremap = true, silent = true}
+  local opts = {noremap = true, silent = false}
 
   -- set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
 
-  set_keymap('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  set_keymap('n', 'gd',    '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  set_keymap('n', 'gdd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  set_keymap('n', 'gdi',   '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   -- set_keymap('n', 'gd',    '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  set_keymap('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- set_keymap('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   set_keymap('n', '1gD',   '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  set_keymap('n', 'gr',    '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  set_keymap('n', 'g0',    '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
-  set_keymap('n', 'gW',    '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
+  -- set_keymap('n', 'gr',    '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- set_keymap('n', 'g0',    '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
+  -- set_keymap('n', 'gW',    '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
 
   -- set_keymap('n', '[w', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   -- set_keymap('n', ']w', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-
 
   -- set_keymap('n', '<leader>rn',  '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   -- set_keymap('n', '<leader>dc',  '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
   --
+  -- TELESCOPE
+  --
+  set_keymap_t("n", "<leader>dr", "lsp_references()", opts)
+  set_keymap_t("n", "<leader>dj", "lsp_document_symbols()", opts)
+  set_keymap_t("n", "<leader>dk", "lsp_workspace_symbols()", opts)
+  set_keymap_t("n", "<leader>dc", "lsp_code_actions()", opts)
+  set_keymap  ("v", "<leader>dc", [[<cmd>'<,'>lua require("telescope.builtin").lsp_code_action()<CR>]], opts)
+  set_keymap_t("n", "<leader>df", "lsp_document_diagnostics()", opts)
+  set_keymap_t("n", "<leader>dg", "lsp_workspace_diagnostics()", opts)
+
+
+  --
   -- LSPSAGA
   --
   set_keymap('n', 'K', [[<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]], opts)
-  set_keymap('n', '<C-f>', [[<cmd>lua require('lspsaga.actions').smart_scroll_with_saga(1)<CR>]], opts)
-  set_keymap('n', '<C-b>', [[<cmd>lua require('lspsaga.actions').smart_scroll_with_saga(-1)<CR>]], opts)
-  set_keymap('n', '<leader>ds',  [[<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]], opts)
+  set_keymap('n', '<c-k>',  [[<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]], opts)
+  set_keymap('n', '<C-f>', [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]], opts)
+  set_keymap('n', '<C-b>', [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]], opts)
 
-  set_keymap('n', '<leader>gd',  [[<cmd>lua require'lspsaga.provider'.preview_definition()<CR>]], opts)
+  set_keymap('n', 'gdp',  [[<cmd>lua require'lspsaga.provider'.preview_definition()<CR>]], opts)
   set_keymap('n', '<leader>dd',  [[<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>]], opts)
 
-  set_keymap('n', 'gh', '<cmd>lua require"lspsaga.provider".lsp_finder()<CR>', opts)
-  set_keymap('n', '[w', '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()<CR>', opts)
-  set_keymap('n', ']w', '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_next()<CR>', opts)
+  set_keymap('n', 'gh', [[<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>]], opts)
+  set_keymap('n', '[w', [[<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>]], opts)
+  set_keymap('n', ']w', [[<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>]], opts)
 
 
   set_keymap('n', '<leader>rn',  [[<cmd>lua require('lspsaga.rename').rename()<CR>]], opts)
-  set_keymap('n', '<leader>dc',  [[<cmd>lua require("lspsaga.codeaction").code_action()<CR>]], opts)
-  set_keymap('v', '<leader>dc',  [[<cmd>'<,'>lua require("lspsaga.codeaction").code_action()<CR>]], opts)
+  -- set_keymap('n', '<leader>dc',  [[<cmd>lua require("lspsaga.codeaction").code_action()<CR>]], opts)
+  -- set_keymap('v', '<leader>dc',  [[<cmd>'<,'>lua require("lspsaga.codeaction").code_action()<CR>]], opts)
   --
   -- END LSPSAGA
   --

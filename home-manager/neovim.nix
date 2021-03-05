@@ -2,7 +2,7 @@
 let
   custom = (import ./neovim-deps.nix) { pkgs = pkgs; };
 
-  vimDir = toString ../dotfiles/neovim;
+  vimDir = ../dotfiles/neovim;
 
   vimPluginsDir = ../../projects;
 
@@ -50,7 +50,7 @@ let
     config =
       let
         name = lib.strings.getName p;
-        path = "${dir}/${name}";
+        path = "${toString dir}/${name}";
         vimConfig = replaceStringsOptional from to (readFileIfExists "${path}.vim");
         luaConfig = replaceStringsOptional from to (readFileIfExists "${path}.lua");
         # aniseedConfig = readFileIfExists "${path}.fnl";
@@ -83,24 +83,8 @@ let
   pluginWithConfigTemplate = p: from: to: (pluginWithConfig' { dir = vimDir; inherit p from to; });
 in
 {
-  # Create a symlink to test config without a rebuild
-  home.activation.symlink-nvim-lua-config =
-    let
-      targerDir = "$HOME/.config/nvim/lua";
-      targerFile = "${targerDir}/user.lua";
-    in
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      if [[ -L "${targerFile}" ]]; then
-        rm "${targerFile}"
-      elif [[ -e "${targerFile}" ]]; then
-        errorEcho "Existing file '${targerFile}' is in the way"
-        exit 1
-      fi
-      $DRY_RUN_CMD mkdir -p $VERBOSE_ARG ${targerDir}
-      $DRY_RUN_CMD ln -s $VERBOSE_ARG \
-          ${vimDir}/user.lua ${targerFile}
-
-    '';
+  # Create a symlink to config without a rebuild
+  xdg.configFile."nvim/lua/user.lua".source = config.lib.file.mkOutOfStoreSymlink (vimDir + /user.lua);
 
   # TODO remove after TS update
   # Add all tree-sitter parsers
@@ -176,7 +160,7 @@ in
       # LSP
       (pluginWithConfigTemplate pkgs.vimPlugins.nvim-lspconfig
         [ "@java.debug.plugin@" ] [ "${custom.java-debug.jar}" ])
-      pkgs.vimPlugins.lspsaga-nvim
+      # pkgs.vimPlugins.lspsaga-nvim
       custom.lspsaga-nvim
       # pkgs.vimPlugins.nvim-jdtls
       # custom.nvim-jdtls
