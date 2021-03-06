@@ -24,6 +24,8 @@ require('telescope').setup{
     },
 
     -- TODO fix it
+    -- Usage:
+    -- :Telescope lispdocs
     -- lispdocs = {
     --   mappings = {
     --     i = {
