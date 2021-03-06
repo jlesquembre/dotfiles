@@ -47,69 +47,12 @@
     };
   };
 
-  nvim-jdtls = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "nvim-jdtls";
-    version = "2021-02-22";
-    src = pkgs.fetchFromGitHub {
-      owner = "mfussenegger";
-      repo = "nvim-jdtls";
-      rev = "df232630136f93931e0b5e8cf5d68e98231c8684";
-      sha256 = "0vgxwqynpkzm1dzkndss6ssx6niji75hsy77yrnrgx3fm00b9kbj";
-    };
-  };
-
-  nvim-dap = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "nvim-dap";
-    version = "2021-02-22";
-    src = pkgs.fetchFromGitHub {
-      owner = "mfussenegger";
-      repo = "nvim-dap";
-      rev = "6dbb5924dfecb28127171648115f2a9d8675bf0e";
-      sha256 = "1vwra4bf7q5vy2f80fc4cj78i2jnwpci2yclqwy3df5fn3ldri74";
-    };
-  };
-
-  lspsaga-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "lspsaga-nvim";
-    version = "2021-02-22";
-    src = pkgs.fetchFromGitHub {
-      owner = "glepnir";
-      repo = "lspsaga.nvim";
-      rev = "1fb30cb0334a0b12aa1dbf40a00e7a06c9539f44";
-      sha256 = "0kvfbcck0f3nj5fb08yr2yfpp0cszxxp556jix59g3y6drah6bnn";
-    };
-  };
-
-  snippets-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "snippets-nvim";
-    version = "2021-02-12";
-    src = pkgs.fetchFromGitHub {
-      owner = "norcalli";
-      repo = "snippets.nvim";
-      rev = "7b5fd8071d4fb6fa981a899aae56b55897c079fd";
-      sha256 = "1fdsx7d5nyhhklwidgh387ijd485g2836rwd5i1r0di777mp7w80";
-    };
-  };
-
-  nvim-compe = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "nvim-compe";
-    version = "2021-02-12";
-    src = pkgs.fetchFromGitHub {
-      owner = "hrsh7th";
-      repo = "nvim-compe";
-      rev = "4df0108195dfbc36f6143a7d0e1f6bf6418432b8";
-      sha256 = "0xrl4wr6g9ax8xp6lj1b66phfzdqjilr2xglcdi9czib3hs29mf3";
-    };
-  };
-
-
   ######
   ######
   ######
   ######
   ######
   ######
-
 
   fern-nerdfont = pkgs.vimUtils.buildVimPlugin {
     name = "fern-renderer-nerdfont.vim";

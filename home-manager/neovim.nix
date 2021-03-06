@@ -44,99 +44,48 @@ let
       (builtins.replaceStrings from to s)
     else
       s;
-
-
-  formatLuaConfig = { text, luaModule, name }:
-    if (builtins.stringLength text == 0)
-    then ""
-    else if luaModule then
-      (
-        let
-          config = pkgs.writeTextFile {
-            inherit name text;
-            destination = "/lua/${name}.lua";
-          };
-        in
-        ''
-          set runtimepath^=${config}
-          lua require"${name}"
-        ''
-      )
-    else
-      ''
-        lua << EOF
-        ${text}
-        EOF
-      ''
-  ;
-  # TODO
-  # better function, if configPath is a directory, look for $DRV_NAME.lua and $DRV_NAME.vim files,
-  # if is a file, just use that file
-  # pluginWithConfig' = { configPath, drv, from ? null, to ? null }: { };
-
-  pluginWithConfig' = { dir, drv, luaModule ? false, from ? null, to ? null }: {
+  pluginWithConfig' = { configPath, drv, from ? null, to ? null }: {
     plugin = drv;
-    config =
-      let
-        name = lib.strings.getName drv;
-        path = "${toString dir}/${name}";
-        vimConfig = replaceStringsOptional from to (readFileIfExists "${path}.vim");
-        # luaConfig' = replaceStringsOptional from to (readFileIfExists "${path}.lua");
-        # luaConfig = formatLuaConfig { text = luaConfig'; inherit luaModule name; };
-
-        # aniseedConfig = readFileIfExists "${path}.fnl";
-      in
-      vimConfig
-      # +
-      # luaConfig
-      # lib.strings.optionalString
-      #   (builtins.stringLength luaConfig > 0)
-      #   ''
-      #     lua << EOF
-      #     ${luaConfig}
-      #     EOF
-      #   ''
-    ;
-    # + (
-    #   lib.strings.optionalString
-    #     (builtins.stringLength aniseedConfig > 0)
-    #     (
-    #       compileAniseed
-    #         ''
-    #           lua << EOF
-    #           ${aniseedConfig}
-    #           EOF
-    #         ''
-    #     )
-    # );
+    config = replaceStringsOptional from to (builtins.readFile configPath);
   };
-
-  pluginWithConfig = drv: (pluginWithConfig' { dir = vimDir; drv = drv; });
-  # TODO simplify
-  pluginWithConfigModule = drv: (pluginWithConfig' { dir = vimDir; drv = drv; luaModule = true; });
-  pluginWithConfigTemplate = drv: from: to: (pluginWithConfig' { dir = vimDir; inherit drv from to; });
-
+  pluginWithConfig = drv: configPath: (pluginWithConfig' { inherit drv configPath; });
+  pluginWithConfigTemplate = drv: configPath: from: to: (pluginWithConfig' { inherit drv configPath from to; });
 
   /*
-  Creates a vim plugin derivation with lua files.
+    Creates a vim plugin derivation with multiple lua files.
 
-  Example:
-  let
-    my-lua-files = (buildLuaConfig { configDir = /path/to/dir; moduleName = "foo"; })
-  in
-  {
-    programs.neovim.extraPackages = [ my-lua-files ];
-    # Optional
-    programs.neovim.extraConfig = my-lua-files.luaRequires;
-  }
+    Example:
+    let
+      my-lua-files = (buildLuaConfig { configDir = /path/to/dir; moduleName = "foo"; })
+    in
+    {
+      programs.neovim.extraPackages = [ my-lua-files ];
+      # Optional, to automatically load the files on startup, since lua files are
+      # not automatically sourced
+      programs.neovim.extraConfig = my-lua-files.luaRequires;
+      # luaRequires example:
+      # lua require'foo.filename'
+    }
+    And then, in your init.vim you can do:
+    lua require'foo.filename'
 
 
-  And then, in your init.vim you can do:
 
-  lua require'foo.filename'
+    Optionally provide 'vars' and 'replacements' to perform string substitution.
+    Substitutions are similar (but not identical) to how builtins.replaceStrings behaves.
+    See https://nixos.org/manual/nix/stable/#builtin-replaceStrings
+
+    Variables in the lua files have to be sorrounded by the @ symbol.
+    Example:
+      vars = [ "foo" "bar"]; replacements = [ "FOO" "BAR"];
+
+      Input file ->
+        @foo@  = @bar@
+
+      Output file ->
+        FOO = BAR
   */
-  # TODO support templates
-  buildLuaConfig = { configDir, moduleName }:
+  buildLuaConfig = { configDir, moduleName, vars ? null, replacements ? null }:
     let
       pname = "lua-config-${moduleName}";
       luaSrc = builtins.filterSource
@@ -159,15 +108,34 @@ let
       installPhase =
         let
           rtpPath = "share/vim-plugins";
+          subs =
+            lib.lists.fold (a: b: a + " " + b) ""
+              (lib.lists.zipListsWith (f: t: "--subst-var-by ${f} ${t}") vars replacements)
+          ;
         in
         ''
           target=$out/${rtpPath}/${pname}/lua/${moduleName}
           mkdir -p $target
           cp -r . $target
-        '';
+
+        ''
+        +
+        lib.optionalString (vars != null)
+          ''
+            for filename in $target/*
+            do
+              substituteInPlace $filename ${subs}
+            done
+          '';
       passthru.luaRequires = builtins.readFile "${luaRequires}";
     });
-  my-lua-config = (buildLuaConfig { configDir = vimDir; moduleName = "jlle"; });
+
+  my-lua-config = (buildLuaConfig {
+    configDir = vimDir;
+    moduleName = "jlle";
+    vars = [ "java.debug.plugin" ];
+    replacements = [ "${custom.java-debug.jar}" ];
+  });
 
 in
 {
@@ -249,26 +217,14 @@ in
       # Telescope
       pkgs.vimPlugins.telescope-fzy-native-nvim
       pkgs.vimPlugins.telescope-nvim
-      # (pluginWithConfig {
-      #   drv = pkgs.vimPlugins.telescope-nvim;
-      #   configPath = "";
-      #   replaceOld = [ ];
-      #   replaceNew = [ ];
-      # })
 
       # LSP
-      (pluginWithConfigTemplate pkgs.vimPlugins.nvim-lspconfig
-        [ "@java.debug.plugin@" ] [ "${custom.java-debug.jar}" ])
+      pkgs.vimPlugins.nvim-lspconfig
       pkgs.vimPlugins.lspsaga-nvim
-      # custom.lspsaga-nvim
-      # (h.neovim.localVimPlugin (vimPluginsDir + /lspsaga.nvim))
       # pkgs.vimPlugins.nvim-jdtls
-      # custom.nvim-jdtls
       (h.neovim.localVimPlugin (vimPluginsDir + /nvim-jdtls))
-      # pkgs.vimPlugins.nvim-dap
-      custom.nvim-dap
+      pkgs.vimPlugins.nvim-dap
 
-      # (pluginWithConfig pkgs.vimPlugins.completion-nvim)
       pkgs.vimPlugins.snippets-nvim
       pkgs.vimPlugins.nvim-compe
       # pkgs.vimPlugins.completion-treesitter
@@ -291,7 +247,7 @@ in
       }
 
       # Navigation
-      (pluginWithConfig pkgs.vimPlugins.fern-vim)
+      (pluginWithConfig pkgs.vimPlugins.fern-vim (vimDir + /fern.vim))
       pkgs.vimPlugins.vim-unimpaired
       # fzf-vim
       {
@@ -311,14 +267,14 @@ in
             xmap gs  <plug>(GrepperOperator)
           '';
       }
-      (pluginWithConfig pkgs.vimPlugins.vim-easymotion)
+      (pluginWithConfig pkgs.vimPlugins.vim-easymotion (vimDir + /easymotion.vim))
 
       # visual-star
       # vim-indent-object TODO ?
 
       # Text edition
       pkgs.vimPlugins.vim-repeat
-      (pluginWithConfig pkgs.vimPlugins.vim-sandwich)
+      (pluginWithConfig pkgs.vimPlugins.vim-sandwich (vimDir + /sandwich.vim))
       pkgs.vimPlugins.vim-commentary
       # jdaddy-vim TODO needed? tree sitter can replace it?
       # vim-speeddating
@@ -379,7 +335,6 @@ in
             nnoremap <leader>Q :Sayonara!<cr>
           '';
       }
-      pkgs.vimPlugins.vim-test
       #
       # vim-qf
       # Recover-vim
@@ -451,11 +406,8 @@ in
           '';
       }
       # vim-rhubarb
-      # vim-gitgutter
-      (pluginWithConfig pkgs.vimPlugins.gitsigns-nvim)
-      # vim-rooter
+      pkgs.vimPlugins.gitsigns-nvim
       # vim-flog
-      # # vim-merginal
 
       # DB
       pkgs.vimPlugins.vim-dadbod
