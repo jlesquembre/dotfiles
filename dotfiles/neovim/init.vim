@@ -548,7 +548,3 @@ endfunction
 " nnoremap @ :<c-u>call RunMacro()<cr>
 " nnoremap Q :<c-u>call RunMacro()<cr>@
 "
-
-" Custom Lua config ========
-" luafile ~/.config/nvim/lua/user.lua
-lua require('user')

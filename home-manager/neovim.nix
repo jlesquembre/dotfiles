@@ -45,25 +45,57 @@ let
     else
       s;
 
-  pluginWithConfig' = { dir, p, from ? null, to ? null }: {
-    plugin = p;
+
+  formatLuaConfig = { text, luaModule, name }:
+    if (builtins.stringLength text == 0)
+    then ""
+    else if luaModule then
+      (
+        let
+          config = pkgs.writeTextFile {
+            inherit name text;
+            destination = "/lua/${name}.lua";
+          };
+        in
+        ''
+          set runtimepath^=${config}
+          lua require"${name}"
+        ''
+      )
+    else
+      ''
+        lua << EOF
+        ${text}
+        EOF
+      ''
+  ;
+  # TODO
+  # better function, if configPath is a directory, look for $DRV_NAME.lua and $DRV_NAME.vim files,
+  # if is a file, just use that file
+  # pluginWithConfig' = { configPath, drv, from ? null, to ? null }: { };
+
+  pluginWithConfig' = { dir, drv, luaModule ? false, from ? null, to ? null }: {
+    plugin = drv;
     config =
       let
-        name = lib.strings.getName p;
+        name = lib.strings.getName drv;
         path = "${toString dir}/${name}";
         vimConfig = replaceStringsOptional from to (readFileIfExists "${path}.vim");
-        luaConfig = replaceStringsOptional from to (readFileIfExists "${path}.lua");
+        # luaConfig' = replaceStringsOptional from to (readFileIfExists "${path}.lua");
+        # luaConfig = formatLuaConfig { text = luaConfig'; inherit luaModule name; };
+
         # aniseedConfig = readFileIfExists "${path}.fnl";
       in
       vimConfig
-      +
-      lib.strings.optionalString
-        (builtins.stringLength luaConfig > 0)
-        ''
-          lua << EOF
-          ${luaConfig}
-          EOF
-        ''
+      # +
+      # luaConfig
+      # lib.strings.optionalString
+      #   (builtins.stringLength luaConfig > 0)
+      #   ''
+      #     lua << EOF
+      #     ${luaConfig}
+      #     EOF
+      #   ''
     ;
     # + (
     #   lib.strings.optionalString
@@ -79,8 +111,64 @@ let
     # );
   };
 
-  pluginWithConfig = p: (pluginWithConfig' { dir = vimDir; p = p; });
-  pluginWithConfigTemplate = p: from: to: (pluginWithConfig' { dir = vimDir; inherit p from to; });
+  pluginWithConfig = drv: (pluginWithConfig' { dir = vimDir; drv = drv; });
+  # TODO simplify
+  pluginWithConfigModule = drv: (pluginWithConfig' { dir = vimDir; drv = drv; luaModule = true; });
+  pluginWithConfigTemplate = drv: from: to: (pluginWithConfig' { dir = vimDir; inherit drv from to; });
+
+
+  /*
+  Creates a vim plugin derivation with lua files.
+
+  Example:
+  let
+    my-lua-files = (buildLuaConfig { configDir = /path/to/dir; moduleName = "foo"; })
+  in
+  {
+    programs.neovim.extraPackages = [ my-lua-files ];
+    # Optional
+    programs.neovim.extraConfig = my-lua-files.luaRequires;
+  }
+
+
+  And then, in your init.vim you can do:
+
+  lua require'foo.filename'
+  */
+  # TODO support templates
+  buildLuaConfig = { configDir, moduleName }:
+    let
+      pname = "lua-config-${moduleName}";
+      luaSrc = builtins.filterSource
+        (path: type: (lib.hasSuffix ".lua" path) && (baseNameOf path != "user.lua"))
+        configDir;
+      luaRequires = pkgs.runCommand "luaRequires-${moduleName}" { } ''
+        echo '" ${pname} ===' > $out
+        for filename in ${luaSrc}/*.lua
+        do
+          f=$(basename "''${filename}" .lua)
+          echo "lua require'${moduleName}.''${f}'" >> $out
+        done
+        echo '" ===' >> $out
+      '';
+    in
+    (pkgs.stdenv.mkDerivation {
+      inherit pname;
+      version = "DEV";
+      src = luaSrc;
+      installPhase =
+        let
+          rtpPath = "share/vim-plugins";
+        in
+        ''
+          target=$out/${rtpPath}/${pname}/lua/${moduleName}
+          mkdir -p $target
+          cp -r . $target
+        '';
+      passthru.luaRequires = builtins.readFile "${luaRequires}";
+    });
+  my-lua-config = (buildLuaConfig { configDir = vimDir; moduleName = "jlle"; });
+
 in
 {
   # Create a symlink to config without a rebuild
@@ -101,7 +189,12 @@ in
     # withPython = true;
     withPython3 = true;
     withRuby = true;
-    extraConfig = (builtins.readFile "${vimDir}/init.vim");
+    extraConfig =
+      ''
+        ${builtins.readFile "${vimDir}/init.vim"}
+        lua require'user'
+        ${my-lua-config.luaRequires}
+      '';
 
     # Needed to start the LSP servers
     extraPackages = [
@@ -144,7 +237,7 @@ in
       # (compileAniFile /home/jlle/projects/private-gists/term.fnl)
 
       # config for plugins is also in nvim-treesitter config file
-      (pluginWithConfig pkgs.vimPlugins.nvim-treesitter)
+      pkgs.vimPlugins.nvim-treesitter
       pkgs.vimPlugins.nvim-ts-rainbow
 
       # Helpers, needed by other plugins
@@ -155,29 +248,36 @@ in
 
       # Telescope
       pkgs.vimPlugins.telescope-fzy-native-nvim
-      (pluginWithConfig pkgs.vimPlugins.telescope-nvim)
+      pkgs.vimPlugins.telescope-nvim
+      # (pluginWithConfig {
+      #   drv = pkgs.vimPlugins.telescope-nvim;
+      #   configPath = "";
+      #   replaceOld = [ ];
+      #   replaceNew = [ ];
+      # })
 
       # LSP
       (pluginWithConfigTemplate pkgs.vimPlugins.nvim-lspconfig
         [ "@java.debug.plugin@" ] [ "${custom.java-debug.jar}" ])
-      # pkgs.vimPlugins.lspsaga-nvim
-      custom.lspsaga-nvim
+      pkgs.vimPlugins.lspsaga-nvim
+      # custom.lspsaga-nvim
+      # (h.neovim.localVimPlugin (vimPluginsDir + /lspsaga.nvim))
       # pkgs.vimPlugins.nvim-jdtls
       # custom.nvim-jdtls
       (h.neovim.localVimPlugin (vimPluginsDir + /nvim-jdtls))
+      # pkgs.vimPlugins.nvim-dap
       custom.nvim-dap
 
       # (pluginWithConfig pkgs.vimPlugins.completion-nvim)
-      (pluginWithConfig custom.snippets-nvim)
-      # (pluginWithConfig pkgs.vimPlugins.nvim-compe)
-      (pluginWithConfig custom.nvim-compe)
+      pkgs.vimPlugins.snippets-nvim
+      pkgs.vimPlugins.nvim-compe
       # pkgs.vimPlugins.completion-treesitter
 
       # UI
       # TODO use the lua version
       pkgs.vimPlugins.base16-vim
       pkgs.vimPlugins.oceanic-next
-      (pluginWithConfig pkgs.vimPlugins.galaxyline-nvim)
+      pkgs.vimPlugins.galaxyline-nvim
       # pkgs.vimPlugins.barbar-nvim
       # custom.nvim-bufferline-lua
       # pkgs.vimPlugins.dashboard-nvim
@@ -261,7 +361,7 @@ in
       # rainbow_parentheses-vim
       # vim-projectionist
       # ale
-      (pluginWithConfig custom.formatter-nvim)
+      custom.formatter-nvim
       pkgs.vimPlugins.vim-gnupg
       # custom.nvim-toggleterm-lua
       (h.neovim.compileAniseedPluginLocal {
@@ -404,7 +504,7 @@ in
       pkgs.vimPlugins.vim-sexp
       pkgs.vimPlugins.vim-sexp-mappings-for-regular-people
       pkgs.parinfer-rust
-      (pluginWithConfig pkgs.vimPlugins.conjure)
+      pkgs.vimPlugins.conjure
       {
         plugin = pkgs.vimPlugins.lispdocs-nvim;
         config =
@@ -418,6 +518,7 @@ in
 
       # # Language specific helpers
       # vim-crates
+      my-lua-config
     ];
   };
 }
