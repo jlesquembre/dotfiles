@@ -109,7 +109,7 @@ let
         let
           rtpPath = "share/vim-plugins";
           subs =
-            lib.lists.fold (a: b: a + " " + b) ""
+            lib.concatStringsSep " "
               (lib.lists.zipListsWith (f: t: "--subst-var-by ${f} ${t}") vars replacements)
           ;
         in
