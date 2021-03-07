@@ -57,6 +57,7 @@ local set_keymap = function(mod, lhs, rhs, module)
 end
 
 set_keymap("n", "<leader>ff",   "git_files()", "telescope.builtin")
+set_keymap("n", "<leader>fe",   "file_browser()", "telescope.builtin")
 set_keymap("n", "<leader>fs",   "live_grep()", "telescope.builtin")
 set_keymap("n", "<leader>fo",   "oldfiles()", "telescope.builtin")
 set_keymap("n", "<leader><cr>", "buffers()", "telescope.builtin")
