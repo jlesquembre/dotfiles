@@ -29,6 +29,11 @@ require'snippets'.snippets = {
     date = function () return os.date() end;
     -- note = [[NOTE(${1=io.popen("id -un"):read"*l"}): ]];
   };
+
+  java = {
+    sout = [[System.out.println($0)]]
+  };
+
   typescript = {
 
     lite = [[

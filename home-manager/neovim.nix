@@ -234,15 +234,17 @@ in
       pkgs.vimPlugins.base16-vim
       pkgs.vimPlugins.oceanic-next
       pkgs.vimPlugins.galaxyline-nvim
-      # pkgs.vimPlugins.barbar-nvim
-      # custom.nvim-bufferline-lua
       # pkgs.vimPlugins.dashboard-nvim
       {
-        plugin = pkgs.vimPlugins.vim-startify;
+        # plugin = pkgs.vimPlugins.vim-startify;
+        plugin = pkgs.vimPlugins.dashboard-nvim;
         config =
           ''
-            let g:startify_change_to_vcs_root = 1
-            let g:startify_session_dir = '~/.config/nvim/session'
+            let g:dashboard_default_executive = 'telescope'
+            let g:dashboard_session_directory = '~/.config/nvim/session'
+            autocmd User DashboardReady call dashboard#cd_to_vcs_root(getcwd())
+            " let g:startify_change_to_vcs_root = 1
+            " let g:startify_session_dir = '~/.config/nvim/session'
           '';
       }
 
@@ -457,6 +459,7 @@ in
       pkgs.vimPlugins.vim-sexp-mappings-for-regular-people
       pkgs.parinfer-rust
       pkgs.vimPlugins.conjure
+      pkgs.vimPlugins.compe-conjure
       {
         plugin = pkgs.vimPlugins.lispdocs-nvim;
         config =
