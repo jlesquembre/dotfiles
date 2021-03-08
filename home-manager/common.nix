@@ -5,13 +5,6 @@ let
   h = import ../modules/helpers.nix { inherit pkgs; };
   secrets = h.import-secret ../sops/secrets.nix;
 
-  pkgs-mongo = import
-    (builtins.fetchTarball {
-      url = "https://github.com/NixOS/nixpkgs/archive/891f607d5301d6730cb1f9dcf3618bcb1ab7f10e.tar.gz";
-      sha256 = "1cr39f0sbr0h5d83dv1q34mcpwnkwwbdk5fqlyqp2mnxghzwssng";
-    })
-    { };
-
 in
 {
   # Let Home Manager install and manage itself.
@@ -36,7 +29,6 @@ in
   ];
 
   home.packages = with pkgs; [
-    pkgs-mongo.mongodb-4_2
     chromium
 
     # nix tools
