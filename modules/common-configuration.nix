@@ -163,7 +163,7 @@ rec
     cheat
     chromium
     google-chrome
-    google-chrome-dev # see overlays
+    # google-chrome-dev # see overlays
     clementine
     cmatrix
     # cue

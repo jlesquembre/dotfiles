@@ -397,7 +397,7 @@ in
     # enableNixDirenvIntegration = false;
   };
 
-  # jump program
+  # autojump program
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
