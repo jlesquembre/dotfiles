@@ -1,1 +1,2 @@
 *.gpg diff=blackbox
+sops/** diff=sopsdiffer

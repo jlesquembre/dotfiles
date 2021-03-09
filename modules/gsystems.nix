@@ -13,20 +13,16 @@
     secrets.g-systems.ca-cert
   ];
 
-  services.coredns.config = lib.mkAfter
-    ''
-      noenv.aws {
-        forward . 10.100.11.114
-      }
+  services.coredns.config = lib.mkAfter secrets.g-systems.coredns-config;
 
-      noenv.io {
-        forward . 10.100.11.114
-      }
+  services.openvpn.servers = secrets.g-systems.openvpn-config;
 
-      lan {
-        template IN A  {
-            answer "{{ .Name }} 0 IN A 192.168.1.185"
-        }
-      }
-    '';
+  sops.secrets.ovpn_credentials_1 = {
+    format = "yaml";
+    sopsFile = ../sops/openvpn.yaml;
+  };
+  sops.secrets.ovpn_config_1 = {
+    format = "yaml";
+    sopsFile = ../sops/openvpn.yaml;
+  };
 }

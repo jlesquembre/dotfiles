@@ -563,10 +563,12 @@ in
       commit = {
         verbose = true;
       };
-      "diff \"blackbox\"" =
-        {
-          textconv = "gpg --use-agent -q --batch --decrypt";
-        };
+      "diff \"blackbox\"" = {
+        textconv = "gpg --use-agent -q --batch --decrypt";
+      };
+      "diff \"sopsdiffer\"" = {
+        textconv = "sops -d";
+      };
     };
     delta.enable = true;
     delta.options = #[ "--dark" "--theme base16" "--file-color #ffff00" "--file-style box" ];
