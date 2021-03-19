@@ -320,6 +320,8 @@ in
       # vim-projectionist
       # ale
       custom.formatter-nvim
+      pkgs.vimPlugins.nvim-autopairs
+      pkgs.vimPlugins.hop-nvim
       pkgs.vimPlugins.vim-gnupg
       # custom.nvim-toggleterm-lua
       (h.neovim.compileAniseedPluginLocal {

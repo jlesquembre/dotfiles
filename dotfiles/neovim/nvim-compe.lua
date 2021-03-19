@@ -35,10 +35,9 @@ local set_keymap = vim.api.nvim_set_keymap
 local opts = {noremap = true, silent = true, expr = true}
 
 -- set_keymap("i", "<C-Space>", "compe#complete()", opts)
-set_keymap("i", "<CR>"     , "compe#confirm('<CR>')", opts)
+-- See completion_confirm, combines nvim-compe and nvim-autopairs
+-- set_keymap("i", "<CR>"     , "compe#confirm('<CR>')", opts)
 set_keymap("i", "<C-e>"    , "compe#close('<C-e>')", opts)
--- set_keymap('i', "<C-f>"    , "compe#scroll({ 'delta': +4 })", opts)
--- set_keymap('i', "<C-d>"    , "compe#scroll({ 'delta': -4 })", opts)
 
 -- Helper functions from the nvim-compe README
 local t = function(str)
@@ -89,3 +88,28 @@ set_keymap("i", "<Tab>", "v:lua.tab_complete()", opts2)
 set_keymap("s", "<Tab>", "v:lua.tab_complete()", opts2)
 set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", opts2)
 set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", opts2)
+
+
+local npairs = require('nvim-autopairs')
+
+_G.MUtils= {}
+
+vim.g.completion_confirm_key = ""
+MUtils.completion_confirm = function()
+  if vim.fn.pumvisible() ~= 0  then
+    if vim.fn.complete_info()["selected"] ~= -1 then
+      vim.fn["compe#confirm"]()
+      return npairs.esc("<c-y>")
+    else
+      vim.defer_fn(function()
+        vim.fn["compe#confirm"]("<cr>")
+      end, 20)
+      return npairs.esc("<c-n>")
+    end
+  else
+    return npairs.check_break_line_char()
+  end
+end
+
+
+set_keymap('i' , '<CR>','v:lua.MUtils.completion_confirm()', opts)

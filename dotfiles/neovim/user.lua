@@ -38,3 +38,7 @@ augroup END
 
 
 require"nterm".init()
+
+require('nvim-autopairs').setup({
+  disable_filetype = { "TelescopePrompt" , "clojure" },
+})
