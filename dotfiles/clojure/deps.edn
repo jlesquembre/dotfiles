@@ -23,7 +23,7 @@
            ;;   - clj -A:new lib myname/my-cool-lib
            ;;   - cd my-cool-lib
            ;;   - clj -A:test:runner # run the tests!
-           :new {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.264"}}
+           :new {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.293"}}
                  :main-opts ["-m" "clj-new.create"]}
 
            :rebel      {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}
@@ -38,7 +38,7 @@
                     :main-opts ["-m" "http.server"]}
 
            ;; see https://github.com/jonase/eastwood#running-eastwood-in-a-repl
-           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "0.3.14"}}
+           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "0.4.0"}}
                       :main-opts ["-m" "eastwood.lint" "{:source-paths,[\"src\"],:test-paths,[\"test\"]}"]}
 
            ;; uberjar building:
@@ -48,9 +48,9 @@
            ;;   - java -cp result.jar clojure.main -m mymain.namespace
            ;; - build a library JAR:
            ;;   - clj -A:jar result-lib.jar
-           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.206"}}
+           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.211"}}
                      :main-opts ["-m" "hf.depstar.uberjar"]}
-           :jar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.206"}}
+           :jar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.211"}}
                  :main-opts ["-m" "hf.depstar.jar"]}
 
            :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.2.2"}}
@@ -72,7 +72,7 @@
            {:extra-deps {org.clojure/core.async {:mvn/version "1.3.610"}
                          ;; deps for file datafication (0.9.149 or later)
                          org.clojure/data.csv {:mvn/version "1.0.0"}
-                         org.clojure/data.json {:mvn/version "2.0.1"}
+                         org.clojure/data.json {:mvn/version "2.0.2"}
                          org.yaml/snakeyaml {:mvn/version "1.28"}
                          com.cognitect/rebl
                          ;; adjust to match your install location
