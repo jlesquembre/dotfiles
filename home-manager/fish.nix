@@ -19,14 +19,15 @@ in
     '';
 
     shellAbbrs = {
+
       # Git
       g = "git";
       gcl = "git clone";
       gco = "git checkout";
       gcon = "git checkout -b";
-      gss = "git switch";
+      gs = "git switch";
       gsc = "git switch --create";
-      grs = "git restore --";
+      gre = "git restore --";
       gf = "git fetch";
       gfa = "git fetch --all";
       gp = "git pull --ff-only";
@@ -39,8 +40,8 @@ in
       gm = "git merge --ff-only";
       gd = "git diff";
       gdd = "git diff --staged";
-      gsd = "git stash show -p";
-      gs = "git status";
+      gds = "git stash show -p";
+      gst = "git status";
       grm = "git_delete_merged";
 
       # Docker
