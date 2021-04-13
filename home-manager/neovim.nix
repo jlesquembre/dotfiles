@@ -51,39 +51,39 @@ let
   pluginWithConfig = drv: configPath: (pluginWithConfig' { inherit drv configPath; });
   pluginWithConfigTemplate = drv: configPath: from: to: (pluginWithConfig' { inherit drv configPath from to; });
 
-  /*
-    Creates a vim plugin derivation with multiple lua files.
+  /**
+    * Creates a vim plugin derivation with multiple lua files.
 
-    Example:
-    let
-      my-lua-files = (buildLuaConfig { configDir = /path/to/dir; moduleName = "foo"; })
-    in
-    {
-      programs.neovim.extraPackages = [ my-lua-files ];
-      # Optional, to automatically load the files on startup, since lua files are
-      # not automatically sourced
-      programs.neovim.extraConfig = my-lua-files.luaRequires;
-      # luaRequires example:
-      # lua require'foo.filename'
-    }
-    And then, in your init.vim you can do:
-    lua require'foo.filename'
+    * Example:
+    * let
+    *   my-lua-files = (buildLuaConfig { configDir = /path/to/dir; moduleName = "foo"; })
+    * in
+    * {
+    *   programs.neovim.extraPackages = [ my-lua-files ];
+    *   # Optional, to automatically load the files on startup, since lua files are
+    *   # not automatically sourced
+    *   programs.neovim.extraConfig = my-lua-files.luaRequires;
+    *   # luaRequires example:
+    *   # lua require'foo.filename'
+    * }
+    * And then, in your init.vim you can do:
+    * lua require'foo.filename'
 
 
 
-    Optionally provide 'vars' and 'replacements' to perform string substitution.
-    Substitutions are similar (but not identical) to how builtins.replaceStrings behaves.
-    See https://nixos.org/manual/nix/stable/#builtin-replaceStrings
+    * Optionally provide 'vars' and 'replacements' to perform string substitution.
+    * Substitutions are similar (but not identical) to how builtins.replaceStrings behaves.
+    * See https://nixos.org/manual/nix/stable/#builtin-replaceStrings
 
-    Variables in the lua files have to be sorrounded by the @ symbol.
-    Example:
-      vars = [ "foo" "bar"]; replacements = [ "FOO" "BAR"];
+    * Variables in the lua files have to be sorrounded by the @ symbol.
+    * Example:
+    *   vars = [ "foo" "bar"]; replacements = [ "FOO" "BAR"];
 
-      Input file ->
-        @foo@  = @bar@
+    *   Input file ->
+    *     @foo@  = @bar@
 
-      Output file ->
-        FOO = BAR
+    *   Output file ->
+    *     FOO = BAR
   */
   buildLuaConfig = { configDir, moduleName, vars ? null, replacements ? null }:
     let
@@ -323,13 +323,14 @@ in
       pkgs.vimPlugins.nvim-autopairs
       pkgs.vimPlugins.hop-nvim
       pkgs.vimPlugins.vim-gnupg
+
       # custom.nvim-toggleterm-lua
-      (h.neovim.compileAniseedPluginLocal {
-        src = "${config.home.homeDirectory}/projects/nterm.nvim";
-        name = "nterm-nvim";
-        fnlDir = "src";
-      })
-      # neoterm
+      # (h.neovim.compileAniseedPluginLocal {
+      #   src = "${config.home.homeDirectory}/projects/nterm.nvim";
+      #   name = "nterm-nvim";
+      #   fnlDir = "src";
+      # })
+      custom.nterm-nvim
       {
         plugin = pkgs.vimPlugins.vim-sayonara;
         config =

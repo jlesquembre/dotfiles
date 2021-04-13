@@ -24,8 +24,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "f5daf55c10435930883c0c9b1aa1e035bef78443";
-      sha256 = "1dshcmq31l0y2dvlp3jgkyr9rnjbw04q36jrdg0nl6yykwlplzbw";
+      rev = "4a36ec6da029269a8bac3aa0a25fa43ad4b988b2";
+      sha256 = "0n306gd01kr427pw6hd48nkymw8f7am5qjf2xf895am6ak5n3nj3";
     };
 
     buildInputs = oa.buildInputs ++ ([
@@ -44,6 +44,17 @@
       repo = "formatter.nvim";
       rev = "4bbf4c83f55aae4162f46bed98db871bdbf783b3";
       sha256 = "1yjxhlf4k2k04qg25n8kia8w0xfnxicxfcfk767mgzmfz6adn462";
+    };
+  };
+
+  nterm-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "nterm-nvim";
+    version = "DEV";
+    src = pkgs.fetchFromGitHub {
+      owner = "jlesquembre";
+      repo = "nterm.nvim";
+      rev = "ca1147830701b6939a1f24b19ac215673345e4f2";
+      sha256 = "12pjn3czwmq1apia4m2yn0yv0vfcpzg2ixq3y60lhbai7xjk75gs";
     };
   };
 
