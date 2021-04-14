@@ -220,19 +220,6 @@ function! g:Base16_customize() abort
   call Base16hi("vimLet",   g:base16_gui0E, "", g:base16_cterm0E, "", "", "")
   call Base16hi("vimSet",   g:base16_gui0E, "", g:base16_cterm0E, "", "", "")
 
-  call Base16hi("ALEErrorSign",   g:base16_gui08, g:base16_gui01, "", "", "", "")
-  call Base16hi("ALEWarningSign",   g:base16_gui09, g:base16_gui01, "", "", "", "")
-  call Base16hi("ALEError",     "", "", "", "", "underline", g:base16_gui08)
-  call Base16hi("ALEWarning",     "", "", "", "", "underline", g:base16_gui09)
-  highlight clear ALEInfoSignLineNr
-  highlight clear ALEWarningSignLineNr
-  highlight clear ALEErrorSignLineNr
-
-  call Base16hi("CocErrorSign",   g:base16_gui08, g:base16_gui01, "", "", "", "")
-  call Base16hi("CocWarningSign",   g:base16_gui09, g:base16_gui01, "", "", "", "")
-  call Base16hi("CocInfoSign",   g:base16_gui0D, g:base16_gui01, "", "", "", "")
-  call Base16hi("CocHintSign",   g:base16_gui0B, g:base16_gui01, "", "", "", "")
-
   call Base16hi("LspReferenceRead",     "", g:base16_gui02, "", "", "", "" )
   call Base16hi("LspReferenceWrite",     "", g:base16_gui02, "", "", "", "" )
   call Base16hi("LspReferenceText",     "", g:base16_gui02, "", "", "", "" )
