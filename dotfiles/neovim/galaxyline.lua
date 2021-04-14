@@ -89,6 +89,7 @@ gls.left = {
     end,
     separator = ' ',
     highlight = {colors.bg,colors.line_fg,'bold'},
+    separator_highlight = {colors.fg, colors.line_bg},
   },
 },
 {
