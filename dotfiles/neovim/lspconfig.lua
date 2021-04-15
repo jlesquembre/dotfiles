@@ -286,7 +286,14 @@ augroup END
 
 local saga = require 'lspsaga'
 saga.init_lsp_saga({
-  server_filetype_map = {["jdt.ls"] = { "java" }}
+  server_filetype_map = {["jdt.ls"] = { "java" }},
+  code_action_icon = '💡',
+  code_action_prompt = {
+    enable = true,
+    sign = false,
+    sign_priority = 20,
+    virtual_text = true,
+  },
 })
 
 
