@@ -24,8 +24,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "4a36ec6da029269a8bac3aa0a25fa43ad4b988b2";
-      sha256 = "0n306gd01kr427pw6hd48nkymw8f7am5qjf2xf895am6ak5n3nj3";
+      rev = "a129887c00a2d5e49fc551ba0bbffe88cefb56c0";
+      sha256 = "0ixlbpmc5kmbwbj1aj41ip5l122dzcmq1rzxfrxy9vkmy4madqpz";
     };
 
     buildInputs = oa.buildInputs ++ ([
@@ -53,8 +53,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "jlesquembre";
       repo = "nterm.nvim";
-      rev = "ca1147830701b6939a1f24b19ac215673345e4f2";
-      sha256 = "12pjn3czwmq1apia4m2yn0yv0vfcpzg2ixq3y60lhbai7xjk75gs";
+      rev = "0ff45d45c3e13e0393c2ab80dacaebd33a87f2fb";
+      sha256 = "1k1bfziiyrl32rl3z97sy3xrsssdh2icnq5sz8cv90s2nrqwf3rv";
     };
   };
 
