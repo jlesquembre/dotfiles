@@ -557,6 +557,9 @@ in
         default = "simple";
         followTags = true;
       };
+      checkout = {
+        defaultRemote = "origin";
+      };
       fetch = {
         prune = true;
       };
