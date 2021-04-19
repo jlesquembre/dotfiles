@@ -269,7 +269,7 @@ in
             xmap gs  <plug>(GrepperOperator)
           '';
       }
-      (pluginWithConfig pkgs.vimPlugins.vim-easymotion (vimDir + /easymotion.vim))
+      # (pluginWithConfig pkgs.vimPlugins.vim-easymotion (vimDir + /easymotion.vim))
 
       # visual-star
       # vim-indent-object TODO ?
