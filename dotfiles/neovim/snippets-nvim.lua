@@ -52,6 +52,14 @@ export class ${|abolish(S[1],"mixedcase")} extends LitElement {
   }
 }
 ]];
+    fn = U.match_indentation[[
+function ${1}(${2}){
+  $0
+}
+]];
+    af = [[ ( ${1} ) => $0]];
+    afr = [[ ( ${1} ) => { return $0 }]];
+    afo = [[( ${1} ) => ({ $0 })]];
 
     cons = U.match_indentation[[
 constructor(){
