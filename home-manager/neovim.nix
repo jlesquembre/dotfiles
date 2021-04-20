@@ -251,6 +251,7 @@ in
       # Navigation
       (pluginWithConfig pkgs.vimPlugins.fern-vim (vimDir + /fern.vim))
       pkgs.vimPlugins.vim-unimpaired
+      pkgs.vimPlugins.nvim-bqf
       # fzf-vim
       {
         plugin = pkgs.vimPlugins.vim-grepper;
@@ -269,7 +270,6 @@ in
             xmap gs  <plug>(GrepperOperator)
           '';
       }
-      # (pluginWithConfig pkgs.vimPlugins.vim-easymotion (vimDir + /easymotion.vim))
 
       # visual-star
       # vim-indent-object TODO ?
