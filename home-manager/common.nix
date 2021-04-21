@@ -729,7 +729,7 @@ in
         {
           isDefault = true;
           settings = {
-            "browser.display.background_color" = "#bdbdbd";
+            "browser.display.background_color" = "#eeeeee";
             "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
             "browser.search.suggest.enabled" = false;
             "browser.startup.page" = 3;
