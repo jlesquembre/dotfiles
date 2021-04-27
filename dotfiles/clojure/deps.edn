@@ -69,10 +69,10 @@
                               "-Dclojure.server.node={:port,5556,:accept,cljs.server.node/prepl}"
                               "-Dclojure.server.browser={:port,5557,:accept,cljs.server.browser/prepl}"]}
            :rebl
-           {:extra-deps {org.clojure/core.async {:mvn/version "1.3.610"}
+           {:extra-deps {org.clojure/core.async {:mvn/version "1.3.618"}
                          ;; deps for file datafication (0.9.149 or later)
                          org.clojure/data.csv {:mvn/version "1.0.0"}
-                         org.clojure/data.json {:mvn/version "2.2.1"}
+                         org.clojure/data.json {:mvn/version "2.2.2"}
                          org.yaml/snakeyaml {:mvn/version "1.28"}
                          com.cognitect/rebl
                          ;; adjust to match your install location
@@ -94,16 +94,16 @@
                   :extra-paths ["$CLJ_USER_PATH"]}
 
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.3"}
-                                cider/cider-nrepl {:mvn/version "0.25.11"}}
+                                cider/cider-nrepl {:mvn/version "0.26.0"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
            :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.3"}
-                                     cider/cider-nrepl {:mvn/version "0.25.11"}
+                                     cider/cider-nrepl {:mvn/version "0.26.0"}
                                      cider/piggieback {:mvn/version "0.5.2"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
                                     "[cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl]"]}
            :extra {:extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
-                                org.clojure/core.async {:mvn/version "1.3.610"}}}}}
+                                org.clojure/core.async {:mvn/version "1.3.618"}}}}}
 
   ;; Paths
   ;;   Directories in the current project to include in the classpath
