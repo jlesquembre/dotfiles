@@ -165,6 +165,8 @@ in
     text =
       ''
         --password-store=basic
+        --enable-features=UseOzonePlatform
+        --ozone-platform=wayland
       '';
   };
   xdg.configFile.chrome = {
@@ -173,8 +175,10 @@ in
       ''
         # http://peter.sh/experiments/chromium-command-line-switches/
         # https://wiki.archlinux.org/index.php/Chromium/Tips_and_tricks#Making_flags_persistent
-        --enable-devtools-experiments
+        # --enable-devtools-experiments
         --password-store=basic
+        --enable-features=UseOzonePlatform
+        --ozone-platform=wayland
       '';
   };
 
