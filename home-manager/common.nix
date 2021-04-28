@@ -122,7 +122,7 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
     SHELL = "fish";
-    BROWSER = "firefox";
+    BROWSER = "google-chrome-stable";
     MANPAGER = "nvim -c 'set ft=man' -";
     KUBECTL_EXTERNAL_DIFF = "meld";
     DOCKER_BUILDKIT = "1";
