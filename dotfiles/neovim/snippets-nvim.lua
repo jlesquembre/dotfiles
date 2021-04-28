@@ -37,7 +37,8 @@ require'snippets'.snippets = {
   typescript = {
 
     lite = [[
-import { customElement, property, LitElement, html, css } from "lit-element";
+import { LitElement, html, css } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
 @customElement("${1=fname}")
 export class ${|abolish(S[1],"mixedcase")} extends LitElement {
@@ -49,6 +50,12 @@ export class ${|abolish(S[1],"mixedcase")} extends LitElement {
 
   render() {
     return html`$0`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "$1": ${|abolish(S[1],"mixedcase")};
   }
 }
 ]];
