@@ -208,6 +208,11 @@ function! g:Base16_customize() abort
   call Base16hi("DiffDelete",   g:base16_gui08, g:base16_gui00,  g:base16_cterm08, g:base16_cterm00, "", "")
   call Base16hi("DiffText",     "none", s:guiDiffText,  "none", s:guiDiffText, "", "")
 
+  call Base16hi("GitSignsAdd",    g:base16_gui0B, g:base16_gui01, "", "", "", "")
+  call Base16hi("GitSignsChange",    g:base16_gui0D, g:base16_gui01, "", "", "", "")
+  call Base16hi("GitSignsChangeDelete",    g:base16_gui0D, g:base16_gui01, "", "", "", "bold")
+  call Base16hi("GitSignsDelete",    g:base16_gui08, g:base16_gui01, "", "", "", "")
+
   " Quickfix list window
   call Base16hi("qfFileName", g:base16_gui0B, "", g:base16_cterm0B, "", "", "")
   call Base16hi("qfLineNr", g:base16_gui03, g:base16_gui01, g:base16_cterm03, g:base16_cterm01, "", "")

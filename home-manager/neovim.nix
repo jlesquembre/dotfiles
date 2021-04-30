@@ -142,14 +142,6 @@ in
   # Create a symlink to config without a rebuild
   xdg.configFile."nvim/lua/user.lua".source = config.lib.file.mkOutOfStoreSymlink (vimDir + /user.lua);
 
-  # TODO remove after TS update
-  # Add all tree-sitter parsers
-  home.file = lib.attrsets.mapAttrs'
-    (name: drv: lib.attrsets.nameValuePair
-      ("${config.xdg.configHome}/nvim/parser/" + (lib.strings.removePrefix "tree-sitter-" name) + ".so")
-      { source = "${drv}/parser"; })
-    pkgs.tree-sitter.builtGrammars;
-
   programs.neovim = {
     enable = true;
     package = custom.neovim-nightly;

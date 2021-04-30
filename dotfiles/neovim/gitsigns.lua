@@ -1,18 +1,13 @@
 require('gitsigns').setup {
-  -- signs = {
-  --   add          = {hl = 'DiffAdd'   , text = '│', numhl='GitSignsAddNr'},
-  --   change       = {hl = 'DiffChange', text = '│', numhl='GitSignsChangeNr'},
-  --   delete       = {hl = 'DiffDelete', text = '_', numhl='GitSignsDeleteNr'},
-  --   topdelete    = {hl = 'DiffDelete', text = '‾', numhl='GitSignsDeleteNr'},
-  --   changedelete = {hl = 'DiffChange', text = '~', numhl='GitSignsChangeNr'},
-  -- },
-  -- signs = {
-  --    add = {hl = 'GitSignsAdd', text = '▎'},
-  --    change = {hl = 'GitSignsChange', text = '▎'},
-  --    delete = {hl = 'GitSignsDelete', text = '◢'},
-  --    topdelete = {hl = 'GitSignsDelete', text = '◥'},
-  --    changedelete = {hl = 'GitSignsChangeDelete', text = '▌'},
-  --  },
+  signs = {
+    -- add          = {hl = 'GitSignsAdd'   , text = '▌', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    -- change       = {hl = 'GitSignsChange', text = '▌', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    add          = {hl = 'GitSignsAdd'   , text = '▎', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    change       = {hl = 'GitSignsChange', text = '▎', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    changedelete = {hl = 'GitSignsChangeDelete', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+  },
   numhl = false,
   keymaps = {
     -- Default keymap options
@@ -28,9 +23,4 @@ require('gitsigns').setup {
     ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
     ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line()<CR>',
   },
-  -- watch_index = {
-  --   interval = 1000
-  -- },
-  -- sign_priority = 6,
-  -- status_formatter = nil, -- Use default
 }

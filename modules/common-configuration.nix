@@ -164,7 +164,6 @@ rec
     chromium
     google-chrome
     # google-chrome-dev # see overlays
-    clementine
     cmatrix
     # cue
     # mpd cantata

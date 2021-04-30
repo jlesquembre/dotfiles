@@ -10,7 +10,8 @@ node_modules
 nvim/plugged/
 nvim/autoload/plug.vim
 boot/cache/
-clojure/.cpcache
+.cpcache/
+.lsp/
 
 .tern-port
 plug.vim.old

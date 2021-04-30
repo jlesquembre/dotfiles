@@ -29,7 +29,37 @@ in
   ];
 
   home.packages = with pkgs; [
-    chromium
+    (
+      let
+        chromium = pkgs.chromium;
+      in
+      h.writeShellScriptBinAndSymlink
+        {
+          pkg = chromium;
+          text =
+            ''
+              ${chromium}/bin/chromium --enable-devtools-experiments -enable-features=UseOzonePlatform -ozone-platform=wayland "$@"
+            '';
+        }
+    )
+    (
+      let
+        chrome = pkgs.google-chrome;
+      in
+      h.writeShellScriptBinAndSymlink
+        {
+          pkg = chrome;
+          name = "chrome";
+          text =
+            # http://peter.sh/experiments/chromium-command-line-switches/
+            # https://wiki.archlinux.org/index.php/Chromium/Tips_and_tricks#Making_flags_persistent
+            # --enable-devtools-experiments
+            # --password-store=basic
+            ''
+              ${chrome}/bin/google-chrome-stable -enable-features=UseOzonePlatform -ozone-platform=wayland --disable-gpu-memory-buffer-video-frames "$@"
+            '';
+        }
+    )
 
     # nix tools
     nix-update
@@ -56,7 +86,11 @@ in
     jdk11
     visualvm
     jetbrains.idea-community
-    (maven.override { jdk = jdk11; })
+    (maven.override
+      {
+        jdk = jdk11;
+      }
+    )
     gradle
 
     # clojure
@@ -122,7 +156,7 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
     SHELL = "fish";
-    BROWSER = "google-chrome-stable";
+    BROWSER = "chrome";
     MANPAGER = "nvim -c 'set ft=man' -";
     KUBECTL_EXTERNAL_DIFF = "meld";
     DOCKER_BUILDKIT = "1";
@@ -158,28 +192,6 @@ in
         [ "${config.home.homeDirectory}" "${dotfiles}/clojure/src" ]
         (readFile "${dotfiles}/clojure/deps.edn")
     );
-  };
-
-  xdg.configFile.chromium = {
-    target = "chromium-flags.conf";
-    text =
-      ''
-        --password-store=basic
-        --enable-features=UseOzonePlatform
-        --ozone-platform=wayland
-      '';
-  };
-  xdg.configFile.chrome = {
-    target = "chrome-flags.conf";
-    text =
-      ''
-        # http://peter.sh/experiments/chromium-command-line-switches/
-        # https://wiki.archlinux.org/index.php/Chromium/Tips_and_tricks#Making_flags_persistent
-        # --enable-devtools-experiments
-        --password-store=basic
-        --enable-features=UseOzonePlatform
-        --ozone-platform=wayland
-      '';
   };
 
   xdg.configFile.ranger = {
