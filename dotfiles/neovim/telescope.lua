@@ -47,6 +47,13 @@ M.git_branches = function()
   })
 end
 
+-- Falling back to find_files if git_files can't find a .git directory
+M.project_files = function()
+  local opts = {} -- define here if you want to define something
+  local ok = pcall(require'telescope.builtin'.git_files, opts)
+  if not ok then require'telescope.builtin'.find_files(opts) end
+end
+
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('lispdocs')
 
@@ -56,7 +63,7 @@ local set_keymap = function(mod, lhs, rhs, module)
   vim.api.nvim_set_keymap(mod, lhs, "<cmd>lua require('".. module .."')."..  rhs .. "<cr>", opts)
 end
 
-set_keymap("n", "<leader>ff",   "git_files()", "telescope.builtin")
+set_keymap("n", "<leader>ff",   "project_files()", "jlle.telescope")
 set_keymap("n", "<leader>fe",   "file_browser()", "telescope.builtin")
 set_keymap("n", "<leader>fs",   "live_grep()", "telescope.builtin")
 set_keymap("n", "<leader>fo",   "oldfiles()", "telescope.builtin")
