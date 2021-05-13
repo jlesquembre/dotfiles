@@ -222,11 +222,8 @@ in
       # pkgs.vimPlugins.completion-treesitter
 
       # UI
-      # TODO use the lua version
-      pkgs.vimPlugins.base16-vim
-      pkgs.vimPlugins.oceanic-next
+      pkgs.vimPlugins.nvim-base16
       pkgs.vimPlugins.galaxyline-nvim
-      # pkgs.vimPlugins.dashboard-nvim
       {
         # plugin = pkgs.vimPlugins.vim-startify;
         plugin = pkgs.vimPlugins.dashboard-nvim;
