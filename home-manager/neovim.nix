@@ -401,7 +401,7 @@ in
       }
       # vim-rhubarb
       pkgs.vimPlugins.gitsigns-nvim
-      # vim-flog
+      pkgs.vimPlugins.vim-flog
 
       # DB
       pkgs.vimPlugins.vim-dadbod
@@ -418,7 +418,6 @@ in
       #       let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
       #     '';
       # }
-      pkgs.vimPlugins.fennel-vim
       pkgs.vimPlugins.vim-fish
       pkgs.vimPlugins.vim-nix
       pkgs.vimPlugins.vim-terraform
