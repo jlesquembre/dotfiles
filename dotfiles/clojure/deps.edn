@@ -72,7 +72,7 @@
            {:extra-deps {org.clojure/core.async {:mvn/version "1.3.618"}
                          ;; deps for file datafication (0.9.149 or later)
                          org.clojure/data.csv {:mvn/version "1.0.0"}
-                         org.clojure/data.json {:mvn/version "2.2.3"}
+                         org.clojure/data.json {:mvn/version "2.3.0"}
                          org.yaml/snakeyaml {:mvn/version "1.28"}
                          com.cognitect/rebl
                          ;; adjust to match your install location
