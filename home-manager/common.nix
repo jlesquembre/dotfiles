@@ -148,6 +148,8 @@ in
     step-cli
     tcpdump
     watchman # postman
+    websocat
+    websocketd
     wuzz
   ];
 
