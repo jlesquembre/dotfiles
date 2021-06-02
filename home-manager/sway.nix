@@ -2,13 +2,6 @@
 let
   customKeyboardName = "isodev";
 
-  waybarConfig = pkgs.writeTextFile {
-    name = "waybar.config";
-    text = builtins.toJSON (import ./waybar.nix { pkgs = pkgs; });
-  };
-
-  waybarStyle = ../dotfiles/waybar.css;
-
   kanshiConfig = pkgs.writeTextFile {
     name = "kanshi_config";
     text = ''
@@ -140,7 +133,10 @@ in
     enable = true;
     package = null;
     config.modifier = "Mod4";
-    config.fonts = [ "Hack 10" ];
+    config.fonts =
+      {
+        names = [ "Hack 10" ];
+      };
     config.window.titlebar = true;
     config.floating.titlebar = true;
     config.workspaceAutoBackAndForth = true;
@@ -268,25 +264,23 @@ in
 
   xdg.configFile."wofi/style.css".source = ../dotfiles/wofi.css;
 
-  # Makes easier to find the default config, and the systemd unit is restarted on changes
-  xdg.configFile."waybar/config".source = waybarConfig;
-  xdg.configFile."waybar/style.css".source = waybarStyle;
-  systemd.user.services = {
-    waybar = {
-      Unit = {
-        Description = pkgs.waybar.meta.description;
-        PartOf = [ "graphical-session.target" ];
-      };
-      Install = {
-        WantedBy = [ "sway-session.target" ];
-      };
-      Service = {
-        ExecStart = "${pkgs.waybar}/bin/waybar -c ${waybarConfig} -s ${waybarStyle}";
-        RestartSec = 3;
-        Restart = "always";
-      };
-    };
+  programs.waybar = {
+    enable = true;
+    settings = [ (import ./waybar.nix { pkgs = pkgs; }) ];
+    style = builtins.readFile ../dotfiles/waybar.css;
+    systemd.enable = true;
+  };
 
+  services.poweralertd.enable = true;
+  services.udiskie = {
+    enable = true;
+    tray = "auto";
+  };
+
+  # Makes easier to find the default config, and the systemd unit is restarted on changes
+  # xdg.configFile."waybar/config".source = waybarConfig;
+  # xdg.configFile."waybar/style.css".source = waybarStyle;
+  systemd.user.services = {
     swayidle = {
       Unit = {
         Description = pkgs.swayidle.meta.description;

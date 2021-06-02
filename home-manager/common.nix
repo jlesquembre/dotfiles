@@ -415,6 +415,11 @@ in
     # enableNixDirenvIntegration = false;
   };
 
+  programs.nix-index = {
+    enable = true;
+  };
+
+
   # autojump program
   programs.zoxide = {
     enable = true;

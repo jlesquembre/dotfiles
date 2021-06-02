@@ -24,8 +24,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "993ca90c9b53033216d4973e2f995b995ed5740e";
-      sha256 = "13055cfi7jl78s6ic2r87dd2l06a62m0ybb8lk97y54y87sfx06p";
+      rev = "68d40388f356587726ea7db83f87846dfaecf9d9";
+      sha256 = "1kdbh96jsz55ly28fpw818ki4cmcfwgishjrpqhcb3mcyas27ddb";
     };
 
     buildInputs = oa.buildInputs ++ ([

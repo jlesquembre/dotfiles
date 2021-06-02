@@ -198,6 +198,9 @@ in
 
       # config for plugins is also in nvim-treesitter config file
       pkgs.vimPlugins.nvim-treesitter
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
+      # if you only want some grammars do
+      # (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.tree-sitter-c p.tree-sitter-java ]))
       pkgs.vimPlugins.nvim-ts-rainbow
 
       # Helpers, needed by other plugins
