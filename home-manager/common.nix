@@ -153,8 +153,6 @@ in
     wuzz
   ];
 
-  programs.command-not-found.enable = true;
-
   home.sessionVariables = {
     EDITOR = "nvim";
     SHELL = "fish";
