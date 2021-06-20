@@ -34,23 +34,23 @@ function compress_videos --description 'Find and compress videos'
         set -l dirname ( dirname "$path" )
         set -l name ( basename "$path"  | rev | cut -d. -f2- | rev )
 
-        if test $use_time -eq 1
+        if test "$use_time" -eq 1
             set newname ( ffprobe "$path" 2>&1 | grep -i creation_time | head -1 | cut -d: -f2- | date +"%Y-%m-%d_%H_%M_%S" -f - )
         else
             set newname ( echo "$name")
         end
-        set -l fps (ffprobe -v error -select_streams v:0 -show_entries stream=avg_frame_rate -of default=noprint_wrappers=1:nokey=1 $path)
+        set -l fps (ffprobe -v error -select_streams v:0 -show_entries stream=avg_frame_rate -of default=noprint_wrappers=1:nokey=1 "$path")
 
         set -l new_file ( echo "$dirname/$newname.mkv")
 
         set cmd 'ffmpeg'
-        if test -e "$new_file"; set cmd "#$cmd"; end
-        if test $fps != '25/1'; set cmd "$cmd -r $fps"; end
+        if test -e "$new_file"; set cmd "# $cmd"; end
+        if test "$fps" != '25/1'; set cmd "$cmd -r $fps"; end
 
         set -l escaped_path (echo "$path" | sed "s/'/\\\'/g")
         set -l escaped_new_file (echo "$new_file" | sed "s/'/\\\'/g")
 
-        if test $low_res -eq 1
+        if test "$low_res" -eq 1
           echo "$cmd -i '$escaped_path' -c:v libx265 -preset veryslow -x265-params crf=32 -c:a libopus -b:a 128k '$escaped_new_file'"
         else
           echo "$cmd -i '$escaped_path' -c:v libx265 -preset placebo -x265-params crf=23 -c:a libopus -b:a 160k '$escaped_new_file'"
