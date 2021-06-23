@@ -255,7 +255,7 @@ in
       vim-capslock
 
       # Utils
-      custom.vim-alias
+      vim-alias
       # vim-dispatch
       vim-abolish
       vim-eunuch
@@ -272,7 +272,7 @@ in
       # rainbow_parentheses-vim
       # vim-projectionist
       # ale
-      custom.formatter-nvim
+      formatter-nvim
       nvim-autopairs
       hop-nvim
       vim-gnupg

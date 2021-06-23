@@ -36,16 +36,6 @@
       "-DUSE_BUNDLED=OFF"
     ];
   });
-  formatter-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "formatter-nvim";
-    version = "2020-16-12";
-    src = pkgs.fetchFromGitHub {
-      owner = "mhartington";
-      repo = "formatter.nvim";
-      rev = "4bbf4c83f55aae4162f46bed98db871bdbf783b3";
-      sha256 = "1yjxhlf4k2k04qg25n8kia8w0xfnxicxfcfk767mgzmfz6adn462";
-    };
-  };
 
   nterm-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "nterm-nvim";
@@ -102,16 +92,6 @@
       repo = "transpose-words";
       rev = "1.1";
       sha256 = "1ijc1z7jf7cil1k8i27k2208i7avimzrl6vm7mzws68mdz3bqhmg";
-    };
-  };
-
-  vim-alias = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-alias";
-    src = pkgs.fetchFromGitHub {
-      owner = "Konfekt";
-      repo = "vim-alias";
-      rev = "9d1a86284c223fad488137075867ba1c1bd20599";
-      sha256 = "1fqa39j3ax7cvj7bn33r545zwbplmf4b6n7z5jgqqn8h03hsq7x1";
     };
   };
 
