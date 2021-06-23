@@ -20,6 +20,8 @@ in
     "${nixos-hardware}/dell/xps/13-9370"
   ];
 
+  networking.wireless.interfaces = [ "wlp2s0" ];
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

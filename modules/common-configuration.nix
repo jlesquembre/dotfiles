@@ -477,7 +477,7 @@ rec
   programs.fish.enable = true;
   programs.fish.vendor.completions.enable = true;
 
-  services.devmon.enable = true;
+  # services.devmon.enable = true;
   services.udev.packages = with pkgs; [ libu2f-host yubikey-personalization ];
 
   hardware.pulseaudio = {
