@@ -136,7 +136,7 @@ augroup user_augroup
 
 augroup END
 
-function SetJsoncOptions()
+function! SetJsoncOptions()
   source $VIMRUNTIME/syntax/json.vim
   syntax match Comment +\/\/.\+$+
   setlocal commentstring=//\ %s
@@ -231,7 +231,7 @@ cnoreabbrev w!! silent execute "w !sudo tee % > /dev/null" \| e!
 cnoremap <expr> %% getcmdtype() == ':' ? fnameescape(expand('%:h')) . '/' : '%%'
 
 " Better replacement for cnoreabbrev
-function SetAliases()
+function! SetAliases()
   execute 'Alias g Git'
   execute 'Alias gp Git\ pull\ --ff-only'
   execute 'Alias gs Git\ switch'
@@ -242,15 +242,10 @@ function SetAliases()
   execute 'Alias t FloatermNew'
 endfunction
 
-if exists('s:loaded_vimafter')
-  silent doautocmd VimAfter VimEnter *
-else
-  let s:loaded_vimafter = 1
-  augroup VimAfter
-    autocmd!
-    autocmd VimEnter * call SetAliases()
-  augroup END
-endif
+augroup VimAfter
+  autocmd!
+  autocmd VimEnter * call SetAliases()
+augroup END
 
 " MAPPINGS
 " ============================================================================
@@ -443,3 +438,105 @@ endfunction
 " nnoremap @ :<c-u>call RunMacro()<cr>
 " nnoremap Q :<c-u>call RunMacro()<cr>@
 "
+"
+
+" Plugins
+"
+" dashboard-nvim
+"
+let g:dashboard_default_executive = 'telescope'
+let g:dashboard_session_directory = '~/.config/nvim/session'
+autocmd User DashboardReady call dashboard#cd_to_vcs_root(getcwd())
+" let g:startify_change_to_vcs_root = 1
+" let g:startify_session_dir = '~/.config/nvim/session'
+"
+" vim-grepper
+"
+let g:grepper = {
+    \ 'tools': ['rgextra', 'rg', 'git', 'grep'],
+    \ 'highlight': 0,
+    \ 'rgextra':
+    \   { 'grepprg':    "rg --no-heading --vimgrep --hidden -g '!.git/' -S",
+    \     'grepformat': '%f:%l:%c:%m',
+    \     'escape':     '\^$.*+?()[]{}|' },
+    \ }
+nnoremap gss  :Grepper<cr>
+nmap gs  <plug>(GrepperOperator)
+xmap gs  <plug>(GrepperOperator)
+
+" vim-rsi
+"
+" Add insertmode commands and remove some from rsi.vim
+" augroup readline
+"   autocmd!
+"   autocmd VimEnter * iunmap   <C-d>
+"   autocmd VimEnter * iunmap   <C-f>
+"   autocmd VimEnter * inoremap <C-y> <C-r><C-o>+
+"   autocmd VimEnter * cnoremap <C-y> <C-r><C-o>+
+" augroup END
+
+" vim-sayonara
+"
+let g:sayonara_confirm_quit = 0
+nnoremap <leader>q :Sayonara<cr>
+nnoremap <leader>Q :Sayonara!<cr>
+
+" fugitive
+"
+nnoremap <leader>gww :Gwrite<CR>
+nnoremap <leader>grr :Gread<CR>
+" <Bar> is the pipe (|) char. Gwrite output is shown, and Gcommit is not
+" executed if there is an error with Gwrite, and alternative map is:
+" nnoremap <leader>gwc :Gwrite<CR>:Gcommit<CR>
+" but in that case we lose the Gwrite output (unless there is an error)
+nnoremap <leader>gwc :Gwrite<Bar>:Gcommit<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gg :G<CR>
+nnoremap <leader>gcc :Gcommit<CR>
+"nnoremap <leader>gp :Gpush<CR>
+"nnoremap <leader>gr :Git reset -q -- %<CR>
+" nnoremap <leader>gll :GV!<CR>
+" nnoremap <leader>glr :GV?<CR>
+" nnoremap <leader>gla :GV<CR>
+nnoremap <leader>gll :Flog -path=%<CR>
+nnoremap <leader>gla :Flog -all<CR>
+
+nnoremap <leader>gb :MerginalToggle<CR>
+
+
+"# TODO move?
+function! Flogdiff(mods) abort
+  let l:path = fnameescape(flog#get_state().path[0])
+  let l:commit = flog#get_commit_data(line('.')).short_commit_hash
+  call flog#preview(a:mods . ' split ' . l:path . ' | Gvdiff ' . l:commit)
+endfunction
+
+augroup flog
+  autocmd!
+  autocmd FileType floggraph command! -buffer -nargs=0 Flogdiff call Flogdiff('<mods>')
+  autocmd FileType floggraph nnoremap <buffer> gd :Flogdiff<CR>
+
+  autocmd FileType floggraph map <buffer> o :call myflog#close_term_preview()<CR>:vertical belowright Flogsplitcommit<CR>
+  autocmd FileType floggraph nmap <buffer> <leader>q :call myflog#quit()<CR>
+
+  autocmd FileType floggraph command! -buffer -nargs=0 Myflogsplitcommit call myflog#diff_fancy()
+  autocmd FileType floggraph nnoremap <buffer> <silent> <CR> :Myflogsplitcommit<CR>
+  autocmd FileType floggraph nnoremap <buffer> <silent> J :call myflog#scroll_down()<CR>
+  autocmd FileType floggraph nnoremap <buffer> <silent> K :call myflog#scroll_up()<CR>
+
+  autocmd FileType floggraph nnoremap <buffer> <silent> <c-n> :call myflog#preview_next_commit()<CR>
+  autocmd FileType floggraph nnoremap <buffer> <silent> <c-p> :call myflog#preview_prev_commit()<CR>
+augroup END
+
+augroup open_folds_gitlog
+  autocmd!
+  autocmd Syntax git setlocal foldmethod=syntax
+  autocmd Syntax git normal zR
+augroup END
+
+" start insert mode when entering the commit buffer. See https://stackoverflow.com/a/50537836/
+augroup turbo_commit
+  autocmd!
+  autocmd BufEnter COMMIT_EDITMSG startinsert
+  autocmd BufEnter COMMIT_EDITMSG inoremap <C-s> <esc>ZZ
+augroup END

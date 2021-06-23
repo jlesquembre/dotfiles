@@ -152,6 +152,8 @@ in
     extraConfig =
       ''
         ${builtins.readFile "${vimDir}/init.vim"}
+        ${builtins.readFile "${vimDir}/fern.vim"}
+        ${builtins.readFile "${vimDir}/sandwich.vim"}
         lua require'user'
         ${my-lua-config.luaRequires}
       '';
@@ -193,113 +195,72 @@ in
     ];
     plugins = with pkgs.vimPlugins; [
 
-      pkgs.vimPlugins.nvim-web-devicons
+      nvim-web-devicons
       # (compileAniFile /home/jlle/projects/private-gists/term.fnl)
 
       # config for plugins is also in nvim-treesitter config file
-      pkgs.vimPlugins.nvim-treesitter
-      (pkgs.vimPlugins.nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
+      nvim-treesitter
+      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
       # if you only want some grammars do
       # (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.tree-sitter-c p.tree-sitter-java ]))
-      pkgs.vimPlugins.nvim-ts-rainbow
+      nvim-ts-rainbow
 
       # Helpers, needed by other plugins
-      pkgs.vimPlugins.popup-nvim
-      pkgs.vimPlugins.plenary-nvim
-      pkgs.vimPlugins.sql-nvim
-      pkgs.vimPlugins.aniseed
+      popup-nvim
+      plenary-nvim
+      sql-nvim
+      aniseed
 
       # Telescope
-      pkgs.vimPlugins.telescope-fzy-native-nvim
-      pkgs.vimPlugins.telescope-nvim
+      telescope-fzy-native-nvim
+      telescope-nvim
 
       # LSP
-      pkgs.vimPlugins.nvim-lspconfig
-      pkgs.vimPlugins.lspsaga-nvim
-      # pkgs.vimPlugins.nvim-jdtls
-      (h.neovim.localVimPlugin (vimPluginsDir + /nvim-jdtls))
-      pkgs.vimPlugins.nvim-dap
+      nvim-lspconfig
+      lspsaga-nvim
 
-      pkgs.vimPlugins.snippets-nvim
-      pkgs.vimPlugins.nvim-compe
+      nvim-jdtls
+      # (h.neovim.localVimPlugin (vimPluginsDir + /nvim-jdtls))
+      nvim-dap
+
+      snippets-nvim
+      nvim-compe
       # pkgs.vimPlugins.completion-treesitter
 
       # UI
-      pkgs.vimPlugins.nvim-base16
-      pkgs.vimPlugins.galaxyline-nvim
-      {
-        # plugin = pkgs.vimPlugins.vim-startify;
-        plugin = pkgs.vimPlugins.dashboard-nvim;
-        config =
-          ''
-            let g:dashboard_default_executive = 'telescope'
-            let g:dashboard_session_directory = '~/.config/nvim/session'
-            autocmd User DashboardReady call dashboard#cd_to_vcs_root(getcwd())
-            " let g:startify_change_to_vcs_root = 1
-            " let g:startify_session_dir = '~/.config/nvim/session'
-          '';
-      }
+      nvim-base16
+      galaxyline-nvim
+      dashboard-nvim
 
       # Navigation
-      (pluginWithConfig pkgs.vimPlugins.fern-vim (vimDir + /fern.vim))
-      pkgs.vimPlugins.vim-unimpaired
-      pkgs.vimPlugins.nvim-bqf
-      # fzf-vim
-      {
-        plugin = pkgs.vimPlugins.vim-grepper;
-        config =
-          ''
-            let g:grepper = {
-                \ 'tools': ['rgextra', 'rg', 'git', 'grep'],
-                \ 'highlight': 0,
-                \ 'rgextra':
-                \   { 'grepprg':    "rg --no-heading --vimgrep --hidden -g '!.git/' -S",
-                \     'grepformat': '%f:%l:%c:%m',
-                \     'escape':     '\^$.*+?()[]{}|' },
-                \ }
-            nnoremap gss  :Grepper<cr>
-            nmap gs  <plug>(GrepperOperator)
-            xmap gs  <plug>(GrepperOperator)
-          '';
-      }
+      fern-vim
+      vim-unimpaired
+      nvim-bqf
+      vim-grepper
 
       # visual-star
       # vim-indent-object TODO ?
 
       # Text edition
-      pkgs.vimPlugins.vim-repeat
-      (pluginWithConfig pkgs.vimPlugins.vim-sandwich (vimDir + /sandwich.vim))
-      pkgs.vimPlugins.vim-commentary
+      vim-repeat
+      vim-sandwich
+      vim-commentary
       # jdaddy-vim TODO needed? tree sitter can replace it?
       # vim-speeddating
       # ultisnips
       # vim-snippets
-      pkgs.vimPlugins.NrrwRgn
+      NrrwRgn
       # vim-exchange
       # transpose-words
-      pkgs.vimPlugins.vim-capslock
+      vim-capslock
 
       # Utils
       custom.vim-alias
       # vim-dispatch
-      pkgs.vimPlugins.vim-abolish
-      pkgs.vimPlugins.vim-eunuch
+      vim-abolish
+      vim-eunuch
       # vim-dotenv
-      {
-        plugin = pkgs.vimPlugins.vim-rsi;
-        config =
-          ''
-            " Add insertmode commands and remove some from rsi.vim
-            " augroup readline
-            "   autocmd!
-            "   autocmd VimEnter * iunmap   <C-d>
-            "   autocmd VimEnter * iunmap   <C-f>
-            "   autocmd VimEnter * inoremap <C-y> <C-r><C-o>+
-            "   autocmd VimEnter * cnoremap <C-y> <C-r><C-o>+
-            " augroup END
-          '';
-      }
-      # # vim-dispatch-neovim
+      vim-rsi
       {
         plugin = pkgs.vimPlugins.editorconfig-vim;
         config =
@@ -312,102 +273,25 @@ in
       # vim-projectionist
       # ale
       custom.formatter-nvim
-      pkgs.vimPlugins.nvim-autopairs
-      pkgs.vimPlugins.hop-nvim
-      pkgs.vimPlugins.vim-gnupg
+      nvim-autopairs
+      hop-nvim
+      vim-gnupg
+      vim-sayonara
 
-      # custom.nvim-toggleterm-lua
-      # (h.neovim.compileAniseedPluginLocal {
-      #   src = "${config.home.homeDirectory}/projects/nterm.nvim";
-      #   name = "nterm-nvim";
-      #   fnlDir = "src";
-      # })
       custom.nterm-nvim
-      {
-        plugin = pkgs.vimPlugins.vim-sayonara;
-        config =
-          ''
-            let g:sayonara_confirm_quit = 0
-            nnoremap <leader>q :Sayonara<cr>
-            nnoremap <leader>Q :Sayonara!<cr>
-          '';
-      }
       #
       # vim-qf
       # Recover-vim
       # # vim-localvimrc
 
       # # Git
-      # fugitive
-      {
-        plugin = pkgs.vimPlugins.fugitive;
-        config =
-          ''
-            nnoremap <leader>gww :Gwrite<CR>
-            nnoremap <leader>grr :Gread<CR>
-            " <Bar> is the pipe (|) char. Gwrite output is shown, and Gcommit is not
-            " executed if there is an error with Gwrite, and alternative map is:
-            " nnoremap <leader>gwc :Gwrite<CR>:Gcommit<CR>
-            " but in that case we lose the Gwrite output (unless there is an error)
-            nnoremap <leader>gwc :Gwrite<Bar>:Gcommit<CR>
-            nnoremap <leader>gd :Gdiff<CR>
-            nnoremap <leader>gg :G<CR>
-            nnoremap <leader>gcc :Gcommit<CR>
-            "nnoremap <leader>gp :Gpush<CR>
-            "nnoremap <leader>gr :Git reset -q -- %<CR>
-            " nnoremap <leader>gll :GV!<CR>
-            " nnoremap <leader>glr :GV?<CR>
-            " nnoremap <leader>gla :GV<CR>
-            nnoremap <leader>gll :Flog -path=%<CR>
-            nnoremap <leader>gla :Flog -all<CR>
-
-            nnoremap <leader>gb :MerginalToggle<CR>
-
-
-            "# TODO move?
-            function! Flogdiff(mods) abort
-              let l:path = fnameescape(flog#get_state().path[0])
-              let l:commit = flog#get_commit_data(line('.')).short_commit_hash
-              call flog#preview(a:mods . ' split ' . l:path . ' | Gvdiff ' . l:commit)
-            endfunction
-
-            augroup flog
-              autocmd!
-              autocmd FileType floggraph command! -buffer -nargs=0 Flogdiff call Flogdiff('<mods>')
-              autocmd FileType floggraph nnoremap <buffer> gd :Flogdiff<CR>
-
-              autocmd FileType floggraph map <buffer> o :call myflog#close_term_preview()<CR>:vertical belowright Flogsplitcommit<CR>
-              autocmd FileType floggraph nmap <buffer> <leader>q :call myflog#quit()<CR>
-
-              autocmd FileType floggraph command! -buffer -nargs=0 Myflogsplitcommit call myflog#diff_fancy()
-              autocmd FileType floggraph nnoremap <buffer> <silent> <CR> :Myflogsplitcommit<CR>
-              autocmd FileType floggraph nnoremap <buffer> <silent> J :call myflog#scroll_down()<CR>
-              autocmd FileType floggraph nnoremap <buffer> <silent> K :call myflog#scroll_up()<CR>
-
-              autocmd FileType floggraph nnoremap <buffer> <silent> <c-n> :call myflog#preview_next_commit()<CR>
-              autocmd FileType floggraph nnoremap <buffer> <silent> <c-p> :call myflog#preview_prev_commit()<CR>
-            augroup END
-
-            augroup open_folds_gitlog
-              autocmd!
-              autocmd Syntax git setlocal foldmethod=syntax
-              autocmd Syntax git normal zR
-            augroup END
-
-            " start insert mode when entering the commit buffer. See https://stackoverflow.com/a/50537836/
-            augroup turbo_commit
-              autocmd!
-              autocmd BufEnter COMMIT_EDITMSG startinsert
-              autocmd BufEnter COMMIT_EDITMSG inoremap <C-s> <esc>ZZ
-            augroup END
-          '';
-      }
+      fugitive
       # vim-rhubarb
-      pkgs.vimPlugins.gitsigns-nvim
-      pkgs.vimPlugins.vim-flog
+      gitsigns-nvim
+      vim-flog
 
       # DB
-      pkgs.vimPlugins.vim-dadbod
+      vim-dadbod
 
       # Syntax (prefer treesitter, but some languages are not well supported)
       # pgsql-vim
@@ -421,9 +305,9 @@ in
       #       let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
       #     '';
       # }
-      pkgs.vimPlugins.vim-fish
-      pkgs.vimPlugins.vim-nix
-      pkgs.vimPlugins.vim-terraform
+      vim-fish
+      vim-nix
+      vim-terraform
       # pkgs.vimPlugins.vim-toml
       # pkgs.vimPlugins.vim-yaml
       # vim-mustache-handlebars
@@ -449,11 +333,11 @@ in
       # # vim-hexokinase
 
       # Clojure
-      pkgs.vimPlugins.vim-sexp
-      pkgs.vimPlugins.vim-sexp-mappings-for-regular-people
+      vim-sexp
+      vim-sexp-mappings-for-regular-people
       pkgs.parinfer-rust
-      pkgs.vimPlugins.conjure
-      pkgs.vimPlugins.compe-conjure
+      conjure
+      compe-conjure
       {
         plugin = pkgs.vimPlugins.lispdocs-nvim;
         config =

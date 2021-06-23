@@ -79,6 +79,7 @@ in
     wf-recorder
     imv
     keybase-gui
+    xournalpp
     # wob
     # xorg.xeyes
 
@@ -109,6 +110,7 @@ in
     bat
     exa
     fd
+    gpg-tui
 
     # Kubernetes
     # lens

@@ -24,8 +24,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "68d40388f356587726ea7db83f87846dfaecf9d9";
-      sha256 = "1kdbh96jsz55ly28fpw818ki4cmcfwgishjrpqhcb3mcyas27ddb";
+      rev = "0d7e33bc1307117127e519fb12ec491a1a1ebd82";
+      sha256 = "1i589zzakbkva80i85av0kg9a1f0746ick1az1d2sqf8mhr0x04c";
     };
 
     buildInputs = oa.buildInputs ++ ([
@@ -110,8 +110,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "Konfekt";
       repo = "vim-alias";
-      rev = "master";
-      sha256 = "1bcp3dr312d1zsicqg1lp9gqd5hkiiixvfd6qk60aa4a6lwa8cjg";
+      rev = "9d1a86284c223fad488137075867ba1c1bd20599";
+      sha256 = "1fqa39j3ax7cvj7bn33r545zwbplmf4b6n7z5jgqqn8h03hsq7x1";
     };
   };
 
