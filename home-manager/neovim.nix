@@ -308,6 +308,7 @@ in
       vim-fish
       vim-nix
       vim-terraform
+      vimtex
       # pkgs.vimPlugins.vim-toml
       # pkgs.vimPlugins.vim-yaml
       # vim-mustache-handlebars
