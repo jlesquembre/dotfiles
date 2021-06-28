@@ -21,3 +21,5 @@ set_keymap("o", "sl"    , "<cmd>lua require'hop'.hint_lines()<cr>", opts)
 
 set_keymap("n", "s/"    , "<cmd>lua require'hop'.hint_patterns()<cr>", opts)
 set_keymap("o", "s/"    , "<cmd>lua require'hop'.hint_patterns()<cr>", opts)
+
+require'hop'.setup()
