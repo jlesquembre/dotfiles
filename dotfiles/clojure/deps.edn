@@ -24,7 +24,8 @@
            ;;   - cd my-cool-lib
            ;;   - clj -A:test:runner # run the tests!
            :new {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.309"}}
-                 :main-opts ["-m" "clj-new.create"]}
+                 :exec-fn clj-new/create
+                 :exec-args {:template "app"}}
 
            :rebel      {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}
                                      com.rpl/specter            {:mvn/version "1.1.3"}}
@@ -86,12 +87,8 @@
                          org.openjfx/javafx-web      {:mvn/version "16"}}}
             ; :main-opts ["-m" "cognitect.rebl"]}
 
-           :user {:extra-deps {vvvvalvalval/scope-capture   {:mvn/version "0.3.2"}
-                               hashp/hashp                  {:mvn/version "0.2.1"}
-                               lambdaisland/deep-diff2      {:mvn/version "2.0.108"}
-                               com.gfredericks/dot-slash-2  {:mvn/version "0.1.5"}
-                               com.gfredericks/repl-utils   {:mvn/version "0.2.22"}}
-                  :extra-paths ["$CLJ_USER_PATH"]}
+           :user {:extra-deps {me.lafuente/local-utils {:local/root "$HOME/projects/clj-dev-utils"}}
+                  :exec-fn local-utils/init}
 
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.3"}
                                 cider/cider-nrepl {:mvn/version "0.26.0"}}
