@@ -144,7 +144,7 @@ in
 
   programs.neovim = {
     enable = true;
-    package = custom.neovim-nightly;
+    # package = custom.neovim-nightly;
     withNodeJs = true;
     # withPython = true;
     withPython3 = true;

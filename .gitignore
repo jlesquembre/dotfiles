@@ -12,6 +12,7 @@ nvim/autoload/plug.vim
 boot/cache/
 .cpcache/
 .lsp/
+.nrepl-port
 
 .tern-port
 plug.vim.old

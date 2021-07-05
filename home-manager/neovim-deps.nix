@@ -55,26 +55,6 @@
   ######
   ######
 
-  fern-nerdfont = pkgs.vimUtils.buildVimPlugin {
-    name = "fern-renderer-nerdfont.vim";
-    src = pkgs.fetchFromGitHub {
-      owner = "lambdalisue";
-      repo = "fern-renderer-nerdfont.vim";
-      rev = "master";
-      sha256 = "196rmfrzb9rb4cmkf9x41vmjdnn9v2vc99ynrgnyaq7ciyrgy13w";
-    };
-  };
-
-  nerdfont = pkgs.vimUtils.buildVimPlugin {
-    name = "nerdfont.vim";
-    src = pkgs.fetchFromGitHub {
-      owner = "lambdalisue";
-      repo = "nerdfont.vim";
-      rev = "v1.0.0";
-      sha256 = "196rmfrzb9rb4cmkf9x41vmjdnn9v2vc99ynrgnyaq7ciyrgy13w";
-    };
-  };
-
   visual-star = pkgs.vimUtils.buildVimPlugin {
     name = "visual-star";
     src = pkgs.fetchFromGitHub {
@@ -102,16 +82,6 @@
       repo = "vim-dotenv";
       rev = "master";
       sha256 = "130g0s6zzl228fcbc80d55v1wxw75hlyyvz42cwbipij5cl7vd17";
-    };
-  };
-
-  vim-flog = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-flog";
-    src = pkgs.fetchFromGitHub {
-      owner = "rbong";
-      repo = "vim-flog";
-      rev = "master";
-      sha256 = "1mp4pb3ffwi8fz4lwx1jipxpx2lii0pmaqikf5n5x2xw96sm3n2b";
     };
   };
 
