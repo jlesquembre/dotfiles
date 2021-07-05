@@ -20,13 +20,13 @@ require'compe'.setup {
     buffer = true;
     calc = false;
     vsnip = false;
-    nvim_lsp = true;
+    conjure = true;
+    nvim_lsp = { ignored_filetypes = {'clojure'} };
     nvim_lua = true;
     spell = true;
     tags = true;
     snippets_nvim = true;
     treesitter = false;
-    conjure = true;
   };
 }
 
