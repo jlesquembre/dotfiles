@@ -16,6 +16,7 @@ self: super: {
   # firefox-wayland = super.firefox.override { gdkWayland = true; };
 
   jdt-ls = super.callPackage ../pkgs/jdt-ls { };
+  vscode-ls = super.callPackage ../pkgs/vscode-ls { };
 
   # For an alternative install method see
   # https://github.com/nix-community/NUR#installation

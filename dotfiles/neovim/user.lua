@@ -10,21 +10,6 @@
 
 -- return M
 
--- require"toggleterm".setup{
---   size = 20,
---   open_mapping = [[<c-t>]],
---   shade_filetypes = {},
---   shade_terminals = true,
---   persist_size = true,
---   direction = 'horizontal',
---   -- direction = 'vertical' | 'horizontal'
--- }
-
-
--- local opts = {noremap = true, silent = false}
--- vim.api.nvim_set_keymap('n', '<leader>gp',
---                         [[<cmd>lua require'toggleterm'.exec("git push", 10, 12)<cr>]], opts)
-
 function _G.dump(...)
   local objects = vim.tbl_map(vim.inspect, {...})
   print(unpack(objects))
@@ -41,7 +26,7 @@ local function custom_colors(color_name)
   hi.Normal   = { guibg = bg}
   hi.Error    = { guifg = bg}
   hi.ErrorMsg = { guibg = bg}
-  hi.Conceal  = { guifg = bg}
+  hi.Conceal  = { guibg = "none"}
   hi.Cursor   = { guibg = bg}
 
   hi.MatchParen = {guifg = c.base05, guibg = c.base03, gui = "bold,italic"}

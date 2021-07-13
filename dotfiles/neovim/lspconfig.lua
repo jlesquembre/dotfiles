@@ -13,6 +13,11 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = false,
 })
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+ vim.lsp.handlers.hover, {
+   -- Use a sharp border with `FloatBorder` highlights
+   border = "double"
+})
 
 local lspconfig = require'lspconfig'
 local root_pattern = lspconfig.util.root_pattern
@@ -26,7 +31,7 @@ local function custom_attach(client, bufnr)
   local function set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local opts = {noremap = true, silent = false}
 
-  -- set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+  set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
 
   set_keymap('n', 'gdd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   set_keymap('n', 'gdi',   '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
@@ -40,7 +45,7 @@ local function custom_attach(client, bufnr)
   -- set_keymap('n', '[w', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   -- set_keymap('n', ']w', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
-  -- set_keymap('n', '<leader>rn',  '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  set_keymap('n', '<leader>rn',  '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   -- set_keymap('n', '<leader>dc',  '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
   --
@@ -58,7 +63,7 @@ local function custom_attach(client, bufnr)
   --
   -- LSPSAGA
   --
-  set_keymap('n', 'K', [[<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]], opts)
+  -- set_keymap('n', 'K', [[<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]], opts)
   set_keymap('n', '<c-k>',  [[<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]], opts)
   set_keymap('n', '<C-f>', [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]], opts)
   set_keymap('n', '<C-b>', [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]], opts)
@@ -70,8 +75,7 @@ local function custom_attach(client, bufnr)
   set_keymap('n', '[w', [[<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>]], opts)
   set_keymap('n', ']w', [[<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>]], opts)
 
-
-  set_keymap('n', '<leader>rn',  [[<cmd>lua require('lspsaga.rename').rename()<CR>]], opts)
+  -- set_keymap('n', '<leader>rn',  [[<cmd>lua require('lspsaga.rename').rename()<CR>]], opts)
   -- set_keymap('n', '<leader>dc',  [[<cmd>lua require("lspsaga.codeaction").code_action()<CR>]], opts)
   -- set_keymap('v', '<leader>dc',  [[<cmd>'<,'>lua require("lspsaga.codeaction").code_action()<CR>]], opts)
   --
@@ -295,6 +299,3 @@ saga.init_lsp_saga({
     virtual_text = false,
   },
 })
-
-
-vim.lsp.handlers["textDocument/hover"] = require('lspsaga.hover').handler

@@ -173,11 +173,8 @@ in
       pkgs.nodePackages.dockerfile-language-server-nodejs
       pkgs.nodePackages.dockerfile-language-server-nodejs
 
-      # TODO replace with vscode-css-languageservice?
-      pkgs.nodePackages.vscode-css-languageserver-bin
-      # TODO replace with vscode-html-languageservice?
-      pkgs.nodePackages.vscode-html-languageserver-bin
-      pkgs.nodePackages.vscode-json-languageserver
+      # Includes css, html and json language server
+      pkgs.vscode-ls
 
       # Language Servers
       pkgs.clojure-lsp
