@@ -42,7 +42,7 @@
                     :main-opts ["-m" "http.server"]}
 
            ;; see https://github.com/jonase/eastwood#running-eastwood-in-a-repl
-           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "0.6.0"}}
+           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "0.8.1"}}
                       :main-opts ["-m" "eastwood.lint" "{:source-paths,[\"src\"],:test-paths,[\"test\"]}"]}
 
            ;; uberjar building:
@@ -76,7 +76,7 @@
            {:extra-deps {org.clojure/core.async {:mvn/version "1.3.618"}
                          ;; deps for file datafication (0.9.149 or later)
                          org.clojure/data.csv {:mvn/version "1.0.0"}
-                         org.clojure/data.json {:mvn/version "2.3.1"}
+                         org.clojure/data.json {:mvn/version "2.4.0"}
                          org.yaml/snakeyaml {:mvn/version "1.29"}
                          com.cognitect/rebl
                          ;; adjust to match your install location
