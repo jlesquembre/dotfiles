@@ -56,6 +56,7 @@ end
 
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('lispdocs')
+require('telescope').load_extension('nterm')
 
 
 local set_keymap = function(mod, lhs, rhs, module)
@@ -79,5 +80,6 @@ set_keymap("n", "<leader>fgb", "git_branches()", "jlle.telescope")
 set_keymap("n", "<leader>fga", "git_commits()", "telescope.builtin")
 set_keymap("n", "<leader>fgc", "git_bcommits()", "telescope.builtin")
 
+set_keymap("n", "<leader>ft",   "extensions.nterm.nterm()", "telescope")
 
 return M
