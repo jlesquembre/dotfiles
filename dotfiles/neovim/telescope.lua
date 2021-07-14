@@ -12,7 +12,7 @@ require('telescope').setup{
     mappings = {
       i = {
         ["<esc>"] = actions.close,
-        ["<c-q>"] = actions.send_to_qflist,
+        ["<c-s>"] = actions.send_to_qflist,
         -- ["<cr>"] = actions.goto_file_selection_split,
       },
     },
