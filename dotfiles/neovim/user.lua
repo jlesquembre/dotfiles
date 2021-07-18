@@ -72,6 +72,7 @@ augroup END
 
 
 require"nterm.main".init()
+vim.api.nvim_set_keymap('t', '<C-e>', [[<cmd>lua require'nterm.main'.term_toggle()<cr>]], {noremap = true})
 
 require('nvim-autopairs').setup({
   disable_filetype = { "TelescopePrompt" , "clojure" },
