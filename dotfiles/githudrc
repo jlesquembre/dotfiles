@@ -118,7 +118,7 @@ local_branch_intensity=Vivid
 # stash_suffix_color=Green
 # stash_suffix_intensity=Vivid
 
-run_fetcher_daemon=True
+run_fetcher_daemon=False
 githudd_sleep_seconds=800
 githudd_pid_file_path=/tmp/githudd.pid
 githudd_socket_file_path=/tmp/githudd.socket
