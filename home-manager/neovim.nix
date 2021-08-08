@@ -193,13 +193,10 @@ in
     plugins = with pkgs.vimPlugins; [
 
       nvim-web-devicons
-      # (compileAniFile /home/jlle/projects/private-gists/term.fnl)
 
-      # config for plugins is also in nvim-treesitter config file
-      nvim-treesitter
-      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
       # if you only want some grammars do
       # (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.tree-sitter-c p.tree-sitter-java ]))
+      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
       nvim-ts-rainbow
 
       # Helpers, needed by other plugins
