@@ -93,6 +93,21 @@ in
           acme_ca https://127.0.0.1:8444/acme/acme/directory
           acme_ca_root ${root_ca_file}
           email no-reply@lafuente.com
+          on_demand_tls {
+            ask      http://check.local/check
+          }
+        }
+
+        check.local:80 {
+          @check {
+            path /check
+            expression {query.domain}.endsWith(".local")
+          }
+
+          route {
+            respond @check 200
+            respond * 400
+          }
         }
 
         docs.local {
