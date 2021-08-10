@@ -272,13 +272,11 @@ in
       vim-gnupg
       vim-sayonara
 
-      custom.nterm-nvim
-      #
-      # vim-qf
-      # Recover-vim
-      # # vim-localvimrc
+      nterm-nvim
+      # custom.nterm-nvim
+      # (h.neovim.localVimPlugin (vimPluginsDir + /nterm.nvim))
 
-      # # Git
+      # Git
       fugitive
       # vim-rhubarb
       gitsigns-nvim

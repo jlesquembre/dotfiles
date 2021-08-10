@@ -114,6 +114,9 @@ in
           bind 127.0.0.1
           root * ${docsPath}
           file_server
+          tls {
+              on_demand
+          }
           header {
             -Last-Modified
             -Etag
