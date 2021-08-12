@@ -87,6 +87,7 @@ in
 
   services.caddy = {
     enable = true;
+    ca = null;
     config =
       ''
         {
@@ -95,6 +96,8 @@ in
           email no-reply@lafuente.com
           on_demand_tls {
             ask      http://check.local/check
+            interval 1s
+            burst 10
           }
         }
 
@@ -124,7 +127,6 @@ in
           }
         }
       '';
-
   };
 
   # Needed to make the directory visible to Caddy
@@ -157,6 +159,8 @@ in
     address = "127.0.0.1";
     port = 8444;
     intermediatePasswordFile = config.sops.secrets.step_password.path;
+    # See
+    # https://smallstep.com/docs/step-ca/configuration#basic-configuration-options
     settings = {
       dnsNames = [ "localhost" "127.0.0.1" "*.local" ];
       root = root_ca_file;
@@ -170,6 +174,11 @@ in
         dataSource = "/var/lib/step-ca/db";
       };
       authority = {
+        claims = {
+          minTLSCertDuration = "5m";
+          maxTLSCertDuration = "24h";
+          defaultTLSCertDuration = "24h";
+        };
         provisioners = [
           {
             type = "ACME";
