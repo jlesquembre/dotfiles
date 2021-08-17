@@ -9,10 +9,10 @@
 ;; For all attributes other than :paths, these config files are merged left to right.
 ;; Only the last :paths is kept and others are dropped.
 
-{:aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "0.16.2"}}
+{:aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "0.16.3"}}
                       :main-opts  ["-m" "antq.core"]}
 
-           :upgrade  {:extra-deps {com.github.liquidz/antq {:mvn/version "0.16.2"}}
+           :upgrade  {:extra-deps {com.github.liquidz/antq {:mvn/version "0.16.3"}}
                                  :main-opts  ["-m" "antq.core" "--upgrade" "--force"]}
 
            ;; project creation from templates:
@@ -35,7 +35,7 @@
                         :main-opts  ["-m" "rebel-readline.main"]}
 
            :rebel-cljs {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
-                                     com.bhauman/figwheel-main       {:mvn/version "0.2.13"}}
+                                     com.bhauman/figwheel-main       {:mvn/version "0.2.14"}}
                         :main-opts  ["-m" "figwheel.main"]}
 
            :server {:extra-deps {nasus/nasus {:mvn/version "0.1.7"}}
