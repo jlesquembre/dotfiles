@@ -385,19 +385,18 @@ rec
     };
 
 
-  # It breaks GKT apps, see
-  # https://github.com/NixOS/nixpkgs/issues/93199
-  # services.pipewire.enable = true;
-  # xdg.portal = {
-  #   enable = true;
-  #   gtkUsePortal = true;
-  #   extraPortals = [
-  #     pkgs.xdg-desktop-portal-gtk
-  #     pkgs.xdg-desktop-portal-wlr
-  #   ];
-  # };
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    # jack.enable = true;
+  };
+  security.rtkit.enable = true;
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+  };
 
-  # systemd.packages = [ pkgs.xdg-desktop-portal-wlr ];
+
   # services.dbus.packages = with pkgs; [ gnome3.dconf ];
   # services.gnome3.gnome-remote-desktop.enable = true;
 
@@ -415,6 +414,8 @@ rec
         kanshi
         xdg-desktop-portal-wlr
         sway-contrib.grimshot
+        slurp
+        grim
       ];
       wrapperFeatures.gtk = true;
       extraSessionCommands =
@@ -479,16 +480,6 @@ rec
 
   # services.devmon.enable = true;
   services.udev.packages = with pkgs; [ libu2f-host yubikey-personalization ];
-
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull;
-    support32Bit = true;
-    # extraConfig = ''
-    #   # stop switching to HDMI output
-    #   unload-module module-switch-on-port-available
-    # '';
-  };
 
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark-qt;
