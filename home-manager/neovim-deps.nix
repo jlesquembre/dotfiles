@@ -1,4 +1,8 @@
 { pkgs }:
+let
+  fetchFromGitHub = pkgs.fetchFromGitHub;
+  buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
+in
 {
 
   # TODO bundle it with jdt-ls?
@@ -46,6 +50,18 @@
       rev = "0ff45d45c3e13e0393c2ab80dacaebd33a87f2fb";
       sha256 = "1k1bfziiyrl32rl3z97sy3xrsssdh2icnq5sz8cv90s2nrqwf3rv";
     };
+  };
+
+  cmp-conjure = buildVimPluginFrom2Nix {
+    pname = "cmp-conjure";
+    version = "2021-08-29";
+    src = fetchFromGitHub {
+      owner = "PaterJason";
+      repo = "cmp-conjure";
+      rev = "4c2a2233de7d2c8ccbf8652b4c741921498ceaec";
+      sha256 = "1ivrag7gch7mc72rim939z5gh7v532j29hgiy0pxgw3m6lvxdhwq";
+    };
+    meta.homepage = "https://github.com/PaterJason/cmp-conjure/";
   };
 
   ######

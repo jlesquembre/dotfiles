@@ -218,7 +218,13 @@ in
       nvim-dap
 
       snippets-nvim
-      nvim-compe
+      nvim-cmp
+      cmp-buffer
+      cmp-path
+      cmp-nvim-lsp
+      cmp-nvim-lua
+      custom.cmp-conjure
+      lspkind-nvim
       # pkgs.vimPlugins.completion-treesitter
 
       # UI
@@ -330,7 +336,6 @@ in
       vim-sexp-mappings-for-regular-people
       pkgs.parinfer-rust
       conjure
-      compe-conjure
       {
         plugin = pkgs.vimPlugins.lispdocs-nvim;
         config =
