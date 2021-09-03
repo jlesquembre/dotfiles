@@ -1,12 +1,29 @@
-name: "Update nvim deps"
+name: "Update deps"
 on:
-  # schedule:
-  #   - cron: "9 5 * * 2"
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: "1 5 * * 2"
 
 jobs:
+  clojure-deps:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: DeLaGuardo/setup-clojure@master
+        with:
+          tools-deps: latest
+      - name: Update clj dependencies
+        run:
+          clojure -Sdeps '{:deps {olical/depot {:mvn/version "1.8.4"}}}' -m
+          depot.outdated.main --update dotfiles/clojure/deps.edn
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@main
+        with:
+          commit-message: Update clojure dependencies
+          title: Update clojure dependencies
+          assignees: jlesquembre
+          branch: update-clj-deps
+
   neovim-plugins:
     runs-on: ubuntu-latest
 
