@@ -7,14 +7,19 @@ on:
       - master
 
 jobs:
-  clojure-deps:
+  neovim-plugins:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
+
       - uses: cachix/install-nix-action@v13
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
       - name: Check plugin updates
         run: nix-shell --command update-vim-plugins shell-nvim.nix
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@main
         with:
