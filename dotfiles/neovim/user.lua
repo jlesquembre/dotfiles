@@ -35,8 +35,9 @@ local function custom_colors(color_name)
   hi.SignColumn   = { guibg = c.base01 }
   hi.CursorLineNr = { guifg = c.base05, guibg = c.base03, gui = "bold"}
   hi.QuickFixLine = { guifg = c.base00, guibg = c.base09, gui = "none"}
-  hi.PMenu        = { guifg = c.base04, guibg = c.base01, gui = "none"}
+  hi.PMenu        = { guifg = c.base04, guibg = c.base02, gui = "none"}
   hi.PMenuSel     = { guifg = c.base01, guibg = c.base04 }
+
   hi.NormalFloat  = { guibg = c.base01 }
 
   hi.Reverse = { gui = "reverse" }
