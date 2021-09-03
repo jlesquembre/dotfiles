@@ -45,8 +45,8 @@ final: prev:
     src = fetchFromGitHub {
       owner = "hrsh7th";
       repo = "nvim-cmp";
-      rev = "6cc8b82267f597c3905e4328624a0fa5ed36152f";
-      sha256 = "01r3fx80pld5a473shpj5nnhhv5mbhifvijz8j2yhvszdlx86lpr";
+      rev = "e867bf233e4f91dec180378307317cfd42af4bdb";
+      sha256 = "1g0s8fx9cyh6fbp28smyqmvr4q4mq80s4gzg1rrvriq0azvgmh35";
     };
     meta.homepage = "https://github.com/hrsh7th/nvim-cmp/";
   };
