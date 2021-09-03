@@ -55,7 +55,7 @@ local function custom_colors(color_name)
   -- hi.LspReferenceRead  = { guibg = c.base02 }
   -- hi.LspReferenceWrite = { guibg = c.base02 }
   -- hi.LspReferenceText  = { guibg = c.base02 }
-  -- hi.typescriptParens  = { guibg = "none"}
+  hi.typescriptParens  = { guibg = "none"}
 end
 
 custom_colors('default-dark')

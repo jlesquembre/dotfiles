@@ -41,29 +41,6 @@ in
     ];
   });
 
-  nterm-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "nterm-nvim";
-    version = "DEV";
-    src = pkgs.fetchFromGitHub {
-      owner = "jlesquembre";
-      repo = "nterm.nvim";
-      rev = "0ff45d45c3e13e0393c2ab80dacaebd33a87f2fb";
-      sha256 = "1k1bfziiyrl32rl3z97sy3xrsssdh2icnq5sz8cv90s2nrqwf3rv";
-    };
-  };
-
-  cmp-conjure = buildVimPluginFrom2Nix {
-    pname = "cmp-conjure";
-    version = "2021-08-29";
-    src = fetchFromGitHub {
-      owner = "PaterJason";
-      repo = "cmp-conjure";
-      rev = "4c2a2233de7d2c8ccbf8652b4c741921498ceaec";
-      sha256 = "1ivrag7gch7mc72rim939z5gh7v532j29hgiy0pxgw3m6lvxdhwq";
-    };
-    meta.homepage = "https://github.com/PaterJason/cmp-conjure/";
-  };
-
   ######
   ######
   ######
@@ -129,37 +106,6 @@ in
       repo = "vim-systemd-syntax";
       rev = "master";
       sha256 = "0fqk5fxrdf8nazic244ia4bi75midmpj896vdkdmxnv563lnhkcy";
-    };
-  };
-
-  # janet-vim = pkgs.vimUtils.buildVimPlugin {
-  #   name = "janet-vim";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "janet-lang";
-  #     repo = "janet.vim";
-  #     rev = "master";
-  #     sha256 = "1671vyj1s0diwgzm9r4jybp0gj92jrha5a3vcndamk4ghzpkxl6a";
-  #   };
-  # };
-
-  # vim-hexokinase = pkgs.vimUtils.buildVimPlugin {
-  #   name = "vim-hexokinase";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "RRethy";
-  #     repo = "vim-hexokinase";
-  #     rev = "master";
-  #     sha256 = "1mn5l5pfngb8qarmhxjfsgw3syqn1q484fmg9c9dydf5ld5qfzv9";
-  #   };
-  # };
-
-
-  vim-qf = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-qf";
-    src = pkgs.fetchFromGitHub {
-      owner = "romainl";
-      repo = "vim-qf";
-      rev = "master";
-      sha256 = "1pr2v4jlf8nsf7l3w0zi4c4nfdynbx2i8jsykgknrjfbp729b1cy";
     };
   };
 }

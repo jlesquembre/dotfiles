@@ -1,6 +1,11 @@
 { config, pkgs, lib, ... }:
 let
-  custom = (import ./neovim-deps.nix) { pkgs = pkgs; };
+  nvim-deps = (import ./neovim-deps.nix) { pkgs = pkgs; };
+  custom-vim-plugs = pkgs.vimPlugins.extend (
+    (pkgs.callPackage ./neovim-plugins-generated.nix {
+      buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
+    })
+  );
 
   vimDir = ../dotfiles/neovim;
 
@@ -134,7 +139,7 @@ let
     configDir = vimDir;
     moduleName = "jlle";
     vars = [ "java.debug.plugin" ];
-    replacements = [ "${custom.java-debug.jar}" ];
+    replacements = [ "${nvim-deps.java-debug.jar}" ];
   });
 
 in
@@ -144,7 +149,7 @@ in
 
   programs.neovim = {
     enable = true;
-    # package = custom.neovim-nightly;
+    # package = nvim-deps.neovim-nightly;
     withNodeJs = true;
     # withPython = true;
     withPython3 = true;
@@ -207,7 +212,7 @@ in
 
       # Telescope
       telescope-fzy-native-nvim
-      telescope-nvim
+      custom-vim-plugs.telescope-nvim
 
       # LSP
       nvim-lspconfig
@@ -218,12 +223,12 @@ in
       nvim-dap
 
       snippets-nvim
-      nvim-cmp
+      custom-vim-plugs.nvim-cmp
+      custom-vim-plugs.cmp-nvim-lsp
       cmp-buffer
       cmp-path
-      cmp-nvim-lsp
       cmp-nvim-lua
-      custom.cmp-conjure
+      custom-vim-plugs.cmp-conjure
       lspkind-nvim
       # pkgs.vimPlugins.completion-treesitter
 
@@ -279,7 +284,7 @@ in
       vim-sayonara
 
       nterm-nvim
-      # custom.nterm-nvim
+      # custom-vim-plugs.nterm-nvim
       # (h.neovim.localVimPlugin (vimPluginsDir + /nterm.nvim))
 
       # Git
