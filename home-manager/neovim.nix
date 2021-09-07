@@ -211,8 +211,7 @@ in
       aniseed
 
       # Telescope
-      telescope-fzy-native-nvim
-      custom-vim-plugs.telescope-nvim
+      telescope-nvim
 
       # LSP
       nvim-lspconfig

@@ -4,7 +4,6 @@ local previewers = require('telescope.previewers')
 
 require('telescope').setup{
   defaults = {
-    file_sorter = sorters.get_fzy_sorter,
 
     file_previewer   = previewers.vim_buffer_cat.new,
     grep_previewer   = previewers.vim_buffer_vimgrep.new,
@@ -18,10 +17,6 @@ require('telescope').setup{
     },
   },
   extensions = {
-    fzy_native = {
-      override_generic_sorter = true,
-      override_file_sorter = true,
-    },
 
     -- TODO fix it
     -- Usage:
@@ -54,7 +49,6 @@ M.project_files = function()
   if not ok then require'telescope.builtin'.find_files(opts) end
 end
 
-require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('lispdocs')
 require('telescope').load_extension('nterm')
 
