@@ -207,7 +207,7 @@ in
       # Helpers, needed by other plugins
       popup-nvim
       plenary-nvim
-      sql-nvim
+      sqlite-lua
       aniseed
 
       # Telescope
@@ -221,12 +221,14 @@ in
       # (h.neovim.localVimPlugin (vimPluginsDir + /nvim-jdtls))
       nvim-dap
 
-      snippets-nvim
+      luasnip
+
       custom-vim-plugs.nvim-cmp
       custom-vim-plugs.cmp-nvim-lsp
       cmp-buffer
       cmp-path
       cmp-nvim-lua
+      cmp_luasnip
       custom-vim-plugs.cmp-conjure
       lspkind-nvim
       # pkgs.vimPlugins.completion-treesitter

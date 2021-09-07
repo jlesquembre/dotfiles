@@ -1,5 +1,4 @@
 hrsh7th/cmp-nvim-lsp@main
 hrsh7th/nvim-cmp@main
 jlesquembre/nterm.nvim
-nvim-telescope/telescope.nvim
 PaterJason/cmp-conjure
