@@ -2,21 +2,23 @@ vim.o.completeopt = "menuone,noselect"
 vim.o.pumheight = 15
 
 local cmp = require'cmp'
+local luasnip = require("luasnip")
 
 local check_back_space = function()
   local col = vim.fn.col('.') - 1
   return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s')
 end
 
+local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 cmp.setup({
-  -- snippet = {
-  --   expand = function(args)
-  --     vim.fn["vsnip#anonymous"](args.body)
-  --   end,
-  -- },
-  -- mapping = {
-  --   ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  -- },
+  snippet = {
+    expand = function(args)
+      require'luasnip'.lsp_expand(args.body)
+    end
+  },
   mapping = {
     -- ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -26,19 +28,31 @@ cmp.setup({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     }),
-    ['<Tab>'] = function(fallback)
+    ["<Tab>"] = cmp.mapping(function(fallback)
         if vim.fn.pumvisible() == 1 then
-          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+          vim.fn.feedkeys(t("<C-n>"), "n")
+        elseif luasnip.expand_or_jumpable() then
+          vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
         elseif check_back_space() then
-          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, true, true), 'n')
-        elseif vim.fn['vsnip#available']() == 1 then
-          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '')
+          vim.fn.feedkeys(t("<Tab>"), "n")
         else
           fallback()
         end
       end,
+      { "i", "s", }),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
+        if vim.fn.pumvisible() == 1 then
+          vim.fn.feedkeys(t("<C-p>"), "n")
+        elseif luasnip.jumpable(-1) then
+          vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
+        else
+          fallback()
+        end
+      end,
+      { "i", "s", }),
   },
   sources = {
+    { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'path' },
@@ -84,112 +98,3 @@ require("nvim-autopairs.completion.cmp").setup({
   map_complete = true, -- it will auto insert `(` after select function or method item
   auto_select = true -- automatically select the first item
 })
-
-
--- require'compe'.setup {
---   enabled = true;
---   autocomplete = true;
---   debug = false;
---   min_length = 1;
---   preselect = 'enable';
---   throttle_time = 80;
---   source_timeout = 200;
---   incomplete_delay = 400;
---   max_abbr_width = 100;
---   max_kind_width = 100;
---   max_menu_width = 100;
---   documentation = true;
-
---   source = {
---     path = true;
---     buffer = true;
---     calc = false;
---     vsnip = false;
---     conjure = true;
---     nvim_lsp = { ignored_filetypes = {'clojure'} };
---     nvim_lua = true;
---     spell = true;
---     tags = true;
---     snippets_nvim = true;
---     treesitter = false;
---   };
--- }
-
-
--- local set_keymap = vim.api.nvim_set_keymap
--- local opts = {noremap = true, silent = true, expr = true}
-
--- -- set_keymap("i", "<C-Space>", "compe#complete()", opts)
--- -- See completion_confirm, combines nvim-compe and nvim-autopairs
--- -- set_keymap("i", "<CR>"     , "compe#confirm('<CR>')", opts)
--- set_keymap("i", "<C-e>"    , "compe#close('<C-e>')", opts)
-
--- -- Helper functions from the nvim-compe README
--- local t = function(str)
---   return vim.api.nvim_replace_termcodes(str, true, true, true)
--- end
-
--- local check_back_space = function()
---     local col = vim.fn.col('.') - 1
---     if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
---         return true
---     else
---         return false
---     end
--- end
-
--- --  Use (s-)tab to:
--- --- move to prev/next item in completion menuone
--- --- jump to prev/next snippet's placeholder
-
--- local snippets = require'snippets'
-
--- _G.tab_complete = function()
---   -- local pum_selected = vim.fn.complete_info()["selected"] ~= -1
-
---   if snippets.has_active_snippet() then
---     return t "<cmd>lua require'snippets'.advance_snippet(1)<CR>"
---   elseif vim.fn.pumvisible() == 1 then
---     return t "<C-n>"
---   elseif check_back_space() then
---     return t "<Tab>"
---   else
---     return vim.fn['compe#complete']()
---   end
--- end
-
--- _G.s_tab_complete = function()
---   if snippets.has_active_snippet() then
---     return t "<cmd>lua require'snippets'.advance_snippet(-1)<CR>"
---   elseif vim.fn.pumvisible() == 1 then
---     return t "<C-p>"
---   else
---     return t "<S-Tab>"
---   end
--- end
-
--- local opts2 = {silent = true, expr = true, noremap = false}
--- set_keymap("i", "<Tab>", "v:lua.tab_complete()", opts2)
--- set_keymap("s", "<Tab>", "v:lua.tab_complete()", opts2)
--- set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", opts2)
--- set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", opts2)
-
-
--- local npairs = require('nvim-autopairs')
-
--- _G.MUtils= {}
-
--- vim.g.completion_confirm_key = ""
--- MUtils.completion_confirm = function()
---   if vim.fn.pumvisible() ~= 0  then
---     if vim.fn.complete_info()["selected"] ~= -1 then
---       return vim.fn["compe#confirm"](npairs.esc("<cr>"))
---     else
---       return npairs.esc("<cr>")
---     end
---   else
---     return npairs.autopairs_cr()
---   end
--- end
-
--- set_keymap('i' , '<CR>','v:lua.MUtils.completion_confirm()', opts)
