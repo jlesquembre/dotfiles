@@ -5,24 +5,24 @@ final: prev:
 {
   cmp-conjure = buildVimPluginFrom2Nix {
     pname = "cmp-conjure";
-    version = "2021-08-29";
+    version = "2021-09-04";
     src = fetchFromGitHub {
       owner = "PaterJason";
       repo = "cmp-conjure";
-      rev = "4c2a2233de7d2c8ccbf8652b4c741921498ceaec";
-      sha256 = "1ivrag7gch7mc72rim939z5gh7v532j29hgiy0pxgw3m6lvxdhwq";
+      rev = "b3e7c5096589135621ce996bf0860be97ea2fc0c";
+      sha256 = "17v443bmr9mcm0zrjprc1hc69hs4vpmkf1gqv0fshfdr1jnnn5z6";
     };
     meta.homepage = "https://github.com/PaterJason/cmp-conjure/";
   };
 
   cmp-nvim-lsp = buildVimPluginFrom2Nix {
     pname = "cmp-nvim-lsp";
-    version = "2021-08-26";
+    version = "2021-09-03";
     src = fetchFromGitHub {
       owner = "hrsh7th";
       repo = "cmp-nvim-lsp";
-      rev = "9af212372c41e94d55603dea8ad9700f6c31573d";
-      sha256 = "1r460l4rr5g94zpsknlxb3jxvbznd37f8zsqphapzb12fmxbs814";
+      rev = "f6f471898bc4b45eacd36eef9887847b73130e0e";
+      sha256 = "1asr32w5q618pqggq9jwrbqs4kjp3ssbw5pca5wc7j2496vm2lhg";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-nvim-lsp/";
   };
@@ -41,24 +41,24 @@ final: prev:
 
   nvim-cmp = buildVimPluginFrom2Nix {
     pname = "nvim-cmp";
-    version = "2021-09-03";
+    version = "2021-09-06";
     src = fetchFromGitHub {
       owner = "hrsh7th";
       repo = "nvim-cmp";
-      rev = "e867bf233e4f91dec180378307317cfd42af4bdb";
-      sha256 = "1g0s8fx9cyh6fbp28smyqmvr4q4mq80s4gzg1rrvriq0azvgmh35";
+      rev = "b6b15d5f6e46643462b5e62269e7babdab17331c";
+      sha256 = "1hd4af1y2bcb84jcv31xv7p4psgq6skw7llhfrgqkjgrj6wds76k";
     };
     meta.homepage = "https://github.com/hrsh7th/nvim-cmp/";
   };
 
   telescope-nvim = buildVimPluginFrom2Nix {
     pname = "telescope-nvim";
-    version = "2021-09-02";
+    version = "2021-09-06";
     src = fetchFromGitHub {
       owner = "nvim-telescope";
       repo = "telescope.nvim";
-      rev = "ac42f0c26cb417b76046a394c1b3163d346e9107";
-      sha256 = "1qzc04xlrkssgvrmciddbykcczklqzhh8fnkr0pf6xrll0vvm1fv";
+      rev = "162cf7b5343eaf97c32c97af6a37452f9a3a9ca1";
+      sha256 = "0lq26j3jhn4a8dzgry329hqxxx50qmczl6pq0zw9lvrzhjgc3zpj";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope.nvim/";
   };
