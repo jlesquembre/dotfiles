@@ -160,6 +160,7 @@ rec
     cachix
     caddy
     calibre
+    cntr
     cheat
     chromium
     google-chrome
@@ -352,6 +353,8 @@ rec
     enable = true;
     dockerCompat = false;
   };
+
+  programs.sysdig.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
