@@ -57,6 +57,8 @@ local function custom_colors(color_name)
   -- hi.LspReferenceWrite = { guibg = c.base02 }
   -- hi.LspReferenceText  = { guibg = c.base02 }
   hi.typescriptParens  = { guibg = "none"}
+  hi.BqfPreviewCursor = { guibg = c.base0A, guifg = c.base01}
+  hi.BqfPreviewRange = { guibg = c.base0A, guifg = c.base01}
 end
 
 custom_colors('default-dark')
@@ -79,3 +81,23 @@ vim.api.nvim_set_keymap('t', '<C-e>', [[<cmd>lua require'nterm.main'.term_toggle
 require('nvim-autopairs').setup({
   disable_filetype = { "TelescopePrompt" , "clojure" },
 })
+
+function _G.toggle_qf()
+  local qf_exists = false
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win["quickfix"] == 1 then
+      qf_exists = true
+    end
+  end
+  if qf_exists == true then
+    vim.cmd "cclose"
+    return
+  end
+  if not vim.tbl_isempty(vim.fn.getqflist()) then
+    vim.cmd "copen"
+  else
+    require'nterm.ui'.popup("QuickFix empty!", {hl = "NtermError", pos = "NW"})
+  end
+end
+
+vim.api.nvim_set_keymap("n", "<leader>x", "<cmd>lua toggle_qf()<cr>", {noremap = true, silent = false})

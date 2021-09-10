@@ -12,22 +12,8 @@ require('telescope').setup{
       i = {
         ["<esc>"] = actions.close,
         ["<c-s>"] = actions.send_to_qflist + actions.open_qflist,
-        -- ["<cr>"] = actions.goto_file_selection_split,
       },
     },
-  },
-  extensions = {
-
-    -- TODO fix it
-    -- Usage:
-    -- :Telescope lispdocs
-    -- lispdocs = {
-    --   mappings = {
-    --     i = {
-    --       ["<cr>"] = actions.goto_file_selection_split,
-    --     },
-    --   },
-    -- },
   },
 }
 
@@ -75,5 +61,22 @@ set_keymap("n", "<leader>fga", "git_commits()", "telescope.builtin")
 set_keymap("n", "<leader>fgc", "git_bcommits()", "telescope.builtin")
 
 set_keymap("n", "<leader>ft",   "extensions.nterm.nterm()", "telescope")
+
+function help_ft_telescope()
+  local bufnr = 0
+  local set_keymap = vim.api.nvim_buf_set_keymap
+  local opts = {noremap = true, silent = true}
+
+  set_keymap(bufnr, 'n', '<leader>fh', '<cmd>Telescope lispdocs<cr>', {})
+end
+
+
+vim.api.nvim_exec([[
+augroup LispSettings
+  autocmd!
+  autocmd FileType lisp,clojure,scheme,fennel lua help_ft_telescope()
+augroup END
+]], true)
+
 
 return M
