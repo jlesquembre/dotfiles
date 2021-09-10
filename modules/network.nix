@@ -99,6 +99,9 @@ in
             interval 1s
             burst 10
           }
+          # log {
+          #   level DEBUG
+          # }
         }
 
         check.local:80 {
@@ -113,13 +116,19 @@ in
           }
         }
 
+        (local_cert) {
+          tls {
+              on_demand
+              ca https://127.0.0.1:8444/acme/acme/directory
+              ca_root ${root_ca_file}
+          }
+        }
+
         docs.local {
+          import local_cert
           bind 127.0.0.1
           root * ${docsPath}
           file_server
-          tls {
-              on_demand
-          }
           header {
             -Last-Modified
             -Etag
