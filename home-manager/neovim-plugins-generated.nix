@@ -5,12 +5,12 @@ final: prev:
 {
   cmp-conjure = buildVimPluginFrom2Nix {
     pname = "cmp-conjure";
-    version = "2021-09-04";
+    version = "2021-09-10";
     src = fetchFromGitHub {
       owner = "PaterJason";
       repo = "cmp-conjure";
-      rev = "b3e7c5096589135621ce996bf0860be97ea2fc0c";
-      sha256 = "17v443bmr9mcm0zrjprc1hc69hs4vpmkf1gqv0fshfdr1jnnn5z6";
+      rev = "27cfdac78ec099a8d1e82b7a810f451ff0f80a30";
+      sha256 = "1hbkafpqpzf4bzy8cyzg1zxnnpmhfkpz2vj8v8by5ym4qx8b747p";
     };
     meta.homepage = "https://github.com/PaterJason/cmp-conjure/";
   };
@@ -41,26 +41,14 @@ final: prev:
 
   nvim-cmp = buildVimPluginFrom2Nix {
     pname = "nvim-cmp";
-    version = "2021-09-06";
+    version = "2021-09-14";
     src = fetchFromGitHub {
       owner = "hrsh7th";
       repo = "nvim-cmp";
-      rev = "b6b15d5f6e46643462b5e62269e7babdab17331c";
-      sha256 = "1hd4af1y2bcb84jcv31xv7p4psgq6skw7llhfrgqkjgrj6wds76k";
+      rev = "2c92fef0403f6ab913a2599bfefeef1551e620cb";
+      sha256 = "0rqry6975n2snz04qvm0xaabgx9pmxa3zdcmrq4pj6j6n6sjl2dk";
     };
     meta.homepage = "https://github.com/hrsh7th/nvim-cmp/";
-  };
-
-  telescope-nvim = buildVimPluginFrom2Nix {
-    pname = "telescope-nvim";
-    version = "2021-09-06";
-    src = fetchFromGitHub {
-      owner = "nvim-telescope";
-      repo = "telescope.nvim";
-      rev = "162cf7b5343eaf97c32c97af6a37452f9a3a9ca1";
-      sha256 = "0lq26j3jhn4a8dzgry329hqxxx50qmczl6pq0zw9lvrzhjgc3zpj";
-    };
-    meta.homepage = "https://github.com/nvim-telescope/telescope.nvim/";
   };
 
 }
