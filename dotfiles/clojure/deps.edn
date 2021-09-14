@@ -81,13 +81,13 @@
                          com.cognitect/rebl
                          ;; adjust to match your install location
                          {:local/root "$HOME/projects/REBL/REBL-0.9.220.jar"}
-                         org.openjfx/javafx-fxml     {:mvn/version "16"}
-                         org.openjfx/javafx-controls {:mvn/version "16"}
-                         org.openjfx/javafx-graphics {:mvn/version "16"}
-                         org.openjfx/javafx-media    {:mvn/version "16"}
-                         org.openjfx/javafx-swing    {:mvn/version "16"}
-                         org.openjfx/javafx-base     {:mvn/version "16"}
-                         org.openjfx/javafx-web      {:mvn/version "16"}}}
+                         org.openjfx/javafx-fxml     {:mvn/version "17"}
+                         org.openjfx/javafx-controls {:mvn/version "17"}
+                         org.openjfx/javafx-graphics {:mvn/version "17"}
+                         org.openjfx/javafx-media    {:mvn/version "17"}
+                         org.openjfx/javafx-swing    {:mvn/version "17"}
+                         org.openjfx/javafx-base     {:mvn/version "17"}
+                         org.openjfx/javafx-web      {:mvn/version "17"}}}
             ; :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:extra-deps {me.lafuente/local-utils {:local/root "$HOME/projects/clj-dev-utils"}}
