@@ -201,19 +201,19 @@ in
 
       luasnip
 
-      custom-vim-plugs.nvim-cmp
-      custom-vim-plugs.cmp-nvim-lsp
+      nvim-cmp
+      cmp-nvim-lsp
       cmp-buffer
       cmp-path
       cmp-nvim-lua
       cmp_luasnip
-      custom-vim-plugs.cmp-conjure
+      cmp-conjure
       lspkind-nvim
       # pkgs.vimPlugins.completion-treesitter
 
       # UI
       nvim-base16
-      galaxyline-nvim
+      custom-vim-plugs.feline-nvim
       dashboard-nvim
 
       # Navigation
