@@ -1,4 +1,5 @@
 -- Conjure
+local M = {}
 
 vim.g['conjure#log#wrap'] = true
 
@@ -72,10 +73,12 @@ function lisp_settings()
 end
 
 
+M.lisp_langs = {"clojure"," scheme", "lisp", "racket", "hy", "fennel", "janet", "carp", "wast", "yuck"}
+
 vim.api.nvim_exec([[
 augroup LispSettings
   autocmd!
-  autocmd FileType lisp,clojure,scheme,fennel lua lisp_settings()
+  autocmd FileType ]].. table.concat(M.lisp_langs, ",") ..[[ lua lisp_settings()
 augroup END
 ]], true)
 
@@ -143,3 +146,5 @@ vim.g.sexp_mappings = {
   sexp_capture_prev_element =      '',
   sexp_capture_next_element =      '',
 }
+
+return M

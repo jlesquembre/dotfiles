@@ -17,18 +17,30 @@ final: prev:
 
   cmp-nvim-lsp = buildVimPluginFrom2Nix {
     pname = "cmp-nvim-lsp";
-    version = "2021-09-03";
+    version = "2021-09-17";
     src = fetchFromGitHub {
       owner = "hrsh7th";
       repo = "cmp-nvim-lsp";
-      rev = "f6f471898bc4b45eacd36eef9887847b73130e0e";
-      sha256 = "1asr32w5q618pqggq9jwrbqs4kjp3ssbw5pca5wc7j2496vm2lhg";
+      rev = "246a41c55668d5f84afcd805ee73b6e419375ae0";
+      sha256 = "0ybnrs31i61l6z02fjz65ankxccd5587pnky4lsczcz12kpj6s4n";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-nvim-lsp/";
   };
 
+  feline-nvim = buildVimPluginFrom2Nix {
+    pname = "feline.nvim";
+    version = "2021-09-16";
+    src = fetchFromGitHub {
+      owner = "famiu";
+      repo = "feline.nvim";
+      rev = "53bad42dee7bd3db08039f644df03b49ae887b3e";
+      sha256 = "08arp0isdxg418fky2dmjrq1ijigiiif85bhl7qwajpw4ab17820";
+    };
+    meta.homepage = "https://github.com/famiu/feline.nvim/";
+  };
+
   nterm-nvim = buildVimPluginFrom2Nix {
-    pname = "nterm-nvim";
+    pname = "nterm.nvim";
     version = "2021-08-24";
     src = fetchFromGitHub {
       owner = "jlesquembre";
@@ -41,12 +53,12 @@ final: prev:
 
   nvim-cmp = buildVimPluginFrom2Nix {
     pname = "nvim-cmp";
-    version = "2021-09-14";
+    version = "2021-09-17";
     src = fetchFromGitHub {
       owner = "hrsh7th";
       repo = "nvim-cmp";
-      rev = "2c92fef0403f6ab913a2599bfefeef1551e620cb";
-      sha256 = "0rqry6975n2snz04qvm0xaabgx9pmxa3zdcmrq4pj6j6n6sjl2dk";
+      rev = "b47a703a48e1d2e668202c91f82d490c20dfea49";
+      sha256 = "0svxm0hgkxpbbixxnjsysdjbaxhmcxfgg25da808s500gqh3s9za";
     };
     meta.homepage = "https://github.com/hrsh7th/nvim-cmp/";
   };

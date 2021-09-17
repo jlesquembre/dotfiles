@@ -1,4 +1,2 @@
-hrsh7th/cmp-nvim-lsp@main
-hrsh7th/nvim-cmp@main
+famiu/feline.nvim
 jlesquembre/nterm.nvim
-PaterJason/cmp-conjure

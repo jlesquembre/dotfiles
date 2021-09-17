@@ -79,7 +79,7 @@ require"nterm.main".init()
 vim.api.nvim_set_keymap('t', '<C-e>', [[<cmd>lua require'nterm.main'.term_toggle()<cr>]], {noremap = true})
 
 require('nvim-autopairs').setup({
-  disable_filetype = { "TelescopePrompt" , "clojure" },
+  disable_filetype = { "TelescopePrompt" , unpack(require'jlle.conjure'.lisp_langs) },
 })
 
 function _G.toggle_qf()
