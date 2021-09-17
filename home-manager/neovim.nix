@@ -19,42 +19,6 @@ let
       (builtins.readFile f)
     else
       "";
-  compileAniseed = text:
-    let
-      version = "3.12.0";
-      aniseed = pkgs.fetchFromGitHub {
-        owner = "olical";
-        repo = "aniseed";
-        rev = "v${version}";
-        sha256 = "1wy5jd86273q7sxa50kv88flqdgmg9z2m4b6phpw3xnl5d1sj9f7";
-      };
-      input = pkgs.writeText "input.fnl" text;
-    in
-    builtins.readFile (
-      pkgs.runCommand ""
-        {
-          allowSubstitues = false;
-          preferLocalBuild = true;
-        }
-        ''
-          ${pkgs.neovim}/bin/nvim -u NONE -i NONE --headless \
-              -c "let &runtimepath = &runtimepath . ',${aniseed}'" \
-              -c "lua require('aniseed.compile').file('${input}', os.getenv('out'))" \
-              +q
-        ''
-    );
-
-  replaceStringsOptional = from: to: s:
-    if (from != null && s != "") then
-      (builtins.replaceStrings from to s)
-    else
-      s;
-  pluginWithConfig' = { configPath, drv, from ? null, to ? null }: {
-    plugin = drv;
-    config = replaceStringsOptional from to (builtins.readFile configPath);
-  };
-  pluginWithConfig = drv: configPath: (pluginWithConfig' { inherit drv configPath; });
-  pluginWithConfigTemplate = drv: configPath: from: to: (pluginWithConfig' { inherit drv configPath from to; });
 
   /**
     * Creates a vim plugin derivation with multiple lua files.
@@ -96,20 +60,35 @@ let
       luaSrc = builtins.filterSource
         (path: type: (lib.hasSuffix ".lua" path) && (baseNameOf path != "user.lua"))
         configDir;
-      luaRequires = pkgs.runCommand "luaRequires-${moduleName}" { } ''
-        echo '" ${pname} ===' > $out
-        for filename in ${luaSrc}/*.lua
-        do
-          f=$(basename "''${filename}" .lua)
-          echo "lua require'${moduleName}.''${f}'" >> $out
-        done
-        echo '" ===' >> $out
-      '';
+
+      compiledFennel =
+        if (h.hasFileWithSuffix configDir ".fnl") then
+          h.neovim.compileAniseed { src = configDir; fnlDir = ""; outPrefix = "/"; }
+        else null;
+
+      luaRequires =
+        let
+          fnlSrc = if (isNull compiledFennel) then "" else "${compiledFennel}/*.lua";
+        in
+        pkgs.runCommand "luaRequires-${moduleName}" { } ''
+          echo '" ${pname} ===' > $out
+          for filename in ${luaSrc}/*.lua ${fnlSrc}
+          do
+            f=$(basename "''${filename}" .lua)
+            echo "lua require'${moduleName}.''${f}'" >> $out
+          done
+          echo '" ===' >> $out
+        '';
     in
     (pkgs.stdenv.mkDerivation {
       inherit pname;
       version = "DEV";
-      src = luaSrc;
+      srcs = [ luaSrc ] ++ (lib.optional (compiledFennel != null) compiledFennel);
+      unpackPhase = ''
+        for _src in $srcs; do
+          cp -v $_src/* .
+        done
+      '';
       installPhase =
         let
           rtpPath = "share/vim-plugins";
@@ -119,10 +98,9 @@ let
           ;
         in
         ''
-          target=$out/${rtpPath}/${pname}/lua/${moduleName}
+          target=$out/lua/${moduleName}
           mkdir -p $target
-          cp -r . $target
-
+          cp -r *.lua $target
         ''
         +
         lib.optionalString (vars != null)
