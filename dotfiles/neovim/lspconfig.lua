@@ -14,10 +14,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 })
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
- vim.lsp.handlers.hover, {
-   -- Use a sharp border with `FloatBorder` highlights
-   border = "double"
-})
+ vim.lsp.handlers.hover, { border = "single" })
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+ vim.lsp.handlers.signature_help, { border = "single" })
 
 local lspconfig = require'lspconfig'
 local root_pattern = lspconfig.util.root_pattern
@@ -26,61 +26,57 @@ local set_telescope_keymap = function(bufnr, mod, lhs, rhs, opts)
   vim.api.nvim_buf_set_keymap(bufnr, mod, lhs, "<cmd>lua require('telescope.builtin')."..  rhs .. "<cr>", opts)
 end
 
+local function preview_location_callback(_, method, result)
+  if result == nil or vim.tbl_isempty(result) then
+    vim.lsp.log.info(method, 'No location found')
+    return nil
+  end
+  if vim.tbl_islist(result) then
+    vim.lsp.util.preview_location(result[1], {border = "single"})
+  else
+    vim.lsp.util.preview_location(result, {border = "single"})
+  end
+end
+
+function _G.peek_definition()
+  local params = vim.lsp.util.make_position_params()
+  return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
+end
+
 local function custom_attach(client, bufnr)
   local function set_keymap_t(...) set_telescope_keymap(bufnr, ...) end
   local function set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local opts = {noremap = true, silent = false}
 
   set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+  set_keymap('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
 
   set_keymap('n', 'gdd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   set_keymap('n', 'gdi',   '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   -- set_keymap('n', 'gd',    '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  -- set_keymap('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   set_keymap('n', '1gD',   '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   -- set_keymap('n', 'gr',    '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   -- set_keymap('n', 'g0',    '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
   -- set_keymap('n', 'gW',    '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
 
-  -- set_keymap('n', '[w', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  -- set_keymap('n', ']w', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  set_keymap('n', '<leader>dd',  [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({border = "single"})<CR>]], opts)
+  set_keymap('n', '[w', [[<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts={border="single"}})<CR>]], opts)
+  set_keymap('n', ']w', [[<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={border="single"}})<CR>]], opts)
 
   set_keymap('n', '<leader>rn',  '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  -- set_keymap('n', '<leader>dc',  '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
+  set_keymap('n', 'gdp',  [[<cmd>lua peek_definition()<CR>]], opts)
   --
   -- TELESCOPE
   --
   set_keymap_t("n", "<leader>dr", "lsp_references()", opts)
   set_keymap_t("n", "<leader>dj", "lsp_document_symbols()", opts)
-  set_keymap_t("n", "<leader>dk", "lsp_workspace_symbols()", opts)
+  set_keymap_t("n", "<leader>dk", "lsp_dynamic_workspace_symbols()", opts)
   set_keymap_t("n", "<leader>dc", "lsp_code_actions()", opts)
   set_keymap  ("v", "<leader>dc", [[<cmd>'<,'>lua require("telescope.builtin").lsp_code_action()<CR>]], opts)
-  set_keymap_t("n", "<leader>df", "lsp_document_diagnostics()", opts)
-  set_keymap_t("n", "<leader>dg", "lsp_workspace_diagnostics()", opts)
+  set_keymap_t("n", "<leader>dw", "lsp_document_diagnostics()", opts)
+  set_keymap_t("n", "<leader>dW", "lsp_workspace_diagnostics()", opts)
 
-
-  --
-  -- LSPSAGA
-  --
-  -- set_keymap('n', 'K', [[<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]], opts)
-  set_keymap('n', '<c-k>',  [[<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]], opts)
-  set_keymap('n', '<C-f>', [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]], opts)
-  set_keymap('n', '<C-b>', [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]], opts)
-
-  set_keymap('n', 'gdp',  [[<cmd>lua require'lspsaga.provider'.preview_definition()<CR>]], opts)
-  set_keymap('n', '<leader>dd',  [[<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>]], opts)
-
-  set_keymap('n', 'gh', [[<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>]], opts)
-  set_keymap('n', '[w', [[<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>]], opts)
-  set_keymap('n', ']w', [[<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>]], opts)
-
-  -- set_keymap('n', '<leader>rn',  [[<cmd>lua require('lspsaga.rename').rename()<CR>]], opts)
-  -- set_keymap('n', '<leader>dc',  [[<cmd>lua require("lspsaga.codeaction").code_action()<CR>]], opts)
-  -- set_keymap('v', '<leader>dc',  [[<cmd>'<,'>lua require("lspsaga.codeaction").code_action()<CR>]], opts)
-  --
-  -- END LSPSAGA
-  --
 
 
   if client.resolved_capabilities.document_highlight then
@@ -228,74 +224,3 @@ augroup LspCustom
   autocmd FileType java lua start_jdtls()
 augroup END
 ]], true)
-
--- java lsp
--- local finders = require'telescope.finders'
--- local sorters = require'telescope.sorters'
--- local actions = require'telescope.actions'
--- function(items, prompt, label_fn, cb)
---   local opts = {}
---   pickers.new(opts, {
---     prompt_title = prompt,
---     finder    = finders.new_table {
---       results = items,
---       entry_maker = function(entry)
---         return {
---           value = entry,
---           display = label_fn(entry),
---           ordinal = label_fn(entry),
---         }
---       end,
---     },
---     sorter = sorters.get_generic_fuzzy_sorter(),
---     attach_mappings = function(prompt_bufnr)
---       actions.goto_file_selection_edit:replace(function()
---         local selection = actions.get_selected_entry(prompt_bufnr)
---         actions.close(prompt_bufnr)
-
---         cb(selection.value)
---       end)
-
---       return true
---     end,
---   }):find()
-
-
--- Completion and so on
-
--- TODO
--- maps to add
-
--- local call = vim.api.nvim_call_function
-
--- function tab_complete()
---     if vim.fn.pumvisible() == 1 then
---         return rt('<C-N>')
---     elseif call('vsnip#available', {1}) == 1 then
---         return rt('<Plug>(vsnip-expand-or-jump)')
---     else
---         return rt('<Tab>')
---     end
--- end
-
--- function s_tab_complete()
---     if vim.fn.pumvisible() == 1 then
---         return rt('<C-P>')
---     elseif call('vsnip#jumpable', {-1}) == 1 then
---         return rt('<Plug>(vsnip-jump-prev)')
---     else
---         return rt('<S-Tab>')
---     end
--- end
-
-local saga = require 'lspsaga'
-saga.init_lsp_saga({
-  server_filetype_map = {["jdt.ls"] = { "java" }},
-  code_action_icon = '💡',
-  code_action_prompt = {
-    enable = false,
-    sign = false,
-    sign_priority = 20,
-    virtual_text = false,
-  },
-})

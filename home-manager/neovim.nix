@@ -193,14 +193,12 @@ in
 
       # LSP
       nvim-lspconfig
-      lspsaga-nvim
-
       nvim-jdtls
       # (h.neovim.localVimPlugin (vimPluginsDir + /nvim-jdtls))
       nvim-dap
 
+      # auto completion
       luasnip
-
       nvim-cmp
       cmp-nvim-lsp
       cmp-buffer
