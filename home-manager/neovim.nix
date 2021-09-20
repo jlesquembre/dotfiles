@@ -211,7 +211,8 @@ in
 
       # UI
       nvim-base16
-      custom-vim-plugs.feline-nvim
+      # custom-vim-plugs.feline-nvim
+      feline-nvim
       dashboard-nvim
 
       # Navigation

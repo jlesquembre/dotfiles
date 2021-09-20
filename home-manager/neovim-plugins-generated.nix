@@ -3,38 +3,14 @@
 
 final: prev:
 {
-  cmp-conjure = buildVimPluginFrom2Nix {
-    pname = "cmp-conjure";
-    version = "2021-09-10";
-    src = fetchFromGitHub {
-      owner = "PaterJason";
-      repo = "cmp-conjure";
-      rev = "27cfdac78ec099a8d1e82b7a810f451ff0f80a30";
-      sha256 = "1hbkafpqpzf4bzy8cyzg1zxnnpmhfkpz2vj8v8by5ym4qx8b747p";
-    };
-    meta.homepage = "https://github.com/PaterJason/cmp-conjure/";
-  };
-
-  cmp-nvim-lsp = buildVimPluginFrom2Nix {
-    pname = "cmp-nvim-lsp";
-    version = "2021-09-17";
-    src = fetchFromGitHub {
-      owner = "hrsh7th";
-      repo = "cmp-nvim-lsp";
-      rev = "246a41c55668d5f84afcd805ee73b6e419375ae0";
-      sha256 = "0ybnrs31i61l6z02fjz65ankxccd5587pnky4lsczcz12kpj6s4n";
-    };
-    meta.homepage = "https://github.com/hrsh7th/cmp-nvim-lsp/";
-  };
-
   feline-nvim = buildVimPluginFrom2Nix {
     pname = "feline.nvim";
-    version = "2021-09-16";
+    version = "2021-09-17";
     src = fetchFromGitHub {
       owner = "famiu";
       repo = "feline.nvim";
-      rev = "53bad42dee7bd3db08039f644df03b49ae887b3e";
-      sha256 = "08arp0isdxg418fky2dmjrq1ijigiiif85bhl7qwajpw4ab17820";
+      rev = "5d152e2cc28c172b42f4caba8baf0973f6a6ece6";
+      sha256 = "0mzvh62zphb35kjzx9d09k7sak6fqsk1lcmycgjxk4kydjiw68za";
     };
     meta.homepage = "https://github.com/famiu/feline.nvim/";
   };
@@ -49,18 +25,6 @@ final: prev:
       sha256 = "1r50z8c3jjx1ysazih298ni2iikblmj48gxh3k9p722kngfdsxjg";
     };
     meta.homepage = "https://github.com/jlesquembre/nterm.nvim/";
-  };
-
-  nvim-cmp = buildVimPluginFrom2Nix {
-    pname = "nvim-cmp";
-    version = "2021-09-17";
-    src = fetchFromGitHub {
-      owner = "hrsh7th";
-      repo = "nvim-cmp";
-      rev = "b47a703a48e1d2e668202c91f82d490c20dfea49";
-      sha256 = "0svxm0hgkxpbbixxnjsysdjbaxhmcxfgg25da808s500gqh3s9za";
-    };
-    meta.homepage = "https://github.com/hrsh7th/nvim-cmp/";
   };
 
 }

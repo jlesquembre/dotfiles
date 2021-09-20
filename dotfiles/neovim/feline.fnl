@@ -4,6 +4,7 @@
             nvim aniseed.nvim
             feline feline
             vimode feline.providers.vi_mode
+            file_prov feline.providers.file
             p feline.presets}})
 
 (def purple "#5d4d7a")
@@ -37,10 +38,20 @@
              "TERM" green
              "NONE" magenta})
 
+(def file-info-hl
+  {:bg bg :fg blueText :style "bold"})
+
 (defn vimode-hl []
   {:bg (a.get colors (vimode.get_vim_mode) magenta)
    :fg "#282c34"
    :style "bold"})
+
+(defn file-prov [component winid]
+  (let [(r nterm-name)
+        (pcall #(nvim.buf_get_var (nvim.win_get_buf winid) :nterm_name))]
+    (if r
+      nterm-name
+      (file_prov.file_info component winid))))
 
 (defn update-presets []
   (let [components (a.get-in p [:default :components])]
@@ -52,10 +63,11 @@
                                           :right_sep ""
                                           :hl vimode-hl})
     ;; FILE NAME
-    (a.assoc-in components [:active 1 3 :hl :bg] bg)
-    (a.assoc-in components [:active 1 3 :hl :fg] blueText)
+    (a.assoc-in components [:active 1 3 :hl] file-info-hl)
     (a.assoc-in components [:active 1 3 :left_sep] " ")
     (a.assoc-in components [:active 1 3 :right_sep] "")
+    (a.assoc-in components [:active 1 3 :type] :relative)
+    (a.assoc-in components [:active 1 3 :provider] file-prov)
 
     ;; Swap POSITION and GIT
     (let [left  (a.get-in components [:active 1])
@@ -83,7 +95,8 @@
     ;; FILE NAME
     (a.assoc-in components [:inactive 1 2]
                            {:left_sep " "
-                            :provider "file_info"})
+                            :type :relative
+                            :provider file-prov})
 
     (feline.setup {:components components})
     ; (feline.reset_highlights)
