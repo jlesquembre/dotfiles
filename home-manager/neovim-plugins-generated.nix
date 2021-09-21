@@ -4,7 +4,7 @@
 final: prev:
 {
   feline-nvim = buildVimPluginFrom2Nix {
-    pname = "feline.nvim";
+    pname = "feline-nvim";
     version = "2021-09-17";
     src = fetchFromGitHub {
       owner = "famiu";
@@ -16,7 +16,7 @@ final: prev:
   };
 
   nterm-nvim = buildVimPluginFrom2Nix {
-    pname = "nterm.nvim";
+    pname = "nterm-nvim";
     version = "2021-08-24";
     src = fetchFromGitHub {
       owner = "jlesquembre";
