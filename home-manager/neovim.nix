@@ -261,8 +261,8 @@ in
       vim-gnupg
       vim-sayonara
 
-      nterm-nvim
-      # custom-vim-plugs.nterm-nvim
+      # nterm-nvim
+      custom-vim-plugs.nterm-nvim
       # (h.neovim.localVimPlugin (vimPluginsDir + /nterm.nvim))
 
       # Git

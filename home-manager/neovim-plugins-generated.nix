@@ -17,12 +17,12 @@ final: prev:
 
   nterm-nvim = buildVimPluginFrom2Nix {
     pname = "nterm-nvim";
-    version = "2021-08-24";
+    version = "2021-09-21";
     src = fetchFromGitHub {
       owner = "jlesquembre";
       repo = "nterm.nvim";
-      rev = "bb612046c7775c6986e706b8ab31057ed8ca19b2";
-      sha256 = "1r50z8c3jjx1ysazih298ni2iikblmj48gxh3k9p722kngfdsxjg";
+      rev = "fb16fc215702b075574f83c0e332d47575da642e";
+      sha256 = "1kcdkw4i1q889hnil70fjqqikzlzqcrhf0i5ab6y8mh5vpg6cp96";
     };
     meta.homepage = "https://github.com/jlesquembre/nterm.nvim/";
   };
