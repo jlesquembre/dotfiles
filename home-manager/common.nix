@@ -61,6 +61,8 @@ in
         }
     )
 
+    graphviz
+
     # nix tools
     nix-update
     nixpkgs-review
