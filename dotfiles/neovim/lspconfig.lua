@@ -149,7 +149,7 @@ local function setup_lspconfig()
   -- require'lspconfig'.jdtls.setup(default_config)
   lspconfig.jsonls.setup(default_config)
   lspconfig.rls.setup(default_config)
-  -- require'lspconfig'.rnix.setup(default_config)
+  lspconfig.rnix.setup(default_config)
   lspconfig.terraformls.setup(default_config)
 
   -- Special configs
