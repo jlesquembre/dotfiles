@@ -210,6 +210,8 @@ in
       # seat * keyboard_grouping none
       # seat * xcursor_theme default 24
       seat seat0 xcursor_theme Qogir 32
+
+      include /etc/sway/config.d/*
     '';
 
     config.bars = [ ];
