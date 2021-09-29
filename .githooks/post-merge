@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-# nvim --noplugin --headless +"helptags ~/.config/nvim/doc" +"q!"

@@ -16,11 +16,3 @@ boot/cache/
 
 .tern-port
 plug.vim.old
-/.blackbox/pubring.gpg~
-/.blackbox/pubring.kbx~
-/.blackbox/secring.gpg
-/secrets/nginx/webdav/default.nix
-/secrets/secrets.nix
-/secrets/vpn/default.nix
-/secrets/wireless-networks.nix
-/secrets/nginx/webdav/webdav.nginx.conf

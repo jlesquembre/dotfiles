@@ -1,5 +1,0 @@
-secrets/nginx/webdav/default.nix
-secrets/nginx/webdav/webdav.nginx.conf
-secrets/secrets.nix
-secrets/vpn/default.nix
-secrets/wireless-networks.nix
