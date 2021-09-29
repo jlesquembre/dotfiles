@@ -1,8 +1,9 @@
 keys:
   - &jl 861E4236005ACB35220D814709AFB79F061ACD6C
-  - &personal f5a5cfc54a578ddc057d20cac50ce165d967ba53
+  - &personal age1s7pd5lll4r9m4hk9fhpz3dp2qjls96edfx0v62lkw50f29vp2yysd4t3gt
 creation_rules:
   - key_groups:
       - pgp:
           - *jl
+        age:
           - *personal

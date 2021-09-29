@@ -11,11 +11,14 @@ let
         };
     in
     (import src { inherit pkgs; });
+  ageKeyFile = "/etc/nixos/key.txt";
 in
 {
+  inherit ageKeyFile;
+
   import-secret = secretPath: (builtins.exec [
-    "${pkgs.sops}/bin/sops"
-    "-d"
-    secretPath
+    "sh"
+    "-c"
+    ''SOPS_AGE_KEY_FILE=${ageKeyFile} ${pkgs.sops}/bin/sops -d ${secretPath}''
   ]);
 } // nix-medley

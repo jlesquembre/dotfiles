@@ -29,11 +29,11 @@ let
 
   sops-nix =
     let
-      commit = "4a8cb2bd5051cdce7767bc0ea817aedb3896462d";
+      commit = "ae84c313c5250a832d61dae9e1e659b27542c47b";
     in
     fetchTarball {
       url = "https://github.com/Mic92/sops-nix/archive/${commit}.tar.gz";
-      sha256 = "0njfm7rkij94h8sj4vi6aqpr74ddj2vxpa71sz7g82p9cy59db60";
+      sha256 = "1p4qfbb108syycszjyncwx4wiqgw6qn53cp4b21afff7pmbp02bs";
     };
 
   h = import ./helpers.nix { inherit pkgs; };
@@ -518,7 +518,7 @@ rec
     ];
   };
 
-  sops.sshKeyPaths = [ "/etc/nixos/id_rsa_personal" ];
+  sops.age.keyFile = h.ageKeyFile;
 
   # TODO move to home-manager
   sops.secrets.ssh-config = {
