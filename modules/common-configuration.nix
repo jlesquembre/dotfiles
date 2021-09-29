@@ -502,6 +502,7 @@ rec
   };
 
   sops.age.keyFile = h.ageKeyFile;
+  sops.age.sshKeyPaths = [ ];
 
   # TODO move to home-manager
   sops.secrets.ssh-config = {
