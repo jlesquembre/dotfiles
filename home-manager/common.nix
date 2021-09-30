@@ -151,6 +151,7 @@ in
     step-ca
     step-cli
     tcpdump
+    tmate
     watchman # postman
     websocat
     websocketd
