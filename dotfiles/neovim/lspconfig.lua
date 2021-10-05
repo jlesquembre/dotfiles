@@ -19,6 +19,7 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
  vim.lsp.handlers.signature_help, { border = "single" })
 
+require'goto-preview'.setup{}
 local lspconfig = require'lspconfig'
 local root_pattern = lspconfig.util.root_pattern
 
@@ -51,8 +52,11 @@ local function custom_attach(client, bufnr)
   set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
   set_keymap('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
 
-  set_keymap('n', 'gdd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  set_keymap('n', 'gdi',   '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  -- set_keymap('n', 'gdd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  -- set_keymap('n', 'gdi',   '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  set_keymap('n', 'gdd', [[<cmd>lua require('goto-preview').goto_preview_definition()<CR>]], opts)
+  set_keymap('n', 'gdi', [[<cmd>lua require('goto-preview').goto_preview_implementation()<CR>]], opts)
+  set_keymap('n', 'gdc', [[<cmd>lua require('goto-preview').close_all_win()<CR>]], opts)
   -- set_keymap('n', 'gd',    '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   set_keymap('n', '1gD',   '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   -- set_keymap('n', 'gr',    '<cmd>lua vim.lsp.buf.references()<CR>', opts)
@@ -65,7 +69,8 @@ local function custom_attach(client, bufnr)
 
   set_keymap('n', '<leader>rn',  '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
-  set_keymap('n', 'gdp',  [[<cmd>lua peek_definition()<CR>]], opts)
+  -- set_keymap('n', 'gdp',  [[<cmd>lua peek_definition()<CR>]], opts)
+  set_keymap('n', 'gdg', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   --
   -- TELESCOPE
   --

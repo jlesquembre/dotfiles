@@ -194,6 +194,7 @@ in
       # LSP
       nvim-lspconfig
       nvim-jdtls
+      goto-preview
       # (h.neovim.localVimPlugin (vimPluginsDir + /nvim-jdtls))
       nvim-dap
 
