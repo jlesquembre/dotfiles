@@ -5,12 +5,12 @@ final: prev:
 {
   feline-nvim = buildVimPluginFrom2Nix {
     pname = "feline.nvim";
-    version = "2021-09-26";
+    version = "2021-10-04";
     src = fetchFromGitHub {
       owner = "famiu";
       repo = "feline.nvim";
-      rev = "a67897405f23cce54473d2afbc1a7df63688b815";
-      sha256 = "1wi2rqbkp6hz454kxi5fznb0lkac59f99ffj0s0snzzq21d3k5d5";
+      rev = "227566a346a975f8f301fc21a0d02d4068f78b0a";
+      sha256 = "1dym8bm1c8ini760mmm5r6i460qcmrg1yydngq6y6pd5rw6m9zja";
     };
     meta.homepage = "https://github.com/famiu/feline.nvim/";
   };
