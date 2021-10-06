@@ -90,8 +90,13 @@
                          org.openjfx/javafx-web      {:mvn/version "17.0.0.1"}}}
             ; :main-opts ["-m" "cognitect.rebl"]}
 
-           :user {:extra-deps {me.lafuente/local-utils {:local/root "$HOME/projects/clj-dev-utils"}}
+           :user {:extra-deps {me.lafuente/clj-dev-utils {:git/url "https://github.com/jlesquembre/clj-dev-utils"
+                                                          :git/tag "1.0"
+                                                          :git/sha "7d76d43"}}
                   :exec-fn local-utils/init}
+
+           :user-local {:extra-deps {me.lafuente/clj-dev-utils {:local/root "$HOME/projects/clj-dev-utils"}}
+                        :exec-fn local-utils/init}
 
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.3"}
                                 cider/cider-nrepl {:mvn/version "0.27.2"}}
