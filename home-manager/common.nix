@@ -88,7 +88,7 @@ in
     # JDK tools
     jdk11
     visualvm
-    jetbrains.idea-community
+    # jetbrains.idea-community
     (maven.override
       {
         jdk = jdk11;
@@ -257,13 +257,6 @@ in
     text = ''
       .headers on
       .mode column
-    '';
-  };
-
-  home.file.zerotier-token = {
-    target = ".zeroTierOneAuthToken";
-    text = ''
-      ${secrets.g-systems.zerotier-token}
     '';
   };
 
