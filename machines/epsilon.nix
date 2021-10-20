@@ -16,11 +16,11 @@ in
       inherit hostName;
       enable-wifi = true;
       enable-bluetooth = true;
+      extra-imports = [ ../modules/rbi.nix ];
     })
     "${nixos-hardware}/lenovo/thinkpad/p53"
   ];
 
-  # networking.wireless.interfaces = [ "wlp2s0" ];
   networking.wireless.interfaces = [ "wlp82s0" ];
 
   # Use the systemd-boot EFI boot loader.

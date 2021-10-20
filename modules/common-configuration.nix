@@ -1,4 +1,4 @@
-{ hostName, enable-wifi ? false, enable-bluetooth ? false }:
+{ hostName, enable-wifi ? false, enable-bluetooth ? false, extra-imports ? [ ] }:
 
 { config, options, pkgs, lib, ... }:
 let
@@ -84,6 +84,7 @@ rec
   ]
   ++ lib.lists.optional enable-wifi (import ./wifi.nix { custom-networks = (h.import-secret ../sops/wireless-networks.nix) { }; })
   ++ lib.lists.optional enable-bluetooth (import ./bluetooth.nix)
+  ++ builtins.map (x: import x { inherit secrets user userHome; }) extra-imports
   ;
 
   nix = {
