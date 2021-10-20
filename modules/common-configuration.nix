@@ -80,7 +80,6 @@ rec
     /etc/nixos/hardware-configuration.nix
     ./cachix.nix
     (import ./network.nix { inherit hostName userHome; })
-    (import ./gsystems.nix { inherit secrets user userHome; })
   ]
   ++ lib.lists.optional enable-wifi (import ./wifi.nix { custom-networks = (h.import-secret ../sops/wireless-networks.nix) { }; })
   ++ lib.lists.optional enable-bluetooth (import ./bluetooth.nix)
