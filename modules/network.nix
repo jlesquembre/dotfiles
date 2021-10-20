@@ -68,11 +68,15 @@ in
         ];
     in
     ''
-      . {
+      (default) {
         # log
         # errors
         # Cloudflare, Google and OpenDNS
         forward . ${ips}
+      }
+
+      . {
+        import default
         cache
       }
 
