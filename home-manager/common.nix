@@ -193,8 +193,16 @@ in
     text = (
       with builtins;
       replaceStrings
-        [ "$HOME" "$CLJ_USER_PATH" ]
-        [ "${config.home.homeDirectory}" "${dotfiles}/clojure/src" ]
+        [ "$HOME" "$CLJ_USER_PATH" "$CUSTOM_MVN_REPOS" ]
+        [
+          "${config.home.homeDirectory}"
+          "${dotfiles}/clojure/src"
+          ''
+            {
+            ${secrets.rbi.clj-mvn-repos}
+            }
+          ''
+        ]
         (readFile "${dotfiles}/clojure/deps.edn")
     );
   };
@@ -305,16 +313,13 @@ in
   home.file.maven = {
     text = ''
       <settings>
-        <profiles>
-          ${secrets.g-systems.maven-profiles}
-        </profiles>
         <servers>
           <server>
             <id>clojars</id>
             <username>jlesquembre</username>
             <password>''${clojars.password}</password>
           </server>
-          ${secrets.g-systems.maven-servers}
+          ${secrets.rbi.maven-servers}
         </servers>
       </settings>
     '';
