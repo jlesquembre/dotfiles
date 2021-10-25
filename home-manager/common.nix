@@ -591,7 +591,7 @@ in
       "diff \"sopsdiffer\"" = {
         textconv = "sops -d";
       };
-    };
+    } // secrets.rbi.git-config;
     delta.enable = true;
     delta.options = #[ "--dark" "--theme base16" "--file-color #ffff00" "--file-style box" ];
       {
