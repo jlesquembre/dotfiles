@@ -56,7 +56,7 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'path' },
-    { name = 'buffer' },
+    { name = 'buffer', keyword_length = 3 },
   },
   formatting = {
     format = function(entry, vim_item)
@@ -81,7 +81,7 @@ function _G.cmp_clojure_config()
     sources = {
       { name = 'conjure' },
       { name = 'path' },
-      { name = 'buffer' },
+      { name = 'buffer', keyword_length = 3 },
     },
   }
 end
