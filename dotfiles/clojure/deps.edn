@@ -72,13 +72,13 @@
                          com.cognitect/rebl
                          ;; adjust to match your install location
                          {:local/root "$HOME/projects/REBL/REBL-0.9.220.jar"}
-                         org.openjfx/javafx-fxml     {:mvn/version "17.0.0.1"}
-                         org.openjfx/javafx-controls {:mvn/version "17.0.0.1"}
-                         org.openjfx/javafx-graphics {:mvn/version "17.0.0.1"}
-                         org.openjfx/javafx-media    {:mvn/version "17.0.0.1"}
-                         org.openjfx/javafx-swing    {:mvn/version "17.0.0.1"}
-                         org.openjfx/javafx-base     {:mvn/version "17.0.0.1"}
-                         org.openjfx/javafx-web      {:mvn/version "17.0.0.1"}}}
+                         org.openjfx/javafx-fxml     {:mvn/version "18-ea+4"}
+                         org.openjfx/javafx-controls {:mvn/version "18-ea+4"}
+                         org.openjfx/javafx-graphics {:mvn/version "18-ea+4"}
+                         org.openjfx/javafx-media    {:mvn/version "18-ea+4"}
+                         org.openjfx/javafx-swing    {:mvn/version "18-ea+4"}
+                         org.openjfx/javafx-base     {:mvn/version "18-ea+4"}
+                         org.openjfx/javafx-web      {:mvn/version "18-ea+4"}}}
             ; :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:extra-deps {me.lafuente/clj-dev-utils {:git/url "https://github.com/jlesquembre/clj-dev-utils"
@@ -95,7 +95,7 @@
 
            :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "0.8.3"}
                                      cider/cider-nrepl {:mvn/version "0.27.2"}
-                                     cider/piggieback {:mvn/version "0.5.2"}}
+                                     cider/piggieback {:mvn/version "0.5.3"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
                                     "[cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl]"]}
            :extra {:extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
