@@ -1,7 +1,7 @@
 name: "Update deps"
 on:
   schedule:
-    - cron: "1 5 * * 2"
+    - cron: "1 5 * * 3"
 
 jobs:
   clojure-deps:
