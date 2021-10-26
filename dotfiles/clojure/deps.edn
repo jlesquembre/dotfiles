@@ -10,7 +10,7 @@
 ;; Only the last :paths is kept and others are dropped.
 
 {
- :mvn/repos $CUSTOM_MVN_REPOS
+ #_:mvn/repos #_$CUSTOM_MVN_REPOS
 
  :aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "1.1.0"}}
                       :main-opts  ["-m" "antq.core"]}
@@ -47,18 +47,6 @@
            ;; see https://github.com/jonase/eastwood#running-eastwood-in-a-repl
            :eastwood {:extra-deps {jonase/eastwood {:mvn/version "0.9.9"}}
                       :main-opts ["-m" "eastwood.lint" "{:source-paths,[\"src\"],:test-paths,[\"test\"]}"]}
-
-           ;; uberjar building:
-           ;; - see https://github.com/seancorfield/depstar for a minimalist approach:
-           ;;   - clj -A:uberjar result.jar
-           ;; - to run it:
-           ;;   - java -cp result.jar clojure.main -m mymain.namespace
-           ;; - build a library JAR:
-           ;;   - clj -A:jar result-lib.jar
-           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.216"}}
-                     :main-opts ["-m" "hf.depstar.uberjar"]}
-           :jar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.216"}}
-                 :main-opts ["-m" "hf.depstar.jar"]}
 
            :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.2.2"}}
                       :jvm-opts   []

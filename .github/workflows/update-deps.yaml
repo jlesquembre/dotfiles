@@ -1,7 +1,8 @@
 name: "Update deps"
-on:
-  schedule:
-    - cron: "1 5 * * 2"
+on: push
+# on:
+#   schedule:
+#     - cron: "1 5 * * 2"
 
 jobs:
   clojure-deps:
@@ -9,13 +10,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - uses: DeLaGuardo/setup-clojure@master
         with:
           tools-deps: latest
+
       - name: Update clj dependencies
         run:
-          clojure -Sdeps '{:deps {olical/depot {:mvn/version "1.8.4"}}}' -m
-          depot.outdated.main --update dotfiles/clojure/deps.edn
+          clojure -Sdeps '{:deps {com.github.liquidz/antq {:mvn/version
+          "RELEASE"}}}' -M -m antq.core -d dotfiles/clojure --upgrade --force
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@main
         with:
@@ -24,24 +28,24 @@ jobs:
           assignees: jlesquembre
           branch: update-clj-deps
 
-  neovim-plugins:
-    runs-on: ubuntu-latest
+  # neovim-plugins:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      - uses: cachix/install-nix-action@v14
-        with:
-          # nix_path: nixpkgs=https://github.com/jlesquembre/nixpkgs/archive/21a6a513b997a83b66979f24b9b3310d673c89de.tar.gz
-          nix_path: nixpkgs=channel:nixos-unstable
+  #     - uses: cachix/install-nix-action@v14
+  #       with:
+  #         # nix_path: nixpkgs=https://github.com/jlesquembre/nixpkgs/archive/21a6a513b997a83b66979f24b9b3310d673c89de.tar.gz
+  #         nix_path: nixpkgs=channel:nixos-unstable
 
-      - name: Check plugin updates
-        run: nix-shell --command update-vim-plugins shell-nvim.nix
+  #     - name: Check plugin updates
+  #       run: nix-shell --command update-vim-plugins shell-nvim.nix
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@main
-        with:
-          commit-message: Update nvim plugins
-          title: Update neovim plugins
-          assignees: jlesquembre
-          branch: update-nvim-deps
+  #     - name: Create Pull Request
+  #       uses: peter-evans/create-pull-request@main
+  #       with:
+  #         commit-message: Update nvim plugins
+  #         title: Update neovim plugins
+  #         assignees: jlesquembre
+  #         branch: update-nvim-deps
