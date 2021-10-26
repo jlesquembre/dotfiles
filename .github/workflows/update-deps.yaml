@@ -9,13 +9,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - uses: DeLaGuardo/setup-clojure@master
         with:
           tools-deps: latest
+
       - name: Update clj dependencies
         run:
-          clojure -Sdeps '{:deps {olical/depot {:mvn/version "1.8.4"}}}' -m
-          depot.outdated.main --update dotfiles/clojure/deps.edn
+          clojure -Sdeps '{:deps {com.github.liquidz/antq {:mvn/version
+          "RELEASE"}}}' -M -m antq.core -d dotfiles/clojure --upgrade --force
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@main
         with:

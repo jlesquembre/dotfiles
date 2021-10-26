@@ -193,10 +193,11 @@ in
     text = (
       with builtins;
       replaceStrings
-        [ "$HOME" "$CLJ_USER_PATH" "$CUSTOM_MVN_REPOS" ]
+        [ "$HOME" "$CLJ_USER_PATH" "#_:mvn/repos" "#_$CUSTOM_MVN_REPOS" ]
         [
           "${config.home.homeDirectory}"
           "${dotfiles}/clojure/src"
+          ":mvn/repos"
           ''
             {
             ${secrets.rbi.clj-mvn-repos}
