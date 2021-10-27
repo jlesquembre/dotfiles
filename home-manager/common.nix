@@ -598,6 +598,8 @@ in
         textconv = "sops -d";
       };
     } // secrets.rbi.git-config;
+    includes = secrets.rbi.git-includes;
+
     delta.enable = true;
     delta.options = #[ "--dark" "--theme base16" "--file-color #ffff00" "--file-style box" ];
       {
