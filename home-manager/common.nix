@@ -597,7 +597,7 @@ in
       "diff \"sopsdiffer\"" = {
         textconv = "sops -d";
       };
-    } // secrets.rbi.git-config;
+    };
     includes = secrets.rbi.git-includes;
 
     delta.enable = true;
