@@ -156,6 +156,9 @@ in
     websocat
     websocketd
     wuzz
+
+    ddosify
+    citrix_workspace
   ];
 
   home.sessionVariables = {
@@ -180,6 +183,30 @@ in
   # '';
 
   xdg.enable = true;
+  xdg.mime.enable = true;
+  xdg.mimeApps.defaultApplications = {
+    "application/x-ica" = "citrix.desktop";
+
+    "text/html" = "google-chrome.desktop";
+    "x-scheme-handler/http" = "google-chrome.desktop";
+    "x-scheme-handler/https" = "google-chrome.desktop";
+    "x-scheme-handler/about" = "google-chrome.desktop";
+    "x-scheme-handler/unknown" = "google-chrome.desktop";
+    "x-scheme-handler/mailto" = "google-chrome.desktop";
+    "x-scheme-handler/msteams" = "teams.desktop";
+  };
+  xdg.desktopEntries =
+    {
+      citrix = {
+        name = "Citrix";
+        genericName = "Citrix";
+        exec = "${pkgs.citrix_workspace}/bin/wfica %U";
+        terminal = false;
+        categories = [ "Network" ];
+        mimeType = [ "application/x-ica" ];
+        fileValidation = true;
+      };
+    };
 
   xdg.configFile."nixpkgs/config.nix".text =
     ''
