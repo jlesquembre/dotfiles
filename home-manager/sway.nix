@@ -24,6 +24,36 @@ let
     destination = "/kanshi/config";
   };
 
+  pass-menu = pkgs.writeScriptBin "pass-menu"
+    ''
+      #!/usr/bin/env bash
+
+      shopt -s nullglob globstar
+
+      otp=0
+      if [[ $1 == "--otp" ]]; then
+        otp=1
+        shift
+      fi
+
+      prefix=''${PASSWORD_STORE_DIR-~/.password-store}
+      password_files=( "$prefix"/**/*.gpg )
+      password_files=( "''${password_files[@]#"$prefix"/}" )
+      password_files=( "''${password_files[@]%.gpg}" )
+
+      password=$(printf '%s\n' "''${password_files[@]}" | "${pkgs.fuzzel}/bin/fuzzel" -d "$@")
+
+      [[ -n $password ]] || exit
+
+      pass show -c "$password" 2>/dev/null
+      # pass otp -c "$password" 2>/dev/null
+      if [[ $otp -eq 0 ]]; then
+        pass show -c "$password" 2>/dev/null
+      else
+        pass otp -c "$password" 2>/dev/null
+      fi
+    '';
+
   volume-sh = pkgs.writeScriptBin "volume.sh"
     ''
       #!${pkgs.bash}/bin/bash
@@ -129,6 +159,8 @@ let
 
 in
 {
+  home.packages = [ pkgs.fuzzel ];
+
   wayland.windowManager.sway = {
     enable = true;
     package = null;
@@ -178,18 +210,20 @@ in
         # "${modifier}+Shift+q" = "kill";
         # "${modifier}+d" = "exec ${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu | ${pkgs.findutils}/bin/xargs swaymsg exec --";
 
-        # TODO replace wofi with ulauncher? https://ulauncher.io/
-        "${modifier}+d" = "exec ${pkgs.wofi}/bin/wofi --show run";
+        "${modifier}+d" = "exec ${pkgs.fuzzel}/bin/fuzzel";
         # "${modifier}+Shift+s" = "exec \"swaylock -f -c 000000 && systemctl suspend\"";
         "${modifier}+Shift+s" = "exec \"systemctl suspend\"";
         "${modifier}+Shift+b" = "exec \"swaylock -f -c 000000\"";
-        "${modifier}+Shift+o" = ''exec "zenity --question --text 'Reboot the system\nAre you sure?' && systemctl reboot"'';
-        "${modifier}+Shift+p" = ''exec "zenity --question --text 'Poweroff the system\nAre you sure?' && systemctl poweroff"'';
+        "${modifier}+o" = ''exec "zenity --question --text 'Reboot the system\nAre you sure?' && systemctl reboot"'';
+        "${modifier}+Shift+o" = ''exec "zenity --question --text 'Poweroff the system\nAre you sure?' && systemctl poweroff"'';
 
         "${modifier}+y" = "exec --no-startup-id ${cycle-workspace}/bin/cycle-workspace.sh";
-        "${modifier}+o" = "exec --no-startup-id ${focus-window}/bin/focus-window.sh";
+        # "${modifier}+o" = "exec --no-startup-id ${focus-window}/bin/focus-window.sh";
         "${modifier}+i" = "exec ${pkgs.wdisplays}/bin/wdisplays";
-        "${modifier}+p" = "exec ${pkgs.pavucontrol}/bin/pavucontrol";
+        "${modifier}+s" = "exec ${pkgs.pavucontrol}/bin/pavucontrol";
+
+        "${modifier}+p" = "exec ${pass-menu}/bin/pass-menu";
+        "${modifier}+Shift+p" = "exec ${pass-menu}/bin/pass-menu --otp";
 
         "${modifier}+u" = "exec ${pkgs.clipman}/bin/clipman pick -t wofi -T'-i'";
 

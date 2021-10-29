@@ -1,9 +1,9 @@
 {}:
 self: super: {
 
-  pass = super.pass.override {
-    waylandSupport = true;
-  };
+  # pass = super.pass.override {
+  #   waylandSupport = true;
+  # };
 
   # chromium = super.override { enableVaapi = true; };
 

@@ -388,11 +388,6 @@ in
 
   systemd.user.startServices = true;
 
-  # TODO See
-  # https://www.youtube.com/watch?v=sVkURNfxPd4
-  # integrate with menu launcher
-  # Add
-  # https://github.com/tadfisher/pass-otp
   programs.password-store = {
     enable = true;
     package = pkgs.pass-wayland.withExtensions (exts:
