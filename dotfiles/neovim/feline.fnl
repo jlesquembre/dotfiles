@@ -5,7 +5,10 @@
             feline feline
             vimode feline.providers.vi_mode
             file_prov feline.providers.file
-            p feline.presets}})
+            p feline.presets.default}})
+
+(comment
+  (a.identity p))
 
 (def purple "#5d4d7a")
 (def magenta "#c678dd")
@@ -21,85 +24,103 @@
 (def blueText "#8FBCBB")
 
 ; https://github.com/famiu/feline.nvim/blob/53bad42dee7bd3db08039f644df03b49ae887b3e/lua/feline/providers/vi_mode.lua#L5
-(def colors {"NORMAL" magenta
-             "INSERT" green
-             "VISUAL" blue
-             "OP" yellow
-             "LINES" blue
-             "BLOCK" blue
-             "SELECT" orange
-             "V-REPLACE" purple
-             "REPLACE" purple
-             "COMMAND" red
-             "ENTER" red
-             "MORE" red
-             "CONFIRM" red
-             "SHELL" green
-             "TERM" green
-             "NONE" magenta})
+(def vi-mode-colors {"NORMAL" magenta
+                     "INSERT" green
+                     "VISUAL" blue
+                     "OP" yellow
+                     "LINES" blue
+                     "BLOCK" blue
+                     "SELECT" orange
+                     "V-REPLACE" purple
+                     "REPLACE" purple
+                     "COMMAND" red
+                     "ENTER" red
+                     "MORE" red
+                     "CONFIRM" red
+                     "SHELL" green
+                     "TERM" green
+                     "NONE" magenta})
 
 (def file-info-hl
   {:bg bg :fg blueText :style "bold"})
 
 (defn vimode-hl []
-  {:bg (a.get colors (vimode.get_vim_mode) magenta)
+  {:bg (a.get vi-mode-colors (vimode.get_vim_mode) magenta)
    :fg "#282c34"
    :style "bold"})
 
-(defn file-prov [component winid]
+(defn file-prov [component opts]
   (let [(r nterm-name)
-        (pcall #(nvim.buf_get_var (nvim.win_get_buf winid) :nterm_name))]
+        (pcall #(nvim.buf_get_var (nvim.get_current_buf) :nterm_name))]
     (if r
-      nterm-name
-      (file_prov.file_info component winid))))
+      (values nterm-name)
+      (file_prov.file_info component {:type "relative-short"}))))
 
-(defn update-presets []
-  (let [components (a.get-in p [:default :components])]
+(def active-left
+  [{:hl {:fg blue} :provider "▊ "}
 
-    (a.assoc-in components [:active 1 1 :hl :fg] blue)
+   ;; VIM mode
+   {:hl vimode-hl :provider vimode.get_vim_mode :right_sep " "}
 
-    ;; VIM mode
-    (a.assoc-in components [:active 1 2] {:provider vimode.get_vim_mode
-                                          :right_sep ""
-                                          :hl vimode-hl})
-    ;; FILE NAME
-    (a.assoc-in components [:active 1 3 :hl] file-info-hl)
-    (a.assoc-in components [:active 1 3 :left_sep] " ")
-    (a.assoc-in components [:active 1 3 :right_sep] "")
-    (a.assoc-in components [:active 1 3 :type] :relative)
-    (a.assoc-in components [:active 1 3 :provider] file-prov)
+   ;; File name
+   {:hl {:bg bg :fg blueText :style "bold"}
+    :provider file-prov}
 
-    ;; Swap POSITION and GIT
-    (let [left  (a.get-in components [:active 1])
-          right (a.get-in components [:active 2])
-          position-provider (table.remove left 5)]
-      (table.insert left 5 (table.remove right 4))
-      (table.insert left 5 (table.remove right 3))
-      (table.insert left 5 (table.remove right 2))
-      (table.insert left 5 (table.remove right 1))
-      (a.assoc-in left [5 :left_sep] " ")
+   ;; File size
+   {:provider "file_size"
+    :right_sep [" "
+                {:hl {:bg "#1F1F23" :fg "#D0D0D0" :style "NONE"}
+                 :str "slant_left_2_thin"}
+                " "]}
 
-      (table.insert right 1 position-provider)
-      (a.assoc-in right [2 :left_sep] " ")
-      (a.assoc-in right [1 :right_sep 1] ""))
+   ;; Git
+   {:hl {:bg "black" :fg "white" :style "bold"}
+    :provider "git_branch"
+    :right_sep {:hl {:bg "black" :fg "NONE"} :str " "}}
+   {:hl {:bg "black" :fg "green" :style "NONE"}
+    :provider "git_diff_added"}
+   {:hl {:bg "black" :fg "orange" :style "NONE"}
+    :provider "git_diff_changed"}
+   {:hl {:bg "black" :fg "red" :style "NONE"}
+    :provider "git_diff_removed"
+    :right_sep {:hl {:bg "black" :fg "NONE"} :str " "}}
 
-    ;;; INACTIVE
+   ;; LSP
+   {:hl {:fg "red" :style "NONE"}
+    :provider "diagnostic_errors"}
+   {:hl {:fg "yellow" :style "NONE"}
+    :provider "diagnostic_warnings"}
+   {:hl {:fg "cyan" :style "NONE"}
+    :provider "diagnostic_hints"}
+   {:hl {:fg "skyblue" :style "NONE"}
+    :provider "diagnostic_info"}])
 
-    ;; FILE TYPE
-    (let [style {:bg purple :fg blueText :style "NONE"}]
-      (a.assoc-in components [:inactive 1 1]
-                  {:hl style
-                   :provider "file_type"
-                   :left_sep {:hl style :str " "}
-                   :right_sep [{:hl style :str " "} "slant_right"]}))
-    ;; FILE NAME
-    (a.assoc-in components [:inactive 1 2]
-                           {:left_sep " "
-                            :type :relative
-                            :provider file-prov})
+(def active-right
+  [{:provider "position"
+    :right_sep [{:hl {:bg "#1F1F23" :fg "#D0D0D0" :style "NONE"}
+                 :str "slant_right_2_thin"}]}
 
-    (feline.setup {:components components})
-    ; (feline.reset_highlights)
-    components))
+   {:hl {:style "bold"}
+    :left_sep " " :right_sep " "
+    :provider "line_percentage"}
+   {:hl {:fg "skyblue" :style "bold"}
+    :provider "scroll_bar"}])
 
-(update-presets)
+(def inactive-left
+  [
+   {:hl {:bg purple :fg blueText}
+    :left_sep {:hl {:bg purple :fg "NONE"} :str " "}
+    :provider "file_type"
+    :right_sep [{:hl {:bg purple :fg "NONE"} :str " "}
+                "slant_right"]}
+   {:left_sep " "
+    :type :relative
+    :provider file-prov}])
+
+(def inactive-right [])
+
+(def components {:active [active-left active-right]
+                 :inactive [inactive-left inactive-right]})
+
+(feline.setup {:components components})
+; (feline.reset_highlights)
