@@ -29,8 +29,8 @@ cmp.setup({
       select = true,
     }),
     ["<Tab>"] = cmp.mapping(function(fallback)
-        if vim.fn.pumvisible() == 1 then
-          vim.fn.feedkeys(t("<C-n>"), "n")
+        if cmp.visible() then
+          cmp.select_next_item()
         elseif luasnip.expand_or_jumpable() then
           vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
         elseif check_back_space() then
@@ -41,8 +41,8 @@ cmp.setup({
       end,
       { "i", "s", }),
       ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if vim.fn.pumvisible() == 1 then
-          vim.fn.feedkeys(t("<C-p>"), "n")
+        if cmp.visible() then
+          cmp.select_prev_item()
         elseif luasnip.jumpable(-1) then
           vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
         else
@@ -79,6 +79,7 @@ cmp.setup({
 function _G.cmp_clojure_config()
   cmp.setup.buffer {
     sources = {
+      { name = 'luasnip' },
       { name = 'conjure' },
       { name = 'path' },
       { name = 'buffer', keyword_length = 3 },
