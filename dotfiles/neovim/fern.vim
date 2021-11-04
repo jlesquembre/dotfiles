@@ -30,12 +30,12 @@ function! FernInit() abort
   " nmap <buffer> A <Plug>(fern-action-new-file)<C-r>=strftime("%Y-%m-%d-")<cr>.md<Left><Left><Left>
   nmap <buffer> K <Plug>(fern-action-new-dir)
   nmap <buffer> D <Plug>(fern-action-remove)
-  nmap <buffer> H <Plug>(fern-action-hidden-toggle)
+  nmap <buffer> H <Plug>(fern-action-hidden:toggle)
   nmap <buffer> R <Plug>(fern-action-rename)
   nmap <buffer> M <Plug>(fern-action-move)
   nmap <buffer> C <Plug>(fern-action-copy)
   nmap <buffer><nowait> r <Plug>(fern-action-reload)
-  nmap <buffer><nowait> m <Plug>(fern-action-mark-toggle)j
+  nmap <buffer><nowait> m <Plug>(fern-action-mark:toggle)j
   nmap <buffer> e <Plug>(fern-action-open)
   nmap <buffer> s <Plug>(fern-action-open:split)
   nmap <buffer> v <Plug>(fern-action-open:vsplit)
