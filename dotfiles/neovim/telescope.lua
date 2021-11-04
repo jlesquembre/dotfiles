@@ -35,7 +35,6 @@ M.project_files = function()
   if not ok then require'telescope.builtin'.find_files(opts) end
 end
 
-require('telescope').load_extension('lispdocs')
 require('telescope').load_extension('nterm')
 
 
@@ -67,7 +66,7 @@ function help_ft_telescope()
   local set_keymap = vim.api.nvim_buf_set_keymap
   local opts = {noremap = true, silent = true}
 
-  set_keymap(bufnr, 'n', '<leader>fh', '<cmd>Telescope lispdocs<cr>', {})
+  set_keymap(bufnr, 'n', '<leader>fh', '<cmd>lua require"lispdocs".find()<cr>', {})
 end
 
 
