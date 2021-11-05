@@ -5,24 +5,24 @@ final: prev:
 {
   feline-nvim = buildVimPluginFrom2Nix {
     pname = "feline.nvim";
-    version = "2021-10-04";
+    version = "2021-10-15";
     src = fetchFromGitHub {
       owner = "famiu";
       repo = "feline.nvim";
-      rev = "227566a346a975f8f301fc21a0d02d4068f78b0a";
-      sha256 = "1dym8bm1c8ini760mmm5r6i460qcmrg1yydngq6y6pd5rw6m9zja";
+      rev = "4ef5e1516395eea731275e0f58b6bfba5c6ac9c1";
+      sha256 = "12fci8gkbs3gf7cx68dpczkvsgy7bbax6f5fdl6fbjszpwr96lhw";
     };
     meta.homepage = "https://github.com/famiu/feline.nvim/";
   };
 
   nterm-nvim = buildVimPluginFrom2Nix {
     pname = "nterm.nvim";
-    version = "2021-09-21";
+    version = "2021-11-05";
     src = fetchFromGitHub {
       owner = "jlesquembre";
       repo = "nterm.nvim";
-      rev = "fb16fc215702b075574f83c0e332d47575da642e";
-      sha256 = "1kcdkw4i1q889hnil70fjqqikzlzqcrhf0i5ab6y8mh5vpg6cp96";
+      rev = "992cb567250cbf59d1465eb7371f9c6c75a13fb0";
+      sha256 = "0d7fww3bv8fcl4wy29laa2drlhr6a7b29xlcfm5mxxdyyaxa1f3c";
     };
     meta.homepage = "https://github.com/jlesquembre/nterm.nvim/";
   };
