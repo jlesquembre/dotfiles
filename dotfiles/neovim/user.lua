@@ -101,3 +101,12 @@ function _G.toggle_qf()
 end
 
 vim.api.nvim_set_keymap("n", "<leader>x", "<cmd>lua toggle_qf()<cr>", {noremap = true, silent = false})
+
+require('package-info').setup{package_manager="npm"}
+vim.api.nvim_exec([[
+augroup NpmPackage
+  autocmd!
+  autocmd BufRead,BufNewFile package.json nnoremap <leader>np <cmd>lua require('package-info').change_version()<CR>
+  autocmd BufRead,BufNewFile package.json nnoremap <leader>ni <cmd>lua require('package-info').install()<CR>
+augroup END
+]], true)

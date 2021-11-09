@@ -19,7 +19,7 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
  vim.lsp.handlers.signature_help, { border = "single" })
 
-require'goto-preview'.setup{}
+require'goto-preview'.setup{default_mappings=false}
 local lspconfig = require'lspconfig'
 local root_pattern = lspconfig.util.root_pattern
 

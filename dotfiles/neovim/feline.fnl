@@ -5,6 +5,7 @@
             feline feline
             vimode feline.providers.vi_mode
             file_prov feline.providers.file
+            pinfo package-info
             p feline.presets.default}})
 
 (comment
@@ -96,7 +97,9 @@
     :provider "diagnostic_info"}])
 
 (def active-right
-  [{:provider "position"
+  [{:provider pinfo.get_status
+    :hl {:style "bold"}}
+   {:provider "position"
     :right_sep [{:hl {:bg "#1F1F23" :fg "#D0D0D0" :style "NONE"}
                  :str "slant_right_2_thin"}]}
 
