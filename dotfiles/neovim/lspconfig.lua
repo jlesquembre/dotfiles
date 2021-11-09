@@ -152,12 +152,18 @@ local function setup_lspconfig()
   lspconfig.dockerls.setup(default_config)
   lspconfig.gopls.setup(default_config)
   -- require'lspconfig'.jdtls.setup(default_config)
-  lspconfig.jsonls.setup(default_config)
   lspconfig.rls.setup(default_config)
   lspconfig.rnix.setup(default_config)
   lspconfig.terraformls.setup(default_config)
 
   -- Special configs
+  lspconfig.jsonls.setup(extra_config({
+      settings = {
+        json = {
+          schemas = require('schemastore').json.schemas(),
+        },
+      }
+  }))
   lspconfig.tsserver.setup(extra_config(
                            {root_dir = function(fname)
                                          return root_pattern("package.json", "tsconfig.json", ".git")(fname) or
