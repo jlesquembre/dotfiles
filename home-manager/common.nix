@@ -165,7 +165,7 @@ in
     EDITOR = "nvim";
     SHELL = "fish";
     BROWSER = "chrome";
-    MANPAGER = "nvim -c 'set ft=man' -";
+    MANPAGER = "nvim +Man!";
     KUBECTL_EXTERNAL_DIFF = "meld";
     DOCKER_BUILDKIT = "1";
     # FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
