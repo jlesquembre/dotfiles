@@ -47,6 +47,13 @@ require('formatter').setup({
           stdin = true}
       end},
 
+    clojure = {
+      function()
+        return {
+          exe = "zprint",
+          stdin = true}
+      end},
+
 }})
 
 vim.api.nvim_exec([[

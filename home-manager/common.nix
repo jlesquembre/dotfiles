@@ -103,6 +103,7 @@ in
     clj-kondo
     babashka
     joker
+    zprint
 
     # Rust tools
     bandwhich
