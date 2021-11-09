@@ -3,11 +3,11 @@ let
   # nix-medley = (import ../../projects/nix-medley { inherit pkgs; });
   nix-medley =
     let
-      commit = "2e8b766ab0588e1e6a9d555df59ca03d4d4bcff1";
+      commit = "d6da465e5486152ec1b31f36c2363957a16ebe60";
       src =
         fetchTarball {
           url = "https://github.com/jlesquembre/nix-medley/archive/${commit}.tar.gz";
-          sha256 = "1jpay5shg0cnvy78fcwlfw4zfc130cqrry4rznga8cb2rvy0psnw";
+          sha256 = "0i094n2d0n7w7bgr0r4dmdfwg81xalvy5ar5gfs2rmmcs2q0qlpq";
         };
     in
     (import src { inherit pkgs; });
