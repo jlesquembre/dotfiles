@@ -100,6 +100,23 @@ function _G.toggle_qf()
   end
 end
 
+function _G.new_scratch()
+  local c =vim.api.nvim_command
+  c'12new Scratch'
+
+  vim.bo.bufhidden="hide"
+  vim.bo.buflisted=false
+  vim.bo.buftype="nofile"
+  vim.bo.swapfile=false
+  vim.wo.foldcolumn="0"
+  vim.wo.foldenable=false
+  vim.wo.number=false
+  vim.wo.winfixheight=true
+  vim.wo.winfixwidth=true
+end
+
+vim.api.nvim_set_keymap("n", "<leader>sc", "<cmd>lua new_scratch()<cr>", {noremap = true, silent = false})
+
 vim.api.nvim_set_keymap("n", "<leader>x", "<cmd>lua toggle_qf()<cr>", {noremap = true, silent = false})
 
 require('package-info').setup{package_manager="npm"}
