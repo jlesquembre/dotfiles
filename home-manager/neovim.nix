@@ -187,6 +187,7 @@ in
       plenary-nvim
       sqlite-lua
       aniseed
+      nui-nvim
 
       # Telescope
       telescope-nvim
@@ -197,6 +198,7 @@ in
       goto-preview
       # (h.neovim.localVimPlugin (vimPluginsDir + /nvim-jdtls))
       nvim-dap
+      SchemaStore-nvim
 
       # auto completion
       luasnip
@@ -261,6 +263,7 @@ in
       hop-nvim
       vim-gnupg
       vim-sayonara
+      harpoon
 
       # nterm-nvim
       custom-vim-plugs.nterm-nvim
@@ -305,7 +308,8 @@ in
       # # just-vim
 
 
-      # # JS / TS
+      # JS / TS
+      package-info-nvim
       # vim-javascript
       # typescript-vim
       # vim-html-template-literals

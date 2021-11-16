@@ -127,3 +127,12 @@ augroup NpmPackage
   autocmd BufRead,BufNewFile package.json nnoremap <leader>ni <cmd>lua require('package-info').install()<CR>
 augroup END
 ]], true)
+
+require("harpoon").setup{}
+vim.api.nvim_set_keymap('n', '<leader>aa', [[<cmd>lua require("harpoon.mark").add_file()<cr>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>at', [[<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>ac', [[<cmd>lua require("harpoon.cmd-ui").toggle_quick_menu()<cr>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>ah', [[<cmd>lua require("harpoon.ui").nav_file(1)<cr>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>aj', [[<cmd>lua require("harpoon.ui").nav_file(2)<cr>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>ak', [[<cmd>lua require("harpoon.ui").nav_file(3)<cr>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>al', [[<cmd>lua require("harpoon.ui").nav_file(4)<cr>]], {noremap = true})
