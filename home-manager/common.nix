@@ -159,6 +159,8 @@ in
     wuzz
 
     ddosify
+    dstp
+
     citrix_workspace
   ];
 
