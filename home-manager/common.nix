@@ -340,6 +340,13 @@ in
       \unset QUIET
     '';
   };
+  home.file.pspgconf = {
+    target = ".pspgconf";
+    text = ''
+      theme = 17
+    '';
+
+  };
 
   home.file.maven = {
     text = ''
