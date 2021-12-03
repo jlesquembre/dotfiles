@@ -21,6 +21,8 @@ vim.g['conjure#mapping#eval_visual'] = "p"
 vim.g['conjure#mapping#eval_motion'] = "m"
 -- vim.g['conjure#mapping#doc_word'] = ["K"]
 -- vim.g['conjure#mapping#def_word'] = ["gd"]
+vim.g['conjure#mapping#eval_comment_current_form'] = "pcc"
+vim.g['conjure#mapping#eval_comment_root_form'] = "pcr"
 
 -- vim.g['conjure#client#clojure#nrepl#mapping#disconnect'] = "cd"
 vim.g['conjure#client#clojure#nrepl#mapping#connect_port_file'] = "u"
