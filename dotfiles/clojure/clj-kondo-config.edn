@@ -1,0 +1,2 @@
+{:linters {:unused-namespace
+           {:exclude [.]}}}

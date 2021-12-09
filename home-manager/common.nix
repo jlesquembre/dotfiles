@@ -238,6 +238,11 @@ in
     );
   };
 
+  xdg.configFile.clj-kondo = {
+    target = "clj-kondo/config.edn";
+    source = "${dotfiles}/clojure/clj-kondo-config.edn";
+  };
+
   xdg.configFile.ranger = {
     source = "${dotfiles}/ranger";
     recursive = true;
