@@ -136,7 +136,7 @@ in
           header {
             -Last-Modified
             -Etag
-            Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+            Cache-Control no-store
           }
         }
       '';
