@@ -47,12 +47,12 @@ require('formatter').setup({
           stdin = true}
       end},
 
-    clojure = {
-      function()
-        return {
-          exe = "zprint",
-          stdin = true}
-      end},
+    -- clojure = {
+    --   function()
+    --     return {
+    --       exe = "zprint",
+    --       stdin = true}
+    --   end},
 
 }})
 
