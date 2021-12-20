@@ -115,7 +115,7 @@ function _G.new_scratch()
   vim.wo.winfixwidth=true
 end
 
-vim.api.nvim_set_keymap("n", "<leader>sc", "<cmd>lua new_scratch()<cr>", {noremap = true, silent = false})
+vim.api.nvim_set_keymap("n", "<leader>es", "<cmd>lua new_scratch()<cr>", {noremap = true, silent = false})
 
 vim.api.nvim_set_keymap("n", "<leader>x", "<cmd>lua toggle_qf()<cr>", {noremap = true, silent = false})
 

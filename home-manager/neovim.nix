@@ -216,7 +216,7 @@ in
       nvim-base16
       # custom-vim-plugs.feline-nvim
       feline-nvim
-      dashboard-nvim
+      # dashboard-nvim
 
       # Navigation
       fern-vim

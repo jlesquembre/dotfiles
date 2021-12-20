@@ -274,9 +274,6 @@ nnoremap @: <NOP>
 nnoremap c, q:
 xnoremap c, q:
 
-" Make yank more logical
-map Y y$
-
 nnoremap <leader>w <C-w>
 
 " un-join (split) the current line at the cursor position

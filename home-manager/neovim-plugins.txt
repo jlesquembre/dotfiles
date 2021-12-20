@@ -1,2 +1,1 @@
-famiu/feline.nvim
 jlesquembre/nterm.nvim
