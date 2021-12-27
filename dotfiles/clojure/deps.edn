@@ -81,9 +81,12 @@
                          org.openjfx/javafx-web      {:mvn/version "18-ea+7"}}}
             ; :main-opts ["-m" "cognitect.rebl"]}
 
-           :user {:extra-deps {me.lafuente/clj-dev-utils {:git/url "https://github.com/jlesquembre/clj-dev-utils"
-                                                          :git/sha "5eec7a887bc9e066e2b6d8dc8263f8bfa4ec64d7"}}
-                  :exec-fn local-utils/init}
+           :user {:exec-fn local-utils/init
+                  :extra-deps {me.lafuente/clj-dev-utils
+                               {:local/root "$HOME/projects/clj-dev-utils"}}}
+                               ; {:git/url "https://github.com/jlesquembre/clj-dev-utils"
+                               ;  :git/sha "5eec7a887bc9e066e2b6d8dc8263f8bfa4ec64d7"}}}
+
 
            :user-local {:extra-deps {me.lafuente/clj-dev-utils {:local/root "$HOME/projects/clj-dev-utils"}}
                         :exec-fn local-utils/init}
