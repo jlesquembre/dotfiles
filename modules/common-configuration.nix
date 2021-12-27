@@ -87,9 +87,9 @@ rec
   ;
 
   nix = {
-    # package = pkgs.nixFlakes;
     extraOptions = ''
       allow-unsafe-native-code-during-evaluation = true
+      experimental-features = nix-command flakes
     '';
     trustedUsers = [ "root" user ];
     useSandbox = true;
