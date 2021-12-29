@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  h = import ../modules/helpers.nix { inherit pkgs; };
+  h = import ../nixos/helpers.nix { inherit pkgs; };
   secrets = h.import-secret ../sops/secrets.nix;
 in
 {
