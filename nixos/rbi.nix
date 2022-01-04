@@ -1,5 +1,4 @@
-{ secrets, user, userHome }:
-{ config, options, pkgs, lib, ... }:
+{ config, options, pkgs, lib, secrets, ... }:
 {
   services.coredns.config = lib.mkAfter (secrets.rbi.coredns-config lib);
   environment.systemPackages = with pkgs; [

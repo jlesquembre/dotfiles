@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nix-medley, ... }:
 let
   nvim-deps = (import ./neovim-deps.nix) { pkgs = pkgs; };
   custom-vim-plugs = pkgs.vimPlugins.extend (
@@ -10,8 +10,6 @@ let
   vimDir = ../dotfiles/neovim;
 
   vimPluginsDir = ../../projects;
-
-  h = import ../modules/helpers.nix { inherit pkgs; };
 
   # TODO extract
   readFileIfExists = f:
@@ -62,8 +60,8 @@ let
         configDir;
 
       compiledFennel =
-        if (h.hasFileWithSuffix configDir ".fnl") then
-          h.neovim.compileAniseed { src = configDir; fnlDir = ""; outPrefix = "/"; }
+        if (nix-medley.hasFileWithSuffix configDir ".fnl") then
+          nix-medley.neovim.compileAniseed { src = configDir; fnlDir = ""; outPrefix = "/"; }
         else null;
 
       luaRequires =

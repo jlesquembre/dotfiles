@@ -1,104 +1,25 @@
-{ hostName, enable-wifi ? false, enable-bluetooth ? false, extra-imports ? [ ] }:
-
-{ config, options, pkgs, lib, ... }:
+{ config, options, pkgs, lib, host-options, username, secrets, ageKeyFile, inputs, system, ... }:
 let
-  user = "jlle";
-  userHome = "/home/${user}";
-
-  # bleeding edge
-  # pkgs-unstable = import (fetchTarball https://github.com/nixos/nixpkgs/archive/master.tar.gz) {};
-
-  # unstable channel
-  # channel-unstable = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz) {};
-
-  # latest stable channel
-  # channel-19_09 = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-19.09.tar.gz) {};
-
-  # specific commit
-  # pkgs-58d44a3 = import (fetchTarball https://github.com/nixos/nixpkgs/archive/58d44a3.tar.gz) {};
-
-  githud = import
-    (pkgs.fetchFromGitHub {
-      owner = "gbataille";
-      repo = "gitHUD";
-      rev = "3.2.2";
-      sha256 = "1csb3xqkayr73k331id41n9j3wnvb35nyi21bm244yz4a2a9z1i9";
-    })
-    { };
-
-
-  sops-nix =
-    let
-      commit = "2e86e1698d53e5bd71d9de5f8b7e8f2f5458633c";
-    in
-    fetchTarball {
-      url = "https://github.com/Mic92/sops-nix/archive/${commit}.tar.gz";
-      sha256 = "0g5xv27s1sx87xxz2ipfi21sqksfmbvx9yn2i0lqb419aqqyks50";
-    };
-
-  h = import ./helpers.nix { inherit pkgs; };
-
-  secrets = h.import-secret ../sops/secrets.nix;
-
-  # TODO extract
-  # TODO use paths instead of string, and assert that the path exists.
-  # A path is copied to the store only when used with string interpolation, see
-  # https://stackoverflow.com/q/43850371/799785
-  home-manager = { home-manager-path, config-path }:
-    assert builtins.typeOf home-manager-path == "string";
-    assert builtins.typeOf config-path == "string";
-    (pkgs.callPackage (/. + home-manager-path + "/home-manager") { path = "${home-manager-path}"; }).overrideAttrs (old: {
-      nativeBuildInputs = [ pkgs.makeWrapper ];
-      buildCommand =
-        let
-          home-mananger-bootstrap = pkgs.writeTextFile {
-            name = "home-manager-bootstrap.nix";
-            text = ''
-              { config, pkgs, ... }:
-              {
-                # Home Manager needs a bit of information about you and the
-                # paths it should manage.
-                home.username = "${user}";
-                home.homeDirectory = "${userHome}";
-                home.sessionVariables.HOSTNAME = "${hostName}";
-                imports = [ ${config-path} ];
-              }
-            '';
-          }; in
-        ''
-          ${old.buildCommand}
-          wrapProgram $out/bin/home-manager --set HOME_MANAGER_CONFIG "${home-mananger-bootstrap}"
-        '';
-    });
-
+  userHome = "/home/${username}";
 in
+
 rec
 {
-
-  imports = [
-    "${sops-nix}/modules/sops"
-    /etc/nixos/hardware-configuration.nix
-    ./cachix.nix
-    (import ./network.nix { inherit hostName userHome; })
-  ]
-  ++ lib.lists.optional enable-wifi (import ./wifi.nix { custom-networks = (h.import-secret ../sops/wireless-networks.nix) { }; })
-  ++ lib.lists.optional enable-bluetooth (import ./bluetooth.nix)
-  ++ builtins.map (x: import x { inherit secrets user userHome; }) extra-imports
-  ;
 
   nix = {
     extraOptions = ''
       allow-unsafe-native-code-during-evaluation = true
       experimental-features = nix-command flakes
     '';
-    trustedUsers = [ "root" user ];
+    trustedUsers = [ "root" username ];
     useSandbox = true;
-    nixPath = [
-      "nixpkgs=${userHome}/nixpkgs"
-      "nixos-config=/etc/nixos/configuration.nix"
-      "nixpkgs-overlays=${userHome}/dotfiles/overlays/overlays-compat"
-    ];
+    # nixPath = [
+    #   "nixpkgs=${userHome}/nixpkgs"
+    #   "nixos-config=/etc/nixos/configuration.nix"
+    #   "nixpkgs-overlays=${userHome}/dotfiles/overlays/overlays-compat"
+    # ];
   };
+  nixpkgs.config.allowUnfree = true;
 
   # mount /tmp on tmpfs
   boot.tmpOnTmpfs = true;
@@ -109,44 +30,6 @@ rec
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
-
-  nixpkgs.config.allowUnfree = true;
-
-  # custom packages
-  nixpkgs.overlays = [
-    (import ../overlays/common { })
-  ];
-  # nixpkgs.overlays = [
-  #   (self: super: {
-
-  #     polybar = super.polybar.override {
-  #       i3Support = true;
-  #     };
-
-  #     conky = super.conky.override {
-  #       lua = self.lua5_3;
-  #       luaImlib2Support = false;
-  #       luaCairoSupport = false;
-  #     };
-
-  # TODO move to overlays?
-  #     # okular = super.kdeApplications.okular.overrideDerivation (old: {
-  #     #   nativeBuildInputs = old.nativeBuildInputs ++ [ super.makeWrapper ];
-  #     #   fixupPhase = ''
-  #     #     mv $out/bin/okular $out/bin/okular-unwrapped
-  #     #     makeWrapper $out/bin/okular-unwrapped $out/bin/okular --set XDG_CURRENT_DESKTOP KDE
-  #     #     '';
-  #     #   });
-
-  #   })
-  # ];
-
-  # nix.binaryCaches = [
-  #   "http://192.168.1.199:8080"
-  #   # "https://cache.nixos.org/"
-  # ];
-  # nix.requireSignedBinaryCaches = false;
-  #[ "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "/nix/var/nix/profiles/per-user/root/channels" ]
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -312,8 +195,6 @@ rec
     postgresql
     pspg # pgcli
     # libmysqlclient mariadb.client
-
-    githud
   ]
   ++ (with pkgs.gitAndTools; [
     delta
@@ -340,9 +221,8 @@ rec
   # pygments
   # ]))])
 
-  ++ (with pkgs.python38Packages; [
+  ++ (with pkgs.python39Packages; [
     ipython
-    neovim
   ])
   ;
 
@@ -475,7 +355,7 @@ rec
   users.mutableUsers = false;
   users.users.root.hashedPassword = secrets.hashedPassword;
 
-  users.users.${user} = {
+  users.users.${username} = {
     description = "José Luis";
     isNormalUser = true;
     home = userHome;
@@ -493,19 +373,15 @@ rec
       # sops-nix group
       config.users.groups.keys.name
     ];
-    packages = [
-      (home-manager {
-        home-manager-path = "${userHome}/home-manager";
-        config-path = builtins.toString ../home-manager + "/${hostName}.nix";
-      })
-    ];
   };
 
-  sops.age.keyFile = h.ageKeyFile;
+  sops.age.keyFile = ageKeyFile;
 
   # TODO move to home-manager
+  # See
+  # https://github.com/Mic92/sops-nix/issues/62
   sops.secrets.ssh-config = {
-    owner = user;
+    owner = username;
     path = "${userHome}/.ssh/config";
     format = "binary";
     sopsFile = ../sops/ssh_config;

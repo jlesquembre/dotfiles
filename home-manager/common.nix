@@ -1,15 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, secrets, nix-medley, host-options, inputs, system, ... }:
 let
   dotfiles = toString ../dotfiles;
-
-  h = import ../modules/helpers.nix { inherit pkgs; };
-  secrets = h.import-secret ../sops/secrets.nix;
-
 in
 {
-  # Let Home Manager install and manage itself.
-  # programs.home-manager.enable = true;
-  # programs.home-manager.path = "\$HOME/home-manager";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -19,7 +12,7 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "21.03";
+  # home.stateVersion = "21.03";
   imports = [
     ./custom-options.nix
     ./sway.nix
@@ -28,12 +21,14 @@ in
     ./neovim.nix
   ];
 
+  services.blueman-applet.enable = host-options.bluetooth or false;
+
   home.packages = with pkgs; [
     (
       let
         chromium = pkgs.chromium;
       in
-      h.writeShellScriptBinAndSymlink
+      nix-medley.writeShellScriptBinAndSymlink
         {
           pkg = chromium;
           text =
@@ -46,7 +41,7 @@ in
       let
         chrome = pkgs.google-chrome;
       in
-      h.writeShellScriptBinAndSymlink
+      nix-medley.writeShellScriptBinAndSymlink
         {
           pkg = chrome;
           name = "chrome";
@@ -68,7 +63,9 @@ in
     nixpkgs-review
     nix-serve
     nixpkgs-fmt
-    niv
+    # niv
+
+    inputs.githud.defaultPackage."${system}"
 
     # nix_graph
     clipman
@@ -151,6 +148,7 @@ in
     socat
     step-ca
     step-cli
+    sysz
     tcpdump
     tmate
     watchman # postman
@@ -510,6 +508,13 @@ in
     # CTRL-R
     # historyWidgetOptions = [ "--preview 'echo {}' --preview-window down:3:hidden --bind '?:toggle-preview'" ];
   };
+
+  # programs.atuin = {
+  #   enable = true;
+  #   enableFishIntegration = true;
+  # };
+
+  # services.gromit-mpx.enable = true;
 
   programs.alacritty = {
     enable = true;

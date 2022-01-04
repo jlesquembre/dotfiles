@@ -1,7 +1,6 @@
-{ hostName, userHome }:
-{ config, options, pkgs, lib, ... }:
+{ config, options, pkgs, lib, username, ... }:
 let
-  docsPath = "${userHome}/projects/docs/public";
+  docsPath = "/home/${username}/projects/docs/public";
   root_ca =
     ''
       -----BEGIN CERTIFICATE-----
@@ -38,7 +37,6 @@ let
 in
 {
 
-  networking.hostName = hostName;
   # networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 8000 8080 ];
 
