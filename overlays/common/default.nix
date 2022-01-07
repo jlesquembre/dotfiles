@@ -17,9 +17,4 @@ self: super: {
 
   jdt-ls = super.callPackage ../pkgs/jdt-ls { };
   vscode-ls = super.callPackage ../pkgs/vscode-ls { };
-
-  # For an alternative install method see
-  # https://github.com/nix-community/NUR#installation
-  # nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { pkgs = self.pkgs; };
-
 }

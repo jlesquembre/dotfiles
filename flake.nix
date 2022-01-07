@@ -3,8 +3,8 @@
   description = "Jose Luis Nix flake configuration";
 
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "/home/jlle/nixpkgs";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -25,8 +25,8 @@
     };
 
     nix-medley = {
-      # url = github:jlesquembre/nix-medley;
       url = "/home/jlle/projects/nix-medley";
+      # url = github:jlesquembre/nix-medley;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -84,14 +84,8 @@
 
 ## TODO
 
-# Move /machines to /nixos/hosts DONE
-# Move /etc/nixos/hardware-configuration.nix to $HOSTNAME.nix DONE
-# Rename /modules to /nixos DONE
-# Remove all fetchFromTarball
 # Transform helpers.nix / nix-medley into a flake
 # Remove /overlays
-# home-manager
-# nix-sops
 # move shell.nix to flake
 # extra neovim to its own flake?
 
