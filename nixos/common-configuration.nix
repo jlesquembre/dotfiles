@@ -195,6 +195,9 @@ rec
     postgresql
     pspg # pgcli
     # libmysqlclient mariadb.client
+
+    inputs.githud.defaultPackage."${system}"
+
   ]
   ++ (with pkgs.gitAndTools; [
     delta
