@@ -121,7 +121,7 @@ let
 in
 {
   # Create a symlink to config without a rebuild
-  xdg.configFile."nvim/lua/user.lua".source = config.lib.file.mkOutOfStoreSymlink (vimDir + /user.lua);
+  xdg.configFile."nvim/lua/user.lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/dotfiles/neovim/user.lua";
 
   programs.neovim = {
     enable = true;
