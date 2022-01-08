@@ -8,16 +8,21 @@ My personal dotfiles
 - `/home-manager`: Home manager configuration
 - `/lib`: Helper functions
 - `/nixos`: Nix configuration for `nixos-rebuild` commands
-
-- TODO remove?
-- `/overlays`: Custom packages and modificaton to nixpkgs
-- `/modules`: System configuration
+- `/overlays`: Custom packages
 
 # Installation
 
 ## NixOS
 
-- `sudo nixos-rebuild switch --flake ~/dotfiles`
+First get a shell with the required dependencies:
+
+```nix
+nix develop github:jlesquembre/dotfiles
+```
+
+```nix
+sudo nixos-rebuild switch --flake ~/dotfiles
+```
 
 That commnads assumes that a file with the same name as the current hostname at
 `nixos/hosts`. For example, if the hostname is `foo`, the file will be
@@ -29,7 +34,9 @@ We can override the flake hostname with the `#name` syntax, e.g.:
 
 ## Home manager
 
-- `home-manager switch --flake ~/dotfiles`
+```nix
+home-manager switch --flake ~/dotfiles
+```
 
 To add some extra custom config for only one host, add a file with that hostname
 at `home-manager/hosts`

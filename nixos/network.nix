@@ -89,8 +89,8 @@ in
 
   services.caddy = {
     enable = true;
-    ca = null;
-    config =
+    acmeCA = null;
+    extraConfig =
       ''
         {
           acme_ca https://127.0.0.1:8444/acme/acme/directory

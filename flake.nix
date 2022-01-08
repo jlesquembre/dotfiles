@@ -3,8 +3,8 @@
   description = "Jose Luis Nix flake configuration";
 
   inputs = {
-    nixpkgs.url = "/home/jlle/nixpkgs";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "/home/jlle/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -25,8 +25,8 @@
     };
 
     nix-medley = {
-      url = "/home/jlle/projects/nix-medley";
-      # url = github:jlesquembre/nix-medley;
+      # url = "/home/jlle/projects/nix-medley";
+      url = "github:jlesquembre/nix-medley";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -39,8 +39,7 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        # TODO move overlays to nix-medley
-        overlays = [ (import ./overlays/common/default.nix { }) ];
+        overlays = [ (import ./overlays { }) ];
       };
       ageKeyFile = "/etc/nixos/key.txt";
       utils = (import ./lib { inherit pkgs; inherit ageKeyFile; });
@@ -68,6 +67,7 @@
 
     in
     {
+      self = self;
       homeConfigurations = utils.mkHomeConfig
         {
           inherit hosts system username pkgs inputs extraArgs;
@@ -79,16 +79,43 @@
           inherit hosts system username pkgs inputs extraArgs;
           configDir = (builtins.toString ./nixos);
         };
+
+      devShell."${system}" =
+        pkgs.mkShell {
+          packages = with pkgs;[
+            coreutils
+            curl
+            fish
+            git
+            imagemagick
+            nix
+            paperkey
+            pass
+            qrencode
+            sops
+            zbar
+          ];
+        };
+
+      apps."${system}" =
+        {
+          update-vim-plugins =
+            {
+              type = "app";
+              program =
+                let
+                  vimDir = "./home-manager";
+                  update-vim-plugins = pkgs.writeShellScriptBin "update-vim-plugins"
+                    ''
+                      ${builtins.toString nixpkgs}/pkgs/misc/vim-plugins/update.py \
+                        -i ${vimDir}/neovim-plugins.txt \
+                        -o ${vimDir}/neovim-plugins-generated.nix --no-commit
+                    '';
+                in
+                "${update-vim-plugins}/bin/update-vim-plugins";
+            };
+        };
     };
+
+
 }
-
-## TODO
-
-# Transform helpers.nix / nix-medley into a flake
-# Remove /overlays
-# move shell.nix to flake
-# extra neovim to its own flake?
-
-## Examples:
-# https://github.com/tadfisher/flake
-# https://github.com/wiltaylor/dotfiles

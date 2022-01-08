@@ -15,6 +15,6 @@ self: super: {
   # firefox = super.firefox.override { gdkWayland = true; };
   # firefox-wayland = super.firefox.override { gdkWayland = true; };
 
-  jdt-ls = super.callPackage ../pkgs/jdt-ls { };
-  vscode-ls = super.callPackage ../pkgs/vscode-ls { };
+  jdt-ls = super.callPackage ./pkgs/jdt-ls { };
+  vscode-ls = super.callPackage ./pkgs/vscode-ls { };
 }
