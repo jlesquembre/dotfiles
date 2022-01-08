@@ -449,7 +449,7 @@ in
 
   programs.direnv = {
     enable = true;
-    # enableNixDirenvIntegration = false;
+    # nix-direnv.enable = true;
   };
 
   programs.nix-index = {
