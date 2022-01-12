@@ -52,11 +52,13 @@ let
     *   Output file ->
     *     FOO = BAR
   */
-  buildLuaConfig = { configDir, moduleName, vars ? null, replacements ? null }:
+  buildLuaConfig = { configDir, moduleName, vars ? null, replacements ? null, excludeFiles ? [ ] }:
     let
       pname = "lua-config-${moduleName}";
       luaSrc = builtins.filterSource
-        (path: type: (lib.hasSuffix ".lua" path) && (baseNameOf path != "user.lua"))
+        (path: type:
+          (lib.hasSuffix ".lua" path) &&
+          ! (lib.lists.any (x: baseNameOf path == x) excludeFiles))
         configDir;
 
       compiledFennel =
@@ -114,6 +116,7 @@ let
   my-lua-config = (buildLuaConfig {
     configDir = vimDir;
     moduleName = "jlle";
+    excludeFiles = if builtins.isNull config then [ ] else [ "user.lua" ];
     vars = [ "java.debug.plugin" ];
     replacements = [ "${nvim-deps.java-debug.jar}" ];
   });
@@ -121,13 +124,17 @@ let
 in
 {
   # Create a symlink to config without a rebuild
-  xdg.configFile."nvim/lua/user.lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/dotfiles/neovim/user.lua";
+  xdg.configFile."nvim/lua/user.lua".source =
+    if builtins.isNull config
+    then
+      null
+    else
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/dotfiles/neovim/user.lua";
 
   programs.neovim = {
     enable = true;
     # package = nvim-deps.neovim-nightly;
     withNodeJs = true;
-    # withPython = true;
     withPython3 = true;
     withRuby = true;
     extraConfig =
@@ -135,7 +142,11 @@ in
         ${builtins.readFile "${vimDir}/init.vim"}
         ${builtins.readFile "${vimDir}/fern.vim"}
         ${builtins.readFile "${vimDir}/sandwich.vim"}
-        lua require'user'
+        ${if builtins.isNull config
+        then
+          ""
+        else
+          "lua require'user'"}
         ${my-lua-config.luaRequires}
       '';
 
@@ -149,7 +160,8 @@ in
       pkgs.nodePackages.typescript-language-server
 
       pkgs.nodePackages.bash-language-server
-      pkgs.nodePackages.vim-language-server
+      # Disable it until it gets fixed, uses all your CPU
+      # pkgs.nodePackages.vim-language-server
       pkgs.nodePackages.yaml-language-server
       pkgs.nodePackages.dockerfile-language-server-nodejs
       pkgs.nodePackages.dockerfile-language-server-nodejs
@@ -223,13 +235,11 @@ in
       vim-grepper
 
       # visual-star
-      # vim-indent-object TODO ?
 
       # Text edition
       vim-repeat
       vim-sandwich
       vim-commentary
-      # jdaddy-vim TODO needed? tree sitter can replace it?
       # vim-speeddating
       # ultisnips
       # vim-snippets

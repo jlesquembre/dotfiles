@@ -49,3 +49,11 @@ home-manager the user name is also required, e.g.:
 # Update dependencies
 
 `nix flake lock --update-input`
+
+# Run neovim
+
+Useful to get neovim with my config anywhere:
+
+```nix
+nix run github:jlesquembre/dotfiles#nvim
+```

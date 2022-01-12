@@ -15,9 +15,39 @@
         "type": "github"
       }
     },
+    "flake-utils_2": {
+      "locked": {
+        "lastModified": 1638122382,
+        "narHash": "sha256-sQzZzAbvKEqN9s0bzWuYmRaA03v40gaJ4+iL1LXjaeI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "74f7e4319258e287b0f9cb95426c9853b282730b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_3": {
+      "locked": {
+        "lastModified": 1629481132,
+        "narHash": "sha256-JHgasjPR0/J1J3DRm4KxM4zTyAj4IOJY8vIl75v/kPI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "997f7efcb746a9c140ce1f13c72263189225f482",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "githud": {
       "inputs": {
-        "flake-utils": "flake-utils",
+        "flake-utils": "flake-utils_2",
         "nixpkgs": "nixpkgs"
       },
       "locked": {
@@ -41,16 +71,39 @@
         ]
       },
       "locked": {
-        "lastModified": 1641459437,
-        "narHash": "sha256-z0IOcc6LLbVhyri/aTyWzRqJs3p1pBK9idOiMwCWiqs=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "c751aeb19e84a0a777f36fd5ea73482a066bb406",
+        "lastModified": 1640037534,
+        "narHash": "sha256-lbD5EEqu2tXq3qo6UN3cZkWZA0hEWQkhluctivMtLZY=",
+        "ref": "master",
+        "rev": "aef97988dac0541747de8bcc85c7e27726eea4af",
+        "revCount": 1860,
+        "type": "git",
+        "url": "file:///home/jlle/home-manager"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/jlle/home-manager"
+      }
+    },
+    "neovim": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "contrib",
+        "lastModified": 1642073194,
+        "narHash": "sha256-9WNVYOr4BBgcJT3HtHVVcLLXKyPGh6fyDgUlKwfZorg=",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "4570df0b434f16ac9bdd71d178e297a40ef6e34a",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
+        "dir": "contrib",
+        "owner": "neovim",
+        "repo": "neovim",
         "type": "github"
       }
     },
@@ -76,11 +129,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1640686209,
-        "narHash": "sha256-6glXUlKRDhEhNuYx6r3fXU6KH2/Vq9mJZjB9oUpwrmc=",
+        "lastModified": 1641965797,
+        "narHash": "sha256-AfxfIzAZbt9aAzpVBn0Bwhd/M4Wix7G91kEjm9H6FPo=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "46df95ca81e7e4cf3458cdb4b7d1714b5fce9da5",
+        "rev": "87a35a0d58f546dc23f37b4f6af575d0e4be6a7a",
         "type": "github"
       },
       "original": {
@@ -108,24 +161,25 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1641528457,
-        "narHash": "sha256-FyU9E63n1W7Ql4pMnhW2/rO9OftWZ37pLppn/c1aisY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "ff377a78794d412a35245e05428c8f95fef3951f",
-        "type": "github"
+        "lastModified": 1641940451,
+        "narHash": "sha256-Xhr5/G4Fx5+8zVxbDT9u0GueRDvXr/eBf+mRhNgEZ5M=",
+        "ref": "tree-sitter-markdown",
+        "rev": "b70734ae8ca8a0c625f40305357ea217da25d823",
+        "revCount": 345235,
+        "type": "git",
+        "url": "file:///home/jlle/nixpkgs"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/jlle/nixpkgs"
       }
     },
     "root": {
       "inputs": {
+        "flake-utils": "flake-utils",
         "githud": "githud",
         "home-manager": "home-manager",
+        "neovim": "neovim",
         "nix-medley": "nix-medley",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",

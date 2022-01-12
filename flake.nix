@@ -3,8 +3,8 @@
   description = "Jose Luis Nix flake configuration";
 
   inputs = {
-    # nixpkgs.url = "/home/jlle/nixpkgs";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "/home/jlle/nixpkgs";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -30,9 +30,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-utils.url = "github:numtide/flake-utils";
+
+    neovim = {
+      url = "github:neovim/neovim?dir=contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, sops-nix, nix-medley, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-hardware, flake-utils, ... }@inputs:
     let
       system = "x86_64-linux";
       username = "jlle";
@@ -47,7 +54,7 @@
         {
           import-secret = utils.import-secret;
           secrets = utils.import-secret ./sops/secrets.nix;
-          nix-medley = nix-medley.lib pkgs;
+          nix-medley = inputs.nix-medley.lib pkgs;
           inherit ageKeyFile;
         };
 
@@ -67,7 +74,6 @@
 
     in
     {
-      self = self;
       homeConfigurations = utils.mkHomeConfig
         {
           inherit hosts system username pkgs inputs extraArgs;
@@ -80,42 +86,69 @@
           configDir = (builtins.toString ./nixos);
         };
 
-      devShell."${system}" =
-        pkgs.mkShell {
-          packages = with pkgs;[
-            coreutils
-            curl
-            fish
-            git
-            imagemagick
-            nix
-            paperkey
-            pass
-            qrencode
-            sops
-            zbar
-          ];
+    } //
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [ (import ./overlays { }) ];
         };
+        nix-medley = inputs.nix-medley.lib pkgs;
+        utils = (import ./lib { inherit pkgs; });
+      in
+      rec{
+        devShell =
+          pkgs.mkShell {
+            packages = with pkgs;[
+              coreutils
+              curl
+              fish
+              git
+              imagemagick
+              nix
+              paperkey
+              pass
+              qrencode
+              sops
+              zbar
+            ];
+          };
 
-      apps."${system}" =
-        {
-          update-vim-plugins =
-            {
-              type = "app";
-              program =
-                let
-                  vimDir = "./home-manager";
-                  update-vim-plugins = pkgs.writeShellScriptBin "update-vim-plugins"
-                    ''
-                      ${builtins.toString nixpkgs}/pkgs/misc/vim-plugins/update.py \
-                        -i ${vimDir}/neovim-plugins.txt \
-                        -o ${vimDir}/neovim-plugins-generated.nix --no-commit
-                    '';
-                in
-                "${update-vim-plugins}/bin/update-vim-plugins";
-            };
+        packages = {
+          nvim =
+            let
+              nvimConfig = import ./home-manager/neovim.nix {
+                inherit pkgs nix-medley;
+                lib = pkgs.lib;
+                config = null;
+              };
+            in
+            utils.mkNeovim (nvimConfig.programs.neovim // {
+              # nvimPackage = inputs.neovim.packages."${system}".neovim;
+            });
         };
-    };
+        apps =
+          {
+            nvim = flake-utils.lib.mkApp { drv = packages.nvim; name = "nvim"; };
+
+            update-vim-plugins =
+              {
+                type = "app";
+                program =
+                  let
+                    vimDir = "./home-manager";
+                    update-vim-plugins = pkgs.writeShellScriptBin "update-vim-plugins"
+                      ''
+                        ${builtins.toString nixpkgs}/pkgs/misc/vim-plugins/update.py \
+                          -i ${vimDir}/neovim-plugins.txt \
+                          -o ${vimDir}/neovim-plugins-generated.nix --no-commit
+                      '';
+                  in
+                  "${update-vim-plugins}/bin/update-vim-plugins";
+              };
+          };
+      });
 
 
 }

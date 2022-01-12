@@ -1,10 +1,38 @@
-{ pkgs, ageKeyFile }:
+{ pkgs, ageKeyFile ? "" }:
 {
   import-secret = secretPath: (builtins.exec [
     "sh"
     "-c"
     ''SOPS_AGE_KEY_FILE=${ageKeyFile} ${pkgs.sops}/bin/sops -d ${secretPath}''
   ]);
+
+  mkNeovim =
+    { withNodeJs
+    , withPython3
+    , withRuby
+    , plugins
+    , extraConfig
+    , extraPackages ? [ ]
+    , nvimPackage ? pkgs.neovim-unwrapped
+    , ...
+    }:
+    let
+      lib = pkgs.lib;
+      extraMakeWrapperArgs = lib.optionalString (extraPackages != [ ])
+        ''--suffix PATH : "${lib.makeBinPath extraPackages}"'';
+
+      nvimConf =
+        pkgs.neovimUtils.makeNeovimConfig {
+          configure.packages.home-manager.start = map (x: x.plugin or x) plugins;
+          inherit withNodeJs withPython3 withRuby plugins;
+          customRC = extraConfig;
+        };
+    in
+    pkgs.wrapNeovimUnstable nvimPackage
+      (nvimConf // {
+        wrapperArgs = (lib.escapeShellArgs nvimConf.wrapperArgs) + " "
+          + extraMakeWrapperArgs;
+      });
 
   mkHomeConfig =
     { hosts, username, pkgs, inputs, hmConfigDir, extraArgs, system }:

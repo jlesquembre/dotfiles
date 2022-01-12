@@ -10,7 +10,7 @@ rec
     extraOptions = ''
       allow-unsafe-native-code-during-evaluation = true
       experimental-features = nix-command flakes
-    '';
+    '' + secrets.nix-extraOptions;
     trustedUsers = [ "root" username ];
     useSandbox = true;
     # nixPath = [
