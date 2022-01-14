@@ -3,8 +3,8 @@
   description = "Jose Luis Nix flake configuration";
 
   inputs = {
-    nixpkgs.url = "/home/jlle/nixpkgs";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "/home/jlle/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -21,7 +21,7 @@
     };
 
     githud = {
-      url = "github:jlesquembre/gitHUD";
+      url = "github:gbataille/gitHUD";
     };
 
     nix-medley = {
