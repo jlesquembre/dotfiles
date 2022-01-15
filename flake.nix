@@ -125,7 +125,7 @@
               };
             in
             utils.mkNeovim (nvimConfig.programs.neovim // {
-              # nvimPackage = inputs.neovim.packages."${system}".neovim;
+              nvimPackage = inputs.neovim.packages."${system}".neovim;
             });
         };
         apps =
