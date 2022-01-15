@@ -7,7 +7,7 @@ require'nvim-treesitter.configs'.setup {
   -- ensure_installed = 'maintained',
   highlight = {
     enable = true,
-    disable = { "nix" },
+    disable = { "nix", "markdown" },
   },
   -- TODO better mappings
   incremental_selection = {

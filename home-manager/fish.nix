@@ -62,8 +62,10 @@ in
       kd = "kubectl delete -f";
 
       # Nix
-      ns = "nix_switch";
-      nb = "nix_build";
+      nru = "nix run github:NixOS/nixpkgs/nixpkgs-unstable#";
+      nr = "nix run";
+      nb = "nix build";
+      nbu = "nix build github:NixOS/nixpkgs/nixpkgs-unstable#";
 
       # Others
       s = "caddy file-server --browse --listen :8080";
@@ -117,29 +119,6 @@ in
       '';
 
       # TODO unify with function in overlays
-      # TODO do something like https://github.com/hlissner/dotfiles/blob/master/bin/hey
-      nix_switch =
-        ''
-          set -lx BLACKBOX_REPOBASE $HOME/dotfiles;
-          blackbox_postdeploy
-          echo
-          echo
-          echo "sudo nixos-rebuild switch"
-          sudo nixos-rebuild switch
-          blackbox_shred_all_files
-        '';
-
-      nix_build =
-        ''
-          set -lx BLACKBOX_REPOBASE $HOME/dotfiles;
-          blackbox_postdeploy
-          echo
-          echo
-          echo "nixos-rebuild build"
-          nixos-rebuild build
-          blackbox_shred_all_files
-        '';
-
       md = # mkdir + cd
         ''
           command mkdir -p $argv
