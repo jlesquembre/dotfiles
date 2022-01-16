@@ -209,10 +209,12 @@ in
       };
     };
 
-  xdg.configFile."nixpkgs/config.nix".text =
-    ''
-      { allowUnfree = true; }
-    '';
+  # xdg.configFile."nixpkgs/config.nix".text =
+  #   ''
+  #     {
+  #       allowUnfree = true;
+  #     }
+  #   '';
 
   # Set it explicitly, not really necessary
   home.sessionVariables.CLJ_CONFIG = "${config.xdg.configHome}/clojure";
