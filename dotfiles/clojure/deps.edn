@@ -87,10 +87,6 @@
                                ; {:git/url "https://github.com/jlesquembre/clj-dev-utils"
                                ;  :git/sha "5eec7a887bc9e066e2b6d8dc8263f8bfa4ec64d7"}}}
 
-
-           :user-local {:extra-deps {me.lafuente/clj-dev-utils {:local/root "$HOME/projects/clj-dev-utils"}}
-                        :exec-fn local-utils/init}
-
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.9.0"}
                                 cider/cider-nrepl {:mvn/version "0.28.0"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
