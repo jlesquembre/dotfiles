@@ -48,6 +48,16 @@
            :eastwood {:extra-deps {jonase/eastwood {:mvn/version "1.1.1"}}
                       :main-opts ["-m" "eastwood.lint" "{:source-paths,[\"src\"],:test-paths,[\"test\"]}"]}
 
+           :kibit {:extra-deps   {tvaughan/kibit-runner {:mvn/version "1.0.1"}}
+                   :override-deps {jonase/kibit {:git/url "https://github.com/jonase/kibit.git"
+                                                 :sha "f92baf4c64c07d4ac633a9af5f73af2915210614"
+                                                 :deps/root "kibit"}}
+                   :main-opts ["-m" "kibit-runner.cmdline"]}
+
+           :check {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"
+                                                 :sha "0ca84df1357d71429243b99908303f45a934654c"}}
+                   :main-opts ["-m" "clj-check.check"]}
+
            :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.2.2"}}
                       :jvm-opts   []
                       :main-opts  ["--main" "org.rssys.pbuilder.core"]}
