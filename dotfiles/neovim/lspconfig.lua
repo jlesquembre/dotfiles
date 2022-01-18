@@ -63,7 +63,7 @@ local function custom_attach(client, bufnr)
   -- set_keymap('n', 'g0',    '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
   -- set_keymap('n', 'gW',    '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
 
-  set_keymap('n', '<leader>dd',  [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({border = "single"})<CR>]], opts)
+  set_keymap('n', '<leader>dd',  [[<cmd>lua vim.diagnostic.open_float({border = "single"})<CR>]], opts)
   set_keymap('n', '[w', [[<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts={border="single"}})<CR>]], opts)
   set_keymap('n', ']w', [[<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={border="single"}})<CR>]], opts)
 
