@@ -55,7 +55,7 @@
                    :main-opts ["-m" "kibit-runner.cmdline"]}
 
            :check {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"
-                                                 :sha "0ca84df1357d71429243b99908303f45a934654c"}}
+                                                 :sha "518d5a1cbfcd7c952f548e6dbfcb9a4a5faf9062"}}
                    :main-opts ["-m" "clj-check.check"]}
 
            :pbuilder {:extra-deps {org.rssys/pbuilder {:mvn/version "0.2.2"}}
