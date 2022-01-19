@@ -301,7 +301,22 @@ in
       vim-fish
       vim-nix
       vim-terraform
-      vimtex
+      {
+        plugin = vimtex;
+        config =
+          ''
+            let g:vimtex_view_general_viewer = 'zathura'
+            let g:vimtex_view_automatic = 1
+
+            let g:vimtex_quickfix_open_on_warning = 1
+            let g:vimtex_fold_enabled = 0
+            let g:vimtex_format_enabled = 1
+            let g:vimtex_compiler_latexmk = {
+                  \ 'build_dir' : '_output',
+                  \}
+          '';
+      }
+
       # pkgs.vimPlugins.vim-toml
       # pkgs.vimPlugins.vim-yaml
       # vim-mustache-handlebars
