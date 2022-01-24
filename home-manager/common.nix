@@ -159,7 +159,7 @@ in
     ddosify
     dstp
 
-    citrix_workspace
+    git-extras
   ];
 
   home.sessionVariables = {
