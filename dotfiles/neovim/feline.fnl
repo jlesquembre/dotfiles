@@ -69,6 +69,7 @@
 
    ;; File size
    {:provider "file_size"
+    :left_sep " "
     :right_sep [" "
                 {:hl {:bg "#1F1F23" :fg "#D0D0D0" :style "NONE"}
                  :str "slant_left_2_thin"}
