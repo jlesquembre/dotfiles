@@ -12,10 +12,10 @@
 {
  #_:mvn/repos #_$CUSTOM_MVN_REPOS
 
- :aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "1.3.1"}}
+ :aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "1.4.0"}}
                       :main-opts  ["-m" "antq.core"]}
 
-           :upgrade  {:extra-deps {com.github.liquidz/antq {:mvn/version "1.3.1"}}
+           :upgrade  {:extra-deps {com.github.liquidz/antq {:mvn/version "1.4.0"}}
                                  :main-opts  ["-m" "antq.core" "--upgrade" "--force"]}
 
            ;; project creation from templates:
@@ -45,12 +45,12 @@
                     :main-opts ["-m" "http.server"]}
 
            ;; see https://github.com/jonase/eastwood#running-eastwood-in-a-repl
-           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "1.1.1"}}
+           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "1.2.2"}}
                       :main-opts ["-m" "eastwood.lint" "{:source-paths,[\"src\"],:test-paths,[\"test\"]}"]}
 
            :kibit {:extra-deps   {tvaughan/kibit-runner {:mvn/version "1.0.1"}}
                    :override-deps {jonase/kibit {:git/url "https://github.com/jonase/kibit.git"
-                                                 :sha "f92baf4c64c07d4ac633a9af5f73af2915210614"
+                                                 :sha "be27e6db625564d045e71a6e13e459eb7651813b"
                                                  :deps/root "kibit"}}
                    :main-opts ["-m" "kibit-runner.cmdline"]}
 
@@ -82,13 +82,13 @@
                          com.cognitect/rebl
                          ;; adjust to match your install location
                          {:local/root "$HOME/projects/REBL/REBL-0.9.220.jar"}
-                         org.openjfx/javafx-fxml     {:mvn/version "18-ea+9"}
-                         org.openjfx/javafx-controls {:mvn/version "18-ea+9"}
-                         org.openjfx/javafx-graphics {:mvn/version "18-ea+9"}
-                         org.openjfx/javafx-media    {:mvn/version "18-ea+9"}
-                         org.openjfx/javafx-swing    {:mvn/version "18-ea+9"}
-                         org.openjfx/javafx-base     {:mvn/version "18-ea+9"}
-                         org.openjfx/javafx-web      {:mvn/version "18-ea+9"}}}
+                         org.openjfx/javafx-fxml     {:mvn/version "18-ea+10"}
+                         org.openjfx/javafx-controls {:mvn/version "18-ea+10"}
+                         org.openjfx/javafx-graphics {:mvn/version "18-ea+10"}
+                         org.openjfx/javafx-media    {:mvn/version "18-ea+10"}
+                         org.openjfx/javafx-swing    {:mvn/version "18-ea+10"}
+                         org.openjfx/javafx-base     {:mvn/version "18-ea+10"}
+                         org.openjfx/javafx-web      {:mvn/version "18-ea+10"}}}
             ; :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:exec-fn local-utils/init
@@ -98,11 +98,11 @@
                                ;  :git/sha "5eec7a887bc9e066e2b6d8dc8263f8bfa4ec64d7"}}}
 
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.9.0"}
-                                cider/cider-nrepl {:mvn/version "0.28.0"}}
+                                cider/cider-nrepl {:mvn/version "0.28.1"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
            :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "0.9.0"}
-                                     cider/cider-nrepl {:mvn/version "0.28.0"}
+                                     cider/cider-nrepl {:mvn/version "0.28.1"}
                                      cider/piggieback {:mvn/version "0.5.3"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
                                     "[cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl]"]}
