@@ -125,6 +125,7 @@
               };
             in
             utils.mkNeovim (nvimConfig.programs.neovim // {
+              # Neovim master
               nvimPackage = inputs.neovim.packages."${system}".neovim;
             });
         };

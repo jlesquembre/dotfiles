@@ -31,12 +31,13 @@ local function custom_colors(color_name)
 
   hi.MatchParen = {guifg = c.base05, guibg = c.base03, gui = "bold,italic"}
 
-  hi.LineNr       = { guifg = c.base03, guibg = c.base01 }
-  hi.SignColumn   = { guibg = c.base01 }
-  hi.CursorLineNr = { guifg = c.base05, guibg = c.base03, gui = "bold"}
-  hi.QuickFixLine = { guifg = c.base00, guibg = c.base09, gui = "none"}
-  hi.PMenu        = { guifg = c.base04, guibg = c.base02, gui = "none"}
-  hi.PMenuSel     = { guifg = c.base01, guibg = c.base04 }
+  hi.CursorLineSign   = { guibg = c.base03}
+  hi.LineNr           = { guifg = c.base03, guibg = c.base01 }
+  hi.SignColumn       = { guibg = c.base01 }
+  hi.CursorLineNr     = { guifg = c.base05, guibg = c.base03, gui = "bold"}
+  hi.QuickFixLine     = { guifg = c.base00, guibg = c.base09, gui = "none"}
+  hi.PMenu            = { guifg = c.base04, guibg = c.base02, gui = "none"}
+  hi.PMenuSel         = { guifg = c.base01, guibg = c.base04 }
 
   hi.NormalFloat  = { guibg = c.base01 }
 
@@ -52,6 +53,11 @@ local function custom_colors(color_name)
   hi.GitSignsChange       = { guifg = c.base0D, guibg = c.base01 }
   hi.GitSignsChangeDelete = { guifg = c.base0D, guibg = c.base01 }
   hi.GitSignsDelete       = { guifg = c.base08, guibg = c.base01 }
+
+  hi.GitSignsAddCul          = { guifg = c.base0B, guibg = c.base03 }
+  hi.GitSignsChangeCul       = { guifg = c.base0D, guibg = c.base03 }
+  hi.GitSignsChangeDeleteCul = { guifg = c.base0D, guibg = c.base03 }
+  hi.GitSignsDeleteCul       = { guifg = c.base08, guibg = c.base03 }
 
   -- hi.LspReferenceRead  = { guibg = c.base02 }
   -- hi.LspReferenceWrite = { guibg = c.base02 }
