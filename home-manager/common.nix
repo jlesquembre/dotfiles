@@ -137,6 +137,7 @@ in
     stern
 
     # dev tools
+    btop
     curlie
     dnsutils
     entr
