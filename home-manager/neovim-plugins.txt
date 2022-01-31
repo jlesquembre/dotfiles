@@ -1,1 +1,2 @@
 jlesquembre/nterm.nvim
+m00qek/baleia.nvim
