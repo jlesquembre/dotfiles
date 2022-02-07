@@ -11,8 +11,10 @@ rec
       allow-unsafe-native-code-during-evaluation = true
       experimental-features = nix-command flakes
     '' + secrets.nix-extraOptions;
-    trustedUsers = [ "root" username ];
-    useSandbox = true;
+    settings = {
+      sandbox = true;
+      trusted-users = [ "root" username ];
+    };
     # nixPath = [
     #   "nixpkgs=${userHome}/nixpkgs"
     #   "nixos-config=/etc/nixos/configuration.nix"

@@ -157,6 +157,9 @@ in
     websocketd
     wuzz
 
+    # nix utils
+    haskellPackages.nix-derivation
+
     ddosify
     dstp
 
