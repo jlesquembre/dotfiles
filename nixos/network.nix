@@ -1,6 +1,6 @@
 { config, options, pkgs, lib, username, ... }:
 let
-  docsPath = "/home/${username}/projects/docs/public";
+  docsPath = "/home/${username}/projects/docs";
   root_ca =
     ''
       -----BEGIN CERTIFICATE-----
@@ -129,7 +129,7 @@ in
         docs.local {
           import local_cert
           bind 127.0.0.1
-          root * ${docsPath}
+          root * ${docsPath}/public
           file_server
           header {
             -Last-Modified

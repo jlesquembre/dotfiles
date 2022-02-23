@@ -56,14 +56,14 @@ rec
     # mopidy mopidy-musicbox-webclient mopidy-moped mopidy-mopify
     docker_compose
     # electron
-    etcher
+    # etcher # ISO writer
     exiftool
     file
     firefox-wayland
     fish
     fzf
     gcc6
-    glances
+    # glances
     glxinfo
     # gnome3.zenity gnome3.dconf gnome3.dconf-editor
     gnumake
