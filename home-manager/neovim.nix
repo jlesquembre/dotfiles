@@ -275,6 +275,7 @@ in
 
       # nterm-nvim
       custom-vim-plugs.nterm-nvim
+      custom-vim-plugs.baleia-nvim
       # (h.neovim.localVimPlugin (vimPluginsDir + /nterm.nvim))
 
       # Git

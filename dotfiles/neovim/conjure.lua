@@ -49,6 +49,8 @@ vim.g['conjure#client#clojure#nrepl#mapping#run_current_test'] = "ptc"
 -- let g:conjure#client#clojure#nrepl#mapping#refresh_clear = "rc"
 --
 -- vim.g['conjure#client#fennel#aniseed#aniseed_module_prefix'] = "aniseed."
+vim.g['conjure#log#strip_ansi_escape_sequences_line_limit'] = 0
+require('baleia').setup { line_starts_at = 3 }
 
 function lisp_settings()
   local bufnr = 0
@@ -81,6 +83,7 @@ vim.api.nvim_exec([[
 augroup LispSettings
   autocmd!
   autocmd FileType ]].. table.concat(M.lisp_langs, ",") ..[[ lua lisp_settings()
+  autocmd BufWinEnter conjure-log-* call s:baleia.automatically(bufnr('%'))
 augroup END
 ]], true)
 
