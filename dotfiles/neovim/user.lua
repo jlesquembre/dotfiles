@@ -22,6 +22,7 @@ local function custom_colors(color_name)
   local c = colorscheme.colorschemes[color_name]
   local hi = colorscheme.highlight
   local bg = "#080808" -- From moonfly colors
+  local fg = "#d8d8d8"
 
   hi.Normal   = { guibg = bg}
   hi.Error    = { guifg = bg}
@@ -65,6 +66,25 @@ local function custom_colors(color_name)
   hi.typescriptParens  = { guibg = "none"}
   hi.BqfPreviewCursor = { guibg = c.base0A, guifg = c.base01}
   hi.BqfPreviewRange = { guibg = c.base0A, guifg = c.base01}
+
+  hi.TelescopeBorder = { guifg = fg}
+  hi.TelescopeResultsTitle = { guifg = bg, guibg = c.base0D }
+  hi.TelescopePromptBorder = { guibg = c.base00,  guifg = fg}
+  hi.TelescopePromptPrefix = { guibg = c.base00, guifg = c.base0A}
+  hi.TelescopePromptTitle = { guifg = c.base00, guibg = c.base0A}
+  hi.TelescopePromptCounter = { guibg = c.base00, guifg = c.base0A }
+
+  -- Reset Telescope options
+  -- vim.cmd [[highlight! link TelescopeSelection    Visual]]
+  -- vim.cmd [[highlight! link TelescopeNormal       Normal]]
+  -- vim.cmd [[highlight! link TelescopePromptNormal TelescopeNormal]]
+  -- vim.cmd [[highlight! link TelescopeBorder       TelescopeNormal]]
+  -- vim.cmd [[highlight! link TelescopePromptBorder TelescopeBorder]]
+  -- vim.cmd [[highlight! link TelescopeTitle        TelescopeBorder]]
+  -- vim.cmd [[highlight! link TelescopePromptTitle  TelescopeTitle]]
+  -- vim.cmd [[highlight! link TelescopeResultsTitle TelescopeTitle]]
+  -- vim.cmd [[highlight! link TelescopePreviewTitle TelescopeTitle]]
+  -- vim.cmd [[highlight! link TelescopePromptPrefix Identifier]]
 end
 
 custom_colors('default-dark')
