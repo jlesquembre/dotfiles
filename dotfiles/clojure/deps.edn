@@ -45,7 +45,7 @@
                     :main-opts ["-m" "http.server"]}
 
            ;; see https://github.com/jonase/eastwood#running-eastwood-in-a-repl
-           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "1.2.2"}}
+           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "1.2.3"}}
                       :main-opts ["-m" "eastwood.lint" "{:source-paths,[\"src\"],:test-paths,[\"test\"]}"]}
 
            :kibit {:extra-deps   {tvaughan/kibit-runner {:mvn/version "1.0.1"}}
@@ -82,13 +82,13 @@
                          com.cognitect/rebl
                          ;; adjust to match your install location
                          {:local/root "$HOME/projects/REBL/REBL-0.9.220.jar"}
-                         org.openjfx/javafx-fxml     {:mvn/version "19-ea+2"}
-                         org.openjfx/javafx-controls {:mvn/version "19-ea+2"}
-                         org.openjfx/javafx-graphics {:mvn/version "19-ea+2"}
-                         org.openjfx/javafx-media    {:mvn/version "19-ea+2"}
-                         org.openjfx/javafx-swing    {:mvn/version "19-ea+2"}
-                         org.openjfx/javafx-base     {:mvn/version "19-ea+2"}
-                         org.openjfx/javafx-web      {:mvn/version "19-ea+2"}}}
+                         org.openjfx/javafx-fxml     {:mvn/version "19-ea+3"}
+                         org.openjfx/javafx-controls {:mvn/version "19-ea+3"}
+                         org.openjfx/javafx-graphics {:mvn/version "19-ea+3"}
+                         org.openjfx/javafx-media    {:mvn/version "19-ea+3"}
+                         org.openjfx/javafx-swing    {:mvn/version "19-ea+3"}
+                         org.openjfx/javafx-base     {:mvn/version "19-ea+3"}
+                         org.openjfx/javafx-web      {:mvn/version "19-ea+3"}}}
             ; :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:exec-fn local-utils/init
