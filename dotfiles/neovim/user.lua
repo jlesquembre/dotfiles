@@ -110,9 +110,12 @@ require('nvim-autopairs').setup({
 
 function _G.toggle_qf()
   local qf_exists = false
-  for _, win in pairs(vim.fn.getwininfo()) do
-    if win["quickfix"] == 1 then
-      qf_exists = true
+
+  for _, win_id in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+    for _, win in pairs(vim.fn.getwininfo(win_id)) do
+      if win["quickfix"] == 1 then
+        qf_exists = true
+      end
     end
   end
   if qf_exists == true then
