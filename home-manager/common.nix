@@ -83,14 +83,10 @@ in
     # xorg.xeyes
 
     # JDK tools
-    jdk11
+    jdk
     visualvm
     # jetbrains.idea-community
-    (maven.override
-      {
-        jdk = jdk11;
-      }
-    )
+    maven
     gradle
 
     # clojure
@@ -622,6 +618,9 @@ in
       core = {
         editor = "nvim";
         hooksPath = ".githooks";
+      };
+      init = {
+        defaultBranch = "main";
       };
       gui = {
         spellingdictionary = "en_US";
