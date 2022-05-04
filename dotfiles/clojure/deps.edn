@@ -38,7 +38,7 @@
                         :main-opts  ["-m" "rebel-readline.main"]}
 
            :rebel-cljs {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
-                                     com.bhauman/figwheel-main       {:mvn/version "0.2.16"}}
+                                     com.bhauman/figwheel-main       {:mvn/version "0.2.17"}}
                         :main-opts  ["-m" "figwheel.main"]}
 
            :server {:extra-deps {nasus/nasus {:mvn/version "0.1.7"}}
@@ -82,13 +82,13 @@
                          com.cognitect/rebl
                          ;; adjust to match your install location
                          {:local/root "$HOME/projects/REBL/REBL-0.9.220.jar"}
-                         org.openjfx/javafx-fxml     {:mvn/version "19-ea+5"}
-                         org.openjfx/javafx-controls {:mvn/version "19-ea+5"}
-                         org.openjfx/javafx-graphics {:mvn/version "19-ea+5"}
-                         org.openjfx/javafx-media    {:mvn/version "19-ea+5"}
-                         org.openjfx/javafx-swing    {:mvn/version "19-ea+5"}
-                         org.openjfx/javafx-base     {:mvn/version "19-ea+5"}
-                         org.openjfx/javafx-web      {:mvn/version "19-ea+5"}}}
+                         org.openjfx/javafx-fxml     {:mvn/version "19-ea+6"}
+                         org.openjfx/javafx-controls {:mvn/version "19-ea+6"}
+                         org.openjfx/javafx-graphics {:mvn/version "19-ea+6"}
+                         org.openjfx/javafx-media    {:mvn/version "19-ea+6"}
+                         org.openjfx/javafx-swing    {:mvn/version "19-ea+6"}
+                         org.openjfx/javafx-base     {:mvn/version "19-ea+6"}
+                         org.openjfx/javafx-web      {:mvn/version "19-ea+6"}}}
             ; :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:exec-fn local-utils/init
