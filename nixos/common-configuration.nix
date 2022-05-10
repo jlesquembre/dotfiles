@@ -134,7 +134,6 @@ rec
     soxr
     sqlite
     sshfs-fuse
-    telnet
     texlive.combined.scheme-full
     tldr
     tmux
