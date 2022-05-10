@@ -55,7 +55,7 @@ rec
     # bazel bazel-buildtools
     cachix
     caddy
-    calibre
+    # calibre
     cntr
     cheat
     chromium
@@ -65,7 +65,6 @@ rec
     # cue
     # mpd cantata
     # mopidy mopidy-musicbox-webclient mopidy-moped mopidy-mopify
-    docker_compose
     # electron
     # etcher # ISO writer
     exiftool
@@ -130,7 +129,7 @@ rec
     rsync
     shellcheck
     shfmt
-    smbclient
+    # samba
     sox
     soxr
     sqlite
@@ -244,6 +243,7 @@ rec
 
 
   virtualisation.docker.enable = true;
+  virtualisation.containerd.enable = true;
   virtualisation.cri-o.enable = true;
   virtualisation.podman = {
     enable = true;
@@ -409,7 +409,7 @@ rec
     fonts = with pkgs; [
       corefonts
       dejavu_fonts
-      font-awesome-ttf
+      font-awesome
       freefont_ttf
       hack-font
       inconsolata
