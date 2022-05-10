@@ -1,2 +1,3 @@
-jlesquembre/nterm.nvim
-m00qek/baleia.nvim
+repo,branch,alias
+https://github.com/m00qek/baleia.nvim/,,
+https://github.com/jlesquembre/nterm.nvim/,,

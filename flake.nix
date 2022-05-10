@@ -141,7 +141,7 @@
                     vimDir = "./home-manager";
                     update-vim-plugins = pkgs.writeShellScriptBin "update-vim-plugins"
                       ''
-                        ${builtins.toString nixpkgs}/pkgs/misc/vim-plugins/update.py \
+                        ${builtins.toString nixpkgs}/pkgs/applications/editors/vim/plugins/update.py \
                           -i ${vimDir}/neovim-plugins.txt \
                           -o ${vimDir}/neovim-plugins-generated.nix --no-commit
                       '';
