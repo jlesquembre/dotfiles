@@ -77,6 +77,7 @@ let maplocalleader="\<SPACE>"
 " Backups
 set backup
 set swapfile
+set backupcopy=yes " overwrite files to update, instead of renaming
 
 
 let tmpvim_dir = "/tmp/nvim/"
