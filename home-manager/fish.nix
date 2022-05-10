@@ -62,10 +62,10 @@ in
       kd = "kubectl delete -f";
 
       # Nix
-      nru = "nix run github:NixOS/nixpkgs/nixpkgs-unstable#";
+      nru = "nix run github:NixOS/nixpkgs/nixos-unstable#";
       nr = "nix run";
       nb = "nix build";
-      nbu = "nix build github:NixOS/nixpkgs/nixpkgs-unstable#";
+      nbu = "nix build github:NixOS/nixpkgs/nixos-unstable#";
 
       # Others
       s = "caddy file-server --browse --listen :8080";
