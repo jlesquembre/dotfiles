@@ -68,7 +68,13 @@
           inherit system;
           modules = [
             {
-              _module.args = extraArgs // { inherit host-options inputs username system; };
+              _module.args = extraArgs // {
+                inherit host-options inputs username;
+                # NixOS already has a system option (a set).
+                # Here system is one of systems defined in nixpkgs, it is a
+                # string (e.g.: "x86_64-linux")
+                nixpkgs-system = system;
+              };
               networking.hostName = host;
               nixpkgs.pkgs = pkgs;
               environment.systemPackages = [

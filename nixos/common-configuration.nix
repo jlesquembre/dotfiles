@@ -1,4 +1,15 @@
-{ config, options, pkgs, lib, host-options, username, secrets, ageKeyFile, inputs, system, ... }:
+{ config
+, options
+, pkgs
+, lib
+, host-options
+, username
+, secrets
+, ageKeyFile
+, inputs
+, nixpkgs-system
+, ...
+}:
 let
   userHome = "/home/${username}";
 in
@@ -198,7 +209,7 @@ rec
     pspg # pgcli
     # libmysqlclient mariadb.client
 
-    inputs.githud.defaultPackage."${system}"
+    inputs.githud.defaultPackage."${nixpkgs-system}"
 
   ]
   ++ (with pkgs.gitAndTools; [
@@ -459,6 +470,9 @@ rec
 
 
   # The NixOS release to be compatible with for stateful data such as databases.
+  system.stateVersion = "22.05";
+
+  # My initial version:
   #system.stateVersion = "16.09";
 
 }
