@@ -420,9 +420,7 @@ in
     gtk3.bookmarks = [ "file:///tmp" ];
   };
 
-  xsession.pointerCursor = {
-    # package = pkgs.vanilla-dmz;
-    # name = "Vanilla-DMZ";
+  home.pointerCursor = {
     package = pkgs.qogir-icon-theme;
     name = "Qogir";
     size = 32;
