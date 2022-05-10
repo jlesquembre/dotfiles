@@ -25,9 +25,9 @@ local date_input = function(args, state, fmt)
 end
 
 
-ls.snippets.all = {
+ls.add_snippets("all", {
  s("date", { d(nil, date_input, {} ), }),
-}
+})
 
 local elementName = function()
   return sn(nil, i(1, fname()))
@@ -42,7 +42,7 @@ local interface = function(args)
   return '"' .. name .. '": ' .. abolish(name, "mixedcase") .. ';'
 end
 
-ls.snippets.typescript = {
+ls.add_snippets("typescript", {
   s("lite", {
     t({'import { LitElement, html, css } from "lit";',
        'import { customElement, property } from "lit/decorators.js";',
@@ -87,4 +87,4 @@ ls.snippets.typescript = {
     }),
   }),
 
-}
+})

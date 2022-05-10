@@ -4,12 +4,15 @@ local M = {}
 vim.g['conjure#log#wrap'] = true
 
 vim.g['conjure#mapping#prefix'] = "c"
-vim.g['conjure#mapping#log_split'] = "ls"
-vim.g['conjure#mapping#log_vsplit'] = "ll"
+vim.g['conjure#mapping#log_jump_to_latest'] = "lg"
+vim.g['conjure#mapping#log_split'] = "lx"
+vim.g['conjure#mapping#log_vsplit'] = "lv"
+vim.g['conjure#mapping#log_toggle'] = "ll"
 vim.g['conjure#mapping#log_tab'] = "lt"
 vim.g['conjure#mapping#log_close_visible'] = "lq"
 -- vim.g['conjure#mapping#eval_current_form'] = "PP"
 -- vim.g['conjure#mapping#eval_root_form'] = "PR"
+vim.g['conjure#log#botright'] = true
 vim.g['conjure#mapping#eval_current_form'] = "pp"
 vim.g['conjure#mapping#eval_root_form'] = "pr"
 vim.g['conjure#mapping#eval_replace_form'] = "p!"
