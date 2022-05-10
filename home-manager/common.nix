@@ -100,7 +100,6 @@ in
 
     # Rust tools
     bandwhich
-    dust
     procs
     sd
     bat
