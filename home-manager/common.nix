@@ -57,6 +57,7 @@ in
     )
 
     graphviz
+    google-chrome
 
     # nix tools
     nix-update

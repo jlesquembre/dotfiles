@@ -58,9 +58,6 @@ rec
     # calibre
     cntr
     cheat
-    chromium
-    google-chrome
-    # google-chrome-dev # see overlays
     cmatrix
     # cue
     # mpd cantata
