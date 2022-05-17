@@ -35,9 +35,9 @@
       format-icons = {
         "1" = "";
         "2" = "";
-        focused = "";
+        # focused = "";
         default = "";
-        # focused = "";
+        focused = "";
         # default = "";
         urgent = "";
       };
