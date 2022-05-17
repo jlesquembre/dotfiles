@@ -3,7 +3,21 @@
 
 final: prev:
 {
-  nterm-nvim = buildVimPluginFrom2Nix {
+
+  baleia-nvim = buildNeovimPluginFrom2Nix {
+    pname = "baleia.nvim";
+    version = "2022-05-15";
+    src = fetchFromGitHub {
+      owner = "m00qek";
+      repo = "baleia.nvim";
+      rev = "d4fe7b0905e6bf66e1447a291441f0720ddfa279";
+      sha256 = "1q3r54plnav5fnqflmbqvma0mqz361jcgzccwh8nd4hzg1gi4gc7";
+      fetchSubmodules = true;
+    };
+    meta.homepage = "https://github.com/m00qek/baleia.nvim/";
+  };
+
+  nterm-nvim = buildNeovimPluginFrom2Nix {
     pname = "nterm.nvim";
     version = "2022-05-10";
     src = fetchFromGitHub {
@@ -13,19 +27,6 @@ final: prev:
       sha256 = "0cvg03d1z7jkamg062ng731pdmckrdm611q24brr9ha1qc5q26gm";
     };
     meta.homepage = "https://github.com/jlesquembre/nterm.nvim/";
-  };
-
-  baleia-nvim = buildVimPluginFrom2Nix {
-    pname = "baleia.nvim";
-    version = "2022-05-02";
-    src = fetchFromGitHub {
-      owner = "m00qek";
-      repo = "baleia.nvim";
-      rev = "f02674970cb05297158c65e872b41a2b3609991a";
-      sha256 = "1ar1akw10wbbpln0b4gqarp6p6a73cmf8b887fmlh186p9fdqhid";
-      fetchSubmodules = true;
-    };
-    meta.homepage = "https://github.com/m00qek/baleia.nvim/";
   };
 
 
