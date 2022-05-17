@@ -24,11 +24,9 @@ require('gitsigns').setup {
     ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line()<CR>',
   },
   on_attach = function()
-    if vim.fn.has('nvim-0.7') == 1 then
-      vim.fn.sign_define("GitSignsAdd", {culhl="GitSignsAddCul"})
-      vim.fn.sign_define("GitSignsChangeCul", {culhl="GitSignsChangeCul"})
-      vim.fn.sign_define("GitSignsChangeDeleteCul", {culhl="GitSignsChangeDeleteCul"})
-      vim.fn.sign_define("GitSignsDelete", {culhl="GitSignsDelete"})
-    end
+    vim.fn.sign_define("GitSignsAdd",    {culhl="GitSignsAddCul"})
+    vim.fn.sign_define("GitSignsChange", {culhl="GitSignsChangeCul"})
+    vim.fn.sign_define("GitSignsDelete", {culhl="GitSignsDeleteCul"})
+    vim.fn.sign_define("GitSignsChangeDelete", {culhl="GitSignsChangeDeleteCul"})
   end
 }

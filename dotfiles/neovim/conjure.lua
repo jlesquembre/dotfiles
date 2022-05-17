@@ -53,14 +53,16 @@ vim.g['conjure#client#clojure#nrepl#mapping#run_current_test'] = "ptc"
 --
 -- vim.g['conjure#client#fennel#aniseed#aniseed_module_prefix'] = "aniseed."
 vim.g['conjure#log#strip_ansi_escape_sequences_line_limit'] = 0
-require('baleia').setup { line_starts_at = 3 }
 
-function lisp_settings()
-  local bufnr = 0
+local baleia = require'baleia'
+baleia.setup { line_starts_at = 3 }
+
+function lisp_settings(args)
+  local bufnr = args.buf
   local set_keymap = vim.api.nvim_buf_set_keymap
   local opts = {noremap = true, silent = true}
 
-  set_keymap(bufnr, 'i', '"',     '<Plug>(sexp_insert_double_quote)', {})
+  set_keymap(bufnr, 'i', '"',    '<Plug>(sexp_insert_double_quote)', {})
   set_keymap(bufnr, 'i', '<BS>', '<Plug>(sexp_insert_backspace)', {})
 
   set_keymap(bufnr, 'n', '<leader>a', '>I<cr>', {})
@@ -82,14 +84,18 @@ end
 
 M.lisp_langs = {"clojure"," scheme", "lisp", "racket", "hy", "fennel", "janet", "carp", "wast", "yuck"}
 
-vim.api.nvim_exec([[
-augroup LispSettings
-  autocmd!
-  autocmd FileType ]].. table.concat(M.lisp_langs, ",") ..[[ lua lisp_settings()
-  autocmd BufWinEnter conjure-log-* call s:baleia.automatically(bufnr('%'))
-augroup END
-]], true)
+local lisp_group = vim.api.nvim_create_augroup("LispSettings", {})
 
+vim.api.nvim_create_autocmd("FileType", {
+  group = lisp_group,
+  pattern = M.lisp_langs,
+  callback = lisp_settings,
+})
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  group = lisp_group,
+  pattern = "conjure-log-*",
+  callback = function(args) baleia.automatically(args.buf) end,
+})
 
 -- S-exp
 
