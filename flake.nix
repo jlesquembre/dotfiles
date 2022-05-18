@@ -115,20 +115,22 @@
             ];
           };
 
-        packages = {
-          nvim =
-            let
-              nvimConfig = import ./home-manager/neovim.nix {
-                inherit pkgs nix-medley;
-                lib = pkgs.lib;
-                config = null;
-              };
-            in
-            utils.mkNeovim (nvimConfig.programs.neovim // {
-              # Neovim master
-              nvimPackage = inputs.neovim.packages."${system}".neovim;
-            });
-        };
+        packages =
+          let
+            nvimConfig = import ./home-manager/neovim.nix {
+              inherit pkgs nix-medley;
+              lib = pkgs.lib;
+              config = null;
+            };
+          in
+          {
+            nvim-master =
+              utils.mkNeovim (nvimConfig.programs.neovim // {
+                nvimPackage = inputs.neovim.packages."${system}".neovim;
+              });
+            nvim =
+              utils.mkNeovim nvimConfig.programs.neovim;
+          };
         apps =
           {
             nvim = flake-utils.lib.mkApp { drv = packages.nvim; name = "nvim"; };
@@ -150,6 +152,4 @@
               };
           };
       });
-
-
 }
