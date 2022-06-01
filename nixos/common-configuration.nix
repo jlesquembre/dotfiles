@@ -238,7 +238,10 @@ rec
   ;
 
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    rootless.enable = true;
+  };
   virtualisation.containerd.enable = true;
   virtualisation.cri-o.enable = true;
   virtualisation.podman = {
