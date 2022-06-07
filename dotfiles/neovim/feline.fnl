@@ -5,11 +5,7 @@
             feline feline
             vimode feline.providers.vi_mode
             file_prov feline.providers.file
-            pinfo package-info
-            p feline.presets.default}})
-
-(comment
-  (a.identity p))
+            pinfo package-info}})
 
 (def purple "#5d4d7a")
 (def magenta "#c678dd")
