@@ -12,7 +12,7 @@ jobs:
 
       - uses: DeLaGuardo/setup-clojure@6.0
         with:
-          tools-deps: latest
+          cli: latest
 
       - name: Update clj dependencies
         run:
