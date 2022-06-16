@@ -53,9 +53,10 @@ vim.g['conjure#client#clojure#nrepl#mapping#run_current_test'] = "ptc"
 --
 -- vim.g['conjure#client#fennel#aniseed#aniseed_module_prefix'] = "aniseed."
 vim.g['conjure#log#strip_ansi_escape_sequences_line_limit'] = 0
+-- Depends on https://github.com/jlesquembre/clj-dev-utils/blob/2770bbbd8eb14b60369510107098040b3e9c0ca6/src/local_utils.clj#L139
+vim.g['conjure#client#clojure#nrepl#refresh#after'] = "local-utils/reload-system"
 
-local baleia = require'baleia'
-baleia.setup { line_starts_at = 3 }
+local baleia = require('baleia').setup { line_starts_at = 3 }
 
 function lisp_settings(args)
   local bufnr = args.buf
@@ -84,21 +85,16 @@ end
 
 M.lisp_langs = {"clojure"," scheme", "lisp", "racket", "hy", "fennel", "janet", "carp", "wast", "yuck"}
 
-local lisp_group = vim.api.nvim_create_augroup("LispSettings", {})
-
 vim.api.nvim_create_autocmd("FileType", {
-  group = lisp_group,
   pattern = M.lisp_langs,
   callback = lisp_settings,
 })
 vim.api.nvim_create_autocmd("BufWinEnter", {
-  group = lisp_group,
   pattern = "conjure-log-*",
   callback = function(args) baleia.automatically(args.buf) end,
 })
 
 -- S-exp
-
 
 vim.g.sexp_enable_insert_mode_mappings = 0
 vim.g.sexp_insert_after_wrap = 0
