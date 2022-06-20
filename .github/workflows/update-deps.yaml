@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: DeLaGuardo/setup-clojure@6.0
+      - uses: DeLaGuardo/setup-clojure@7.0
         with:
           cli: latest
 
