@@ -24,37 +24,6 @@ in
   services.blueman-applet.enable = host-options.bluetooth or false;
 
   home.packages = with pkgs; [
-    (
-      let
-        chromium = pkgs.chromium;
-      in
-      nix-medley.writeShellScriptBinAndSymlink
-        {
-          pkg = chromium;
-          text =
-            ''
-              ${chromium}/bin/chromium --enable-devtools-experiments -enable-features=UseOzonePlatform -ozone-platform=wayland "$@"
-            '';
-        }
-    )
-    (
-      let
-        chrome = pkgs.google-chrome;
-      in
-      nix-medley.writeShellScriptBinAndSymlink
-        {
-          pkg = chrome;
-          name = "chrome";
-          text =
-            # http://peter.sh/experiments/chromium-command-line-switches/
-            # https://wiki.archlinux.org/index.php/Chromium/Tips_and_tricks#Making_flags_persistent
-            # --enable-devtools-experiments
-            # --password-store=basic
-            ''
-              ${chrome}/bin/google-chrome-stable -enable-features=UseOzonePlatform -ozone-platform=wayland --disable-gpu-memory-buffer-video-frames "$@"
-            '';
-        }
-    )
 
     graphviz
     google-chrome
@@ -73,6 +42,7 @@ in
     deadbeef # ???
     wl-clipboard
     xfce.ristretto
+    ugrep
     ripgrep
     ripgrep-all
     gnome3.zenity
@@ -131,11 +101,13 @@ in
     skaffold
     tilt
     stern
+    nerdctl
 
     # dev tools
     btop
     curlie
     dnsutils
+    dogdns
     entr
     httpie
     httping
@@ -186,35 +158,13 @@ in
   xdg.enable = true;
   xdg.mime.enable = true;
   xdg.mimeApps.defaultApplications = {
-    "application/x-ica" = "citrix.desktop";
-
     "text/html" = "google-chrome.desktop";
     "x-scheme-handler/http" = "google-chrome.desktop";
     "x-scheme-handler/https" = "google-chrome.desktop";
     "x-scheme-handler/about" = "google-chrome.desktop";
     "x-scheme-handler/unknown" = "google-chrome.desktop";
     "x-scheme-handler/mailto" = "google-chrome.desktop";
-    "x-scheme-handler/msteams" = "teams.desktop";
   };
-  xdg.desktopEntries =
-    {
-      citrix = {
-        name = "Citrix";
-        genericName = "Citrix";
-        exec = "${pkgs.citrix_workspace}/bin/wfica %U";
-        terminal = false;
-        categories = [ "Network" ];
-        mimeType = [ "application/x-ica" ];
-        fileValidation = true;
-      };
-    };
-
-  # xdg.configFile."nixpkgs/config.nix".text =
-  #   ''
-  #     {
-  #       allowUnfree = true;
-  #     }
-  #   '';
 
   # Set it explicitly, not really necessary
   home.sessionVariables.CLJ_CONFIG = "${config.xdg.configHome}/clojure";
@@ -520,7 +470,6 @@ in
     enable = true;
     settings = {
       shell.program = "${pkgs.fish}/bin/fish";
-      url.launcher.program = "${pkgs.xdg_utils}/bin/xdg-open";
       mouse.hide_when_typing = false;
       cursor = {
         style =
