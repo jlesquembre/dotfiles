@@ -168,7 +168,8 @@ in
       pkgs.nodePackages.dockerfile-language-server-nodejs
 
       # Includes css, html and json language server
-      pkgs.vscode-ls
+      # pkgs.vscode-ls
+      pkgs.nodePackages.vscode-langservers-extracted
 
       # Language Servers
       pkgs.clojure-lsp
