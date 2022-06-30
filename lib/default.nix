@@ -44,11 +44,20 @@
         {
           name = "${username}@${host}";
           value = inputs.home-manager.lib.homeManagerConfiguration {
-            inherit system username pkgs;
-            homeDirectory = "/home/${username}";
-            extraSpecialArgs = extraArgs // { inherit host-options inputs system; };
-            configuration.imports = [ (/. + hmConfigDir + "/common.nix") ]
-              ++ pkgs.lib.lists.optional (builtins.pathExists customCfg) (/. + customCfg);
+            inherit pkgs;
+            modules = [
+              (/. + hmConfigDir + "/common.nix")
+              {
+                home = {
+                  inherit username;
+                  homeDirectory = "/home/${username}";
+                };
+                _module.args = extraArgs // {
+                  inherit host-options inputs username system;
+                };
+              }
+            ]
+            ++ pkgs.lib.lists.optional (builtins.pathExists customCfg) (/. + customCfg);
           };
         };
 
