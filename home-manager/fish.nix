@@ -39,6 +39,7 @@ in
       grr = "git push origin --delete";
       gm = "git merge --ff-only";
       gd = "git diff";
+      gdt = "git difftool";
       gdd = "git diff --staged";
       gds = "git stash show -p";
       gst = "git status";

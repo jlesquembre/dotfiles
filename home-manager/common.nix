@@ -593,6 +593,18 @@ in
       "diff \"sopsdiffer\"" = {
         textconv = "sops -d";
       };
+      diff = {
+        tool = "difftastic";
+      };
+      difftool = {
+        prompt = false;
+      };
+      "difftool \"difftastic\"" = {
+        cmd = ''${pkgs.difftastic}/bin/difft --color auto --background dark "$LOCAL" "$REMOTE"'';
+      };
+      pager = {
+        difftool = true;
+      };
     } // secrets.rbi.git-extraconfig;
     includes = secrets.rbi.git-includes;
 
@@ -611,6 +623,7 @@ in
         syntax-theme = "base16";
       };
     aliases = {
+      dft = "difftool";
       lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short --all";
       cloner = "clone --recursive";
       lasttag = "describe --tags --abbrev=0";
