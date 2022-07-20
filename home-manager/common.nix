@@ -577,6 +577,7 @@ in
       push = {
         default = "simple";
         followTags = true;
+        autoSetupRemote = true;
       };
       checkout = {
         defaultRemote = "origin";
