@@ -133,23 +133,20 @@
           };
         apps =
           {
-            nvim = flake-utils.lib.mkApp { drv = packages.nvim; name = "nvim"; };
-
-            update-vim-plugins =
-              {
-                type = "app";
-                program =
-                  let
-                    vimDir = "./home-manager";
-                    update-vim-plugins = pkgs.writeShellScriptBin "update-vim-plugins"
-                      ''
-                        ${builtins.toString nixpkgs}/pkgs/applications/editors/vim/plugins/update.py \
-                          -i ${vimDir}/neovim-plugins.txt \
-                          -o ${vimDir}/neovim-plugins-generated.nix --no-commit
-                      '';
-                  in
-                  "${update-vim-plugins}/bin/update-vim-plugins";
-              };
+            update-vim-plugins = {
+              type = "app";
+              program =
+                let
+                  vimDir = "./home-manager";
+                  update-vim-plugins = pkgs.writeShellScriptBin "update-vim-plugins"
+                    ''
+                      ${builtins.toString nixpkgs}/pkgs/applications/editors/vim/plugins/update.py \
+                        -i ${vimDir}/neovim-plugins.txt \
+                        -o ${vimDir}/neovim-plugins-generated.nix --no-commit
+                    '';
+                in
+                "${update-vim-plugins}/bin/update-vim-plugins";
+            };
           };
       });
 }
