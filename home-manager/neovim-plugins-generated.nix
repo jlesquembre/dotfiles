@@ -10,7 +10,7 @@ final: prev:
       owner = "m00qek";
       repo = "baleia.nvim";
       rev = "af6a17b21336599df8f17a8c1186b414330b8b44";
-      sha256 = "00xj3ilkmqvdb848g9q35i1raqcvbi85gvpgiwzs93bhkj03h2rl";
+      sha256 = "063xhhy5ln1yvwfapv5r8b17sdcspszw5xghgkjk21nnssp4yk2v";
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/m00qek/baleia.nvim/";
