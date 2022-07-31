@@ -1,7 +1,7 @@
 name: "Update deps"
 on:
   schedule:
-    - cron: "1 5 * * 3"
+    - cron: "1 3 * * 3"
 
 jobs:
   clojure-deps:
@@ -46,3 +46,19 @@ jobs:
           title: Update neovim plugins
           assignees: jlesquembre
           branch: update-nvim-deps
+
+  lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@v11
+        with:
+          pr-title: "Update flake.lock"
