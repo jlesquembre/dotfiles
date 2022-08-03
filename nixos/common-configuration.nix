@@ -25,6 +25,7 @@ rec
     settings = {
       sandbox = true;
       trusted-users = [ "root" username ];
+      auto-optimise-store = true;
     };
     # nixPath = [
     #   "nixpkgs=${userHome}/nixpkgs"
