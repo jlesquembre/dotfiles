@@ -563,6 +563,7 @@ in
       signByDefault = true;
       key = "8A3455EBE455489A";
     };
+    lfs.enable = true;
     extraConfig = {
       core = {
         editor = "nvim";
@@ -607,6 +608,18 @@ in
         difftool = true;
       };
     };
+
+    includes =
+      [
+        {
+          condition = "gitdir:~/tweag/";
+          contents = {
+            user = {
+              email = "jose.lafuente@tweag.io";
+            };
+          };
+        }
+      ];
 
     delta.enable = true;
     delta.options = #[ "--dark" "--theme base16" "--file-color #ffff00" "--file-style box" ];
