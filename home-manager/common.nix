@@ -111,6 +111,7 @@ in
     dnsutils
     dogdns
     entr
+    gh
     httpie
     httping
     httplab
@@ -567,7 +568,7 @@ in
     extraConfig = {
       core = {
         editor = "nvim";
-        hooksPath = ".githooks";
+        # hooksPath = ".githooks";
       };
       init = {
         defaultBranch = "main";
@@ -616,6 +617,14 @@ in
           contents = {
             user = {
               email = "jose.lafuente@tweag.io";
+            };
+          };
+        }
+        {
+          condition = "gitdir:~/projects/docs/";
+          contents = {
+            core = {
+              hooksPath = ".githooks";
             };
           };
         }
