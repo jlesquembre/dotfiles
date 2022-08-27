@@ -60,17 +60,14 @@
 
       hosts = {
         alfa = { };
-        epsilon = {
+        beta = {
           wifi = true;
           bluetooth = true;
           nixos-modules = [
-            nixos-hardware.nixosModules.lenovo-thinkpad-p53
-            ./nixos/rbi.nix
+            nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
           ];
         };
       };
-
-
 
     in
     {
