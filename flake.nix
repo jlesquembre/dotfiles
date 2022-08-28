@@ -108,6 +108,7 @@
               pass
               qrencode
               sops
+              v4l-utils
               zbar
             ];
           };
