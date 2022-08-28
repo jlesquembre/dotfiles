@@ -1,7 +1,13 @@
+local util = require "formatter.util"
+
 local pConf = function ()
   return {
     exe = "prettier",
-    args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), '--prose-wrap always'},
+    args = {
+      "--stdin-filepath",
+      util.escape_path(util.get_current_buffer_file_path()),
+      "--prose-wrap always"
+    },
     stdin = true
   }
 end
@@ -12,6 +18,16 @@ local hclConf = function ()
     args = {"fmt", '-'},
     stdin = true
   }
+end
+
+local haskellConf = function()
+  return {
+    exe = "ormolu",
+    args = {
+      util.escape_path(util.get_current_buffer_file_path())
+    },
+    stdin = true
+}
 end
 
 require('formatter').setup({
@@ -31,6 +47,10 @@ require('formatter').setup({
     ["markdown.mdx"] = { pConf } ,
 
     terraform = {hclConf},
+
+    lua = { require("formatter.filetypes.lua").stylua },
+
+    haskell = {haskellConf},
 
     nix = {
       function()

@@ -184,6 +184,8 @@ in
       pkgs.nixpkgs-fmt
       pkgs.rustfmt
       pkgs.terraform
+      pkgs.ormolu
+      pkgs.stylua
     ];
     plugins = with pkgs.vimPlugins; [
 
