@@ -1,22 +1,22 @@
-local util = require "formatter.util"
+local util = require("formatter.util")
 
-local pConf = function ()
+local pConf = function()
   return {
     exe = "prettier",
     args = {
       "--stdin-filepath",
       util.escape_path(util.get_current_buffer_file_path()),
-      "--prose-wrap always"
+      "--prose-wrap always",
     },
-    stdin = true
+    stdin = true,
   }
 end
 
-local hclConf = function ()
+local hclConf = function()
   return {
     exe = "terraform",
-    args = {"fmt", '-'},
-    stdin = true
+    args = { "fmt", "-" },
+    stdin = true,
   }
 end
 
@@ -24,48 +24,71 @@ local haskellConf = function()
   return {
     exe = "ormolu",
     args = {
-      util.escape_path(util.get_current_buffer_file_path())
+      util.escape_path(util.get_current_buffer_file_path()),
     },
-    stdin = true
-}
+    stdin = true,
+  }
 end
 
-require('formatter').setup({
+local luaConf = function()
+  return {
+    exe = "stylua",
+    args = {
+      "--search-parent-directories",
+      "--indent-type",
+      "Spaces",
+      "--indent-width",
+      "2",
+      "--stdin-filepath",
+      util.escape_path(util.get_current_buffer_file_path()),
+      "--",
+      "-",
+    },
+    stdin = true,
+  }
+end
+
+require("formatter").setup({
   logging = false,
   filetype = {
-    javascript = { pConf } ,
-    typescript = { pConf } ,
-    yaml = { pConf } ,
-    json = { pConf } ,
-    jsonc = { pConf } ,
-    css = { pConf } ,
-    scss = { pConf } ,
-    html = { pConf } ,
-    yaml = { pConf } ,
-    markdown = { pConf } ,
-    typescriptreact = { pConf } ,
-    ["markdown.mdx"] = { pConf } ,
+    javascript = { pConf },
+    typescript = { pConf },
+    yaml = { pConf },
+    json = { pConf },
+    jsonc = { pConf },
+    css = { pConf },
+    scss = { pConf },
+    html = { pConf },
+    yaml = { pConf },
+    markdown = { pConf },
+    typescriptreact = { pConf },
+    ["markdown.mdx"] = { pConf },
 
-    terraform = {hclConf},
+    terraform = { hclConf },
 
-    lua = { require("formatter.filetypes.lua").stylua },
+    -- lua = { require("formatter.filetypes.lua").stylua },
+    lua = { luaConf },
 
-    haskell = {haskellConf},
+    haskell = { haskellConf },
 
     nix = {
       function()
         return {
           exe = "nixpkgs-fmt",
-          stdin = true}
-      end},
+          stdin = true,
+        }
+      end,
+    },
 
     rust = {
       function()
         return {
           exe = "rustfmt",
-          args = {"--emit=stdout"},
-          stdin = true}
-      end},
+          args = { "--emit=stdout" },
+          stdin = true,
+        }
+      end,
+    },
 
     -- clojure = {
     --   function()
@@ -73,12 +96,11 @@ require('formatter').setup({
     --       exe = "zprint",
     --       stdin = true}
     --   end},
+  },
+})
 
-}})
-
-vim.api.nvim_exec([[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost * silent FormatWrite
-augroup END
-]], true)
+local group = vim.api.nvim_create_augroup("AutoFormat", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePost", {
+  group = group,
+  command = "FormatWrite",
+})
