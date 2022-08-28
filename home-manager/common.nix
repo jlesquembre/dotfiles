@@ -180,12 +180,10 @@ in
         [
           "${config.home.homeDirectory}"
           "${dotfiles}/clojure/src"
-          ":mvn/repos"
-          ''
-            {
-            ${secrets.rbi.clj-mvn-repos}
-            }
-          ''
+          # For custom maven repos, not used anymore
+          # ":mvn/repos"
+          ""
+          ""
         ]
         (readFile "${dotfiles}/clojure/deps.edn")
     );
@@ -315,7 +313,6 @@ in
             <username>jlesquembre</username>
             <password>''${clojars.password}</password>
           </server>
-          ${secrets.rbi.maven-servers}
         </servers>
       </settings>
     '';
