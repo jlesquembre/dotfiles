@@ -8,7 +8,7 @@ require("telescope").setup({
     preview = {
       treesitter = {
         enable = true,
-        disable = { "lua" },
+        disable = { "lua", "vim" },
       },
     },
     -- layout_strategy = "bottom_pane",
