@@ -6,9 +6,12 @@ require('telescope').setup{
   defaults = {
 
     -- layout_strategy = "bottom_pane",
+
+    -- Default previewers
     file_previewer   = previewers.vim_buffer_cat.new,
     grep_previewer   = previewers.vim_buffer_vimgrep.new,
     qflist_previewer = previewers.vim_buffer_qflist.new,
+
     mappings = {
       i = {
         ["<esc>"] = actions.close,
@@ -31,9 +34,8 @@ end
 
 -- Falling back to find_files if git_files can't find a .git directory
 M.project_files = function()
-  local opts = {} -- define here if you want to define something
-  local ok = pcall(require'telescope.builtin'.git_files, opts)
-  if not ok then require'telescope.builtin'.find_files(opts) end
+  local ok = pcall(require'telescope.builtin'.git_files, {show_untracked = true})
+  if not ok then require'telescope.builtin'.find_files({}) end
 end
 
 require('telescope').load_extension('nterm')
