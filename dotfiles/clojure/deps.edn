@@ -45,7 +45,7 @@
                     :main-opts ["-m" "http.server"]}
 
            ;; see https://github.com/jonase/eastwood#running-eastwood-in-a-repl
-           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "1.2.4"}}
+           :eastwood {:extra-deps {jonase/eastwood {:mvn/version "1.2.5"}}
                       :main-opts ["-m" "eastwood.lint" "{:source-paths,[\"src\"],:test-paths,[\"test\"]}"]}
 
            :kibit {:extra-deps   {tvaughan/kibit-runner {:mvn/version "1.0.1"}}
@@ -78,7 +78,7 @@
                          ;; deps for file datafication (0.9.149 or later)
                          org.clojure/data.csv {:mvn/version "1.0.1"}
                          org.clojure/data.json {:mvn/version "2.4.0"}
-                         org.yaml/snakeyaml {:mvn/version "1.30"}
+                         org.yaml/snakeyaml {:mvn/version "1.31"}
                          com.cognitect/rebl
                          ;; adjust to match your install location
                          {:local/root "$HOME/projects/REBL/REBL-0.9.220.jar"}
@@ -97,11 +97,11 @@
                                ; {:git/url "https://github.com/jlesquembre/clj-dev-utils"
                                ;  :git/sha "5eec7a887bc9e066e2b6d8dc8263f8bfa4ec64d7"}}}
 
-           :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "0.9.0"}
+           :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "1.0.0"}
                                 cider/cider-nrepl {:mvn/version "0.28.5"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
-           :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "0.9.0"}
+           :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "1.0.0"}
                                      cider/cider-nrepl {:mvn/version "0.28.5"}
                                      cider/piggieback {:mvn/version "0.5.3"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
