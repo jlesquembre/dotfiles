@@ -84,7 +84,7 @@
         };
 
     } //
-    flake-utils.lib.eachDefaultSystem (system:
+    flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (system:
       let
         pkgs = import nixpkgs {
           inherit system;
@@ -95,22 +95,25 @@
         utils = (import ./lib { inherit pkgs; });
       in
       rec{
-        devShell =
-          pkgs.mkShell {
-            packages = with pkgs;[
-              coreutils
-              curl
-              fish
-              git
-              imagemagick
-              nix
-              paperkey
-              pass
-              qrencode
-              sops
-              v4l-utils
-              zbar
-            ];
+        devShells =
+          {
+            default =
+              pkgs.mkShell {
+                packages = with pkgs;[
+                  coreutils
+                  curl
+                  fish
+                  git
+                  imagemagick
+                  nix
+                  paperkey
+                  pass
+                  qrencode
+                  sops
+                  v4l-utils
+                  zbar
+                ];
+              };
           };
 
         packages =
