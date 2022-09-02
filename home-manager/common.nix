@@ -611,7 +611,7 @@ in
     includes =
       [
         {
-          condition = "gitdir:~/tweag/";
+          condition = "gitdir:~/tweag/**";
           contents = {
             user = {
               email = "jose.lafuente@tweag.io";
@@ -620,7 +620,7 @@ in
           };
         }
         {
-          condition = "gitdir:~/projects/docs/";
+          condition = "gitdir:~/projects/docs/**";
           contents = {
             core = {
               hooksPath = ".githooks";
