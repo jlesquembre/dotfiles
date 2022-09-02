@@ -245,6 +245,7 @@ in
     30DA0A90760A12B4E4145376B0344E8B55D58B1E
     A29D8CBD198C34FDED137EDC75F0679F017011D8
     04DC5CE6C1FCA557E5CDE3C1EA40496D37F50891
+    5ED9D9D1AB263FD3998704412CAE81C0D5E10E20
   '';
 
   home.file.sqlite = {
@@ -614,6 +615,7 @@ in
           contents = {
             user = {
               email = "jose.lafuente@tweag.io";
+              signingKey = "504E38E1827AD12E";
             };
           };
         }
