@@ -298,6 +298,7 @@ rec
 
   # services.dbus.packages = with pkgs; [ gnome3.dconf ];
   # services.gnome3.gnome-remote-desktop.enable = true;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   programs.sway =
     {
