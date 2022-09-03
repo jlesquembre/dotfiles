@@ -17,3 +17,5 @@ boot/cache/
 .tern-port
 plug.vim.old
 .clj-kondo/
+
+result
