@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, username, ... }:
 let
   fishFunctionsDir = "${config.xdg.configHome}/fish/functions";
 in
@@ -67,6 +67,9 @@ in
       nr = "nix run";
       nb = "nix build";
       nbu = "nix build github:NixOS/nixpkgs/nixos-unstable#";
+
+      nd = "nvd diff /run/current-system result";
+      ndd = "nvd diff /nix/var/nix/profiles/per-user/${username}/home-manager result";
 
       # Others
       s = "caddy file-server --browse --listen :8080";

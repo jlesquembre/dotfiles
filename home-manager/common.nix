@@ -130,6 +130,7 @@ in
 
     # nix utils
     haskellPackages.nix-derivation
+    nvd
 
     ddosify
     dstp
