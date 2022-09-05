@@ -159,7 +159,7 @@ rec
     age
     blackbox
     gnupg
-    magic-wormhole
+    magic-wormhole-rs
     pkgs.sops
 
     # screenshot utils
