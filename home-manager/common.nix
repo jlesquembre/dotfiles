@@ -140,7 +140,6 @@ in
 
   home.sessionVariables = {
     EDITOR = "nvim";
-    SHELL = "fish";
     BROWSER = "chrome";
     MANPAGER = "nvim +Man!";
     KUBECTL_EXTERNAL_DIFF = "meld";

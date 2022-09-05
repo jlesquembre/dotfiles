@@ -14,6 +14,7 @@ in
 
     # Override default fish functions
     interactiveShellInit = ''
+      set -x SHELL /run/current-system/sw/bin/fish
       source ${fishFunctionsDir}/l.fish
       source ${fishFunctionsDir}/ll.fish
     '';
