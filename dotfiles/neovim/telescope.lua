@@ -1,6 +1,7 @@
 local actions = require("telescope.actions")
 local sorters = require("telescope.sorters")
 local previewers = require("telescope.previewers")
+local lga_actions = require("telescope-live-grep-args.actions")
 
 require("telescope").setup({
   defaults = {
@@ -22,6 +23,16 @@ require("telescope").setup({
       i = {
         ["<esc>"] = actions.close,
         ["<c-s>"] = actions.send_to_qflist + actions.open_qflist,
+      },
+    },
+  },
+  extensions = {
+    live_grep_args = {
+      auto_quoting = true,
+      mappings = {
+        i = {
+          ["<c-f>"] = lga_actions.quote_prompt(),
+        },
       },
     },
   },
@@ -55,7 +66,8 @@ end
 
 set_keymap("n", "<leader>ff", "project_files()", "jlle.telescope")
 set_keymap("n", "<leader>fe", "file_browser()", "telescope.builtin")
-set_keymap("n", "<leader>fs", "live_grep()", "telescope.builtin")
+-- set_keymap("n", "<leader>fs", "live_grep()", "telescope.builtin")
+set_keymap("n", "<leader>fs", "extensions.live_grep_args.live_grep_args()", "telescope")
 set_keymap("n", "<leader>fo", "oldfiles()", "telescope.builtin")
 set_keymap("n", "<leader><cr>", "buffers()", "telescope.builtin")
 set_keymap("n", "<leader>fh", "help_tags()", "telescope.builtin")

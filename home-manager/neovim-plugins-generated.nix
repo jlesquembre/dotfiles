@@ -28,5 +28,17 @@ final: prev:
     meta.homepage = "https://github.com/jlesquembre/nterm.nvim/";
   };
 
+  telescope-live-grep-args-nvim = buildVimPluginFrom2Nix {
+    pname = "telescope-live-grep-args.nvim";
+    version = "2022-08-27";
+    src = fetchFromGitHub {
+      owner = "nvim-telescope";
+      repo = "telescope-live-grep-args.nvim";
+      rev = "32b633b062d1168a2d18ad27994e5b4ef97f0a74";
+      sha256 = "0nsf6xxvqbkm83bv8bcyxr71w3nbbs1qx2z0sqj5kd831amgd62g";
+    };
+    meta.homepage = "https://github.com/nvim-telescope/telescope-live-grep-args.nvim/";
+  };
+
 
 }
