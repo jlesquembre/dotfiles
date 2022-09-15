@@ -175,7 +175,7 @@ in
       pkgs.clojure-lsp
       pkgs.gopls
       pkgs.jdt-ls
-      pkgs.rls
+      pkgs.rust-analyzer
       pkgs.rnix-lsp
       pkgs.terraform-ls
 

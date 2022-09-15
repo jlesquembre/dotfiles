@@ -152,7 +152,7 @@ local function setup_lspconfig()
   lspconfig.dockerls.setup(default_config)
   lspconfig.gopls.setup(default_config)
   -- require'lspconfig'.jdtls.setup(default_config)
-  lspconfig.rls.setup(default_config)
+  lspconfig.rust_analyzer.setup(default_config)
   lspconfig.rnix.setup(default_config)
   lspconfig.terraformls.setup(default_config)
 
