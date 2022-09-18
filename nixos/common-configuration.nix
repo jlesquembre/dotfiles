@@ -22,7 +22,9 @@ rec
     extraOptions = ''
       allow-unsafe-native-code-during-evaluation = true
       experimental-features = nix-command flakes
-    '' + secrets.nix-extraOptions;
+    ''
+    # TODO https://github.com/NixOS/nix/issues/6536
+    + secrets.nix-extraOptions;
     settings = {
       sandbox = true;
       trusted-users = [ "root" username ];
@@ -372,12 +374,14 @@ rec
 
   users.mutableUsers = false;
   users.users.root.hashedPassword = secrets.hashedPassword;
+  # users.users.root.passwordFile = config.sops.secrets.rootPassword.path;
 
   users.users.${username} = {
     description = "José Luis";
     isNormalUser = true;
     home = userHome;
-    hashedPassword = secrets.hashedPassword;
+    # hashedPassword = secrets.hashedPassword;
+    passwordFile = config.sops.secrets.jllePassword.path;
     uid = 1000;
     extraGroups = [
       "wheel"
@@ -394,6 +398,10 @@ rec
   };
 
   sops.age.keyFile = ageKeyFile;
+  sops.defaultSopsFile = rootPath + /sops/secrets.yaml;
+
+  sops.secrets.jllePassword.neededForUsers = true;
+  sops.secrets.rootPassword.neededForUsers = true;
 
   # TODO move to home-manager
   # See
