@@ -1,4 +1,4 @@
-{ config, pkgs, lib, nix-medley, ... }:
+{ config, pkgs, lib, nix-medley, rootPath, ... }:
 let
   nvim-deps = (import ./neovim-deps.nix) { pkgs = pkgs; };
   custom-vim-plugs = pkgs.vimPlugins.extend (
@@ -8,9 +8,10 @@ let
     })
   );
 
-  vimDir = ../dotfiles/neovim;
+  vimDir = rootPath + /dotfiles/neovim;
 
-  vimPluginsDir = ../../projects;
+  # Doesn't work with flakes
+  # vimPluginsDir = ../../projects;
 
   # TODO extract
   readFileIfExists = f:

@@ -8,6 +8,7 @@
 , ageKeyFile
 , inputs
 , nixpkgs-system
+, rootPath
 , ...
 }:
 let

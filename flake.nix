@@ -52,6 +52,7 @@
       utils = (import ./lib { inherit pkgs; inherit ageKeyFile; });
       extraArgs =
         {
+          rootPath = ./.;
           import-secret = utils.import-secret;
           secrets = utils.import-secret ./sops/secrets.nix;
           nix-medley = inputs.nix-medley.lib pkgs;
@@ -120,6 +121,7 @@
           let
             nvimConfig = import ./home-manager/neovim.nix {
               inherit pkgs nix-medley;
+              rootPath = ./.;
               lib = pkgs.lib;
               config = null;
             };
