@@ -149,13 +149,8 @@ in
 
   ## step-ca ACME server
 
-  sops.secrets.step_password = {
-    format = "yaml";
-    sopsFile = ../sops/step_ca.yaml;
-  };
+  sops.secrets.step_password = { };
   sops.secrets.step_intermediate_ca_key = {
-    format = "yaml";
-    sopsFile = ../sops/step_ca.yaml;
     mode = "0440";
     group = config.users.groups.keys.name;
   };
