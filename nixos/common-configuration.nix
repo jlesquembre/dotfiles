@@ -18,23 +18,22 @@ in
 rec
 {
 
+  sops.secrets.nixAccessTokens = {
+    mode = "0440";
+    group = config.users.groups.keys.name;
+  };
+
   nix = {
     extraOptions = ''
       allow-unsafe-native-code-during-evaluation = true
       experimental-features = nix-command flakes
-    ''
-    # TODO https://github.com/NixOS/nix/issues/6536
-    + secrets.nix-extraOptions;
+      !include ${config.sops.secrets.nixAccessTokens.path}
+    '';
     settings = {
       sandbox = true;
       trusted-users = [ "root" username ];
       auto-optimise-store = true;
     };
-    # nixPath = [
-    #   "nixpkgs=${userHome}/nixpkgs"
-    #   "nixos-config=/etc/nixos/configuration.nix"
-    #   "nixpkgs-overlays=${userHome}/dotfiles/overlays/overlays-compat"
-    # ];
   };
   nixpkgs.config.allowUnfree = true;
 
