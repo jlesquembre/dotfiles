@@ -12,10 +12,10 @@
 {
  #_:mvn/repos #_$CUSTOM_MVN_REPOS
 
- :aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.0.895"}}
+ :aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.1.927"}}
                       :main-opts  ["-m" "antq.core"]}
 
-           :upgrade  {:extra-deps {com.github.liquidz/antq {:mvn/version "2.0.895"}}
+           :upgrade  {:extra-deps {com.github.liquidz/antq {:mvn/version "2.1.927"}}
                                  :main-opts  ["-m" "antq.core" "--upgrade" "--force"]}
 
            ;; project creation from templates:
@@ -78,17 +78,17 @@
                          ;; deps for file datafication (0.9.149 or later)
                          org.clojure/data.csv {:mvn/version "1.0.1"}
                          org.clojure/data.json {:mvn/version "2.4.0"}
-                         org.yaml/snakeyaml {:mvn/version "1.32"}
+                         org.yaml/snakeyaml {:mvn/version "1.33"}
                          com.cognitect/rebl
                          ;; adjust to match your install location
                          {:local/root "$HOME/projects/REBL/REBL-0.9.220.jar"}
-                         org.openjfx/javafx-fxml     {:mvn/version "20-ea+2"}
-                         org.openjfx/javafx-controls {:mvn/version "20-ea+2"}
-                         org.openjfx/javafx-graphics {:mvn/version "20-ea+2"}
-                         org.openjfx/javafx-media    {:mvn/version "20-ea+2"}
-                         org.openjfx/javafx-swing    {:mvn/version "20-ea+2"}
-                         org.openjfx/javafx-base     {:mvn/version "20-ea+2"}
-                         org.openjfx/javafx-web      {:mvn/version "20-ea+2"}}}
+                         org.openjfx/javafx-fxml     {:mvn/version "20-ea+3"}
+                         org.openjfx/javafx-controls {:mvn/version "20-ea+3"}
+                         org.openjfx/javafx-graphics {:mvn/version "20-ea+3"}
+                         org.openjfx/javafx-media    {:mvn/version "20-ea+3"}
+                         org.openjfx/javafx-swing    {:mvn/version "20-ea+3"}
+                         org.openjfx/javafx-base     {:mvn/version "20-ea+3"}
+                         org.openjfx/javafx-web      {:mvn/version "20-ea+3"}}}
             ; :main-opts ["-m" "cognitect.rebl"]}
 
            :user {:exec-fn local-utils/init
@@ -98,11 +98,11 @@
                                ;  :git/sha "5eec7a887bc9e066e2b6d8dc8263f8bfa4ec64d7"}}}
 
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "1.0.0"}
-                                cider/cider-nrepl {:mvn/version "0.28.5"}}
+                                cider/cider-nrepl {:mvn/version "0.28.6"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
            :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "1.0.0"}
-                                     cider/cider-nrepl {:mvn/version "0.28.5"}
+                                     cider/cider-nrepl {:mvn/version "0.28.6"}
                                      cider/piggieback {:mvn/version "0.5.3"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
                                     "[cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl]"]}
