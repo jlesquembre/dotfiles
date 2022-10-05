@@ -32,16 +32,6 @@
       psk = "@home_psk@";
     };
 
-    "@work2_uuid@" = {
-      auth = ''
-        key_mgmt=WPA-EAP
-        eap=PEAP
-        phase2="auth=MSCHAPV2"
-        identity="@work2_id@"
-        password="@work2_pass@"
-      '';
-    };
-
     PBS-2EF4E9 = {
       psk = "@PBS_psk@";
     };
@@ -81,5 +71,7 @@
     ONB-WLAN-PUBLIKUM = { };
     WESTlan = { };
     AK-Wien = { };
+    "Citadines Bastille " = { };
+    WOJO-GUEST = { };
   };
 }

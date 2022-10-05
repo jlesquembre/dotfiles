@@ -245,7 +245,9 @@ rec
     enable = true;
     rootless.enable = true;
   };
+
   virtualisation.containerd.enable = true;
+
   virtualisation.cri-o.enable = true;
   virtualisation.podman = {
     enable = true;
