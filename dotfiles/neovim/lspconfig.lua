@@ -20,10 +20,6 @@ require("goto-preview").setup({ default_mappings = false })
 local lspconfig = require("lspconfig")
 local root_pattern = lspconfig.util.root_pattern
 
-local set_telescope_keymap = function(bufnr, mod, lhs, rhs, opts)
-  vim.api.nvim_buf_set_keymap(bufnr, mod, lhs, "<cmd>lua require('telescope.builtin')." .. rhs .. "<cr>", opts)
-end
-
 local function preview_location_callback(_, method, result)
   if result == nil or vim.tbl_isempty(result) then
     vim.lsp.log.info(method, "No location found")
@@ -42,9 +38,6 @@ function _G.peek_definition()
 end
 
 local function custom_attach(client, bufnr)
-  local function set_keymap_t(...)
-    set_telescope_keymap(bufnr, ...)
-  end
   local function set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
@@ -59,29 +52,33 @@ local function custom_attach(client, bufnr)
   set_keymap("n", "gdi", [[<cmd>lua require('goto-preview').goto_preview_implementation()<CR>]], opts)
   set_keymap("n", "gdc", [[<cmd>lua require('goto-preview').close_all_win()<CR>]], opts)
   -- set_keymap('n', 'gd',    '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  set_keymap("n", "gdg", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
   set_keymap("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-  -- set_keymap('n', 'gr',    '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  -- set_keymap('n', 'g0',    '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
-  -- set_keymap('n', 'gW',    '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
+
+  set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+  set_keymap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
+  set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
 
   set_keymap("n", "<leader>dd", [[<cmd>lua vim.diagnostic.open_float({border = "single"})<CR>]], opts)
   set_keymap("n", "[w", [[<cmd>lua vim.diagnostic.goto_prev({float={border="single"}})<CR>]], opts)
   set_keymap("n", "]w", [[<cmd>lua vim.diagnostic.goto_next({float={border="single"}})<CR>]], opts)
 
   set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+  set_keymap("n", "<leader>cl", "<cmd>lua vim.lsp.codelens.run()<CR>", opts)
 
   -- set_keymap('n', 'gdp',  [[<cmd>lua peek_definition()<CR>]], opts)
-  set_keymap("n", "gdg", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  --
-  -- TELESCOPE
-  --
-  set_keymap_t("n", "<leader>dr", "lsp_references()", opts)
-  set_keymap_t("n", "<leader>dj", "lsp_document_symbols()", opts)
-  set_keymap_t("n", "<leader>dk", "lsp_dynamic_workspace_symbols()", opts)
-  set_keymap_t("n", "<leader>dc", "lsp_code_actions()", opts)
-  set_keymap("v", "<leader>dc", [[<cmd>'<,'>lua require("telescope.builtin").lsp_code_action()<CR>]], opts)
-  set_keymap_t("n", "<leader>dw", "lsp_document_diagnostics()", opts)
-  set_keymap_t("n", "<leader>dW", "lsp_workspace_diagnostics()", opts)
+
+  set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+  -- set_keymap("v", "<leader>dc", [[<cmd>'<,'>lua require("telescope.builtin").lsp_code_action()<CR>]], opts)
+
+  -- DAP
+  set_keymap("n", "<leader>dc", [[<cmd>lua require"dap".continue()<CR>]], opts)
+  set_keymap("n", "<leader>dr", [[<cmd>lua require"dap".repl.toggle()<CR>]], opts)
+  set_keymap("n", "<leader>dK", [[<cmd>lua require"dap.ui.widgets".hover()<CR>]], opts)
+  set_keymap("n", "<leader>dt", [[<cmd>lua require"dap".toggle_breakpoint()<CR>]], opts)
+  set_keymap("n", "<leader>dso", [[<cmd>lua require"dap".step_over()<CR>]], opts)
+  set_keymap("n", "<leader>dsi", [[<cmd>lua require"dap".step_into()<CR>]], opts)
+  set_keymap("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]], opts)
 
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_exec(
@@ -245,3 +242,9 @@ augroup END
 ]],
   true
 )
+
+local M = {
+  capabilities = capabilities,
+  custom_attach = custom_attach,
+}
+return M

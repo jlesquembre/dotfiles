@@ -71,6 +71,8 @@ in
     joker
     zprint
 
+    nickel
+
     # Rust tools
     bandwhich
     procs

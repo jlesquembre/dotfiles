@@ -105,8 +105,25 @@ require("formatter").setup({
   },
 })
 
+local autoformat_enabled = true
+
 local group = vim.api.nvim_create_augroup("AutoFormat", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
   group = group,
-  command = "FormatWrite",
+  callback = function()
+    if autoformat_enabled then
+      vim.api.nvim_command("FormatWrite")
+    end
+  end,
 })
+
+local notify = require("notify")
+
+vim.api.nvim_create_user_command("FormatToggle", function()
+  autoformat_enabled = not autoformat_enabled
+  if autoformat_enabled then
+    notify("Auto format on save ENABLED", "info", { render = "minimal" })
+  else
+    notify("Auto format on save DISABLED", "info", { render = "minimal" })
+  end
+end, {})

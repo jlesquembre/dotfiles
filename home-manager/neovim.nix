@@ -211,9 +211,11 @@ in
       # LSP
       nvim-lspconfig
       nvim-jdtls
+      nvim-metals
       goto-preview
       # (h.neovim.localVimPlugin (vimPluginsDir + /nvim-jdtls))
       nvim-dap
+      dressing-nvim
       SchemaStore-nvim
 
       # auto completion
@@ -232,6 +234,7 @@ in
       nvim-base16
       # custom-vim-plugs.feline-nvim
       feline-nvim
+      nvim-notify
       # dashboard-nvim
 
       # Navigation
