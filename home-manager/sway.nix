@@ -309,6 +309,7 @@ in
 
   # services.poweralertd.enable = true;
   services.udiskie = {
+    # needs `udisks2.enable` = true in NixOS config
     enable = true;
     tray = "auto";
   };

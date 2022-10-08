@@ -366,6 +366,7 @@ rec
   programs.fish.vendor.completions.enable = true;
 
   # services.devmon.enable = true;
+  services.udisks2.enable = true;
   services.udev.packages = with pkgs; [ libu2f-host yubikey-personalization ];
 
   programs.wireshark.enable = true;
