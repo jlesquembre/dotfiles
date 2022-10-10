@@ -6,6 +6,9 @@ jobs:
   update-nix:
     runs-on: ubuntu-latest
     steps:
+      - name: Free disk space
+        run: .github/free_disk_space.sh
+
       - uses: actions/checkout@v3
 
       - name: Install Nix
@@ -20,11 +23,20 @@ jobs:
           name: jl
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
-      - run: |
-
+      - name: Build old NixOS
+        run: |
           nix build -o old_system .#nixosConfigurations.beta.config.system.build.toplevel
+
+      - name: Update flake.nix
+        run: |
           nix flake update
+
+      - name: Build new NixOS
+        run: |
           nix build -o new_system .#nixosConfigurations.beta.config.system.build.toplevel
+
+      - name: Get NixOS diff
+        run: |
           body=$(nix run github:NixOS/nixpkgs/nixos-unstable#nvd -- --color never diff ./old_system ./new_system)
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
