@@ -1,0 +1,37 @@
+name: "Update NixOS"
+on:
+  push:
+
+jobs:
+  update-nix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Cachix
+        uses: cachix/cachix-action@v10
+        with:
+          name: jl
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - run: |
+
+          nix build -o old_system .#nixosConfigurations.beta.config.system.build.toplevel
+          nix flake update
+          nix build -o new_system .#nixosConfigurations.beta.config.system.build.toplevel
+          body=$(nix run github:NixOS/nixpkgs/nixos-unstable#nvd -- --color never diff ./old_system ./new_system)
+          body="${body//'%'/'%25'}"
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}" 
+          echo ::set-output name=body::$body
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          body: ${{ steps.get-pr-body.outputs.body }}
