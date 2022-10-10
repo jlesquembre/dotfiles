@@ -20,12 +20,12 @@ jobs:
       - name: Install Cachix
         uses: cachix/cachix-action@v10
         with:
-          name: jl
+          name: jl-nix
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
       - name: Build old NixOS
         run: |
-          nix build -o old_system .#nixosConfigurations.beta.config.system.build.toplevel
+          nix build -o /tmp/old_system .#nixosConfigurations.beta.config.system.build.toplevel
 
       - name: Update flake.nix
         run: |
@@ -33,11 +33,13 @@ jobs:
 
       - name: Build new NixOS
         run: |
-          nix build -o new_system .#nixosConfigurations.beta.config.system.build.toplevel
+          nix build -o /tmp/new_system .#nixosConfigurations.beta.config.system.build.toplevel
 
       - name: Get NixOS diff
+        id: get-pr-body
         run: |
-          body=$(nix run github:NixOS/nixpkgs/nixos-unstable#nvd -- --color never diff ./old_system ./new_system)
+          nix run github:NixOS/nixpkgs/nixos-unstable#nvd -- --color never diff /tmp/old_system /tmp/new_system > /tmp/pr-body.txt
+          body=$(cat /tmp/pr-body.txt)
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}" 
@@ -47,3 +49,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           body: ${{ steps.get-pr-body.outputs.body }}
+          commit-message: Update flake.nix
+          title: Update flake.nix
+          assignees: jlesquembre
+          branch: update-flake-nix
