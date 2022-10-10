@@ -47,7 +47,7 @@ in
     ugrep
     ripgrep
     ripgrep-all
-    gnome3.zenity
+    gnome.zenity
     wf-recorder
     imv
     keybase-gui

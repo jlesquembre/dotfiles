@@ -94,7 +94,6 @@ rec
     # libreoffice-fresh
     libxml2 # Provides xmllint
     lsof
-    lzma
     man-db
     mediainfo
     meld
@@ -142,6 +141,7 @@ rec
     upower
     w3m
     wget
+    xz
     youtube-dl
     yubikey-personalization
 
@@ -214,9 +214,7 @@ rec
     git-recent
     git-trim
     gitFull
-    gitRemoteGcrypt
     tig
-    transcrypt
   ])
   ++ (with pkgs.nodePackages; [
     fkill-cli
