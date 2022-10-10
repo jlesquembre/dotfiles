@@ -1,10 +1,5 @@
 { pkgs, ageKeyFile ? "" }:
 {
-  import-secret = secretPath: (builtins.exec [
-    "sh"
-    "-c"
-    ''SOPS_AGE_KEY_FILE=${ageKeyFile} ${pkgs.sops}/bin/sops -d ${secretPath}''
-  ]);
 
   mkNeovim =
     { withNodeJs

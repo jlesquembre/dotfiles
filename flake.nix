@@ -53,8 +53,6 @@
       extraArgs =
         {
           rootPath = ./.;
-          import-secret = utils.import-secret;
-          secrets = utils.import-secret ./sops/secrets.nix;
           nix-medley = inputs.nix-medley.lib pkgs;
           inherit ageKeyFile;
         };

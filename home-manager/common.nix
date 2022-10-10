@@ -1,4 +1,4 @@
-{ config, pkgs, lib, secrets, nix-medley, host-options, inputs, system, ... }:
+{ config, pkgs, lib, nix-medley, host-options, inputs, system, ... }:
 let
   dotfiles = toString ../dotfiles;
 in

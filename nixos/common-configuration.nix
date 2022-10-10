@@ -4,7 +4,6 @@
 , lib
 , host-options
 , username
-, secrets
 , ageKeyFile
 , inputs
 , nixpkgs-system
@@ -25,7 +24,6 @@ rec
 
   nix = {
     extraOptions = ''
-      allow-unsafe-native-code-during-evaluation = true
       experimental-features = nix-command flakes
       !include ${config.sops.secrets.nixAccessTokens.path}
     '';
