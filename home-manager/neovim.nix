@@ -310,6 +310,7 @@ in
       # }
       vim-fish
       vim-nix
+      vim-nickel
       vim-terraform
       {
         plugin = vimtex;
