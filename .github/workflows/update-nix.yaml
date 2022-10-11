@@ -1,6 +1,7 @@
 name: "Update NixOS"
 on:
-  push:
+  schedule:
+    - cron: "27 0 * * 3"
 
 jobs:
   update-nix:
@@ -27,6 +28,10 @@ jobs:
         run: |
           nix build -o /tmp/old_system .#nixosConfigurations.beta.config.system.build.toplevel
 
+      - name: Build old home-manager
+        run: |
+          nix build -o /tmp/old_hm .#homeConfigurations.jlle@beta.activationPackage
+
       - name: Update flake.nix
         run: |
           nix flake update
@@ -34,6 +39,10 @@ jobs:
       - name: Build new NixOS
         run: |
           nix build -o /tmp/new_system .#nixosConfigurations.beta.config.system.build.toplevel
+
+      - name: Build new home-manager
+        run: |
+          nix build -o /tmp/new_hm .#homeConfigurations.jlle@beta.activationPackage
 
       - name: Get NixOS diff
         id: get-pr-body
@@ -45,11 +54,32 @@ jobs:
           body="${body//$'\r'/'%0D'}" 
           echo ::set-output name=body::$body
 
+      - name: Get home-manager diff
+        id: get-pr-hm
+        run: |
+          nix run github:NixOS/nixpkgs/nixos-unstable#nvd -- --color never diff /tmp/old_hm /tmp/new_hm > /tmp/pr-hm.txt
+          body=$(cat /tmp/pr-hm.txt)
+          body="${body//'%'/'%25'}"
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}" 
+          echo ::set-output name=body::$body
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          body: ${{ steps.get-pr-body.outputs.body }}
-          commit-message: Update flake.nix
+          body: |
+            # NixOS changes:
+
+            ```bash
+            ${{ steps.get-pr-body.outputs.body }}
+            ```
+
+            # Home Manager changes:
+
+            ```bash
+            ${{ steps.get-pr-hm.outputs.body }}
+            ```
+          commit-message: Update flake lock
           title: Update flake.nix
           assignees: jlesquembre
           branch: update-flake-nix
