@@ -21,17 +21,46 @@ rec
     mode = "0440";
     group = config.users.groups.keys.name;
   };
+  sops.secrets.builder_ssh_key = { };
 
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes
+      builders-use-substitutes = true
       !include ${config.sops.secrets.nixAccessTokens.path}
     '';
     settings = {
       sandbox = true;
       trusted-users = [ "root" username ];
       auto-optimise-store = true;
+      substituters = [
+        "https://jl-nix.cachix.org"
+      ];
+      trusted-public-keys = [
+        "jl-nix.cachix.org-1:lHxA3Z7QoYjxFczo138tIzUHQvJP41rMNgYmBfEBdMU="
+      ];
     };
+    distributedBuilds = true;
+    buildMachines = [
+      {
+        hostName = "build01.tweag.io";
+        maxJobs = 24;
+        sshUser = "nix";
+        sshKey = config.sops.secrets.builder_ssh_key.path;
+        system = "x86_64-linux";
+        supportedFeatures = [ "benchmark" "big-parallel" "kvm" ];
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU9yamc1UjVRUmI2WDNiNkdvT3N2Q0hrSXpHUGE2SUpKWGRLTDB0SDUyYXcK";
+      }
+      {
+        hostName = "build02.tweag.io";
+        maxJobs = 24;
+        sshUser = "nix";
+        sshKey = config.sops.secrets.builder_ssh_key.path;
+        systems = [ "aarch64-darwin" "x86_64-darwin" ];
+        supportedFeatures = [ "benchmark" "big-parallel" ];
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSURRTXltam43YmRITXVGd2dOa2lvaWpQckFVUEpoN0kvOTZMVVZ6SVVHUjcK";
+      }
+    ];
   };
   nixpkgs.config.allowUnfree = true;
 
