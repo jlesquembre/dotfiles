@@ -106,6 +106,8 @@ in
     tilt
     stern
     nerdctl
+    podman-compose
+    podman-tui
 
     # dev tools
     btop
