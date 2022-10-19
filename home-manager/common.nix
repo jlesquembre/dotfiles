@@ -37,7 +37,7 @@ in
     nixpkgs-fmt
     # niv
 
-    inputs.githud.defaultPackage."${system}"
+    inputs.githud.packages."${system}".default
 
     # nix_graph
     clipman

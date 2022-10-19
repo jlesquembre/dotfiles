@@ -234,8 +234,6 @@ rec
     pspg # pgcli
     # libmysqlclient mariadb.client
 
-    inputs.githud.defaultPackage."${nixpkgs-system}"
-
   ]
   ++ (with pkgs.gitAndTools; [
     delta
