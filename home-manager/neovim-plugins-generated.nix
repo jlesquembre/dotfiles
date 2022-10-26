@@ -30,12 +30,12 @@ final: prev:
 
   telescope-live-grep-args-nvim = buildVimPluginFrom2Nix {
     pname = "telescope-live-grep-args.nvim";
-    version = "2022-08-27";
+    version = "2022-10-20";
     src = fetchFromGitHub {
       owner = "nvim-telescope";
       repo = "telescope-live-grep-args.nvim";
-      rev = "32b633b062d1168a2d18ad27994e5b4ef97f0a74";
-      sha256 = "0nsf6xxvqbkm83bv8bcyxr71w3nbbs1qx2z0sqj5kd831amgd62g";
+      rev = "5a30d23a5b2a6c6a24da41cc7e21e4d68d0d1c6e";
+      sha256 = "13kkiamra0mm2256mci07k8hhv2h09isa1hxmqsvc5646jwdmh8c";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-live-grep-args.nvim/";
   };
