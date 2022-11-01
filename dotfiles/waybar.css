@@ -5,22 +5,18 @@
     Helvetica, Arial, sans-serif;
   font-size: 14px;
   min-height: 0;
+  /* TODO */
+  color: white;
 }
 
 window#waybar {
   background: rgba(43, 48, 59, 1);
-  /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
-  color: #ffffff;
 }
 
-window#waybar.hidden {
-  /* opacity: 0; */
-}
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button {
   padding: 0 5px;
   background: transparent;
-  color: #ffffff;
   border-bottom: 3px solid transparent;
 }
 
@@ -54,14 +50,11 @@ window#waybar.hidden {
   padding: 0 10px;
   margin: 0 2px;
   border-bottom: 3px solid #b8b8b8;
-}
-
-#clock {
-  /* background-color: #64727d; */
+  color: white;
 }
 
 #battery.charging {
-  color: #ffffff;
+  color: white;
   background-color: #26a65b;
 }
 
@@ -74,7 +67,7 @@ window#waybar.hidden {
 
 #battery.critical:not(.charging) {
   background: #f53c3c;
-  color: #ffffff;
+  /* color: #ffffff; */
   animation-name: blink;
   animation-duration: 0.5s;
   animation-timing-function: linear;
@@ -98,9 +91,6 @@ window#waybar.hidden {
 #network.disconnected {
   background: #f53c3c;
   border-bottom: none;
-}
-
-#pulseaudio {
 }
 
 #pulseaudio.muted {
@@ -133,10 +123,6 @@ window#waybar.hidden {
 #tray {
   background-color: #2980b9;
   border-bottom: none;
-}
-
-#idle_inhibitor {
-  /* background-color: #2d3436; */
 }
 
 #idle_inhibitor.activated {
