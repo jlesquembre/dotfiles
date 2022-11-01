@@ -105,7 +105,6 @@ in
     skaffold
     tilt
     stern
-    nerdctl
     podman-compose
     podman-tui
 
