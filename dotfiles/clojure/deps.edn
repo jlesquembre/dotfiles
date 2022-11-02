@@ -74,7 +74,7 @@
                               "-Dclojure.server.node={:port,5556,:accept,cljs.server.node/prepl}"
                               "-Dclojure.server.browser={:port,5557,:accept,cljs.server.browser/prepl}"]}
            :rebl
-           {:extra-deps {org.clojure/core.async {:mvn/version "1.5.648"}
+           {:extra-deps {org.clojure/core.async {:mvn/version "1.6.673"}
                          ;; deps for file datafication (0.9.149 or later)
                          org.clojure/data.csv {:mvn/version "1.0.1"}
                          org.clojure/data.json {:mvn/version "2.4.0"}
@@ -98,16 +98,16 @@
                                ;  :git/sha "5eec7a887bc9e066e2b6d8dc8263f8bfa4ec64d7"}}}
 
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "1.0.0"}
-                                cider/cider-nrepl {:mvn/version "0.28.6"}}
+                                cider/cider-nrepl {:mvn/version "0.28.7"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
            :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "1.0.0"}
-                                     cider/cider-nrepl {:mvn/version "0.28.6"}
+                                     cider/cider-nrepl {:mvn/version "0.28.7"}
                                      cider/piggieback {:mvn/version "0.5.3"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
                                     "[cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl]"]}
            :extra {:extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}
-                                org.clojure/core.async {:mvn/version "1.5.648"}}}}}
+                                org.clojure/core.async {:mvn/version "1.6.673"}}}}}
 
 
   ;; Aliases
