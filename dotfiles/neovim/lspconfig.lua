@@ -131,9 +131,7 @@ local function jdt_on_attach(client, bufnr)
   )
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 local function setup_lspconfig()
   local default_config = { on_attach = custom_attach, capabilities = capabilities }

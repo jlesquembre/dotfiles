@@ -9,7 +9,7 @@ metals_config.settings = {
 metals_config.init_options.statusBarProvider = "on"
 
 local my_lspconfig = require("jlle.lspconfig")
-metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(my_lspconfig.capabilities)
+metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true, silent = true }
