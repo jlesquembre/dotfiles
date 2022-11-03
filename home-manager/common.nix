@@ -35,6 +35,7 @@ in
     nixpkgs-review
     nix-serve
     nixpkgs-fmt
+    nix-output-monitor
     # niv
 
     inputs.githud.packages."${system}".default
