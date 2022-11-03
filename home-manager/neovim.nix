@@ -193,8 +193,8 @@ in
       nvim-web-devicons
 
       # if you only want some grammars do
-      # (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.tree-sitter-c p.tree-sitter-java ]))
-      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
+      # (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.python p.java ]))
+      nvim-treesitter.withAllGrammars
       nvim-ts-rainbow
 
       # Helpers, needed by other plugins
