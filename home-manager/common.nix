@@ -130,7 +130,7 @@ in
     watchman # postman
     websocat
     websocketd
-    wuzz
+    # wuzz # BROKEN
 
     # nix utils
     haskellPackages.nix-derivation
