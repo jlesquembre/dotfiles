@@ -119,16 +119,6 @@ local function jdt_on_attach(client, bufnr)
   set_keymap("n", "cpta", '<Cmd>lua require"jdtls".test_class()<CR>', opts)
 
   require("jdtls.setup").add_commands()
-
-  vim.api.nvim_exec(
-    [[
-    augroup FormatLspAutogroup
-      autocmd!
-      autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-    augroup END
-  ]],
-    false
-  )
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
