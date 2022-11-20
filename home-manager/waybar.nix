@@ -68,6 +68,7 @@
       warning = 60;
       critical = 80;
     };
+    on-click = "";
   };
   memory = {
     interval = 30;
@@ -76,6 +77,7 @@
       warning = 80;
       critical = 90;
     };
+    on-click = "";
   };
   # "backlight"= {
   #   # "device"= "acpi_video1";
@@ -95,17 +97,19 @@
     format-icons = [ "" "" "" "" "" ];
     # "🔌" # (AC power plug UTF-8 glyph)
     # status_bat = "🔋" (Battery glyph)
+    on-click = "";
   };
-  disk =
-    {
-      interval = 30;
-      format = "{path} {free}/{total}";
-      path = "/";
-      states = {
-        warning = 90;
-        critical = 95;
-      };
+
+  disk = {
+    interval = 30;
+    format = "{path} {free}/{total}";
+    path = "/";
+    states = {
+      warning = 90;
+      critical = 95;
     };
+    on-click = "";
+  };
   network = {
     # "interface"= "wlp2s0"; # (Optional) To force the use of this interface
     format-wifi = ''{essid} {ipaddr} ({signalStrength}%) '';
@@ -113,6 +117,7 @@
     format-disconnected = "Disconnected ⚠";
     tooltip-format = "{ifname}";
     interval = 7;
+    on-click = "";
   };
   pulseaudio = {
     scroll-step = 1;
