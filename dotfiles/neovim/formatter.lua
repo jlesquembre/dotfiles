@@ -120,10 +120,10 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 local groupLsp = vim.api.nvim_create_augroup("AutoFormatLsp", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = group,
-  pattern = { "*.scala", "*.java" },
+  pattern = { "*.scala", "*.sc", "*.java" },
   callback = function()
     if autoformat_enabled then
-      vim.lsp.buf.formatting_sync()
+      vim.lsp.buf.format()
     end
   end,
 })
