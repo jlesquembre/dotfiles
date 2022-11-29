@@ -27,6 +27,7 @@ in
 
   home.packages = with pkgs; [
 
+    remmina
     graphviz
     google-chrome
 
@@ -115,6 +116,7 @@ in
     dnsutils
     dogdns
     entr
+    watchexec
     gh
     httpie
     httping
@@ -673,6 +675,10 @@ in
 
   programs.mpv = {
     enable = true;
+    bindings = {
+      a = "cycle audio";
+      s = "cycle sub";
+    };
     config = {
       gpu-context = "wayland";
 

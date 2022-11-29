@@ -116,7 +116,6 @@ rec
     just
     jq
     keychain
-    # kodi
     kondo
     libffi
     libicns
@@ -349,8 +348,11 @@ rec
   services.xserver.enable = true;
   services.xserver.layout = "us";
   # services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
+  services.xserver.displayManager.gdm = {
+    enable = true;
+    wayland = true;
+    autoSuspend = false;
+  };
 
   # services.xserver.desktopManager.session = [
   services.xserver.displayManager.session = [
@@ -365,7 +367,6 @@ rec
   ];
 
   services.tumbler.enable = true;
-
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;

@@ -20,6 +20,10 @@ let
         output eDP-1 disable
         output "Goldstar Company Ltd LG HDR 4K 0x0000972A" enable scale 1.7 position 0,0
       }
+      profile {
+        output eDP-1 disable
+        output "Dell Inc. DELL S2722QC 54PYLD3" enable scale 1.5 position 0,0
+      }
     '';
     destination = "/kanshi/config";
   };
