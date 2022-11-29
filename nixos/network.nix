@@ -78,7 +78,7 @@ in
         cache
       }
 
-      local {
+      home.arpa {
         # log
         # errors
         template IN A  {
@@ -96,7 +96,7 @@ in
         acme_ca_root ${root_ca_file}
         email no-reply@lafuente.com
         on_demand_tls {
-          ask      http://check.local/check
+          ask      http://check.home.arpa/check
           interval 1s
           burst 10
         }
@@ -106,10 +106,10 @@ in
       '';
     extraConfig =
       ''
-        check.local:80 {
+        check.home.arpa:80 {
           @check {
             path /check
-            expression {query.domain}.endsWith(".local")
+            expression {query.domain}.endsWith(".home.arpa")
           }
 
           route {
@@ -126,7 +126,7 @@ in
           }
         }
 
-        docs.local {
+        docs.home.arpa {
           import local_cert
           bind 127.0.0.1
           root * ${docsPath}/public
@@ -168,7 +168,7 @@ in
     # See
     # https://smallstep.com/docs/step-ca/configuration#basic-configuration-options
     settings = {
-      dnsNames = [ "localhost" "127.0.0.1" "*.local" ];
+      dnsNames = [ "localhost" "127.0.0.1" "*.home.arpa" ];
       root = root_ca_file;
       crt = pkgs.writeTextFile {
         name = "intermediate.ca";
