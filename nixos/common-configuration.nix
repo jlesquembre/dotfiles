@@ -170,7 +170,6 @@ rec
     w3m
     wget
     xz
-    youtube-dl
     yubikey-personalization
 
     # QT apps helpers

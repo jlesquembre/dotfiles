@@ -27,9 +27,25 @@ in
 
   home.packages = with pkgs; [
 
-    remmina
-    graphviz
+    inputs.githud.packages."${system}".default
+    clipman
+    deadbeef # ???
+    gnome.zenity
     google-chrome
+    graphviz
+    imv
+    keybase-gui
+    remmina
+    ripgrep
+    ripgrep-all
+    ugrep
+    wf-recorder
+    wl-clipboard
+    xfce.ristretto
+    xournalpp
+    yt-dlp
+    # wob
+    # xorg.xeyes
 
     # nix tools
     nix-update
@@ -37,25 +53,7 @@ in
     nix-serve
     nixpkgs-fmt
     nix-output-monitor
-    # niv
-
-    inputs.githud.packages."${system}".default
-
     # nix_graph
-    clipman
-    deadbeef # ???
-    wl-clipboard
-    xfce.ristretto
-    ugrep
-    ripgrep
-    ripgrep-all
-    gnome.zenity
-    wf-recorder
-    imv
-    keybase-gui
-    xournalpp
-    # wob
-    # xorg.xeyes
 
     # JDK tools
     jdk
@@ -122,6 +120,7 @@ in
     httping
     httplab
     httpstat
+    hurl
     siege
     socat
     step-ca
@@ -268,6 +267,7 @@ in
     target = ".psqlrc";
     text = ''
       \set QUIET 1
+      \set ON_ERROR_STOP 1
 
       \setenv PAGER 'pspg -s 6'
       \set PROMPT1 '%[%033[1m%]%M %n@%/%R%[%033[0m%]%# '
