@@ -187,6 +187,9 @@ in
       pkgs.terraform
       pkgs.ormolu
       pkgs.stylua
+
+      # Other tools
+      pkgs.pspg
     ];
     plugins = with pkgs.vimPlugins; [
 

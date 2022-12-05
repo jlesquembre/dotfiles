@@ -43,6 +43,7 @@ local function custom_colors(color_name)
   hi.NormalFloat = { guibg = c.base01 }
 
   hi.Reverse = { gui = "reverse" }
+  hi.OnSelect = { guifg = "none", guibg = "#fff36d" }
 
   hi.DiffLine = { guifg = c.base03 }
   hi.DiffAdd = { guifg = "none", guibg = "#3b4229" }

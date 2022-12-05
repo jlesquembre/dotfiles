@@ -2,6 +2,7 @@
   {require {a aniseed.core
             s aniseed.string
             nvim aniseed.nvim
+            sql jlle.sql_utils
             feline feline
             vimode feline.providers.vi_mode
             file_prov feline.providers.file
@@ -53,6 +54,14 @@
       (values nterm-name)
       (file_prov.file_info component {:type "relative-short"}))))
 
+(fn db-provider
+  []
+  (if (= "sql" (vim.filetype.match {:buf (nvim.get_current_buf)}))
+    (if-let [conn (or vim.b.db vim.g.db)]
+      (.. " [" (a.get sql.db-conns conn) "]")
+      "[NO DB]")
+    ""))
+
 (def active-left
   [{:hl {:fg blue} :provider "▊ "}
 
@@ -94,8 +103,11 @@
     :provider "diagnostic_info"}])
 
 (def active-right
-  [{:provider pinfo.get_status
-    :hl {:style "bold"}}
+  [
+   {:hl {:bg bg :fg blueText :style "bold"}
+    :left_sep " " :right_sep " "
+    :provider db-provider}
+
    {:provider "position"
     :right_sep [{:hl {:bg "#1F1F23" :fg "#D0D0D0" :style "NONE"}
                  :str "slant_right_2_thin"}]}
