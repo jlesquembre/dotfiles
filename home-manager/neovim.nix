@@ -265,7 +265,7 @@ in
       # vim-dispatch
       vim-abolish
       vim-eunuch
-      # vim-dotenv
+      vim-dotenv
       vim-rsi
       {
         plugin = pkgs.vimPlugins.editorconfig-vim;
