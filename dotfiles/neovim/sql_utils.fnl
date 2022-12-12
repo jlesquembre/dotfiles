@@ -107,7 +107,7 @@
   {:pattern  "sql"
    :callback (fn []
                (vim.keymap.set "n" "<leader>zz" set-db-connection {:noremap true :buffer true})
-               (vim.keymap.set "n" "<leader>zs" show-current-db {:noremap true :buffer true})
+               (vim.keymap.set "n" "cll" show-current-db {:noremap true :buffer true})
                (vim.keymap.set "n" "cpp" run-query {:noremap true :buffer true}))
    :group sql_group})
 
