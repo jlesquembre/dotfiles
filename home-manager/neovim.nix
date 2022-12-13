@@ -182,6 +182,25 @@ in
 
       # Formatters
       pkgs.nodePackages.prettier
+      (
+        let
+          config = pkgs.writeText "config.json"
+            ''
+              {
+                "keywordCase": "upper"
+              }
+            '';
+        in
+        pkgs.writeShellApplication {
+          name = "sql-formatter";
+          runtimeInputs = [
+            pkgs.nodePackages.sql-formatter
+          ];
+          text = ''sql-formatter --config ${config} "$@"'';
+        }
+      )
+      # pkgs.sqlfluff
+      # pkgs.pgformatter
       pkgs.nixpkgs-fmt
       pkgs.rustfmt
       pkgs.terraform
@@ -198,6 +217,7 @@ in
       # if you only want some grammars do
       # (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.python p.java ]))
       nvim-treesitter.withAllGrammars
+      playground
       nvim-ts-rainbow
 
       # Helpers, needed by other plugins

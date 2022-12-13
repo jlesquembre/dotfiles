@@ -96,6 +96,17 @@ require("formatter").setup({
       end,
     },
 
+    -- sql = { require("formatter.filetypes.sql").pgformat },
+    sql = {
+      function()
+        return {
+          exe = "sql-formatter",
+          args = { "--language", "postgresql" },
+          stdin = true,
+        }
+      end,
+    },
+
     -- clojure = {
     --   function()
     --     return {
