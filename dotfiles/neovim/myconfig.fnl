@@ -7,8 +7,11 @@
             hcmd harpoon.cmd-ui
             hui harpoon.ui}})
 
-(h.setup {})
+(vim.keymap.set "v" "J" ":m '>+1<CR>gv=gv")
+(vim.keymap.set "v" "K" ":m '<-2<CR>gv=gv")
 
+; Harpoon
+(h.setup {})
 (let [kmap "<leader>a"
       opts {:noremap true}]
   (vim.keymap.set "n" (.. kmap "a") hmark.add_file opts)
