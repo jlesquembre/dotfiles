@@ -673,6 +673,10 @@ in
     };
   };
 
+  xdg.configFile.mpv-script = {
+    target = "mpv/scripts/mpv.lua";
+    source = "${dotfiles}/mpv.lua";
+  };
   programs.mpv = {
     enable = true;
     bindings = {
@@ -681,7 +685,7 @@ in
     };
     config = {
       gpu-context = "wayland";
-
+      save-position-on-quit = "yes";
       # Always use 1080p+ or 60 fps where available. Prefer VP9
       # over AVC and VP8 for high-resolution streams.
       ytdl = "yes";
