@@ -32,6 +32,14 @@
       psk = "@home_psk@";
     };
 
+    "@alicante_uuid_1@" = {
+      psk = "@alicante_psk_1@";
+    };
+
+    "@alicante_uuid_2@" = {
+      psk = "@alicante_psk_1@";
+    };
+
     PBS-2EF4E9 = {
       psk = "@PBS_psk@";
     };
