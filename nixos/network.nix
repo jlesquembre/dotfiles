@@ -78,6 +78,12 @@ in
         cache
       }
 
+      local {
+        template IN A  {
+            answer "{{ .Name }} 0 IN A 127.0.0.1"
+        }
+      }
+
       home.arpa {
         # log
         # errors
@@ -109,7 +115,7 @@ in
         check.home.arpa:80 {
           @check {
             path /check
-            expression {query.domain}.endsWith(".home.arpa")
+            expression {query.domain}.endsWith(".home.arpa") || {query.domain}.endsWith(".local")
           }
 
           route {
@@ -168,7 +174,7 @@ in
     # See
     # https://smallstep.com/docs/step-ca/configuration#basic-configuration-options
     settings = {
-      dnsNames = [ "localhost" "127.0.0.1" "*.home.arpa" ];
+      dnsNames = [ "localhost" "127.0.0.1" "*.home.arpa" "*.local" ];
       root = root_ca_file;
       crt = pkgs.writeTextFile {
         name = "intermediate.ca";
