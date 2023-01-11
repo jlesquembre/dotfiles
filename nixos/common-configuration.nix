@@ -180,7 +180,6 @@ rec
 
     # terminals
     alacritty
-    kitty # hyper
 
     # encryption
     age

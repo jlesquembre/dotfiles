@@ -210,7 +210,6 @@ in
         "${modifier}+Shift+0" = "move container to workspace number 10";
         # bindsym --to-code Mod4+space focus mode_toggle
         # bindsym --to-code Mod4+Shift+space floating toggle
-        # "${modifier}+Shift+Space" = "exec ${pkgs.kitty}/bin/kitty";
         # "${modifier}+Shift+q" = "kill";
         # "${modifier}+d" = "exec ${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu | ${pkgs.findutils}/bin/xargs swaymsg exec --";
 
