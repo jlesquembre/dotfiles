@@ -5,6 +5,11 @@ function clone --description "clone something, cd into it. install it."
   # npm install
 end
 
+set -x AWS_PROFILE ""
+function ap --description "select AWS profile"
+  set -x AWS_PROFILE (aws configure list-profiles | fzf)
+end
+
 
 function ncd -d 'cd to nix store executable'
   cd (dirname (readlink -f (command -s $argv[1])) | sed 's/bin$//')

@@ -212,6 +212,10 @@ in
           set minikube_txt ' minikube'
         end
 
+        if test -n "$AWS_PROFILE"
+          printf '%sAWS[%s%s%s]%s ' (set_color cyan) (set_color normal) (echo $AWS_PROFILE) (set_color cyan) (set_color normal)
+        end
+
         printf '%s%s%s @ %s%s%s in ' (set_color cyan) (whoami) (set_color normal) \
                                      (set_color yellow) (hostname|cut -d . -f 1) (set_color normal)
 
