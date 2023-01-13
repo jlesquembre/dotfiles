@@ -166,7 +166,6 @@ in
       # pkgs.nodePackages.vim-language-server
       pkgs.nodePackages.yaml-language-server
       pkgs.nodePackages.dockerfile-language-server-nodejs
-      pkgs.nodePackages.dockerfile-language-server-nodejs
 
       # Includes css, html and json language server
       # pkgs.vscode-ls
