@@ -82,6 +82,10 @@ in
     fd
     gpg-tui
 
+    # Cloud
+    awscli2
+    google-cloud-sdk
+
     # Kubernetes
     # lens
     kubectl
@@ -92,7 +96,6 @@ in
     # kubectl-fzf
     # istioctl
     # gomplate
-    google-cloud-sdk
     kind
     kube3d
     dapper
@@ -825,4 +828,95 @@ in
 
   services.keybase.enable = true;
   services.kbfs.enable = true;
+
+  programs.starship = {
+    enable = true;
+    settings = {
+      add_newline = true;
+      format =
+        lib.concatStrings [
+          "$username"
+          "$hostname"
+          "$directory"
+          "$aws"
+          "$gcloud"
+          "$all"
+          "$env_var"
+          "$nix_shell"
+          "$status"
+          "$character"
+        ];
+      status = {
+        disabled = false;
+        symbol = "";
+      };
+      username = {
+        show_always = true;
+        format = "[$user]($style) @ ";
+      };
+      hostname = {
+        ssh_only = false;
+        style = "bold green";
+        format = "[$ssh_symbol$hostname]($style) ";
+      };
+      directory = {
+        truncate_to_repo = false;
+        style = "#e0c060";
+      };
+      aws = {
+        # symbol = " "
+        # symbol = " "
+        symbol = " ";
+        format = ''[\[$symbol](white)[($profile)(\($region\))]($style)[\]](white)'';
+        style = "#ff9900";
+      };
+      kubernetes = {
+        disabled = false;
+        format = ''[\[$symbol](white)[$context](cyan)|[$namespace](purple)[\]](white)'';
+        detect_folders = [ "k8s" "kubernetes" ];
+      };
+      java = {
+        symbol = "";
+        format = ''[\[$symbol ](white)[(''${version})]($style)[\]](white)'';
+        style = "red";
+      };
+      scala = {
+        disabled = true;
+      };
+      env_var.RANGER_LEVEL = {
+        variable = "RANGER_LEVEL";
+        format = "[ ranger ]($style) ";
+        style = "fg:white bg:#444444";
+      };
+      custom.githud = {
+        symbol = " ";
+        style = "bold white";
+        command = "githud";
+        detect_folders = [ ".git" ];
+      };
+      git_branch = {
+        symbol = " ";
+        disabled = true;
+      };
+      git_status = {
+        disabled = true;
+      };
+      nix_shell = {
+        symbol = "  ";
+        impure_msg = "";
+        pure_msg = " pure";
+        # format = '[$symbol](fg:black bg:#66abde)[$state]($style) '
+        # format = '[$symbol](#66abde)[$state]($style) '
+        format = "[$symbol](fg:250 bg:#3665ad)[$state]($style) ";
+        # format = '[$symbol](#3665ad)[$state]($style) '
+
+      };
+      nodejs = {
+        format = ''[\[](white)[$symbol($version)]($style)[\]](white)'';
+      };
+      package = {
+        disabled = true;
+      };
+    };
+  };
 }
