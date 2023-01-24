@@ -34,20 +34,53 @@ let
     name = "root.ca";
     text = root_ca;
   };
+
+  common-network-options = {
+    networkConfig =
+      { DHCP = "ipv4"; };
+    dhcpV4Config =
+      { UseDNS = false; };
+  };
 in
 {
 
   # networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 8000 8080 ];
 
-  # DNS configuration
-  # networking.networkmanager.insertNameservers = [ "127.0.0.1" "::1" ];
-  networking.resolvconf.useLocalResolver = true;
-  # Don't use dns server provided by dhcp server
-  networking.dhcpcd.extraConfig =
-    ''
-      nohook resolv.conf
+  systemd.network = {
+    enable = true;
+
+    # The notion of "online" is a broken concept
+    wait-online.enable = false;
+
+    # man systemd.network
+    networks."wlan" =
+      {
+        matchConfig =
+          { Name = "wl*"; };
+      } // common-network-options;
+
+    networks."eth" =
+      {
+        matchConfig =
+          { Name = "en*"; };
+      } // common-network-options;
+  };
+
+  networking.nameservers = [ "127.0.0.1" "::1" ]; # used by services.resolved.DNS
+  services.resolved = {
+    enable = true;
+    domains = [ "local" ];
+    llmnr = "false";
+    extraConfig = ''
+      DNSStubListener=no
     '';
+  };
+
+  networking.dhcpcd.enable = false;
+  networking.useNetworkd = lib.mkDefault true;
+  networking.useDHCP = lib.mkDefault false;
+
 
   services.coredns.enable = true;
   services.coredns.config =
@@ -81,6 +114,12 @@ in
       local {
         template IN A  {
             answer "{{ .Name }} 0 IN A 127.0.0.1"
+        }
+      }
+
+      kube {
+        template IN A  {
+            answer "{{ .Name }} 0 IN A 192.168.49.2"
         }
       }
 

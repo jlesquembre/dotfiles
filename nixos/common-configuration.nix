@@ -40,7 +40,7 @@ rec
         "jl-nix.cachix.org-1:lHxA3Z7QoYjxFczo138tIzUHQvJP41rMNgYmBfEBdMU="
       ];
     };
-    distributedBuilds = true;
+
     buildMachines = [
       {
         hostName = "build01.tweag.io";
