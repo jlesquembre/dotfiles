@@ -96,6 +96,7 @@ in
     # kubectl-fzf
     # istioctl
     # gomplate
+    minikube
     kind
     kube3d
     dapper
