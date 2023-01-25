@@ -5,12 +5,12 @@ final: prev:
 {
   baleia-nvim = buildVimPluginFrom2Nix {
     pname = "baleia.nvim";
-    version = "2022-05-17";
+    version = "2023-01-19";
     src = fetchFromGitHub {
       owner = "m00qek";
       repo = "baleia.nvim";
-      rev = "af6a17b21336599df8f17a8c1186b414330b8b44";
-      sha256 = "063xhhy5ln1yvwfapv5r8b17sdcspszw5xghgkjk21nnssp4yk2v";
+      rev = "8ba437c2da2c917529e1c3952412a2780cecf6c6";
+      sha256 = "15civ4hz9im7kz3vxr6hd4ldmbixrnrx260g5wq6n56mddgxvchz";
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/m00qek/baleia.nvim/";
