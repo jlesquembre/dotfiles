@@ -2,7 +2,7 @@
 {
   hardware.bluetooth = {
     enable = true;
-    package = pkgs.bluez;
+    package = pkgs.bluezFull;
   };
 
   services.blueman.enable = true;

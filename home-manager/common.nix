@@ -894,7 +894,6 @@ in
         symbol = " ";
         style = "bold white";
         command = "githud";
-        detect_folders = [ ".git" ];
       };
       git_branch = {
         symbol = " ";
