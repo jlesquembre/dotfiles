@@ -117,12 +117,15 @@ require("formatter").setup({
 })
 
 local autoformat_enabled = true
+local ignore_format_onsave = { "sql" }
 
 local group = vim.api.nvim_create_augroup("AutoFormat", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
   group = group,
-  callback = function()
-    if autoformat_enabled then
+  callback = function(args)
+    local autoformat = not vim.tbl_contains(ignore_format_onsave, vim.api.nvim_buf_get_option(args.buf, "filetype"))
+    if autoformat_enabled and autoformat then
+      vim.api.nvim_buf_get_option(args.buf, "filetype")
       vim.api.nvim_command("FormatWrite")
     end
   end,
