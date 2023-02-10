@@ -256,6 +256,7 @@ in
 
   # Modified keyboard for developers
   # See http://wiki.linuxquestions.org/wiki/List_of_keysyms
+  # NOTE See https://github.com/jtroo/kanata
   home.file.dev-keyboard = {
     target = ".xkb/symbols/${customKeyboardName}";
     text = ''
