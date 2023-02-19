@@ -1,4 +1,4 @@
-{ config, pkgs, lib, nix-medley, host-options, inputs, system, ... }:
+{ config, pkgs, lib, nix-medley, host-options, inputs, system, rootPath, ... }:
 let
   dotfiles = toString ../dotfiles;
 in
@@ -22,6 +22,20 @@ in
     ./custom-scripts.nix
     ./neovim.nix
   ];
+
+  sops = {
+    defaultSopsFile = ../sops/user.yaml;
+    gnupg.home = "${config.home.homeDirectory}/.gnupg";
+    # disable importing host ssh keys
+    gnupg.sshKeyPaths = [ ];
+  };
+
+  sops.secrets.tweagmate_conf = { };
+  sops.secrets.ssh-config = {
+    path = "${config.home.homeDirectory}/.ssh/config";
+    format = "binary";
+    sopsFile = rootPath + /sops/ssh_config;
+  };
 
   services.blueman-applet.enable = host-options.bluetooth or false;
 
@@ -145,6 +159,13 @@ in
     dstp
 
     git-extras
+
+    (pkgs.writeShellApplication {
+      name = "tweagmate";
+      text = ''
+        ${pkgs.tmate}/bin/tmate -f ${config.sops.secrets.tweagmate_conf.path} "$@"
+      '';
+    })
   ];
 
   home.sessionVariables = {
@@ -894,6 +915,7 @@ in
         symbol = " ";
         style = "bold white";
         command = "githud";
+        detect_folders = [ ".git" ];
       };
       git_branch = {
         symbol = " ";

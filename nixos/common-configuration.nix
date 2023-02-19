@@ -219,15 +219,6 @@ rec
     postgresql
     pspg # pgcli
     # libmysqlclient mariadb.client
-
-    # TODO move to home-manager
-    (pkgs.writeShellApplication {
-      name = "tweagmate";
-      text = ''
-        ${pkgs.tmate}/bin/tmate -f ${config.sops.secrets.tweagmate_conf.path} "$@"
-      '';
-    })
-
   ]
   ++ (with pkgs.gitAndTools; [
     delta
@@ -421,20 +412,6 @@ rec
 
   sops.secrets.jllePassword.neededForUsers = true;
   sops.secrets.rootPassword.neededForUsers = true;
-
-  # TODO move to home-manager
-  # See
-  # https://github.com/Mic92/sops-nix/issues/62
-  sops.secrets.ssh-config = {
-    owner = username;
-    path = "${userHome}/.ssh/config";
-    format = "binary";
-    sopsFile = rootPath + /sops/ssh_config;
-  };
-  sops.secrets.tweagmate_conf = {
-    mode = "0440";
-    group = config.users.groups.keys.name;
-  };
 
   fonts = {
     fontDir.enable = true;

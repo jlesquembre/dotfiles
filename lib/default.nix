@@ -42,6 +42,7 @@
             inherit pkgs;
             modules = [
               (/. + hmConfigDir + "/common.nix")
+              inputs.sops-nix.homeManagerModule
               {
                 home = {
                   inherit username;
