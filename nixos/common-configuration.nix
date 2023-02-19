@@ -112,8 +112,6 @@ rec
     # imv
     inkscape
     # jetbrains.idea-community
-    # jump
-    just
     jq
     keychain
     kondo
@@ -129,12 +127,10 @@ rec
     mmv
     ncdu
     ncurses.dev # infocmp and more utils
-    neofetch
-    nginxMainline # apacheHttpd # apache used for tools like htpasswd
+    # apacheHttpd # apache used for tools like htpasswd
     noti
     libnotify
     notify-osd
-    ntfs3g
     # okular
     libressl
     page
@@ -152,9 +148,6 @@ rec
     recoll
     rlwrap
     rsync
-    shellcheck
-    shfmt
-    # samba
     sox
     soxr
     sqlite
@@ -183,7 +176,7 @@ rec
 
     # encryption
     age
-    blackbox
+    croc
     gnupg
     magic-wormhole-rs
     pkgs.sops
@@ -217,14 +210,10 @@ rec
     # audio/video tools
     ffmpeg-full
     mpv
-    vlc
     x265
     libopus
     opusfile
     opusTools
-
-    # scala
-    # bloop sbt
 
     # DB utils
     postgresql

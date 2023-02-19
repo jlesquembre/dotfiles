@@ -206,9 +206,11 @@ in
       pkgs.terraform
       pkgs.ormolu
       pkgs.stylua
+      pkgs.shfmt
 
       # Other tools
       pkgs.pspg
+      pkgs.shellcheck
     ];
     plugins = with pkgs.vimPlugins; [
 
