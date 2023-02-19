@@ -106,6 +106,8 @@ require("formatter").setup({
         }
       end,
     },
+    sh = { require("formatter.filetypes.sh").shfmt },
+    fish = { require("formatter.filetypes.fish").fishindent },
 
     -- clojure = {
     --   function()
