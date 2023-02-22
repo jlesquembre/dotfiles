@@ -47,7 +47,7 @@ rec
         maxJobs = 24;
         sshUser = "nix";
         sshKey = config.sops.secrets.builder_ssh_key.path;
-        system = "x86_64-linux";
+        systems = [ "aarch64-linux" "x86_64-linux" ];
         supportedFeatures = [ "benchmark" "big-parallel" "kvm" ];
         publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU9yamc1UjVRUmI2WDNiNkdvT3N2Q0hrSXpHUGE2SUpKWGRLTDB0SDUyYXcK";
       }
