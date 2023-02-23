@@ -52,7 +52,7 @@ jobs:
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}" 
-          echo ::set-output name=body::$body
+          echo "body=${body}" >> $GITHUB_OUTPUT
 
       - name: Get home-manager diff
         id: get-pr-hm
@@ -62,7 +62,7 @@ jobs:
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}" 
-          echo ::set-output name=body::$body
+          echo "body=${body}" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4.2.3
