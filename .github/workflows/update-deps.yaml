@@ -1,5 +1,6 @@
 name: "Update deps"
 on:
+  workflow_dispatch: # allows manual triggering
   schedule:
     - cron: "27 2 * * 3"
 
@@ -34,7 +35,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: cachix/install-nix-action@v19
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
 
       - name: Check plugin updates
         run: "nix run .#update-vim-plugins"

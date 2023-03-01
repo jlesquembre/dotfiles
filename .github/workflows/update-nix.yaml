@@ -1,5 +1,6 @@
 name: "Update NixOS"
 on:
+  workflow_dispatch: # allows manual triggering
   schedule:
     - cron: "27 0 * * 3"
 
@@ -13,10 +14,7 @@ jobs:
         run: .github/free_disk_space.sh
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v19
-        with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+        uses: DeterminateSystems/nix-installer-action@main
 
       - name: Install Cachix
         uses: cachix/cachix-action@v12
