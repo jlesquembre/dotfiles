@@ -12,10 +12,10 @@
 {
  #_:mvn/repos #_$CUSTOM_MVN_REPOS
 
- :aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.2.992"}}
+ :aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.2.999"}}
                       :main-opts  ["-m" "antq.core"]}
 
-           :upgrade  {:extra-deps {com.github.liquidz/antq {:mvn/version "2.2.992"}}
+           :upgrade  {:extra-deps {com.github.liquidz/antq {:mvn/version "2.2.999"}}
                                  :main-opts  ["-m" "antq.core" "--upgrade" "--force"]}
 
            ;; project creation from templates:
@@ -78,7 +78,7 @@
                          ;; deps for file datafication (0.9.149 or later)
                          org.clojure/data.csv {:mvn/version "1.0.1"}
                          org.clojure/data.json {:mvn/version "2.4.0"}
-                         org.yaml/snakeyaml {:mvn/version "1.33"}
+                         org.yaml/snakeyaml {:mvn/version "2.0"}
                          com.cognitect/rebl
                          ;; adjust to match your install location
                          {:local/root "$HOME/projects/REBL/REBL-0.9.220.jar"}
