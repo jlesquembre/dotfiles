@@ -75,6 +75,9 @@ local function custom_colors(color_name)
   hi.TelescopePromptTitle = { guifg = c.base00, guibg = c.base0A }
   hi.TelescopePromptCounter = { guibg = c.base00, guifg = c.base0A }
 
+  hi.RED = { guibg = c.base08, guifg = c.base00 }
+  hi.GREEN = { guibg = c.base0B, guifg = c.base00 }
+
   -- Reset Telescope options
   -- vim.cmd [[highlight! link TelescopeSelection    Visual]]
   -- vim.cmd [[highlight! link TelescopeNormal       Normal]]

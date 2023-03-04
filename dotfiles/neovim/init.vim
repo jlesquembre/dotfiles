@@ -400,15 +400,15 @@ nnoremap <c-space> <esc>
 "inoremap <c-j> <esc>
 
 " Search and replace
-nnoremap <Leader>rr :%s//g<Left><Left>
-nnoremap <Leader>rw :%s/\<<C-r><C-w>\>//g<Left><Left>
-vnoremap <Leader>rr :s//g<Left><Left>
-"vnoremap <Leader>rw :s/\<<C-r><C-w>\>//g<Left><Left>
+nnoremap <Leader>rR :%s//g<Left><Left>
+"nnoremap <Leader>rw :%s/\<<C-r><C-w>\>//g<Left><Left>
+"vnoremap <Leader>rr :s//g<Left><Left>
+""vnoremap <Leader>rw :s/\<<C-r><C-w>\>//g<Left><Left>
 
 " Search and replace in all files in the quicklist
-nnoremap <Leader>rq :cfdo %s/\<<C-r><C-w>\>//g \| update<C-Left><C-Left><Left><Left><Left>
-" Undo previous action
-nnoremap <Leader>ru :cfdo undo \| update
+" nnoremap <Leader>rq :cfdo %s/\<<C-r><C-w>\>//g \| update<C-Left><C-Left><Left><Left><Left>
+" " Undo previous action
+" nnoremap <Leader>ru :cfdo undo \| update
 
 nnoremap <silent> <Leader>u :call FormatLink('')<cr>
 " nnoremap <Leader>um :call FormatLink('md')<cr>

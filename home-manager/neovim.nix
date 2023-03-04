@@ -260,6 +260,7 @@ in
       # custom-vim-plugs.feline-nvim
       feline-nvim
       nvim-notify
+      nvim-spectre
       # dashboard-nvim
 
       # Navigation
