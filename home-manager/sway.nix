@@ -350,11 +350,10 @@ in
   };
 
 
-  # Using the home-manager module, the systemd unit is NOT restarted on
-  # changes, but we get a warning if the configuration is wrong
-  programs.mako = {
-    font = "Hack 14";
+  # TODO replace with wired? Also volnoti?
+  services.mako = {
     enable = true;
+    font = "Hack 14";
     padding = "10";
     margin = "30";
     format = ''<i>%a</i>\n<b>%s</b>\n%b'';
@@ -366,23 +365,6 @@ in
     anchor = "top-right";
     borderSize = 3;
   };
-  # xdg.configFile."mako/config".source = makoConfig;
-  systemd.user.services.mako =
-    {
-      Unit = {
-        Description = pkgs.mako.meta.description;
-        PartOf = [ "graphical-session.target" ];
-      };
-      Install = {
-        WantedBy = [ "sway-session.target" ];
-      };
-      Service = {
-        # ExecStart = "${pkgs.mako}/bin/mako -c ${makoConfig}";
-        ExecStart = "${pkgs.mako}/bin/mako";
-        RestartSec = 3;
-        Restart = "always";
-      };
-    };
 
   systemd.user.services.clipman =
     {
