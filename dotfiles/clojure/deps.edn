@@ -12,10 +12,10 @@
 {
  #_:mvn/repos #_$CUSTOM_MVN_REPOS
 
- :aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.2.1011"}}
+ :aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.2.1017"}}
                       :main-opts  ["-m" "antq.core"]}
 
-           :upgrade  {:extra-deps {com.github.liquidz/antq {:mvn/version "2.2.1011"}}
+           :upgrade  {:extra-deps {com.github.liquidz/antq {:mvn/version "2.2.1017"}}
                                  :main-opts  ["-m" "antq.core" "--upgrade" "--force"]}
 
            ;; project creation from templates:
