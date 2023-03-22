@@ -1,4 +1,3 @@
 repo,branch,alias
 https://github.com/m00qek/baleia.nvim/,,
 https://github.com/jlesquembre/nterm.nvim/,,
-https://github.com/nvim-telescope/telescope-live-grep-args.nvim/,,

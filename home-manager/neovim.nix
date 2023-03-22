@@ -231,7 +231,7 @@ in
 
       # Telescope
       telescope-nvim
-      custom-vim-plugs.telescope-live-grep-args-nvim
+      telescope-live-grep-args-nvim
 
       # LSP
       nvim-lspconfig
