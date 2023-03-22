@@ -47,9 +47,9 @@ jobs:
         run: |
           nix run github:NixOS/nixpkgs/nixos-unstable#nvd -- --color never diff /tmp/old_system /tmp/new_system > /tmp/pr-body.txt
           body=$(cat /tmp/pr-body.txt)
-          body="${body//'%'/'%25'}"
-          body="${body//$'\n'/'%0A'}"
-          body="${body//$'\r'/'%0D'}" 
+          # body="${body//'%'/'%25'}"
+          # body="${body//$'\n'/'%0A'}"
+          # body="${body//$'\r'/'%0D'}" 
           echo "body=${body}" >> $GITHUB_OUTPUT
 
       - name: Get home-manager diff
@@ -58,7 +58,7 @@ jobs:
           nix run github:NixOS/nixpkgs/nixos-unstable#nvd -- --color never diff /tmp/old_hm /tmp/new_hm > /tmp/pr-hm.txt
           body=$(cat /tmp/pr-hm.txt)
           body="${body//'%'/'%25'}"
-          body="${body//$'\n'/'%0A'}"
+          # body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}" 
           echo "body=${body}" >> $GITHUB_OUTPUT
 
