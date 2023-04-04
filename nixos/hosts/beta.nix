@@ -67,5 +67,18 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
+
+  # OLD hardware.video.hidpi.enable settings
+  # console.font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
+
+  # # Needed when typing in passwords for full disk encryption
+  # console.earlySetup = lib.mkDefault true;
+  # boot.loader.systemd-boot.consoleMode = lib.mkDefault "1";
+
+  # # Grayscale anti-aliasing for fonts
+  # fonts.fontconfig.antialias = lib.mkDefault true;
+  # fonts.fontconfig.subpixel = {
+  #   rgba = lib.mkDefault "none";
+  #   lcdfilter = lib.mkDefault "none";
+  # };
 }
