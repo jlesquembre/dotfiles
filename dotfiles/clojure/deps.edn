@@ -12,10 +12,10 @@
 {
  #_:mvn/repos #_$CUSTOM_MVN_REPOS
 
- :aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.2.1017"}}
+ :aliases {:outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.3.1043"}}
                       :main-opts  ["-m" "antq.core"]}
 
-           :upgrade  {:extra-deps {com.github.liquidz/antq {:mvn/version "2.2.1017"}}
+           :upgrade  {:extra-deps {com.github.liquidz/antq {:mvn/version "2.3.1043"}}
                                  :main-opts  ["-m" "antq.core" "--upgrade" "--force"]}
 
            ;; project creation from templates:
@@ -50,7 +50,7 @@
 
            :kibit {:extra-deps   {tvaughan/kibit-runner {:mvn/version "1.0.1"}}
                    :override-deps {jonase/kibit {:git/url "https://github.com/jonase/kibit.git"
-                                                 :sha "be27e6db625564d045e71a6e13e459eb7651813b"
+                                                 :sha "954ca70faa0db9f9fac6c9a399c650527b3e842a"
                                                  :deps/root "kibit"}}
                    :main-opts ["-m" "kibit-runner.cmdline"]}
 
