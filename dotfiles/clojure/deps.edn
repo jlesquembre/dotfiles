@@ -50,7 +50,7 @@
 
            :kibit {:extra-deps   {tvaughan/kibit-runner {:mvn/version "1.0.1"}}
                    :override-deps {jonase/kibit {:git/url "https://github.com/jonase/kibit.git"
-                                                 :sha "954ca70faa0db9f9fac6c9a399c650527b3e842a"
+                                                 :sha "6cea26f25230189fd2ff3ab1fc68c542052124ca"
                                                  :deps/root "kibit"}}
                    :main-opts ["-m" "kibit-runner.cmdline"]}
 
