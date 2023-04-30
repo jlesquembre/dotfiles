@@ -439,28 +439,6 @@ endfunction
 "
 
 " Plugins
-"
-" dashboard-nvim
-"
-let g:dashboard_default_executive = 'telescope'
-let g:dashboard_session_directory = '~/.config/nvim/session'
-autocmd User DashboardReady call dashboard#cd_to_vcs_root(getcwd())
-" let g:startify_change_to_vcs_root = 1
-" let g:startify_session_dir = '~/.config/nvim/session'
-"
-" vim-grepper
-"
-let g:grepper = {
-    \ 'tools': ['rgextra', 'rg', 'git', 'grep'],
-    \ 'highlight': 0,
-    \ 'rgextra':
-    \   { 'grepprg':    "rg --no-heading --vimgrep --hidden -g '!.git/' -S",
-    \     'grepformat': '%f:%l:%c:%m',
-    \     'escape':     '\^$.*+?()[]{}|' },
-    \ }
-nnoremap gss  :Grepper<cr>
-nmap gs  <plug>(GrepperOperator)
-xmap gs  <plug>(GrepperOperator)
 
 " vim-rsi
 "

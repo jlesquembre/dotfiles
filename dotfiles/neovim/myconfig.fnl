@@ -12,11 +12,18 @@
 (vim.keymap.set "v" "J" ":m '>+1<CR>gv=gv")
 (vim.keymap.set "v" "K" ":m '<-2<CR>gv=gv")
 
-; Harpoon
+(set vim.g.projectionist_heuristics
+     {"*.ts" {"*.ts"   {"alternate"  ["{}.css" "{}.scss"]}
+              "*.css"  {"alternate"  "{}.ts"}
+              "*.scss" {"alternate"  "{}.ts"}}})
+
+; Harpoon + projectionist
 (h.setup {})
 (let [kmap "<leader>a"
       opts {:noremap true}]
-  (vim.keymap.set "n" (.. kmap "a") hmark.add_file opts)
+  (vim.keymap.set "n" (.. kmap "a") (fn [] (nvim.cmd {:cmd "A"} {})) opts)
+
+  (vim.keymap.set "n" (.. kmap "s") hmark.add_file opts)
   (vim.keymap.set "n" (.. kmap "t") hui.toggle_quick_menu opts)
   (vim.keymap.set "n" (.. kmap "c") hcmd.toggle_quick_menu opts)
 
@@ -35,3 +42,8 @@
       opts {:noremap true}]
   (vim.keymap.set "n" (.. kmap "r") spectre.open opts)
   (vim.keymap.set "n" (.. kmap "w") (fn [] (spectre.open_visual {:select_word true}) opts)))
+
+(nvim.create_autocmd
+  "FileType"
+  {:pattern "fugitive"
+   :callback (fn [] (set vim.b.editorconfig  false))})

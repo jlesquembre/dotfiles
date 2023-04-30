@@ -232,6 +232,7 @@ in
       # Telescope
       telescope-nvim
       telescope-live-grep-args-nvim
+      telescope-file-browser-nvim
 
       # LSP
       nvim-lspconfig
@@ -261,15 +262,12 @@ in
       feline-nvim
       nvim-notify
       nvim-spectre
-      # dashboard-nvim
 
       # Navigation
       fern-vim
       vim-unimpaired
       nvim-bqf
-      vim-grepper
-
-      # visual-star
+      vim-projectionist
 
       # Text edition
       vim-repeat
@@ -290,17 +288,8 @@ in
       vim-eunuch
       vim-dotenv
       vim-rsi
-      {
-        plugin = pkgs.vimPlugins.editorconfig-vim;
-        config =
-          ''
-            let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-          '';
-      }
 
       # rainbow_parentheses-vim
-      # vim-projectionist
-      # ale
       formatter-nvim
       nvim-autopairs
       hop-nvim
