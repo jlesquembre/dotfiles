@@ -65,7 +65,7 @@ rec
   nixpkgs.config.allowUnfree = true;
 
   # mount /tmp on tmpfs
-  boot.tmpOnTmpfs = true;
+  boot.tmp.useTmpfs = true;
 
   # Select internationalisation properties.
   console.keyMap = "us";
