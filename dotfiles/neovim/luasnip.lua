@@ -55,6 +55,11 @@ local className = function(args)
   return abolish(args[1][1], "mixedcase")
 end
 
+local importCss = function(args)
+  local name = args[1][1]
+  return 'import style from "./' .. name .. '.css?inline";'
+end
+
 local interface = function(args)
   local name = args[1][1]
   return '"' .. name .. '": ' .. abolish(name, "mixedcase") .. ";"
@@ -63,26 +68,20 @@ end
 ls.add_snippets("typescript", {
   s("lite", {
     t({
-      'import { LitElement, html, css } from "lit";',
+      'import { LitElement, html, unsafeCSS } from "lit";',
       'import { customElement, property } from "lit/decorators.js";',
       "",
-      '@customElement("',
+      'import { reset } from "$styles/shared";',
+      "",
     }),
+    f(importCss, 1),
+    t({ "", "", '@customElement("' }),
     d(1, elementName, {}),
     t({ '")', "export class " }),
     f(className, 1),
     t({
       " extends LitElement {",
-      "  static styles = [",
-      "    css`",
-      "      :host {",
-      "        display: block;",
-      "      }",
-      "      sl-input {",
-      "        margin-bottom: 1em;",
-      "      }",
-      "    `,",
-      "  ];",
+      "  static styles = [reset, unsafeCSS(style)];",
       "",
       "  render() {",
       "    return html`",
