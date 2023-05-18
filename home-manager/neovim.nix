@@ -136,9 +136,6 @@ in
   programs.neovim = {
     enable = true;
     # package = nvim-deps.neovim-nightly;
-    withNodeJs = true;
-    withPython3 = true;
-    withRuby = true;
     extraConfig =
       ''
         ${builtins.readFile "${vimDir}/init.vim"}

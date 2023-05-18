@@ -163,7 +163,10 @@ let
 
 in
 {
-  home.packages = [ pkgs.fuzzel ];
+  home.packages = [
+    pkgs.fuzzel
+    pkgs.swayimg
+  ];
 
   wayland.windowManager.sway = {
     enable = true;

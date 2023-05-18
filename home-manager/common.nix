@@ -162,9 +162,11 @@ in
 
     (pkgs.writeShellApplication {
       name = "tweagmate";
-      text = ''
-        ${pkgs.tmate}/bin/tmate -f ${config.sops.secrets.tweagmate_conf.path} "$@"
-      '';
+      text =
+        let secretPath = builtins.replaceStrings [ "%r" ] [ "$XDG_RUNTIME_DIR" ] config.sops.secrets.tweagmate_conf.path; in
+        ''
+          ${pkgs.tmate}/bin/tmate -f "${secretPath}" "$@"
+        '';
     })
   ];
 
@@ -850,6 +852,7 @@ in
 
   services.keybase.enable = true;
   services.kbfs.enable = true;
+  services.batsignal.enable = true;
 
   programs.starship = {
     enable = true;
@@ -892,6 +895,10 @@ in
         symbol = " ";
         format = ''[\[$symbol](white)[($profile)(\($region\))]($style)[\]](white)'';
         style = "#ff9900";
+      };
+      gcloud = {
+        # symbol = "🇬️ ";
+        symbol = " ";
       };
       kubernetes = {
         disabled = false;
