@@ -11,6 +11,42 @@ function ap --description "select AWS profile"
 end
 
 
+if not set -q KUBECONFIG
+  set -x KUBECONFIG ""
+  set -x KUBEPROMPT_VAL ""
+end
+
+function kon-global --description "Set KUBECONFIG to global"
+  set -x KUBECONFIG $HOME/.kube/config
+  set -x KUBEPROMPT_VAL "Global Config"
+  echo "KUBECONFIG=$KUBECONFIG"
+end
+
+function kon-local --description "Set local KUBECONFIG"
+  set kc $PWD/.kubeconfig
+  if not test -e $kc
+    kubectl config view --raw > $kc
+  end
+  set -x KUBECONFIG $kc
+  set -x KUBEPROMPT_VAL "Local Config"
+  echo "KUBECONFIG=$KUBECONFIG"
+end
+
+function kon --description "Set isolated KUBECONFIG"
+  mkdir -p /tmp/.kubeconfigs
+  set kc (mktemp -p /tmp/.kubeconfigs)
+  kubectl config view --raw > $kc
+  set -x KUBECONFIG $kc
+  set -x KUBEPROMPT_VAL ""
+  echo "KUBECONFIG=$KUBECONFIG"
+end
+
+function koff --description "Disable KUBECONFIG"
+  set -x KUBECONFIG ""
+  set -x KUBEPROMPT_VAL ""
+  echo "KUBECONFIG=$KUBECONFIG"
+end
+
 function ncd -d 'cd to nix store executable'
   cd (dirname (readlink -f (command -s $argv[1])) | sed 's/bin$//')
 end

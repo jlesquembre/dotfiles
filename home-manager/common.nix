@@ -1,4 +1,4 @@
-{ config, pkgs, lib, nix-medley, host-options, inputs, system, rootPath, ... }:
+{ config, pkgs, lib, nix-medley, host-options, inputs, system, rootPath, username, ... }:
 let
   dotfiles = toString ../dotfiles;
 in
@@ -866,6 +866,8 @@ in
           "$directory"
           "$aws"
           "$gcloud"
+          "$kubernetes"
+          ''''${env_var.KUBEPROMPT_VAL}''
           "$all"
           "$env_var"
           "$nix_shell"
@@ -901,6 +903,8 @@ in
         symbol = " ";
       };
       kubernetes = {
+        # TODO not implemented yet
+        # detect_env_vars
         disabled = false;
         format = ''[\[$symbol](white)[$context](cyan)|[$namespace](purple)[\]](white)'';
         detect_folders = [ "k8s" "kubernetes" ];
@@ -918,6 +922,10 @@ in
         format = "[ ranger ]($style) ";
         style = "fg:white bg:#444444";
       };
+      env_var.KUBEPROMPT_VAL = {
+        variable = "KUBEPROMPT_VAL";
+        format = ''(\[[$env_value](yellow)\])'';
+      };
       custom.githud = {
         symbol = " ";
         style = "bold white";
@@ -932,7 +940,7 @@ in
         disabled = true;
       };
       nix_shell = {
-        symbol = "  ";
+        symbol = "   ";
         impure_msg = "";
         pure_msg = " pure";
         # format = '[$symbol](fg:black bg:#66abde)[$state]($style) '
