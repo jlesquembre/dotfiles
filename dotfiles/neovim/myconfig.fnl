@@ -43,7 +43,28 @@
   (vim.keymap.set "n" (.. kmap "r") spectre.open opts)
   (vim.keymap.set "n" (.. kmap "w") (fn [] (spectre.open_visual {:select_word true}) opts)))
 
+; fugitive: Disable editorconfig
 (nvim.create_autocmd
   "FileType"
   {:pattern "fugitive"
    :callback (fn [] (set vim.b.editorconfig  false))})
+
+; Add filetype for .env files
+(nvim.create_autocmd
+  "FileType"
+  {:pattern "dotenv"
+   :callback (fn [args] (vim.treesitter.start args.buf "bash"))})
+
+(vim.filetype.add
+  {:extension
+   {"env" "dotenv"
+    "envrc" "sh"}
+
+   :filename
+   {".env" "dotenv"
+    ".envrc" "sh"}
+
+   :pattern
+   {"%.env.*" "dotenv"
+    "%.envrc.*" "sh"}})
+

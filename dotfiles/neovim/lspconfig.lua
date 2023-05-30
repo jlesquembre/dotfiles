@@ -148,7 +148,8 @@ local function setup_lspconfig()
   lspconfig.gopls.setup(default_config)
   lspconfig.pyright.setup(default_config)
   lspconfig.rust_analyzer.setup(default_config)
-  lspconfig.rnix.setup(default_config)
+  -- lspconfig.rnix.setup(default_config)
+  lspconfig.nil_ls.setup(default_config)
   lspconfig.terraformls.setup(default_config)
 
   -- Special configs

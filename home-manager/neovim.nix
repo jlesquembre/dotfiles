@@ -136,6 +136,9 @@ in
   programs.neovim = {
     enable = true;
     # package = nvim-deps.neovim-nightly;
+    withNodeJs = true;
+    withPython3 = true;
+    withRuby = true;
     extraConfig =
       ''
         ${builtins.readFile "${vimDir}/init.vim"}
@@ -174,7 +177,8 @@ in
       pkgs.jdt-ls
       pkgs.pyright
       pkgs.rust-analyzer
-      pkgs.rnix-lsp
+      # pkgs.rnix-lsp
+      pkgs.nil
       pkgs.terraform-ls
 
       # Formatters
