@@ -66,11 +66,22 @@
                          (nvim.buf_clear_namespace bufnr sql-ns 0 -1)))
                      timeout))))
 
+(fn get-envs
+  []
+  (a.concat
+    (a.filter
+      (fn [[k v]] (or (vim.startswith k "DB_")
+                      (vim.startswith k "DATABASE_")
+                      (vim.endswith k "_DB")
+                      (vim.endswith k "_DATABASE")))
+      (a.kv-pairs (nvim.fn.environ)))
+    (a.kv-pairs (vim.fn.DotenvRead))))
+
 
 (fn set-db-connection
   []
   (vim.ui.select
-    (a.kv-pairs (vim.fn.DotenvRead))
+    (get-envs)
     {:prompt "Title"
      :format_item (fn [[k v]] (.. k " -> " v))}
     (fn [[k v]]
