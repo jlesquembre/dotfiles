@@ -63,7 +63,7 @@
   };
   cpu = {
     #"format"= "CPU {usage}% "
-    format = " {}%";
+    format = " {}%";
     states = {
       warning = 60;
       critical = 80;
