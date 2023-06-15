@@ -111,11 +111,11 @@ in
         cache
       }
 
-      local {
-        template IN A  {
-            answer "{{ .Name }} 0 IN A 127.0.0.1"
-        }
-      }
+      # local {
+      #   template IN A  {
+      #       answer "{{ .Name }} 0 IN A 127.0.0.1"
+      #   }
+      # }
 
       kube {
         template IN A  {

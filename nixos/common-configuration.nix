@@ -14,7 +14,6 @@ let
   userHome = "/home/${username}";
 in
 
-rec
 {
 
   sops.secrets.nixAccessTokens = {
