@@ -3,8 +3,8 @@ let
   nvim-deps = (import ./neovim-deps.nix) { pkgs = pkgs; };
   custom-vim-plugs = pkgs.vimPlugins.extend (
     (pkgs.callPackage ./neovim-plugins-generated.nix {
-      buildVimPluginFrom2Nix = pkgs.vimUtils.buildVimPluginFrom2Nix;
-      buildNeovimPluginFrom2Nix = pkgs.vimUtils.buildNeovimPluginFrom2Nix;
+      inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
+      inherit (pkgs.neovimUtils) buildNeovimPlugin;
     })
   );
 
