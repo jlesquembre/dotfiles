@@ -321,7 +321,7 @@ in
         waybar
         swaylock
         swayidle
-        (xwayland.overrideAttrs (attrs: { meta.priority = 1; }))
+        # (xwayland.overrideAttrs (attrs: { meta.priority = 1; }))
         kanshi
         xdg-desktop-portal-wlr
         sway-contrib.grimshot
