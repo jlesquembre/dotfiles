@@ -169,7 +169,7 @@ in
 
       # Includes css, html and json language server
       # pkgs.vscode-ls
-      pkgs.nodePackages.vscode-langservers-extracted
+      pkgs.vscode-langservers-extracted
 
       # Language Servers
       pkgs.clojure-lsp
@@ -178,7 +178,8 @@ in
       pkgs.pyright
       pkgs.rust-analyzer
       # pkgs.rnix-lsp
-      pkgs.nil
+      # pkgs.nil
+      pkgs.nixd
       pkgs.terraform-ls
 
       # Formatters
