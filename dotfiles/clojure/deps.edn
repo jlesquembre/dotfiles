@@ -50,7 +50,7 @@
 
            :kibit {:extra-deps   {tvaughan/kibit-runner {:mvn/version "1.0.1"}}
                    :override-deps {jonase/kibit {:git/url "https://github.com/jonase/kibit.git"
-                                                 :sha "968f2189d4f9939ac620fc2e58a42ee0e7eceb9f"
+                                                 :sha "93a9ce52aaf7761a97528d0b4d412408d09d12a1"
                                                  :deps/root "kibit"}}
                    :main-opts ["-m" "kibit-runner.cmdline"]}
 
@@ -98,11 +98,11 @@
                                ;  :git/sha "5eec7a887bc9e066e2b6d8dc8263f8bfa4ec64d7"}}}
 
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "1.0.0"}
-                                cider/cider-nrepl {:mvn/version "0.31.0"}}
+                                cider/cider-nrepl {:mvn/version "0.32.0"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
            :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "1.0.0"}
-                                     cider/cider-nrepl {:mvn/version "0.31.0"}
+                                     cider/cider-nrepl {:mvn/version "0.32.0"}
                                      cider/piggieback {:mvn/version "0.5.3"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
                                     "[cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl]"]}
