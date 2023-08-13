@@ -24,11 +24,22 @@
       url = "github:gbataille/gitHUD";
     };
 
+    # wired = {
+    #   url = "github:Toqozz/wired-notify";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
     nix-medley = {
       # url = "/home/jlle/projects/nix-medley";
       url = "github:jlesquembre/nix-medley";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-index-database =
+      {
+        url = "github:Mic92/nix-index-database";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
 
     flake-utils.url = "github:numtide/flake-utils";
 

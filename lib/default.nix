@@ -43,6 +43,7 @@
             modules = [
               (/. + hmConfigDir + "/common.nix")
               inputs.sops-nix.homeManagerModule
+              inputs.nix-index-database.hmModules.nix-index
               {
                 home = {
                   inherit username;

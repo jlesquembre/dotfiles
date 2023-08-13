@@ -440,6 +440,10 @@ in
     enable = true;
   };
 
+  programs.nix-index-database = {
+    comma.enable = true;
+  };
+
 
   # autojump program
   programs.zoxide = {

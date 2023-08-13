@@ -113,6 +113,26 @@
         "type": "github"
       }
     },
+    "nix-index-database": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1691897365,
+        "narHash": "sha256-jvWIU4ht3YAmF8TDVM2Ps2+Gf4MtNGLL1zEWQZdTrzU=",
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "rev": "f4d70d098f066a30c7087144063dca179495f7d6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nix-medley": {
       "inputs": {
         "nixpkgs": [
@@ -203,6 +223,7 @@
         "githud": "githud",
         "home-manager": "home-manager",
         "neovim": "neovim",
+        "nix-index-database": "nix-index-database",
         "nix-medley": "nix-medley",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
