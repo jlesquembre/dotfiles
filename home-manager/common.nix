@@ -51,7 +51,10 @@ in
     keybase-gui
     remmina
     ripgrep
-    ripgrep-all
+
+    # TODO https://github.com/NixOS/nixpkgs/issues/250306
+    # ripgrep-all
+
     ugrep
     wf-recorder
     wl-clipboard
