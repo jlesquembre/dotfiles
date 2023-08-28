@@ -20,18 +20,24 @@ end
 
 local timer = mp.add_periodic_timer(1, update_ov)
 
+local fullscreen = true
+
 function on_pause_change(name, value)
   -- PAUSE
   if value == true then
+    fullscreen = mp.get_property_native("fullscreen")
     mp.set_property("fullscreen", "no")
     mp.commandv("script-message", "osc-visibility", "always", "")
     -----
     ov:update()
     update_ov()
     timer:resume()
+
   -- PLAY
   else
-    mp.set_property("fullscreen", "yes")
+    if fullscreen == true then
+      mp.set_property("fullscreen", "yes")
+    end
     mp.commandv("script-message", "osc-visibility", "auto", "")
     -----
     timer:stop()
