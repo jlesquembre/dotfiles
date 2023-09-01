@@ -339,8 +339,10 @@ in
             let g:vimtex_quickfix_open_on_warning = 1
             let g:vimtex_fold_enabled = 0
             let g:vimtex_format_enabled = 1
+            let g:vimtex_quickfix_mode = 2
+            let g:vimtex_quickfix_autoclose_after_keystrokes = 1
             let g:vimtex_compiler_latexmk = {
-                \ 'build_dir' : '_output',
+                \ 'out_dir' : '/tmp/_vimtex',
                 \ 'callback' : 1,
                 \ 'continuous' : 1,
                 \ 'executable' : 'latexmk',
