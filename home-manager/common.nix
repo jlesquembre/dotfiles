@@ -49,7 +49,7 @@ in
     graphviz
     imv
     keybase-gui
-    remmina
+    # remmina
     ripgrep
 
     # TODO https://github.com/NixOS/nixpkgs/issues/250306
@@ -76,16 +76,16 @@ in
     jdk
     visualvm
     # jetbrains.idea-community
-    maven
-    gradle
+    # maven
+    # gradle
 
     # clojure
     clojure
-    leiningen
-    pkgs.boot
+    # leiningen
+    # pkgs.boot
     clj-kondo
     babashka
-    joker
+    # joker
     zprint
 
     nickel
@@ -109,7 +109,7 @@ in
     kubectx
     kubeprompt
     kustomize
-    kubernetes-helm
+    # kubernetes-helm
     # kubectl-fzf
     # istioctl
     # gomplate
@@ -124,8 +124,8 @@ in
     # kubelive
     buildah
     skaffold
-    tilt
-    stern
+    # tilt
+    # stern
     podman-compose
     podman-tui
 
