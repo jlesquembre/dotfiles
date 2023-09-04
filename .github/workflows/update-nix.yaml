@@ -8,7 +8,7 @@ jobs:
   update-nix:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Free disk space
         run: .github/free_disk_space.sh
