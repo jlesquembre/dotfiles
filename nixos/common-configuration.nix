@@ -234,6 +234,8 @@ in
   ]);
 
 
+  virtualisation.libvirtd.enable = true;
+
   virtualisation.docker = {
     enable = true;
     rootless.enable = true;
@@ -387,6 +389,7 @@ in
       "mlocate"
       "dialout"
       "adbusers"
+      "libvirtd"
       # sops-nix group
       config.users.groups.keys.name
     ];
