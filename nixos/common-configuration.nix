@@ -468,9 +468,5 @@ in
 
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "22.05";
-
-  # My initial version:
-  #system.stateVersion = "16.09";
-
+  system.stateVersion = "23.11";
 }
