@@ -79,9 +79,7 @@
                          org.clojure/data.csv {:mvn/version "1.0.1"}
                          org.clojure/data.json {:mvn/version "2.4.0"}
                          org.yaml/snakeyaml {:mvn/version "2.2"}
-                         com.cognitect/rebl
-                         ;; adjust to match your install location
-                         {:local/root "$HOME/projects/REBL/REBL-0.9.220.jar"}
+                         com.cognitect/rebl          {:mvn/version "0.9.245"}
                          org.openjfx/javafx-fxml     {:mvn/version "21-ea+31"}
                          org.openjfx/javafx-controls {:mvn/version "21-ea+31"}
                          org.openjfx/javafx-graphics {:mvn/version "21-ea+31"}
