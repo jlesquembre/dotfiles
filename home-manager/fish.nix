@@ -103,7 +103,7 @@ in
     };
 
     functions = {
-      l = "exa --long --group --header --git --group-directories-first $argv";
+      l = "eza --long --group --header --git --group-directories-first $argv";
       ll = "l --all --all $argv";
       lll = "l --all --tree --level 2 $argv";
       lookbusy = ''cat /dev/urandom | hexdump -C | grep --color "ca fe"'';

@@ -95,7 +95,7 @@ in
     procs
     sd
     bat
-    exa
+    eza
     fd
     gpg-tui
 
