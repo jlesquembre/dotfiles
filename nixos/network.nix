@@ -35,12 +35,6 @@ let
     text = root_ca;
   };
 
-  common-network-options = {
-    networkConfig =
-      { DHCP = "ipv4"; };
-    dhcpV4Config =
-      { UseDNS = false; };
-  };
 in
 {
 
@@ -54,17 +48,66 @@ in
     wait-online.enable = false;
 
     # man systemd.network
-    networks."wlan" =
-      {
-        matchConfig =
-          { Name = "wl*"; };
-      } // common-network-options;
+    # networks."wlan" =
+    #   {
+    #     matchConfig = { Name = "wl*"; };
+    #     networkConfig = { DHCP = "ipv4"; };
+    #     dhcpV4Config = { UseDNS = false; };
+    #   };
 
-    networks."eth" =
-      {
-        matchConfig =
-          { Name = "en*"; };
-      } // common-network-options;
+    # networks."eth" =
+    #   {
+    #     matchConfig = { Name = "en*"; };
+    #     networkConfig = { DHCP = "ipv4"; };
+    #     dhcpV4Config = { UseDNS = false; };
+    #   };
+
+    # Bonding
+    # https://wiki.archlinux.org/title/systemd-networkd#Bonding_a_wired_and_wireless_interface
+    netdevs."30-bond0" = {
+      netdevConfig = {
+        Name = "bond0";
+        Kind = "bond";
+      };
+      bondConfig = {
+        Mode = "active-backup";
+        PrimaryReselectPolicy = "always";
+        MIIMonitorSec = "1s";
+      };
+    };
+
+    networks."30-eth-bond0" = {
+      matchConfig = { Name = "en*"; };
+      networkConfig = {
+        Bond = "bond0";
+        PrimarySlave = true;
+      };
+    };
+    networks."30-wifi-bond0" = {
+      matchConfig = { Name = "wl*"; };
+      networkConfig = { Bond = "bond0"; };
+    };
+
+    networks."30-bond0" = {
+      matchConfig = { Name = "bond0"; };
+      networkConfig = { DHCP = "ipv4"; };
+      dhcpV4Config = { UseDNS = false; };
+    };
+
+    # # Bridge
+    # netdevs."00-br0" =
+    #   {
+    #     netdevConfig = { Name = "virbr0"; Kind = "bridge"; };
+    #   };
+    # networks."00-br0" = {
+    #   matchConfig = { Name = "virbr0"; };
+    #   networkConfig = {
+    #     Address = "172.55.0.1/24";
+    #     ConfigureWithoutCarrier = true;
+    #     IPForward = true;
+    #     IPMasquerade = true;
+    #   };
+    # };
   };
 
   networking.nameservers = [ "127.0.0.1" "::1" ]; # used by services.resolved.DNS
