@@ -372,13 +372,13 @@ in
   programs.adb.enable = true;
 
   users.mutableUsers = false;
-  users.users.root.passwordFile = config.sops.secrets.rootPassword.path;
+  users.users.root.hashedPasswordFile = config.sops.secrets.rootPassword.path;
 
   users.users.${username} = {
     description = "José Luis";
     isNormalUser = true;
     home = userHome;
-    passwordFile = config.sops.secrets.jllePassword.path;
+    hashedPasswordFile = config.sops.secrets.jllePassword.path;
     uid = 1000;
     extraGroups = [
       "wheel"
