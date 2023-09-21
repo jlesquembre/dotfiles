@@ -177,6 +177,7 @@ in
       pkgs.jdt-ls
       pkgs.pyright
       pkgs.rust-analyzer
+      pkgs.nls
       # pkgs.rnix-lsp
       # pkgs.nil
       pkgs.nixd
