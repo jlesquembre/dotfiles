@@ -22,9 +22,12 @@
 (let [kmap "<leader>a"
       opts {:noremap true}]
   (vim.keymap.set "n" (.. kmap "a") (fn [] (nvim.cmd {:cmd "A"} {})) opts)
+  (vim.keymap.set "n" (.. kmap "v") (fn [] (nvim.cmd {:cmd "AV"} {})) opts)
+  (vim.keymap.set "n" (.. kmap "x") (fn [] (nvim.cmd {:cmd "AS"} {})) opts)
+  (vim.keymap.set "n" (.. kmap "t") (fn [] (nvim.cmd {:cmd "AT"} {})) opts)
 
   (vim.keymap.set "n" (.. kmap "s") hmark.add_file opts)
-  (vim.keymap.set "n" (.. kmap "t") hui.toggle_quick_menu opts)
+  (vim.keymap.set "n" (.. kmap "m") hui.toggle_quick_menu opts)
   (vim.keymap.set "n" (.. kmap "c") hcmd.toggle_quick_menu opts)
 
   (vim.keymap.set "n" (.. kmap "h") (fn [] (hui.nav_file 1)) opts)
