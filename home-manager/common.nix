@@ -98,6 +98,7 @@ in
     eza
     fd
     gpg-tui
+    genpass
 
     # Cloud
     awscli2
