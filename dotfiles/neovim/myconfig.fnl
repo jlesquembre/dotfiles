@@ -17,6 +17,14 @@
               "*.css"  {"alternate"  "{}.ts"}
               "*.scss" {"alternate"  "{}.ts"}}})
 
+(set vim.o.guicursor (s.join "," ["n-v-c:block"
+                                  "i-ci-ve:ver50"
+                                  "r-cr:hor20"
+                                  "o:hor50"
+                                  "sm:block-blinkwait175-blinkoff150-blinkon175"
+                                  "a:blinkwait700-blinkoff400-blinkon250"]))
+                                  ; "n-v-c:blinkwait700-blinkoff400-blinkon250"]))
+
 ; Harpoon + projectionist
 (h.setup {})
 (let [kmap "<leader>a"
