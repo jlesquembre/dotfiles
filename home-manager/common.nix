@@ -508,6 +508,11 @@ in
 
   # services.gromit-mpx.enable = true;
 
+  programs.wezterm = {
+    enable = true;
+    extraConfig = (builtins.readFile "${dotfiles}/wezterm.lua");
+  };
+
   programs.alacritty = {
     enable = true;
     settings = {
