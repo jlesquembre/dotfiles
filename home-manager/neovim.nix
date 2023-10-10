@@ -1,9 +1,10 @@
 { config, pkgs, lib, nix-medley, rootPath, ... }:
 let
   nvim-deps = (import ./neovim-deps.nix) { pkgs = pkgs; };
+
   custom-vim-plugs = pkgs.vimPlugins.extend (
     (pkgs.callPackage ./neovim-plugins-generated.nix {
-      inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
+      inherit (pkgs.vimUtils) buildVimPlugin;
       inherit (pkgs.neovimUtils) buildNeovimPlugin;
     })
   );

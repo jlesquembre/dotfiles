@@ -61,10 +61,11 @@ in
       }
     ];
   };
-  nixpkgs.config.allowUnfree = true;
 
   # mount /tmp on tmpfs
   boot.tmp.useTmpfs = true;
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # Select internationalisation properties.
   console.keyMap = "us";
