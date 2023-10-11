@@ -14,10 +14,9 @@ config.cursor_blink_ease_out = "Constant"
 config.cursor_blink_rate = 500
 
 config.visual_bell = {
-  fade_in_function = "EaseIn",
-  fade_in_duration_ms = 150,
-  fade_out_function = "EaseOut",
-  fade_out_duration_ms = 150,
+  fade_in_duration_ms = 75,
+  fade_out_duration_ms = 75,
+  target = "CursorColor",
 }
 
 config.colors = {
