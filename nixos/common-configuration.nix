@@ -38,6 +38,8 @@ in
       trusted-public-keys = [
         "jl-nix.cachix.org-1:lHxA3Z7QoYjxFczo138tIzUHQvJP41rMNgYmBfEBdMU="
       ];
+      # The default at 10 is rarely enough.
+      log-lines = 25;
     };
 
     buildMachines = [
@@ -438,7 +440,7 @@ in
   # locate options
   services.locate = {
     enable = false;
-    locate = pkgs.mlocate;
+    package = pkgs.mlocate;
     localuser = null; # mlocate does not support this option so it must be null
     # interval = "daily";
     interval = "hourly";
