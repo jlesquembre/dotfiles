@@ -168,6 +168,14 @@ in
     pkgs.swayimg
   ];
 
+  xdg.configFile."swayimg".text = ''
+    window = #111122
+
+    [keys]
+    k = prev_file
+    j = next_file
+  '';
+
   wayland.windowManager.sway = {
     enable = true;
     package = null;

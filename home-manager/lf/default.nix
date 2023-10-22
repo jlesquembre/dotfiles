@@ -1,28 +1,40 @@
 { config, pkgs, lib, nix-medley, host-options, inputs, system, rootPath, username, ... }:
 
+let
+  previewer =
+    # https://github.com/horriblename/lfimg-sixel/blob/master/preview
+    pkgs.writeShellScript "previewer" ''
+      file=$1
+      w=$2
+      h=$3
+      x=$4
+      y=$5
+
+      if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
+          geometry="$(($2-2))x$3"
+          ${pkgs.chafa}/bin/chafa "$1" -f sixel -s "$geometry" --animate false
+          # ${pkgs.swayimg}/bin/swayimg -g $x,$y,$w,$h "$1"
+          exit 1
+      fi
+
+      pistol "$file"
+    '';
+in
 
 {
 
-  ## ${{ }}  Regular shell command
-  ## %{{ }}
-  ## &{{ }}
-  ## :{{ }}
-
-
+  # :  read (default)  builtin/custom command
+  # $  shell           shell command
+  # %  shell-pipe      shell command running with the ui
+  # !  shell-wait      shell command waiting for key press
+  # &  shell-async     shell command running asynchronously
 
   xdg.configFile."lf/icons".source = "${pkgs.lf.src}/etc/icons.example";
 
   programs.lf = {
     enable = true;
     commands = {
-      editor-open = ''$$EDITOR $f'';
-      mkdir = ''
-        ''${{
-          printf "Directory Name: "
-          read DIR
-          mkdir $DIR
-        }}
-      '';
+
       open = ''
         ''${{
           case $(file --mime-type -Lb $f) in
@@ -32,30 +44,97 @@
           esac
         }}
       '';
+
+      extract = ''
+        ''${{
+          set -f
+          atool -x $f
+        }}
+      '';
+
+      mp3 = ''
+        ''${{
+          set -f
+          outname=$(echo "$f" | cut -f 1 -d '.')
+          ${pkgs.lame}/bin/lame -V --preset standard $f "''${outname}.mp3"
+        }}
+      '';
+
+      on-cd = ''
+        &{{
+          # display git repository status in your prompt
+          source ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
+          GIT_PS1_SHOWDIRTYSTATE=auto
+          GIT_PS1_SHOWSTASHSTATE=auto
+          GIT_PS1_SHOWUNTRACKEDFILES=auto
+          GIT_PS1_SHOWUPSTREAM=auto
+          GIT_PS1_COMPRESSSPARSESTATE=auto
+          git=$(__git_ps1 " [GIT BRANCH:> %s]") || true
+          fmt="\033[32;1m%u@%h\033[0m:\033[34;1m%w\033[0m\033[33;1m$git\033[0m"
+          lf -remote "send $id set promptfmt \"$fmt\""
+        }}
+      '';
+
+      fzf_search = ''
+        ''${{
+          RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+          res="$(
+              FZF_DEFAULT_COMMAND="$RG_PREFIX '''" \
+                  fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+                  --ansi --layout=reverse --header 'Search in files' \
+                  | cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
+          )"
+          [ -n "$res" ] && lf -remote "send $id select \"$res\""
+        }}
+      '';
+
+      bulkrename = ''
+        ''${{
+            shopt -s dotglob
+            if [ -z "$fs" ]; then
+              ${pkgs.vimv-rs}/bin/vimv -- $(basename -a -- $PWD/*)
+            else
+              ${pkgs.vimv-rs}/bin/vimv -- $(basename -a -- $fs)
+            fi
+            lf -remote "send $id load"
+            lf -remote "send $id unselect"
+        }}
+      '';
+
+      open-with-gui = "&$@ $fx";
+      open-with-cli = "$$@ $fx";
+
     };
 
     keybindings = {
 
-      "\\\"" = "";
-      o = "";
-      c = "mkdir";
-      "." = "set hidden!";
-      "`" = "mark-load";
-      "\\'" = "mark-load";
+      K = "push %mkdir<space>";
+      N = "push %touch<space>";
+      H = "set hidden!";
       "<enter>" = "open";
+      gh = "cd ~";
+      gp = "cd /tmp";
+      gc = "push :cd<space>";
 
-      do = "dragon-out";
+      gs = ":fzf_search";
 
-      gh = "cd";
-      "g/" = "/";
+      gn = "%wezterm cli spawn --cwd $PWD -- lf";
+      gt = "%wezterm cli activate-tab --tab-relative 1";
 
-      ee = "editor-open";
-      V = ''$${pkgs.bat}/bin/bat --paging=always --theme=gruvbox "$f"'';
+      i = ":rename; cmd-delete-home";
+      I = ":rename; cmd-end; cmd-delete-home";
+      R = ":bulkrename";
 
-      # ...
+      ss = "calcdirsize";
+
+      "<delete>" = ":delete";
+
+      O = "push :open-with-gui<space>";
+      o = "push :open-with-cli<space>";
     };
 
     settings = {
+      previewer = builtins.toString previewer;
       preview = true;
       hidden = true;
       drawbox = true;
@@ -65,44 +144,22 @@
       # cursorpreviewfmt = "\\033[7;2m";
       # cursorpreviewfmt = "\\033[7;90m";
       cursorpreviewfmt = "";
+      info = "size";
     };
-
-    extraConfig =
-      let
-        previewer =
-          # swayimg ??
-          # https://github.com/horriblename/lfimg-sixel/blob/master/preview
-          pkgs.writeShellScriptBin "pv.sh" ''
-            file=$1
-            w=$2
-            h=$3
-            x=$4
-            y=$5
-
-            if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
-                # ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
-                geometry="$(($2-2))x$3"
-                # geometry="$2x$3"
-                ${pkgs.chafa}/bin/chafa "$1" -f sixel -s "$geometry" --animate false
-                # chafa "$1" -f sixel -s "$geometry" --animate false
-                # ${pkgs.swayimg}/bin/swayimg -g $x,$y,$w,$h "$1"
-                exit 1
-            fi
-
-            ${pkgs.pistol}/bin/pistol "$file"
-          '';
-        # cleaner = pkgs.writeShellScriptBin "clean.sh" ''
-        #   ${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
-        # '';
-      in
-      # set cleaner ${cleaner}/bin/clean.sh
-      ''
-        set previewer ${previewer}/bin/pv.sh
-      '';
   };
 
   programs.pistol = {
     enable = true;
+    associations = [
+      {
+        mime = "audio/*";
+        command = "${pkgs.mediainfo}/bin/mediainfo %pistol-filename%";
+      }
+      {
+        mime = "video/*";
+        command = "${pkgs.mediainfo}/bin/mediainfo %pistol-filename%";
+      }
+    ];
   };
 
 }

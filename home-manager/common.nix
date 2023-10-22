@@ -21,6 +21,7 @@ in
     ./fish.nix
     ./custom-scripts.nix
     ./neovim.nix
+    ./lf
   ];
 
   sops = {
@@ -935,6 +936,11 @@ in
       env_var.RANGER_LEVEL = {
         variable = "RANGER_LEVEL";
         format = "[ ranger ]($style) ";
+        style = "fg:white bg:#444444";
+      };
+      env_var.LF_LEVEL = {
+        variable = "LF_LEVEL";
+        format = "[ lf ]($style) ";
         style = "fg:white bg:#444444";
       };
       env_var.KUBEPROMPT_VAL = {
