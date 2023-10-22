@@ -724,12 +724,14 @@ in
       s = "cycle sub";
     };
     config = {
-      gpu-context = "wayland";
+      gpu-context = "waylandvk";
       save-position-on-quit = "yes";
       # Always use 1080p+ or 60 fps where available. Prefer VP9
       # over AVC and VP8 for high-resolution streams.
       ytdl = "yes";
       ytdl-format = "(bestvideo[ext=webm]/bestvideo[height>720]/bestvideo[fps=60])[tbr<13000]+(bestaudio[acodec=opus]/bestaudio[ext=webm]/bestaudio)/best";
+      # scale = "ewa_lanczossharp";
+      # cscale = "ewa_lanczossharp";
     };
   };
 
