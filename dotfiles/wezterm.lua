@@ -7,7 +7,7 @@ config.font_size = 12.0
 
 config.default_cursor_style = "BlinkingBlock"
 -- config.default_cursor_style = "BlinkingBar"
-config.default_prog = { "fish", "-l" }
+config.default_prog = { "fish", "-il" }
 config.animation_fps = 10
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
