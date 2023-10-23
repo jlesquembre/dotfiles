@@ -60,6 +60,16 @@ in
         }}
       '';
 
+      mobi = ''
+        ''${{
+            set -f
+            for book in $fx; do
+              outname=$(echo "$book" | cut -f 1 -d '.')
+              ${pkgs.calibre}/bin/ebook-convert "$book" "''${outname}.mobi"
+            done
+        }}
+      '';
+
       on-cd = ''
         &{{
           # display git repository status in your prompt
@@ -138,6 +148,7 @@ in
       # cursorpreviewfmt = "\\033[7;90m";
       cursorpreviewfmt = "";
       info = "size";
+      ifs = "\\n";
     };
   };
 
