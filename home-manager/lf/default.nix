@@ -90,14 +90,7 @@ in
 
       bulkrename = ''
         ''${{
-            shopt -s dotglob
-            if [ -z "$fs" ]; then
-              ${pkgs.vimv-rs}/bin/vimv -- $(basename -a -- $PWD/*)
-            else
-              ${pkgs.vimv-rs}/bin/vimv -- $(basename -a -- $fs)
-            fi
-            lf -remote "send $id load"
-            lf -remote "send $id unselect"
+            nvim .
         }}
       '';
 

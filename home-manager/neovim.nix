@@ -143,7 +143,6 @@ in
     extraConfig =
       ''
         ${builtins.readFile "${vimDir}/init.vim"}
-        ${builtins.readFile "${vimDir}/fern.vim"}
         ${builtins.readFile "${vimDir}/sandwich.vim"}
         ${if builtins.isNull config
         then
@@ -268,7 +267,7 @@ in
       nvim-spectre
 
       # Navigation
-      fern-vim
+      oil-nvim
       vim-unimpaired
       nvim-bqf
       vim-projectionist

@@ -6,7 +6,8 @@
             hmark harpoon.mark
             hcmd harpoon.cmd-ui
             hui harpoon.ui
-            spectre spectre}})
+            spectre spectre
+            oil oil}})
 
 ; Move visual selection UP/DOWN
 (vim.keymap.set "v" "J" ":m '>+1<CR>gv=gv")
@@ -86,3 +87,8 @@
    {"%.env.*" "dotenv"
     "%.envrc.*" "sh"}})
 
+
+(oil.setup
+  {:view_options {:show_hidden  true}})
+
+(vim.keymap.set "n" "-" (fn [] (oil.open)) {:desc "Open parent directory"})
