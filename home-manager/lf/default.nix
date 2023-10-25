@@ -38,9 +38,15 @@ in
       open = ''
         ''${{
           case $(file --mime-type -Lb $f) in
-            image/*) swayimg -a $fx;;
-            text/*) nvim $fx;;
-            *) for f in $fx; do xdg-open $f > /dev/null 2> /dev/null & done;;
+            image/*)
+              swayimg -a $fx
+              ;;
+            text/*)
+              nvim $fx
+              ;;
+            *)
+              for f in $fx; do xdg-open $f; done
+              ;;
           esac
         }}
       '';
