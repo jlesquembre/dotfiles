@@ -7,16 +7,12 @@
             hcmd harpoon.cmd-ui
             hui harpoon.ui
             spectre spectre
-            oil oil}})
+            oil oil
+            other other-nvim}})
 
 ; Move visual selection UP/DOWN
 (vim.keymap.set "v" "J" ":m '>+1<CR>gv=gv")
 (vim.keymap.set "v" "K" ":m '<-2<CR>gv=gv")
-
-(set vim.g.projectionist_heuristics
-     {"*.ts" {"*.ts"   {"alternate"  ["{}.css" "{}.scss"]}
-              "*.css"  {"alternate"  "{}.ts"}
-              "*.scss" {"alternate"  "{}.ts"}}})
 
 (set vim.o.guicursor (s.join "," ["n-v-c:block"
                                   "i-ci-ve:ver50"
@@ -26,14 +22,25 @@
                                   "a:blinkwait700-blinkoff400-blinkon250"]))
                                   ; "n-v-c:blinkwait700-blinkoff400-blinkon250"]))
 
+(other.setup
+  {:mappings [{:pattern "(.*).ts$"
+               :target [{:target "%1.css"}
+                        {:target "%1.scss"}]}
+
+              {:pattern "(.*).css$"
+               :target "%1.ts"}
+
+              {:pattern "(.*).scss$"
+               :target "%1.ts"}]})
+
 ; Harpoon + projectionist
 (h.setup {})
 (let [kmap "<leader>a"
       opts {:noremap true}]
-  (vim.keymap.set "n" (.. kmap "a") (fn [] (nvim.cmd {:cmd "A"} {})) opts)
-  (vim.keymap.set "n" (.. kmap "v") (fn [] (nvim.cmd {:cmd "AV"} {})) opts)
-  (vim.keymap.set "n" (.. kmap "x") (fn [] (nvim.cmd {:cmd "AS"} {})) opts)
-  (vim.keymap.set "n" (.. kmap "t") (fn [] (nvim.cmd {:cmd "AT"} {})) opts)
+  (vim.keymap.set "n" (.. kmap "a") (fn [] (other.open)) opts)
+  (vim.keymap.set "n" (.. kmap "v") (fn [] (other.openVSplit)) opts)
+  (vim.keymap.set "n" (.. kmap "x") (fn [] (other.openSplit)) opts)
+  (vim.keymap.set "n" (.. kmap "t") (fn [] (other.openTabNew)) opts)
 
   (vim.keymap.set "n" (.. kmap "s") hmark.add_file opts)
   (vim.keymap.set "n" (.. kmap "m") hui.toggle_quick_menu opts)

@@ -270,7 +270,7 @@ in
       oil-nvim
       vim-unimpaired
       nvim-bqf
-      vim-projectionist
+      other-nvim
 
       # Text edition
       vim-repeat
