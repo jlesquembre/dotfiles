@@ -21,7 +21,8 @@
     };
 
     githud = {
-      url = "github:gbataille/gitHUD";
+      url = "github:gbataille/gitHUD/be26badf0d7c5dbecaf39de5b2d07660cb1eea20";
+      # url = "github:gbataille/gitHUD";
     };
 
     # wired = {
