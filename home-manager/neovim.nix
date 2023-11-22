@@ -297,7 +297,6 @@ in
       nvim-autopairs
       hop-nvim
       vim-gnupg
-      vim-sayonara
       harpoon
 
       # nterm-nvim

@@ -118,11 +118,6 @@ config.keys = {
     action = wezterm.action.TogglePaneZoomState,
   },
   {
-    key = "z",
-    mods = "ALT",
-    action = wezterm.action.TogglePaneZoomState,
-  },
-  {
     key = "w",
     mods = "ALT",
     action = wezterm.action.ActivatePaneDirection("Next"),

@@ -10,10 +10,18 @@
             oil oil
             other other-nvim}})
 
+;; Custom mappings
+
+(vim.keymap.set "n" "<leader>q" "<cmd>q<cr>")
+(vim.keymap.set "n" "<leader>s" "<cmd>update<cr>" {:silent true})
+(vim.keymap.set "i" "<C-s>" "<C-o>:w<cr>")
+
+
 ; Move visual selection UP/DOWN
 (vim.keymap.set "v" "J" ":m '>+1<CR>gv=gv")
 (vim.keymap.set "v" "K" ":m '<-2<CR>gv=gv")
 
+;; Customize cursor
 (set vim.o.guicursor (s.join "," ["n-v-c:block"
                                   "i-ci-ve:ver50"
                                   "r-cr:hor20"
@@ -21,7 +29,7 @@
                                   "sm:block-blinkwait175-blinkoff150-blinkon175"
                                   "a:blinkwait700-blinkoff400-blinkon250"]))
                                   ; "n-v-c:blinkwait700-blinkoff400-blinkon250"]))
-
+;; other.nvim setup
 (other.setup
   {:mappings [{:pattern "(.*).ts$"
                :target [{:target "%1.css"}

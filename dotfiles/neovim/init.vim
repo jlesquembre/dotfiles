@@ -334,11 +334,6 @@ cnoremap <c-p>  <up>
 " Saner CTRL-L
 nnoremap <silent> <leader>l <cmd>nohlsearch<cr><cmd>diffupdate<cr><cmd>syntax sync fromstart<cr><c-l>
 
-" Quick saving
-nnoremap <silent> <Leader>s :update<CR>
-" TODO add one for save an exit
-inoremap <C-s> <C-o>:w<cr>
-
 " Show syntax highlighting groups for word under cursor
 nnoremap <F10> :call <SID>SynStack()<CR>
 
@@ -445,12 +440,6 @@ endfunction
 "   autocmd VimEnter * inoremap <C-y> <C-r><C-o>+
 "   autocmd VimEnter * cnoremap <C-y> <C-r><C-o>+
 " augroup END
-
-" vim-sayonara
-"
-let g:sayonara_confirm_quit = 0
-nnoremap <leader>q :Sayonara<cr>
-nnoremap <leader>Q :Sayonara!<cr>
 
 " fugitive
 "
