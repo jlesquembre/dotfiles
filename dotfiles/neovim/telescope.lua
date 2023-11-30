@@ -88,8 +88,6 @@ function help_ft_telescope()
   local bufnr = 0
   local set_keymap = vim.api.nvim_buf_set_keymap
   local opts = { noremap = true, silent = true }
-
-  set_keymap(bufnr, "n", "<leader>fh", '<cmd>lua require"lispdocs".find()<cr>', {})
 end
 
 vim.api.nvim_exec(

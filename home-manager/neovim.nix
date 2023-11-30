@@ -222,13 +222,12 @@ in
       # if you only want some grammars do
       # (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.python p.java ]))
       nvim-treesitter.withAllGrammars
-      playground
-      nvim-ts-rainbow
+      # rainbow-delimiters-nvim
 
       # Helpers, needed by other plugins
       popup-nvim
       plenary-nvim
-      sqlite-lua
+      # sqlite-lua
       aniseed
       nui-nvim
 
@@ -388,13 +387,6 @@ in
       vim-sexp-mappings-for-regular-people
       pkgs.parinfer-rust
       conjure
-      {
-        plugin = pkgs.vimPlugins.lispdocs-nvim;
-        config =
-          ''
-            let g:lispdocs_mappings = 0
-          '';
-      }
       # vim-clojure-highlight
       # # vim-kibit
       # # vim-slamhound
