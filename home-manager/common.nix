@@ -770,36 +770,36 @@ in
         #   version = "0.1.85";
         #   sha256 = "0ibhfiimiv6xxri1lw13b5i8vfnnwnjhfm4p5z9aa5yxxcx6rch1";
         # }
-        {
-          publisher = "vscjava";
-          name = "vscode-java-pack";
-          version = "0.9.0";
-          sha256 = "0yvbxlflz5gx2i16kjh4mg64z8138rh0ck8n986hf66gjr7vv89m";
-        }
-        {
-          publisher = "ms-vscode-remote";
-          name = "remote-containers";
-          version = "0.117.1";
-          sha256 = "0kq3wfwxjnbhbq1ssj7h704gvv1rr0vkv7aj8gimnkj50jw87ryd";
-        }
-        {
-          publisher = "bierner";
-          name = "lit-html";
-          version = "1.11.1";
-          sha256 = "1qpkxri9ja4lsq7ga99vlg13byfpr5pkh5252wmlfank73mgrpkc";
-        }
-        {
-          publisher = "runem";
-          name = "lit-plugin";
-          version = "1.1.10";
-          sha256 = "0bn9dfbvc639wkjj6hw1mc6qij7m2abwsjzjsw7mhfm64anrw882";
-        }
-        {
-          publisher = "esbenp";
-          name = "prettier-vscode";
-          version = "5.0.0";
-          sha256 = "018n0632gp65b3qwww8ijyb149v8dvbhlys548wvjfax8926jm5j";
-        }
+        # {
+        #   publisher = "vscjava";
+        #   name = "vscode-java-pack";
+        #   version = "0.9.0";
+        #   sha256 = "0yvbxlflz5gx2i16kjh4mg64z8138rh0ck8n986hf66gjr7vv89m";
+        # }
+        # {
+        #   publisher = "ms-vscode-remote";
+        #   name = "remote-containers";
+        #   version = "0.117.1";
+        #   sha256 = "0kq3wfwxjnbhbq1ssj7h704gvv1rr0vkv7aj8gimnkj50jw87ryd";
+        # }
+        # {
+        #   publisher = "bierner";
+        #   name = "lit-html";
+        #   version = "1.11.1";
+        #   sha256 = "1qpkxri9ja4lsq7ga99vlg13byfpr5pkh5252wmlfank73mgrpkc";
+        # }
+        # {
+        #   publisher = "runem";
+        #   name = "lit-plugin";
+        #   version = "1.1.10";
+        #   sha256 = "0bn9dfbvc639wkjj6hw1mc6qij7m2abwsjzjsw7mhfm64anrw882";
+        # }
+        # {
+        #   publisher = "esbenp";
+        #   name = "prettier-vscode";
+        #   version = "5.0.0";
+        #   sha256 = "018n0632gp65b3qwww8ijyb149v8dvbhlys548wvjfax8926jm5j";
+        # }
         # {
         #   publisher = "sdras";
         #   name = "night-owl";
@@ -813,6 +813,7 @@ in
       "[nix]" = {
         "editor.tabSize" = 2;
       };
+      "window.titleBarStyle" = "custom";
     };
   };
 
