@@ -604,7 +604,7 @@ in
     enable = true;
     package = pkgs.gitAndTools.gitFull;
     userName = "José Luis Lafuente";
-    userEmail = "jl@lafuente.me";
+    userEmail = "jl@lafuente.dev";
     signing = {
       signByDefault = true;
       key = "8A3455EBE455489A";
