@@ -102,8 +102,9 @@
    {"%.env.*" "dotenv"
     "%.envrc.*" "sh"}})
 
-
 (oil.setup
-  {:view_options {:show_hidden  true}})
+  {:view_options {:show_hidden  true}
+   :keymaps {"<C-s>" {:desc "foo"
+                      :callback (fn [] (oil.select {:vertical true :split "belowright"}))}}})
 
 (vim.keymap.set "n" "-" (fn [] (oil.open)) {:desc "Open parent directory"})

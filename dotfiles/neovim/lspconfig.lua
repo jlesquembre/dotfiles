@@ -152,6 +152,7 @@ local function setup_lspconfig()
   -- lspconfig.nil_ls.setup(default_config)
   lspconfig.nixd.setup(default_config)
   lspconfig.terraformls.setup(default_config)
+  lspconfig.clangd.setup(default_config)
 
   -- Special configs
   lspconfig.jsonls.setup(extra_config({
