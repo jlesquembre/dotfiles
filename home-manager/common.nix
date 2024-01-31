@@ -197,14 +197,36 @@ in
 
   xdg.enable = true;
   xdg.mime.enable = true;
+
+  # xdg-open uses it to decide how to open files
+  # .desktop files are located at $XDG_DATA_DIRS/applications
+  # To debug it:
+  # XDG_UTILS_DEBUG_LEVEL=2 xdg-mime query filetype foo.pdf
+  # XDG_UTILS_DEBUG_LEVEL=2 xdg-mime query default application/pdf
+  xdg.mimeApps.enable = true;
   xdg.mimeApps.defaultApplications = {
     "text/html" = "google-chrome.desktop";
+    "application/pdf" = "org.pwmt.zathura.desktop";
+
     "x-scheme-handler/http" = "google-chrome.desktop";
     "x-scheme-handler/https" = "google-chrome.desktop";
     "x-scheme-handler/about" = "google-chrome.desktop";
     "x-scheme-handler/unknown" = "google-chrome.desktop";
     "x-scheme-handler/mailto" = "google-chrome.desktop";
   };
+
+  # $HOME/.nix-profile/share/applications
+  xdg.desktopEntries =
+    {
+      firefox = {
+        name = "Firefox";
+        genericName = "Web Browser";
+        exec = "firefox %U";
+        terminal = false;
+        categories = [ "Application" "Network" "WebBrowser" ];
+        mimeType = [ "text/html" "text/xml" ];
+      };
+    };
 
   # Set it explicitly, not really necessary
   home.sessionVariables.CLJ_CONFIG = "${config.xdg.configHome}/clojure";
