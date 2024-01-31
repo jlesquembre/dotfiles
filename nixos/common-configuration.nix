@@ -237,7 +237,17 @@ in
   ]);
 
 
-  virtualisation.libvirtd.enable = true;
+  # services.qemuGuest.enable = true;
+  # virtualisation.libvirtd.enable = true;
+
+  # virtualisation.libvirtd = {
+  #   enable = true;
+  #   # allowedBridges = [
+  #   #   "virbr0"
+  #   #   "vmbridge"
+  #   # ];
+  # };
+
 
   virtualisation.docker = {
     enable = true;

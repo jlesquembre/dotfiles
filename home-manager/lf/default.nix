@@ -147,7 +147,7 @@ in
       preview = true;
       hidden = true;
       drawbox = true;
-      icons = true;
+      icons = false;
       ignorecase = true;
       sixel = true;
       # cursorpreviewfmt = "\\033[7;2m";

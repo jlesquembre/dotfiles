@@ -65,6 +65,7 @@ in
 
       # Nix
       nru = "nix run github:NixOS/nixpkgs/nixos-unstable#";
+      nsu = "nix shell github:NixOS/nixpkgs/nixos-unstable#";
       nr = "nix run";
       nb = "nix build";
       nbu = "nix build github:NixOS/nixpkgs/nixos-unstable#";
@@ -76,7 +77,7 @@ in
       s = "caddy file-server --browse --listen :8080";
       c = "bat";
       v = "nvim";
-      r = "ranger";
+      r = "lf";
       t = "terraform";
       diskspace_report = "df -P -kHl";
       disk_usage = "ncdu --color dark -r -x --exclude .git --exclude node_modules";

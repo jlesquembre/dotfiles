@@ -222,7 +222,7 @@ in
           header {
             -Last-Modified
             -Etag
-            Cache-Control no-store
+            cache-control no-store
           }
         }
       '';
