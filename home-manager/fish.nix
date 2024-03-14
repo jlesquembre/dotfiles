@@ -93,6 +93,14 @@ in
       cljs-rebel = "clojure -A:rebel-cljs";
       clj-find-deps = "clj -A:find-deps -F:table -l 10";
 
+      "!!" = {
+        position = "anywhere";
+        function = "last_history_item";
+      };
+      y = {
+        function = "_expand_yt-dlp";
+      };
+
     };
 
     shellAliases = {
@@ -113,6 +121,14 @@ in
       gitignore = "curl -sL https://www.gitignore.io/api/$argv";
       denter = "docker exec -it $argv sh";
       w = "realpath (command -sa $argv)";
+      last_history_item = "echo $history[1]";
+      _expand_yt-dlp = ''
+        set url (wl-paste)
+        if string match -r '^http' "$url"
+            set url (wl-paste -p)
+        end
+        echo -e "yt-dlp \"$url\""
+      '';
 
 
       fzf_preview_all = ''

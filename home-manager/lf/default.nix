@@ -39,13 +39,16 @@ in
     commands = {
 
       open = ''
-        ''${{
+        &{{
           case $(file --mime-type -Lb $f) in
             image/*)
-              swayimg -a $fx
+              ristretto $fx
               ;;
-            text/*)
-              nvim $fx
+            video/*)
+              mpv $fx
+              ;;
+            text/* | inode/x-empty)
+              lf -remote "send $id \$nvim \$fx"
               ;;
             *)
               for f in $fx; do xdg-open $f; done
@@ -116,31 +119,16 @@ in
       open-with-gui = "&$@ $fx";
       open-with-cli = "$$@ $fx";
 
-      mkdir = ''
-        ''${{
-            printf "Directory Name: "
-            read ans
-            mkdir "$ans"
-        }}
-      '';
-
-      mkfile = ''
-        ''${{
-            printf "File Name: "
-            read ans
-            touch "$ans"
-        }}
-      '';
+      mkdir = ''%IFS=" "; mkdir -- "$*"'';
+      touch = ''%IFS=" "; touch -- "$*"'';
 
     };
     # Free space on device from CWD
     # df -Ph . | tail -1 | awk '{print $4}'
     keybindings = {
 
-      # K = "push %mkdir<space>";
-      # N = "push %touch<space>";
-      K = "mkdir";
-      N = "mkfile";
+      K = "push :mkdir<space>";
+      N = "push :touch<space>";
 
       H = "set hidden!";
       "<enter>" = "open";

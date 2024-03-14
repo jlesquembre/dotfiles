@@ -203,6 +203,8 @@ in
   # To debug it:
   # XDG_UTILS_DEBUG_LEVEL=2 xdg-mime query filetype foo.pdf
   # XDG_UTILS_DEBUG_LEVEL=2 xdg-mime query default application/pdf
+  # List
+  # https://www.iana.org/assignments/media-types/media-types.xhtml
   xdg.mimeApps.enable = true;
   xdg.mimeApps.defaultApplications = {
     "text/html" = "google-chrome.desktop";
@@ -213,6 +215,11 @@ in
     "x-scheme-handler/about" = "google-chrome.desktop";
     "x-scheme-handler/unknown" = "google-chrome.desktop";
     "x-scheme-handler/mailto" = "google-chrome.desktop";
+    # Globs don't work :-(
+    # "video/*" = "mpv.desktop";
+    # "text/*" = "nvim.desktop";
+    "image/png" = "org.xfce.ristretto.desktop";
+    # "image/*" = "imv.desktop";
   };
 
   # $HOME/.nix-profile/share/applications
