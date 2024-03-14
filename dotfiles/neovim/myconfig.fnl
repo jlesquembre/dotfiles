@@ -2,10 +2,10 @@
   {require {a aniseed.core
             s aniseed.string
             nvim aniseed.nvim
-            h harpoon
-            hmark harpoon.mark
-            hcmd harpoon.cmd-ui
-            hui harpoon.ui
+            ; h harpoon
+            ; hmark harpoon.mark
+            ; hcmd harpoon.cmd-ui
+            ; hui harpoon.ui
             spectre spectre
             oil oil
             other other-nvim}})
@@ -32,32 +32,39 @@
 ;; other.nvim setup
 (other.setup
   {:mappings [{:pattern "(.*).ts$"
-               :target [{:target "%1.css"}
-                        {:target "%1.scss"}]}
+               :target "%1.css"}
 
               {:pattern "(.*).css$"
                :target "%1.ts"}
 
               {:pattern "(.*).scss$"
-               :target "%1.ts"}]})
+               :target "%1.ts"}]
+   :hooks {:filePickerBeforeShow (fn [files]
+                                   (let [existing-files (a.filter
+                                                          (fn [x] (a.get x :exists))
+                                                          files)]
+                                     (if (a.empty? existing-files)
+                                       files
+                                       existing-files)))}})
+
 
 ; Harpoon + projectionist
-(h.setup {})
+; (h.setup {})
 (let [kmap "<leader>a"
       opts {:noremap true}]
   (vim.keymap.set "n" (.. kmap "a") (fn [] (other.open)) opts)
   (vim.keymap.set "n" (.. kmap "v") (fn [] (other.openVSplit)) opts)
   (vim.keymap.set "n" (.. kmap "x") (fn [] (other.openSplit)) opts)
-  (vim.keymap.set "n" (.. kmap "t") (fn [] (other.openTabNew)) opts)
+  (vim.keymap.set "n" (.. kmap "t") (fn [] (other.openTabNew)) opts))
 
-  (vim.keymap.set "n" (.. kmap "s") hmark.add_file opts)
-  (vim.keymap.set "n" (.. kmap "m") hui.toggle_quick_menu opts)
-  (vim.keymap.set "n" (.. kmap "c") hcmd.toggle_quick_menu opts)
+  ; (vim.keymap.set "n" (.. kmap "s") hmark.add_file opts)
+  ; (vim.keymap.set "n" (.. kmap "m") hui.toggle_quick_menu opts)
+  ; (vim.keymap.set "n" (.. kmap "c") hcmd.toggle_quick_menu opts)
 
-  (vim.keymap.set "n" (.. kmap "h") (fn [] (hui.nav_file 1)) opts)
-  (vim.keymap.set "n" (.. kmap "j") (fn [] (hui.nav_file 2)) opts)
-  (vim.keymap.set "n" (.. kmap "k") (fn [] (hui.nav_file 3)) opts)
-  (vim.keymap.set "n" (.. kmap "l") (fn [] (hui.nav_file 4)) opts))
+  ; (vim.keymap.set "n" (.. kmap "h") (fn [] (hui.nav_file 1)) opts)
+  ; (vim.keymap.set "n" (.. kmap "j") (fn [] (hui.nav_file 2)) opts)
+  ; (vim.keymap.set "n" (.. kmap "k") (fn [] (hui.nav_file 3)) opts)
+  ; (vim.keymap.set "n" (.. kmap "l") (fn [] (hui.nav_file 4)) opts))
 
 
 ; Search and replace
