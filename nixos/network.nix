@@ -151,7 +151,6 @@ in
 
       . {
         import default
-        cache
       }
 
       # local {

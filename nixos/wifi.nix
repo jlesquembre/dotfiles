@@ -79,6 +79,7 @@
     ONB-WLAN-PUBLIKUM = { };
     WESTlan = { };
     AK-Wien = { };
+    WKWGAST = { };
     "Citadines Bastille " = { };
     WOJO-GUEST = { };
   };

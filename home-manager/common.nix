@@ -679,15 +679,15 @@ in
 
     includes =
       [
-        {
-          condition = "gitdir:~/tweag/**";
-          contents = {
-            user = {
-              email = "jose.lafuente@tweag.io";
-              signingKey = "504E38E1827AD12E";
-            };
-          };
-        }
+        # {
+        #   condition = "gitdir:~/tweag/**";
+        #   contents = {
+        #     user = {
+        #       email = "jose.lafuente@tweag.io";
+        #       signingKey = "504E38E1827AD12E";
+        #     };
+        #   };
+        # }
         {
           condition = "gitdir:~/projects/docs/**";
           contents = {
