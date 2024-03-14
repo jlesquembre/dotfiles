@@ -1,5 +1,8 @@
 { config, pkgs, lib, nix-medley, host-options, inputs, system, rootPath, username, ... }:
 
+# SEE
+# https://github.com/gokcehan/lf/blob/master/doc.md
+
 let
   previewer =
     # https://github.com/horriblename/lfimg-sixel/blob/master/preview
@@ -113,12 +116,32 @@ in
       open-with-gui = "&$@ $fx";
       open-with-cli = "$$@ $fx";
 
-    };
+      mkdir = ''
+        ''${{
+            printf "Directory Name: "
+            read ans
+            mkdir "$ans"
+        }}
+      '';
 
+      mkfile = ''
+        ''${{
+            printf "File Name: "
+            read ans
+            touch "$ans"
+        }}
+      '';
+
+    };
+    # Free space on device from CWD
+    # df -Ph . | tail -1 | awk '{print $4}'
     keybindings = {
 
-      K = "push %mkdir<space>";
-      N = "push %touch<space>";
+      # K = "push %mkdir<space>";
+      # N = "push %touch<space>";
+      K = "mkdir";
+      N = "mkfile";
+
       H = "set hidden!";
       "<enter>" = "open";
       gh = "cd ~";
@@ -138,8 +161,10 @@ in
 
       "<delete>" = ":delete";
 
-      O = "push :open-with-gui<space>";
-      o = "push :open-with-cli<space>";
+      # o = "push :open-with-cli<space>";
+      # O = "push :open-with-gui<space>";
+      o = "push $<space>$f<home>";
+      O = "push &<space>$f<home>";
     };
 
     settings = {
@@ -155,6 +180,7 @@ in
       cursorpreviewfmt = "";
       info = "size";
       ifs = "\\n";
+      rulerfmt = ''  %a|  %p|  %d|  \033[7;31m %m \033[0m|  \033[7;33m %c \033[0m|  \033[7;35m %s \033[0m|  \033[7;34m %f \033[0m|  %i/%t'';
     };
   };
 
