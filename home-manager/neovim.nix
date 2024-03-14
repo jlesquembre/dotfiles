@@ -177,10 +177,9 @@ in
       pkgs.jdt-ls
       pkgs.pyright
       pkgs.rust-analyzer
-      pkgs.nls
-      # pkgs.rnix-lsp
-      # pkgs.nil
-      pkgs.nixd
+      pkgs.nls # Nickel
+      # pkgs.nil # Nix
+      # pkgs.nixd
       pkgs.terraform-ls
 
       # Formatters
@@ -259,7 +258,7 @@ in
       # pkgs.vimPlugins.completion-treesitter
 
       # UI
-      nvim-base16
+      base16-nvim
       # custom-vim-plugs.feline-nvim
       feline-nvim
       nvim-notify

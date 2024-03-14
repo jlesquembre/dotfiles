@@ -39,7 +39,7 @@ in
         "jl-nix.cachix.org-1:lHxA3Z7QoYjxFczo138tIzUHQvJP41rMNgYmBfEBdMU="
       ];
       # The default at 10 is rarely enough.
-      log-lines = 25;
+      log-lines = 35;
     };
 
     buildMachines = [
@@ -270,6 +270,7 @@ in
   # Enable GnuPG agent with SSH support
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
+  programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
   # programs.gnupg.agent.pinentryFlavor = "qt"; # One of "curses", "tty", "gtk2", "qt", "gnome3", "emacs"
 
   # Enable gnome keyring
@@ -332,7 +333,7 @@ in
       wrapperFeatures.gtk = true;
     };
   services.xserver.enable = true;
-  services.xserver.layout = "us";
+  services.xserver.xkb.layout = "us";
   # services.xserver.displayManager.sddm.enable = true;
   services.xserver.displayManager.gdm = {
     enable = true;
