@@ -178,7 +178,7 @@ in
       pkgs.pyright
       pkgs.rust-analyzer
       pkgs.nls # Nickel
-      # pkgs.nil # Nix
+      pkgs.nil # Nix
       # pkgs.nixd
       pkgs.terraform-ls
 
