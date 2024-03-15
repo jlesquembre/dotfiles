@@ -50,6 +50,9 @@ in
             text/* | inode/x-empty)
               lf -remote "send $id \$nvim \$fx"
               ;;
+            application/zip | application/gzip | application/x-tar)
+              lf -remote "send $id extract \$fx"
+              ;;
             *)
               for f in $fx; do xdg-open $f; done
               ;;
