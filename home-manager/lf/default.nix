@@ -36,6 +36,8 @@ in
 
   programs.lf = {
     enable = true;
+
+    # cmd in lf
     commands = {
 
       open = ''
@@ -128,6 +130,8 @@ in
     };
     # Free space on device from CWD
     # df -Ph . | tail -1 | awk '{print $4}'
+
+    # map in lf
     keybindings = {
 
       K = "push :mkdir<space>";
@@ -156,6 +160,12 @@ in
       # O = "push :open-with-gui<space>";
       o = "push $<space>$f<home>";
       O = "push &<space>$f<home>";
+    };
+
+    # cmap in lf
+    cmdKeybindings = {
+      "<tab>" = "cmd-menu-complete";
+      "<backtab>" = "cmd-menu-complete-back";
     };
 
     settings = {
