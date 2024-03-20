@@ -64,11 +64,20 @@ in
       kd = "kubectl delete -f";
 
       # Nix
-      nru = "nix run github:NixOS/nixpkgs/nixos-unstable#";
-      nsu = "nix shell github:NixOS/nixpkgs/nixos-unstable#";
+      nru = {
+        expansion = "nix run github:NixOS/nixpkgs/nixos-unstable#%";
+        setCursor = "%";
+      };
+      nsu = {
+        expansion = "nix shell github:NixOS/nixpkgs/nixos-unstable#%";
+        setCursor = "%";
+      };
       nr = "nix run";
       nb = "nix build";
-      nbu = "nix build github:NixOS/nixpkgs/nixos-unstable#";
+      nbu = {
+        expansion = "nix build github:NixOS/nixpkgs/nixos-unstable#%";
+        setCursor = "%";
+      };
 
       nd = "nvd diff /run/current-system result";
       ndd = "nvd diff /nix/var/nix/profiles/per-user/${username}/home-manager result";
