@@ -32,12 +32,8 @@ in
       sandbox = true;
       trusted-users = [ "root" username ];
       auto-optimise-store = true;
-      substituters = [
-        "https://jl-nix.cachix.org"
-      ];
-      trusted-public-keys = [
-        "jl-nix.cachix.org-1:lHxA3Z7QoYjxFczo138tIzUHQvJP41rMNgYmBfEBdMU="
-      ];
+      # substituters = [ ];
+      # trusted-public-keys = [ ];
       # The default at 10 is rarely enough.
       log-lines = 35;
     };
