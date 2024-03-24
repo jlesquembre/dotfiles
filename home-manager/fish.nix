@@ -109,6 +109,9 @@ in
       y = {
         function = "_expand_yt-dlp";
       };
+      ym = {
+        function = "_expand_yt-dlp_m";
+      };
 
     };
 
@@ -133,10 +136,17 @@ in
       last_history_item = "echo $history[1]";
       _expand_yt-dlp = ''
         set url (wl-paste)
-        if string match -r '^http' "$url"
+        if string match -q -r '^http' "$url"
             set url (wl-paste -p)
         end
         echo -e "yt-dlp \"$url\""
+      '';
+      _expand_yt-dlp_m = ''
+        set url (wl-paste)
+        if string match -q -r '^http' "$url"
+            set url (wl-paste -p)
+        end
+        echo -e "yt-dlp -x --audio-quality 0 \"$url\""
       '';
 
 
