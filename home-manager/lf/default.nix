@@ -200,3 +200,6 @@ in
   };
 
 }
+
+# TODO add
+# https://github.com/jstkdng/ueberzugpp

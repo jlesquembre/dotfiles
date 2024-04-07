@@ -260,12 +260,14 @@ in
       # UI
       base16-nvim
       # custom-vim-plugs.feline-nvim
+      # lualine-nvim
       feline-nvim
       nvim-notify
       nvim-spectre
 
       # Navigation
       oil-nvim
+      # https://github.com/Rolv-Apneseth/tfm.nvim
       vim-unimpaired
       nvim-bqf
       other-nvim
@@ -382,8 +384,10 @@ in
       # # vim-hexokinase
 
       # Clojure
+      # nvim-paredit
       vim-sexp
       vim-sexp-mappings-for-regular-people
+      # nvim-parinfer
       pkgs.parinfer-rust
       conjure
       # vim-clojure-highlight

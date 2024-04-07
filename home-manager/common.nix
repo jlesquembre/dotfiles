@@ -624,11 +624,6 @@ in
     };
   };
 
-
-  programs.emacs = {
-    enable = true;
-  };
-
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
