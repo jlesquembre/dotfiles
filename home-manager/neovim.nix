@@ -275,6 +275,9 @@ in
       # Text edition
       vim-repeat
       vim-sandwich
+
+      # TODO remove after neovim 0.10
+      # https://github.com/neovim/neovim/pull/28176
       vim-commentary
       # vim-speeddating
       # ultisnips
