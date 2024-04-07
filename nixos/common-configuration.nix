@@ -16,6 +16,8 @@ in
 
 {
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   sops.secrets.nixAccessTokens = {
     mode = "0440";
     group = config.users.groups.keys.name;
