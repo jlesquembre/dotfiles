@@ -72,10 +72,11 @@
       mkHost' = { host, host-options }:
         inputs.nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit inputs; };
           modules = [
             {
               _module.args = extraArgs // {
-                inherit host-options inputs username;
+                inherit host-options username;
                 # NixOS already has a system option (a set).
                 # Here system is one of systems defined in nixpkgs, it is a
                 # string (e.g.: "x86_64-linux")

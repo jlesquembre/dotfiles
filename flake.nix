@@ -24,6 +24,11 @@
       url = "github:gbataille/gitHUD";
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # wired = {
     #   url = "github:Toqozz/wired-notify";
     #   inputs.nixpkgs.follows = "nixpkgs";

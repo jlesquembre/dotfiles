@@ -1,5 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 {
+
+  # imports = [
+  #   inputs.disko.nixosModules.disko
+  #   ./beta-disk.nix
+  # ];
 
   networking.wireless.interfaces = [ "wlp0s20f3" ];
 
@@ -72,8 +77,8 @@
   # OLD hardware.video.hidpi.enable settings
   # console.font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
 
-  # # Needed when typing in passwords for full disk encryption
-  # console.earlySetup = lib.mkDefault true;
+  # Needed when typing in passwords for full disk encryption
+  console.earlySetup = lib.mkDefault true;
   # boot.loader.systemd-boot.consoleMode = lib.mkDefault "1";
 
   # # Grayscale anti-aliasing for fonts
