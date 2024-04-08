@@ -89,10 +89,24 @@
           hmConfigDir = (builtins.toString ./home-manager);
         };
 
-      nixosConfigurations = utils.mkHosts
-        {
-          inherit hosts system username pkgs inputs extraArgs;
-          configDir = (builtins.toString ./nixos);
+      nixosConfigurations =
+        (utils.mkHosts
+          {
+            inherit hosts system username pkgs inputs extraArgs;
+            configDir = (builtins.toString ./nixos);
+          })
+        // {
+          # nix build .#nixosConfigurations.iso-image.config.system.build.isoImage
+          iso-image = nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              (nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
+              {
+                boot.kernelPackages = pkgs.linuxPackages_latest;
+                boot.supportedFilesystems = pkgs.lib.mkForce [ "bcachefs" "vfat" "f2fs" ];
+              }
+            ];
+          };
         };
 
     } //
