@@ -78,9 +78,6 @@
         beta = {
           wifi = true;
           bluetooth = true;
-          nixos-modules = [
-            nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
-          ];
         };
       };
 
@@ -109,7 +106,7 @@
         nix-medley = inputs.nix-medley.lib pkgs;
         utils = (import ./lib { inherit pkgs; });
       in
-      rec{
+      {
         devShells =
           {
             default =

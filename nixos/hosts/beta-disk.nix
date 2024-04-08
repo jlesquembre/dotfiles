@@ -4,7 +4,7 @@
 
   disko.devices = {
     disk.disk1 = {
-      device = "pci-0000:04:00.0-nvme-1";
+      device = "/dev/disk/by-path/pci-0000:04:00.0-nvme-1";
       type = "disk";
       content = {
         type = "gpt";
