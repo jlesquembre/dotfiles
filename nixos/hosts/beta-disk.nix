@@ -9,13 +9,13 @@
       content = {
         type = "gpt";
         partitions = {
-          boot = {
-            name = "boot";
-            size = "1M";
-            type = "EF02";
-          };
-          esp = {
-            name = "ESP";
+          # Legacy MBR
+          # boot = {
+          #   name = "boot";
+          #   size = "1M";
+          #   type = "EF02";
+          # };
+          ESP = {
             size = "500M";
             type = "EF00";
             content = {
@@ -26,28 +26,11 @@
           };
           root = {
             name = "root";
-            size = "100%";
-            content = {
-              type = "lvm_pv";
-              vg = "pool";
-            };
-          };
-        };
-      };
-    };
-    lvm_vg = {
-      pool = {
-        type = "lvm_vg";
-        lvs = {
-          root = {
-            size = "100%FREE";
+            end = "-0"; # Same as size = "100%"
             content = {
               type = "filesystem";
               format = "bcachefs";
               mountpoint = "/";
-              # mountOptions = [
-              #   "defaults"
-              # ];
 
               # See https://github.com/nix-community/disko/blob/0a17298c0d96190ef3be729d594ba202b9c53beb/lib/types/filesystem.nix#L44-L50
               # Options to mkfs.bcachefs
