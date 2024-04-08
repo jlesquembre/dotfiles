@@ -3,7 +3,7 @@
   boot.supportedFilesystems = [ "bcachefs" ];
 
   disko.devices = {
-    disk.disk1 = {
+    disk.nvme0 = {
       device = "/dev/disk/by-path/pci-0000:04:00.0-nvme-1";
       type = "disk";
       content = {
@@ -35,10 +35,10 @@
               # See https://github.com/nix-community/disko/blob/0a17298c0d96190ef3be729d594ba202b9c53beb/lib/types/filesystem.nix#L44-L50
               # Options to mkfs.bcachefs
               extraArgs = [
-                # "-f" force, note needed
+                # "-f" # force, not needed
                 "--compression=lz4"
                 "--discard" # TRIM support
-                "--encrypted"
+                # "--encrypted"
               ];
 
               # https://github.com/nix-community/disko/blob/0a17298c0d96190ef3be729d594ba202b9c53beb/lib/types/filesystem.nix#L54-L66

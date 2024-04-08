@@ -104,6 +104,9 @@
               {
                 boot.kernelPackages = pkgs.linuxPackages_latest;
                 boot.supportedFilesystems = pkgs.lib.mkForce [ "bcachefs" "vfat" "f2fs" ];
+                environment.systemPackages = with pkgs; [
+                  rsync
+                ];
               }
             ];
           };
