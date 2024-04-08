@@ -78,92 +78,36 @@ in
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
 
-    abcde
-    appimage-run
-    arandr
-    # bat
-    # bazel bazel-buildtools
-    cachix
-    caddy
-    # calibre
-    cntr
-    cheat
-    cmatrix
     # cue
     # mpd cantata
     # mopidy mopidy-musicbox-webclient mopidy-moped mopidy-mopify
     # electron
     # etcher # ISO writer
-    exiftool
-    file
-    firefox-wayland
-    fish
-    fzf
-    gcc6
     # glances
-    glxinfo
     # gnome3.zenity gnome3.dconf gnome3.dconf-editor
-    gnumake
 
     # go  golint gotools
-    graphicsmagick
-    gwenview
-    htop
-    # imv
-    inkscape
+    # graphicsmagick
+    # gwenview
+    # inkscape
     # jetbrains.idea-community
-    jq
-    keychain
-    kondo
-    libffi
-    libicns
+    # libffi
+    # libicns
     # libreoffice-fresh
-    libxml2 # Provides xmllint
-    lsof
-    man-db
-    mediainfo
-    meld
-    mlocate
-    mmv
-    ncdu
     ncurses.dev # infocmp and more utils
     # apacheHttpd # apache used for tools like htpasswd
-    noti
-    libnotify
-    notify-osd
     # okular
-    libressl
-    page
     # paper-icon-theme
-    pass
-    pavucontrol
-    pciutils
-    pdftk
-    poppler_utils # xpdf
-    prettyping
-    proselint
-    pwgen
-    python3
-    ranger
-    recoll
-    rlwrap
+
+    # recoll
     rsync
-    sox
-    soxr
-    sqlite
-    sshfs-fuse
-    texlive.combined.scheme-full
-    tldr
-    tmux
-    transmission
-    tree
-    udevil
-    unrar
-    upower
-    w3m
-    wget
-    xz
-    yubikey-personalization
+    # sox
+    # soxr
+    # udevil
+    # unrar
+    # upower
+    # w3m
+    # yubikey-personalization
 
     # QT apps helpers
     qt5.qtbase
@@ -174,51 +118,9 @@ in
     # terminals
     alacritty
 
-    # encryption
-    age
-    croc
-    gnupg
-    magic-wormhole-rs
-    pkgs.sops
-
-    # screenshot utils
-    flameshot
-    xfce.xfce4-screenshooter
-
-    # screencasts
-    asciinema
-    obs-studio
-    screenkey # kazam recordmydesktop simplescreenrecorder
-    kdenlive
-
     # editors
     neovim
-    neovim-remote
-    vim
 
-    # JS
-    nodejs
-
-    # compress tools
-    atool
-    zip
-    unzip
-    unar
-    dpkg
-    libarchive # replaces p7zip: bsdtar -cf archive.7z --format=7zip ...
-
-    # audio/video tools
-    ffmpeg-full
-    mpv
-    x265
-    libopus
-    opusfile
-    opusTools
-
-    # DB utils
-    postgresql
-    pspg # pgcli
-    # libmysqlclient mariadb.client
   ]
   ++ (with pkgs.gitAndTools; [
     delta
@@ -227,11 +129,6 @@ in
     git-trim
     gitFull
     tig
-  ])
-  ++ (with pkgs.nodePackages; [
-    fkill-cli
-    node2nix
-    prettier
   ]);
 
 

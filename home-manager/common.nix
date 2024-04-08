@@ -43,6 +43,7 @@ in
   home.packages = with pkgs; [
 
     inputs.githud.packages."${system}".default
+    caddy
     clipman
     deadbeef # ???
     gnome.zenity
@@ -71,6 +72,7 @@ in
     nix-serve
     nixpkgs-fmt
     nix-output-monitor
+    cntr
     # nix_graph
 
     # JDK tools
@@ -133,11 +135,14 @@ in
 
     # dev tools
     btop
+    cheat
     curlie
     dnsutils
     dogdns
     entr
     watchexec
+    jq
+    kondo
     gh
     httpie
     httping
@@ -154,7 +159,33 @@ in
     watchman # postman
     websocat
     websocketd
+    exiftool
+    file
+    libxml2 # Provides xmllint
+    lsof
+    man-db
+    mediainfo
+    meld
+    ncdu
+    libressl
+    sshfs-fuse
+    wget
+    xz
     # wuzz # BROKEN
+
+    # More utils
+    pavucontrol
+    pciutils
+    pdftk
+    poppler_utils # xpdf
+    prettyping
+    proselint
+    pwgen
+    texlive.combined.scheme-full
+    tldr
+    tmux
+    transmission
+    tree
 
     # nix utils
     haskellPackages.nix-derivation
@@ -164,6 +195,48 @@ in
     dstp
 
     git-extras
+
+    # encryption
+    age
+    croc
+    gnupg
+    magic-wormhole-rs
+    pkgs.sops
+
+    # screenshot utils
+    flameshot
+    xfce.xfce4-screenshooter
+
+    # screencasts
+    asciinema
+    obs-studio
+    screenkey # kazam recordmydesktop simplescreenrecorder
+    kdenlive
+
+    # compress tools
+    atool
+    zip
+    unzip
+    unar
+    dpkg
+    libarchive # replaces p7zip: bsdtar -cf archive.7z --format=7zip ...
+
+    # audio/video tools
+    ffmpeg-full
+    x265
+    libopus
+    opusfile
+    opusTools
+
+    # notifications
+    noti
+    libnotify
+    notify-osd
+
+    # DB utils
+    pspg # pgcli
+    sqlite
+    # libmysqlclient mariadb.client
 
     (pkgs.writeShellApplication {
       name = "tweagmate";
