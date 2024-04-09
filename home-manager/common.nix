@@ -156,7 +156,7 @@ in
     sysz
     tcpdump
     tmate
-    watchman # postman
+    watchman
     websocat
     websocketd
     exiftool
@@ -199,7 +199,6 @@ in
     # encryption
     age
     croc
-    gnupg
     magic-wormhole-rs
     pkgs.sops
 

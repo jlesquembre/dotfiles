@@ -1,5 +1,4 @@
 { config
-, options
 , pkgs
 , lib
 , host-options
@@ -15,6 +14,9 @@ let
 in
 
 {
+  imports = [
+    ./common-extra.nix
+  ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -78,47 +80,9 @@ in
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
 
-    # cue
-    # mpd cantata
-    # mopidy mopidy-musicbox-webclient mopidy-moped mopidy-mopify
-    # electron
-    # etcher # ISO writer
-    # glances
-    # gnome3.zenity gnome3.dconf gnome3.dconf-editor
-
-    # go  golint gotools
-    # graphicsmagick
-    # gwenview
-    # inkscape
-    # jetbrains.idea-community
-    # libffi
-    # libicns
-    # libreoffice-fresh
     ncurses.dev # infocmp and more utils
-    # apacheHttpd # apache used for tools like htpasswd
-    # okular
-    # paper-icon-theme
-
-    # recoll
     rsync
-    # sox
-    # soxr
-    # udevil
-    # unrar
-    # upower
-    # w3m
-    # yubikey-personalization
-
-    # QT apps helpers
-    qt5.qtbase
-    qt5.qtsvg
-    qt5.qtwayland
-    # breeze-icons breeze-gtk breeze-qt5 gnome-breeze # kde-gtk-config
-
-    # terminals
     alacritty
-
-    # editors
     neovim
 
   ]
@@ -132,32 +96,6 @@ in
   ]);
 
 
-  # services.qemuGuest.enable = true;
-  # virtualisation.libvirtd.enable = true;
-
-  # virtualisation.libvirtd = {
-  #   enable = true;
-  #   # allowedBridges = [
-  #   #   "virbr0"
-  #   #   "vmbridge"
-  #   # ];
-  # };
-
-
-  virtualisation.docker = {
-    enable = true;
-    rootless.enable = true;
-  };
-
-  virtualisation.containerd.enable = true;
-
-  virtualisation.cri-o.enable = true;
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = false;
-  };
-
-  programs.sysdig.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -203,7 +141,6 @@ in
     wlr.enable = true;
   };
 
-
   # services.dbus.packages = with pkgs; [ gnome3.dconf ];
   # services.gnome3.gnome-remote-desktop.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -248,8 +185,6 @@ in
     }
   ];
 
-  services.tumbler.enable = true;
-
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
@@ -274,11 +209,6 @@ in
   # services.devmon.enable = true;
   services.udisks2.enable = true;
   services.udev.packages = with pkgs; [ libu2f-host yubikey-personalization ];
-
-  programs.wireshark.enable = true;
-  programs.wireshark.package = pkgs.wireshark-qt;
-
-  programs.adb.enable = true;
 
   users.mutableUsers = false;
   users.users.root.hashedPasswordFile = config.sops.secrets.rootPassword.path;
@@ -336,42 +266,6 @@ in
       ttf_bitstream_vera
       ubuntu_font_family
       unifont
-    ];
-  };
-
-
-  # Need to setup gnome themes with home-manager
-  programs.dconf.enable = true;
-
-  # locate options
-  services.locate = {
-    enable = false;
-    package = pkgs.mlocate;
-    localuser = null; # mlocate does not support this option so it must be null
-    # interval = "daily";
-    interval = "hourly";
-
-    pruneNames = [
-      ".git"
-      "cache"
-      ".cache"
-      ".cpcache"
-      ".aot_cache"
-      ".boot"
-      "node_modules"
-      "USB"
-    ];
-
-    prunePaths = options.services.locate.prunePaths.default ++ [
-      "/dev"
-      "/lost+found"
-      "/nix/var"
-      "/proc"
-      "/run"
-      "/sys"
-      "/tmp"
-      "/usr/tmp"
-      "/var/tmp"
     ];
   };
 
