@@ -11,6 +11,10 @@
 }:
 let
   userHome = "/home/${username}";
+  ssh-auth-keys =
+    [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO8qwM9dPUwYV7bo3jIJThyxeSLZI8qvHq3e0o75nLIo"
+    ];
 in
 
 {
@@ -211,7 +215,10 @@ in
   services.udev.packages = with pkgs; [ libu2f-host yubikey-personalization ];
 
   users.mutableUsers = false;
-  users.users.root.hashedPasswordFile = config.sops.secrets.rootPassword.path;
+  users.users.root = {
+    hashedPasswordFile = config.sops.secrets.rootPassword.path;
+    openssh.authorizedKeys.keys = ssh-auth-keys;
+  };
 
   users.users.${username} = {
     description = "José Luis";
@@ -232,6 +239,7 @@ in
       # sops-nix group
       config.users.groups.keys.name
     ];
+    openssh.authorizedKeys.keys = ssh-auth-keys;
   };
 
   sops.age.keyFile = ageKeyFile;
