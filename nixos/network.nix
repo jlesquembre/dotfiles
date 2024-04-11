@@ -181,6 +181,7 @@ in
       ''
         acme_ca https://127.0.0.1:8444/acme/acme/directory
         acme_ca_root ${root_ca_file}
+        storage_clean_interval 1h
         email no-reply@lafuente.com
         on_demand_tls {
           ask      http://check.home.arpa/check
