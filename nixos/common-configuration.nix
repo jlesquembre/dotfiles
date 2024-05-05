@@ -53,7 +53,7 @@ in
         sshUser = "nix";
         sshKey = config.sops.secrets.builder_ssh_key.path;
         systems = [ "aarch64-linux" "x86_64-linux" ];
-        supportedFeatures = [ "benchmark" "big-parallel" "kvm" ];
+        supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
         publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU9yamc1UjVRUmI2WDNiNkdvT3N2Q0hrSXpHUGE2SUpKWGRLTDB0SDUyYXcK";
       }
       {
@@ -62,7 +62,7 @@ in
         sshUser = "nix";
         sshKey = config.sops.secrets.builder_ssh_key.path;
         systems = [ "aarch64-darwin" "x86_64-darwin" ];
-        supportedFeatures = [ "benchmark" "big-parallel" ];
+        supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
         publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSURRTXltam43YmRITXVGd2dOa2lvaWpQckFVUEpoN0kvOTZMVVZ6SVVHUjcK";
       }
     ];
