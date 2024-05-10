@@ -179,6 +179,10 @@ in
   wayland.windowManager.sway = {
     enable = true;
     package = null;
+
+    # https://github.com/nix-community/home-manager/issues/5311
+    checkConfig = false;
+
     config.modifier = "Mod4";
     config.fonts =
       {
