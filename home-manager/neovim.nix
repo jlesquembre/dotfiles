@@ -203,7 +203,8 @@ in
       )
       # pkgs.sqlfluff
       # pkgs.pgformatter
-      pkgs.nixpkgs-fmt
+      # pkgs.nixpkgs-fmt
+      pkgs.nixfmt-rfc-style
       pkgs.rustfmt
       pkgs.terraform
       pkgs.ormolu

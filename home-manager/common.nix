@@ -71,6 +71,7 @@ in
     nixpkgs-review
     nix-serve
     nixpkgs-fmt
+    nixfmt-rfc-style
     nix-output-monitor
     cntr
     # nix_graph
