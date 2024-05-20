@@ -17,7 +17,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
 
       - name: Install Cachix
-        uses: cachix/cachix-action@v14
+        uses: cachix/cachix-action@v15
         with:
           name: jl-nix
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
