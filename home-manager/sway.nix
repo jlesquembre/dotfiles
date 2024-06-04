@@ -365,6 +365,7 @@ in
     };
   };
 
+  services.systembus-notify.enable = true;
 
   # TODO replace with wired? Also volnoti?
   services.mako = {

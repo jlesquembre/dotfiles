@@ -149,6 +149,8 @@ in
   # services.gnome3.gnome-remote-desktop.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  services.systembus-notify.enable = true;
+
   programs.sway =
     {
       enable = true;

@@ -203,10 +203,10 @@ in
       )
       # pkgs.sqlfluff
       # pkgs.pgformatter
-      # pkgs.nixpkgs-fmt
-      pkgs.nixfmt-rfc-style
+      pkgs.nixpkgs-fmt
+      # pkgs.nixfmt-rfc-style
       pkgs.rustfmt
-      pkgs.terraform
+      # pkgs.terraform
       pkgs.ormolu
       pkgs.stylua
       pkgs.shfmt
@@ -276,10 +276,6 @@ in
       # Text edition
       vim-repeat
       vim-sandwich
-
-      # TODO remove after neovim 0.10
-      # https://github.com/neovim/neovim/pull/28176
-      vim-commentary
       # vim-speeddating
       # ultisnips
       # vim-snippets

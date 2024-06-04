@@ -43,7 +43,9 @@ local function custom_attach(client, bufnr)
   end
   local opts = { noremap = true, silent = false }
 
-  set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
+  -- NEW in 0.10
+  -- vim.lsp.inlay_hint.enable()
+
   set_keymap("n", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
 
   -- set_keymap('n', 'gdd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
@@ -59,9 +61,11 @@ local function custom_attach(client, bufnr)
   set_keymap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
   set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
 
+  -- builtin: <c-w>d
   set_keymap("n", "<leader>dd", [[<cmd>lua vim.diagnostic.open_float({border = "single"})<CR>]], opts)
-  set_keymap("n", "[w", [[<cmd>lua vim.diagnostic.goto_prev({float={border="single"}})<CR>]], opts)
-  set_keymap("n", "]w", [[<cmd>lua vim.diagnostic.goto_next({float={border="single"}})<CR>]], opts)
+
+  set_keymap("n", "[d", [[<cmd>lua vim.diagnostic.goto_prev({float={border="single"}})<CR>]], opts)
+  set_keymap("n", "]d", [[<cmd>lua vim.diagnostic.goto_next({float={border="single"}})<CR>]], opts)
 
   set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
   set_keymap("n", "<leader>cl", "<cmd>lua vim.lsp.codelens.run()<CR>", opts)

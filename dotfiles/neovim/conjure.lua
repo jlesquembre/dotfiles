@@ -23,6 +23,8 @@ vim.g["conjure#mapping#eval_buf"] = "pb"
 vim.g["conjure#mapping#eval_visual"] = "p"
 vim.g["conjure#mapping#eval_motion"] = "m"
 -- vim.g['conjure#mapping#doc_word'] = ["K"]
+-- Rebind it from K to <prefix>k
+vim.g["conjure#mapping#doc_word"] = "k"
 -- vim.g['conjure#mapping#def_word'] = ["gd"]
 vim.g["conjure#mapping#eval_comment_current_form"] = "pcc"
 vim.g["conjure#mapping#eval_comment_root_form"] = "pcr"

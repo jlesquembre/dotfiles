@@ -273,7 +273,7 @@ xnoremap c, q:
 nnoremap <leader>w <C-w>
 
 " un-join (split) the current line at the cursor position
-nnoremap gj i<c-j><esc>k$
+nnoremap gj a<c-j><esc>k$
 " nnoremap gJ i<c-j><esc>k$
 nnoremap x  "_d
 xnoremap x  "_d
@@ -352,8 +352,8 @@ inoremap <F11> <nop>
 inoremap <F12> <nop>
 
 " move vertically by visual line
-nnoremap j gj
-nnoremap k gk
+" nnoremap j gj
+" nnoremap k gk
 
 " tab map
 nnoremap <leader>gn :tabnew<cr>

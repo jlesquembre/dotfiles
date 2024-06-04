@@ -64,7 +64,7 @@ require("formatter").setup({
     typescriptreact = { pConf },
     ["markdown.mdx"] = { pConf },
 
-    terraform = { hclConf },
+    -- terraform = { hclConf },
 
     -- lua = { require("formatter.filetypes.lua").stylua },
     lua = { luaConf },
@@ -73,11 +73,11 @@ require("formatter").setup({
 
     nix = {
       function()
-        if vim.fn.executable("nixfmt") == 1 then
-          return {
-            exe = "nixfmt",
-          }
-        end
+        -- if vim.fn.executable("nixfmt") == 1 then
+        --   return {
+        --     exe = "nixfmt",
+        --   }
+        -- end
         if vim.fn.executable("alejandra") == 1 then
           return {
             exe = "alejandra",
