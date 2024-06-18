@@ -107,7 +107,7 @@ augroup END
 )
 
 require("nterm.main").init()
-vim.api.nvim_set_keymap("t", "<C-e>", [[<cmd>lua require'nterm.main'.term_toggle()<cr>]], { noremap = true })
+vim.keymap.set("t", "<C-e>", [[<cmd>lua require'nterm.main'.term_toggle()<cr>]], { remap = false })
 
 require("nvim-autopairs").setup({
   disable_filetype = { "TelescopePrompt", unpack(require("jlle.conjure").lisp_langs) },
@@ -149,9 +149,9 @@ function _G.new_scratch()
   vim.wo.winfixwidth = true
 end
 
-vim.api.nvim_set_keymap("n", "<leader>es", "<cmd>lua new_scratch()<cr>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>es", "<cmd>lua new_scratch()<cr>", { remap = false, silent = false })
 
-vim.api.nvim_set_keymap("n", "<leader>x", "<cmd>lua toggle_qf()<cr>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>x", "<cmd>lua toggle_qf()<cr>", { remap = false, silent = false })
 
 require("package-info").setup({ package_manager = "npm" })
 vim.api.nvim_exec(

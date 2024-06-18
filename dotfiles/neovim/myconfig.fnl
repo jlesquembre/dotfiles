@@ -16,6 +16,9 @@
 (vim.keymap.set "n" "<leader>s" "<cmd>update<cr>" {:silent true})
 (vim.keymap.set "i" "<C-s>" "<C-o>:w<cr>")
 
+;; move vertically by visual line
+(vim.keymap.set "n" "j" "gj")
+(vim.keymap.set "n" "k" "gk")
 
 ; Move visual selection UP/DOWN
 (vim.keymap.set "v" "J" ":m '>+1<CR>gv=gv")

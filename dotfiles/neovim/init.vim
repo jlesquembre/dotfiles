@@ -351,10 +351,6 @@ inoremap <F10> <nop>
 inoremap <F11> <nop>
 inoremap <F12> <nop>
 
-" move vertically by visual line
-" nnoremap j gj
-" nnoremap k gk
-
 " tab map
 nnoremap <leader>gn :tabnew<cr>
 
