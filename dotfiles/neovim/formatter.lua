@@ -62,6 +62,7 @@ require("formatter").setup({
     yaml = { pConf },
     markdown = { pConf },
     typescriptreact = { pConf },
+    graphql = { pConf },
     ["markdown.mdx"] = { pConf },
 
     -- terraform = { hclConf },

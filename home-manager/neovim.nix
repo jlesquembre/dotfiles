@@ -222,7 +222,7 @@ in
       # if you only want some grammars do
       # (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.python p.java ]))
       nvim-treesitter.withAllGrammars
-      # rainbow-delimiters-nvim
+      rainbow-delimiters-nvim
 
       # Helpers, needed by other plugins
       popup-nvim
@@ -301,7 +301,7 @@ in
 
       # nterm-nvim
       custom-vim-plugs.nterm-nvim
-      custom-vim-plugs.baleia-nvim
+      baleia-nvim
       # (h.neovim.localVimPlugin (vimPluginsDir + /nterm.nvim))
 
       # Git
@@ -385,10 +385,13 @@ in
 
       # Clojure
       # nvim-paredit
-      vim-sexp
-      vim-sexp-mappings-for-regular-people
+      # vim-sexp
+      # vim-sexp-mappings-for-regular-people
       # nvim-parinfer
-      pkgs.parinfer-rust
+      parpar-nvim
+      nvim-parinfer
+      nvim-paredit
+      # pkgs.parinfer-rust
       conjure
       # vim-clojure-highlight
       # # vim-kibit

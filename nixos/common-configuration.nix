@@ -208,7 +208,7 @@ in
   # sort-directories-first=true
   # '';
 
-  programs.bash.enableCompletion = true;
+  programs.bash.completion.enable = true;
   programs.fish.enable = true;
   programs.fish.vendor.completions.enable = true;
 
