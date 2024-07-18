@@ -27,9 +27,9 @@
   # hardware.cpu.intel.updateMicrocode = true;
 
   # https://nixos.wiki/wiki/Accelerated_Video_Playback
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [
       vaapiIntel
       vaapiVdpau

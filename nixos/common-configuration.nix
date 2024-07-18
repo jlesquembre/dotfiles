@@ -22,7 +22,7 @@ in
     ./common-extra.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_9;
 
   sops.secrets.nixAccessTokens = {
     mode = "0440";

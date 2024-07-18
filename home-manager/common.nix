@@ -185,7 +185,7 @@ in
     texlive.combined.scheme-full
     tldr
     tmux
-    transmission
+    transmission_4
     tree
 
     # nix utils
