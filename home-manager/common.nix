@@ -636,21 +636,24 @@ in
         };
       };
       font = {
-        family = "Hack";
+        # family = "Hack";
         size = 12.0;
       };
-      key_bindings = [
-        {
-          key = "Q";
-          mods = "Control";
-          action = "SpawnNewInstance";
-        }
-        {
-          key = "L";
-          mods = "Control";
-          action = "ReceiveChar";
-        }
-      ];
+
+      keyboard = {
+        bindings = [
+          {
+            key = "Q";
+            mods = "Control";
+            action = "SpawnNewInstance";
+          }
+          {
+            key = "L";
+            mods = "Control";
+            action = "ReceiveChar";
+          }
+        ];
+      };
       colors = {
         primary =
           {
