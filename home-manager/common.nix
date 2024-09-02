@@ -46,7 +46,7 @@ in
     caddy
     clipman
     deadbeef # ???
-    gnome.zenity
+    zenity
     google-chrome
     graphviz
     imv
@@ -59,7 +59,7 @@ in
 
     ugrep
     wf-recorder
-    wl-clipboard
+    wl-clipboard-rs
     xfce.ristretto
     xournalpp
     yt-dlp

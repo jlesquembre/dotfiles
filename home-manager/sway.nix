@@ -394,7 +394,7 @@ in
       };
       Service = {
         # Wait for next clipman release
-        ExecStart = ''${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store --unix'';
+        ExecStart = ''${pkgs.wl-clipboard-rs}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store --unix'';
         # ExecStart = ''${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store'';
         RestartSec = 3;
         Restart = "always";
