@@ -28,24 +28,24 @@ ls.add_snippets("all", {
   s("date", { d(1, date_input, {}) }),
 })
 
-ls.add_snippets("clojure", {
-  s("item", {
-    t({ '{:description "' }),
-    i(1),
-    t({ '" ', "" }),
-    t({ " :amount " }),
-    i(2),
-    t({ " ", "" }),
-    t({ " :tags #{" }),
-    i(3),
-    t({ "}", "" }),
-    t({ ' :date "' }),
-    f(function()
-      return os.date("%Y-%m-%d")
-    end),
-    t({ '"}', "" }),
-  }),
-})
+-- ls.add_snippets("clojure", {
+--   s("item", {
+--     t({ '{:description "' }),
+--     i(1),
+--     t({ '" ', "" }),
+--     t({ " :amount " }),
+--     i(2),
+--     t({ " ", "" }),
+--     t({ " :tags #{" }),
+--     i(3),
+--     t({ "}", "" }),
+--     t({ ' :date "' }),
+--     f(function()
+--       return os.date("%Y-%m-%d")
+--     end),
+--     t({ '"}', "" }),
+--   }),
+-- })
 
 local elementName = function()
   return sn(nil, i(1, fname()))

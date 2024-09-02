@@ -5,7 +5,7 @@ config = wezterm.config_builder()
 config.font = wezterm.font("Hack")
 config.font_size = 12.0
 
-config.front_end = "WebGpu"
+-- config.front_end = "WebGpu"
 
 config.default_cursor_style = "BlinkingBlock"
 -- config.default_cursor_style = "BlinkingBar"

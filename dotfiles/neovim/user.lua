@@ -109,9 +109,15 @@ augroup END
 require("nterm.main").init()
 vim.keymap.set("t", "<C-e>", [[<cmd>lua require'nterm.main'.term_toggle()<cr>]], { remap = false })
 
+local lisp_langs = require("jlle.conjure").lisp_langs
+
 require("nvim-autopairs").setup({
-  disable_filetype = { "TelescopePrompt", unpack(require("jlle.conjure").lisp_langs) },
+  disable_filetype = { "TelescopePrompt", unpack(lisp_langs) },
 })
+
+vim.g.rainbow_delimiters = {
+  whitelist = lisp_langs,
+}
 
 function _G.toggle_qf()
   local qf_exists = false

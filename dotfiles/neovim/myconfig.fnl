@@ -56,7 +56,12 @@
 (let [kmap "<leader>a"
       opts {:noremap true}]
   (vim.keymap.set "n" (.. kmap "a") (fn [] (other.open)) opts)
-  (vim.keymap.set "n" (.. kmap "v") (fn [] (other.openVSplit)) opts)
+  (vim.keymap.set "n" (.. kmap "v") (fn []
+                                      (let [v vim.o.splitright]
+                                        (set vim.o.splitright true)
+                                        (other.openVSplit)
+                                        (set vim.o.splitright v)))
+                  opts)
   (vim.keymap.set "n" (.. kmap "x") (fn [] (other.openSplit)) opts)
   (vim.keymap.set "n" (.. kmap "t") (fn [] (other.openTabNew)) opts))
 
