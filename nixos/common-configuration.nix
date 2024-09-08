@@ -148,6 +148,8 @@ in
 
   # services.dbus.packages = with pkgs; [ gnome3.dconf ];
   # services.gnome3.gnome-remote-desktop.enable = true;
+  services.dbus.implementation = "broker";
+
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   services.systembus-notify.enable = true;
