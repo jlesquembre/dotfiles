@@ -1,6 +1,9 @@
 -- Conjure
 local M = {}
 
+vim.g.parinfer_no_maps = true
+vim.g.clojure_align_multiline_strings = 1
+
 vim.g["conjure#log#wrap"] = true
 
 vim.g["conjure#mapping#prefix"] = "c"
@@ -65,8 +68,8 @@ function lisp_settings(args)
   local set_keymap = vim.api.nvim_buf_set_keymap
   local opts = { noremap = true, silent = true }
 
-  set_keymap(bufnr, "i", '"', "<Plug>(sexp_insert_double_quote)", {})
-  set_keymap(bufnr, "i", "<BS>", "<Plug>(sexp_insert_backspace)", {})
+  -- set_keymap(bufnr, "i", '"', "<Plug>(sexp_insert_double_quote)", {})
+  -- set_keymap(bufnr, "i", "<BS>", "<Plug>(sexp_insert_backspace)", {})
 
   set_keymap(bufnr, "n", "<leader>a", ">I<cr>", {})
   set_keymap(bufnr, "n", "<leader>i", "<I<del><cr><up>", {})
@@ -78,10 +81,10 @@ function lisp_settings(args)
   set_keymap(bufnr, "n", "sau", "<Plug>(operator-sandwich-add)ie[", {})
   set_keymap(bufnr, "n", "sam", "<Plug>(operator-sandwich-add)ie{", {})
 
-  set_keymap(bufnr, "n", "<c-n>", "<cmd>ParinferToggleMode<cr>", {})
-  set_keymap(bufnr, "i", "<c-n>", "<cmd>ParinferToggleMode<cr>", {})
-  set_keymap(bufnr, "v", "<c-n>", "<cmd>ParinferToggleMode<cr>", {})
-  set_keymap(bufnr, "n", "<leader>cn", "<cmd>ParinferToggleMode<cr>", {})
+  -- set_keymap(bufnr, "n", "<c-n>", "<cmd>ParinferToggleMode<cr>", {})
+  -- set_keymap(bufnr, "i", "<c-n>", "<cmd>ParinferToggleMode<cr>", {})
+  -- set_keymap(bufnr, "v", "<c-n>", "<cmd>ParinferToggleMode<cr>", {})
+  -- set_keymap(bufnr, "n", "<leader>cn", "<cmd>ParinferToggleMode<cr>", {})
 end
 
 M.lisp_langs = { "clojure", "scheme", "lisp", "racket", "hy", "fennel", "janet", "carp", "wast", "yuck" }
@@ -114,65 +117,80 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 
 -- S-exp
 
-vim.g.sexp_enable_insert_mode_mappings = 0
-vim.g.sexp_insert_after_wrap = 0
-vim.g.clojure_align_multiline_strings = 1
+local paredit = require("nvim-paredit")
+local parpar = require("parpar")
 
-vim.g.sexp_mappings = {
-  sexp_outer_list = "af",
-  sexp_inner_list = "if",
-  sexp_outer_top_list = "ar",
-  sexp_inner_top_list = "ir",
-  sexp_outer_string = "as",
-  sexp_inner_string = "is",
-  sexp_outer_element = "ae",
-  sexp_inner_element = "ie",
-  sexp_move_to_prev_bracket = "<M-f>",
-  sexp_move_to_next_bracket = "<M-v>",
-  sexp_move_to_prev_element_head = "",
-  sexp_move_to_next_element_head = "",
-  sexp_move_to_prev_element_tail = "",
-  sexp_move_to_next_element_tail = "",
-  sexp_flow_to_prev_open = "(",
-  sexp_flow_to_next_open = ")",
-  sexp_flow_to_prev_close = "",
-  sexp_flow_to_next_close = "",
-  sexp_flow_to_prev_leaf_head = "b",
-  sexp_flow_to_next_leaf_head = "w",
-  sexp_flow_to_prev_leaf_tail = "ge",
-  sexp_flow_to_next_leaf_tail = "e",
-  sexp_move_to_prev_top_element = "[[",
-  sexp_move_to_next_top_element = "]]",
-  sexp_select_prev_element = "[v",
-  sexp_select_next_element = "]v",
-  sexp_indent = "==",
-  sexp_indent_top = "=-",
-  sexp_round_head_wrap_list = "",
-  sexp_round_tail_wrap_list = "",
-  sexp_square_head_wrap_list = "",
-  sexp_square_tail_wrap_list = "",
-  sexp_curly_head_wrap_list = "",
-  sexp_curly_tail_wrap_list = "",
-  sexp_round_head_wrap_element = "",
-  sexp_round_tail_wrap_element = "",
-  sexp_square_head_wrap_element = "",
-  sexp_square_tail_wrap_element = "",
-  sexp_curly_head_wrap_element = "",
-  sexp_curly_tail_wrap_element = "",
-  sexp_insert_at_list_head = "",
-  sexp_insert_at_list_tail = "",
-  sexp_splice_list = "<leader>-",
-  sexp_convolute = "<leader>?",
-  sexp_raise_list = "<leader>o",
-  sexp_raise_element = "<leader>O",
-  sexp_swap_list_backward = "",
-  sexp_swap_list_forward = "",
-  sexp_swap_element_backward = "",
-  sexp_swap_element_forward = "",
-  sexp_emit_head_element = "",
-  sexp_emit_tail_element = "",
-  sexp_capture_prev_element = "",
-  sexp_capture_next_element = "",
-}
+parpar.setup({
+  -- paredit = {
+  --   -- pass any nvim-paredit options here
+  --   keys = {
+  --     -- custom bindings are automatically wrapped
+  --     ["<A-H>"] = { paredit.api.slurp_backwards, "Slurp backwards" },
+  --     ["<A-J>"] = { paredit.api.barf_backwards, "Barf backwards" },
+  --     ["<A-K>"] = { paredit.api.barf_forwards, "Barf forwards" },
+  --     ["<A-L>"] = { paredit.api.slurp_forwards, "Slurp forwards" },
+  --   },
+  -- },
+})
+
+-- vim.g.sexp_enable_insert_mode_mappings = 0
+-- vim.g.sexp_insert_after_wrap = 0
+--
+-- vim.g.sexp_mappings = {
+--   sexp_outer_list = "af",
+--   sexp_inner_list = "if",
+--   sexp_outer_top_list = "ar",
+--   sexp_inner_top_list = "ir",
+--   sexp_outer_string = "as",
+--   sexp_inner_string = "is",
+--   sexp_outer_element = "ae",
+--   sexp_inner_element = "ie",
+--   sexp_move_to_prev_bracket = "<M-f>",
+--   sexp_move_to_next_bracket = "<M-v>",
+--   sexp_move_to_prev_element_head = "",
+--   sexp_move_to_next_element_head = "",
+--   sexp_move_to_prev_element_tail = "",
+--   sexp_move_to_next_element_tail = "",
+--   sexp_flow_to_prev_open = "(",
+--   sexp_flow_to_next_open = ")",
+--   sexp_flow_to_prev_close = "",
+--   sexp_flow_to_next_close = "",
+--   sexp_flow_to_prev_leaf_head = "b",
+--   sexp_flow_to_next_leaf_head = "w",
+--   sexp_flow_to_prev_leaf_tail = "ge",
+--   sexp_flow_to_next_leaf_tail = "e",
+--   sexp_move_to_prev_top_element = "[[",
+--   sexp_move_to_next_top_element = "]]",
+--   sexp_select_prev_element = "[v",
+--   sexp_select_next_element = "]v",
+--   sexp_indent = "==",
+--   sexp_indent_top = "=-",
+--   sexp_round_head_wrap_list = "",
+--   sexp_round_tail_wrap_list = "",
+--   sexp_square_head_wrap_list = "",
+--   sexp_square_tail_wrap_list = "",
+--   sexp_curly_head_wrap_list = "",
+--   sexp_curly_tail_wrap_list = "",
+--   sexp_round_head_wrap_element = "",
+--   sexp_round_tail_wrap_element = "",
+--   sexp_square_head_wrap_element = "",
+--   sexp_square_tail_wrap_element = "",
+--   sexp_curly_head_wrap_element = "",
+--   sexp_curly_tail_wrap_element = "",
+--   sexp_insert_at_list_head = "",
+--   sexp_insert_at_list_tail = "",
+--   sexp_splice_list = "<leader>-",
+--   sexp_convolute = "<leader>?",
+--   sexp_raise_list = "<leader>o",
+--   sexp_raise_element = "<leader>O",
+--   sexp_swap_list_backward = "",
+--   sexp_swap_list_forward = "",
+--   sexp_swap_element_backward = "",
+--   sexp_swap_element_forward = "",
+--   sexp_emit_head_element = "",
+--   sexp_emit_tail_element = "",
+--   sexp_capture_prev_element = "",
+--   sexp_capture_next_element = "",
+-- }
 
 return M
