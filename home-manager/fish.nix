@@ -45,6 +45,11 @@ in
       gds = "git stash show -p";
       gst = "git status";
       grm = "git_delete_merged";
+      gw = "git worktree";
+      gwa = {
+        expansion = "git worktree add .worktree/%";
+        setCursor = "%";
+      };
 
       # Docker
       d = "podman";
@@ -124,6 +129,12 @@ in
     };
 
     functions = {
+      jw = ''
+        set dir "$(git worktree list | fzf | awk '{print $1}')"
+        if test -n "$dir"
+            cd "$dir"
+        end
+      '';
       l = "eza --long --group --header --git --group-directories-first $argv";
       ll = "l --all --all $argv";
       lll = "l --all --tree --level 2 $argv";

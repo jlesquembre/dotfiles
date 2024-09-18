@@ -709,6 +709,9 @@ in
       signByDefault = true;
       key = "8A3455EBE455489A";
     };
+    ignores = [
+      ".worktree/"
+    ];
     lfs.enable = true;
     extraConfig = {
       core = {
@@ -801,9 +804,37 @@ in
       diffword = "diff --word-diff";
 
       # Pull Request Managment, from https://gist.github.com/gnarf/5406589
-      pr = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f";
+      # pr = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f";
+      prw = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git worktree add .worktree/pr-$1 pr/$1 ; }; f";
       pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=\${ref#refs/heads/} ; git branch -D $branch ; done";
-      spr = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f";
+      # spr = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f";
+
+      # https://morgan.cugerone.com/blog/workarounds-to-git-worktree-using-bare-repository-and-cannot-fetch-remote-branches/
+      clone-worktree =
+        let
+          script = pkgs.writers.writeBash "clone_worktree"
+            ''
+              url=$1
+              basename=''${url##*/}
+              name=''${2:-'''$${basename%.*}}
+
+              mkdir $name
+              cd "$name"
+
+              git clone --bare "$url" .bare
+              echo "gitdir: ./.bare" > .git
+
+              git worktree add main
+              git worktree add dev
+              git worktree add review
+
+              # Explicitly sets the remote origin fetch so we can fetch remote branches
+              git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+              # Gets all branches from origin
+              git fetch origin
+            '';
+        in
+        "!sh ${script}";
     };
   };
 
@@ -1048,19 +1079,29 @@ in
         variable = "KUBEPROMPT_VAL";
         format = ''(\[[$env_value](yellow)\])'';
       };
-      custom.githud = {
-        symbol = " ";
-        style = "bold white";
-        command = "githud";
-        detect_folders = [ ".git" ];
-      };
-      git_branch = {
-        symbol = " ";
-        disabled = true;
-      };
+      # custom.githud = {
+      #   symbol = " ";
+      #   style = "bold white";
+      #   command = "githud";
+      #   detect_folders = [ ".git" ];
+      # };
+      # git_branch = {
+      #   symbol = " ";
+      #   disabled = true;
+      # };
       git_status = {
-        disabled = true;
+        diverged = ''⇕⇡''${ahead_count}⇣''${behind_count}'';
+        stashed = ''[''${count}≡](green)'';
+        modified = ''[''${count}+](yellow)'';
+        deleted = ''[''${count}-](red)'';
+        conflicted = ''[''${count}~](red)'';
+        ahead = ''⇡''${count}'';
+        behind = ''⇣''${count}'';
+        untracked = ''[''${count}?](blue)'';
+        staged = ''[''${count}+](green)'';
+        style = "white";
       };
+
       nix_shell = {
         symbol = "   ";
         impure_msg = "";
