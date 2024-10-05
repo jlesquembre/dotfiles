@@ -57,7 +57,7 @@ let
   */
   buildLuaConfig = { configDir, moduleName, vars ? null, replacements ? null, excludeFiles ? [ ] }:
     let
-      pname = "lua-config-${moduleName}";
+      pname = "user-lua-config-${moduleName}";
       luaSrc = builtins.filterSource
         (path: type:
           (lib.hasSuffix ".lua" path) &&

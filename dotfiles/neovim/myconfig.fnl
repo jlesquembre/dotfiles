@@ -97,12 +97,12 @@
   {:pattern "dotenv"
    :callback (fn [args]
                (vim.treesitter.start args.buf "bash")
-               (set vim.o.commentstring "#%s"))})
+               (set vim.wo.commentstring "#\\ %s"))})
 
 (nvim.create_autocmd
   "FileType"
   {:pattern "sql"
-   :callback (fn [args] (set vim.o.commentstring "--%s"))})
+   :callback (fn [args] (set vim.wo.commentstring "--\\ %s"))})
 
 (vim.filetype.add
   {:extension
