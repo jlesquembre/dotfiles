@@ -297,7 +297,7 @@ in
       nvim-autopairs
       hop-nvim
       vim-gnupg
-      harpoon
+      harpoon2
 
       # nterm-nvim
       custom-vim-plugs.nterm-nvim

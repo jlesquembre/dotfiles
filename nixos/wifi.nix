@@ -3,8 +3,8 @@
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
   networking.wireless.userControlled.enable = true;
 
-  sops.secrets."wireless.env" = { };
-  networking.wireless.environmentFile = config.sops.secrets."wireless.env".path;
+  sops.secrets."wireless.conf" = { };
+  networking.wireless.secretsFile = config.sops.secrets."wireless.conf".path;
 
   environment.systemPackages = [
     pkgs.wpa_supplicant_gui
@@ -13,68 +13,56 @@
   networking.wireless.networks = {
 
     HUAWEI-B525-5G-F6BF = {
-      psk = "@HUAWEI_B525_psk@";
+      pskRaw = "ext:HUAWEI_B525_psk";
     };
 
     NETGEAR71-5G = {
-      psk = "@NETGEAR71_psk@";
+      pskRaw = "ext:NETGEAR71_psk";
     };
 
-    "@work1_uuid@" = {
-      psk = "@work1_psk@";
+    noenv = {
+      pskRaw = "ext:noenv_psk";
     };
 
-    "@home1_uuid@" = {
-      psk = "@home_psk@";
+    JLNet = {
+      pskRaw = "ext:home_psk";
     };
 
-    "@home2_uuid@" = {
-      psk = "@home_psk@";
+    ZTE_FE071B_5G = {
+      pskRaw = "ext:home_psk";
     };
 
-    "@alicante_uuid_1@" = {
-      psk = "@alicante_psk_1@";
+    DIGIFIBRA-PLUS-TFtH = {
+      pskRaw = "ext:alicante_psk";
     };
 
-    "@alicante_uuid_2@" = {
-      psk = "@alicante_psk_1@";
+    DIGIFIBRA-TFtH_TPlink-Ext = {
+      pskRaw = "ext:alicante_psk";
     };
 
     PBS-2EF4E9 = {
-      psk = "@PBS_psk@";
+      pskRaw = "ext:PBS_psk";
     };
 
     PBS-2EF4E9_EXT = {
-      psk = "@PBS_psk@";
+      pskRaw = "ext:PBS_psk";
     };
 
     s5_5 = {
-      psk = "@s5_psk@";
+      pskRaw = "ext:s5_psk";
     };
 
-    "@cowork_uuid@" = {
-      psk = "@cowork_psk@";
+    coworking-seesternaspern-5ghz = {
+      pskRaw = "ext:cowork_psk";
     };
 
     TP-Link_1458_5G = {
-      psk = "@TPLINK_psk@";
+      pskRaw = "ext:TPLINK_psk";
     };
     TP-Link_1459 = {
-      psk = "@TPLINK_psk@";
+      pskRaw = "ext:TPLINK_psk";
     };
 
-    "@home3_uuid@" = {
-      psk = "@home3_psk@";
-    };
-
-    "@work3_uuid@" = {
-      auth = ''
-        key_mgmt=WPA-EAP
-        eap=PEAP
-        identity="@work3_id@"
-        password="@work3_pass@"
-      '';
-    };
 
     ONB-WLAN-PUBLIKUM = { };
     WESTlan = { };
@@ -82,5 +70,6 @@
     WKWGAST = { };
     "Citadines Bastille " = { };
     WOJO-GUEST = { };
+    REGUS = { };
   };
 }

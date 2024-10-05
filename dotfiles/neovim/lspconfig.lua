@@ -156,6 +156,7 @@ local function setup_lspconfig()
   -- lspconfig.nixd.setup(default_config)
   lspconfig.terraformls.setup(default_config)
   lspconfig.clangd.setup(default_config)
+  lspconfig.zls.setup(default_config)
 
   -- Special configs
   lspconfig.jsonls.setup(extra_config({
@@ -165,7 +166,7 @@ local function setup_lspconfig()
       },
     },
   }))
-  lspconfig.tsserver.setup(extra_config({
+  lspconfig.ts_ls.setup(extra_config({
     root_dir = function(fname)
       return root_pattern("package.json", "tsconfig.json", ".git")(fname) or root_pattern(".")(fname)
     end,

@@ -48,6 +48,13 @@ in
     deadbeef # ???
     zenity
     google-chrome
+    # (google-chrome.overrideAttrs (finalAttrs: _: {
+    #   version = "129.0.6668.70";
+    #   src = fetchurl {
+    #     url = "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${finalAttrs.version}-1_amd64.deb";
+    #     hash = "sha256-Be6fvHyxGG3pm5USIVO6SATUVRGwqA2E3L6eF1778ls=";
+    #   };
+    # }))
     graphviz
     imv
     keybase-gui
