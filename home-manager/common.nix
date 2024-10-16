@@ -60,6 +60,7 @@ in
     keybase-gui
     # remmina
     ripgrep
+    signaturepdf
 
     # TODO https://github.com/NixOS/nixpkgs/issues/250306
     # ripgrep-all
