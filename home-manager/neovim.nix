@@ -173,6 +173,7 @@ in
 
       # Language Servers
       pkgs.clojure-lsp
+      pkgs.emmet-language-server
       pkgs.gopls
       pkgs.jdt-ls
       pkgs.pyright

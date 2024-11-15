@@ -140,10 +140,27 @@ local function setup_lspconfig()
     return r
   end
 
-  lspconfig.bashls.setup(default_config)
-  lspconfig.clojure_lsp.setup(default_config)
+  -- web
+  lspconfig.emmet_language_server.setup(extra_config({
+    filetypes = {
+      "css",
+      "eruby",
+      "html",
+      "javascript",
+      "javascriptreact",
+      "less",
+      "sass",
+      "scss",
+      "pug",
+      "typescript",
+      "typescriptreact",
+    },
+  }))
   lspconfig.cssls.setup(default_config)
   lspconfig.html.setup(default_config)
+
+  lspconfig.bashls.setup(default_config)
+  lspconfig.clojure_lsp.setup(default_config)
   lspconfig.nickel_ls.setup(default_config)
   lspconfig.svelte.setup(default_config)
   lspconfig.vimls.setup(default_config)
