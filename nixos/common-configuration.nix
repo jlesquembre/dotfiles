@@ -22,7 +22,7 @@ in
     ./common-extra.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_6_10;
+  boot.kernelPackages = pkgs.linuxPackages_6_11;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   sops.secrets.nixAccessTokens = {
@@ -31,7 +31,10 @@ in
   };
   sops.secrets.builder_ssh_key = { };
 
+  nixpkgs.flake.setNixPath = false;
+
   nix = {
+    channel.enable = false;
     extraOptions = ''
       experimental-features = nix-command flakes
       builders-use-substitutes = true
@@ -269,7 +272,7 @@ in
         ];
       })
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       powerline-fonts
       roboto

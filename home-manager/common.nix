@@ -66,7 +66,7 @@ in
     # ripgrep-all
 
     ugrep
-    wf-recorder
+    # wf-recorder
     wl-clipboard-rs
     xfce.ristretto
     xournalpp
@@ -627,7 +627,7 @@ in
   programs.alacritty = {
     enable = true;
     settings = {
-      shell.program = "${pkgs.fish}/bin/fish";
+      terminal.shell.program = "${pkgs.fish}/bin/fish";
       mouse.hide_when_typing = false;
       cursor = {
         style =
