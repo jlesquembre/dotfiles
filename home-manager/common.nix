@@ -49,10 +49,10 @@ in
     zenity
     google-chrome
     # (google-chrome.overrideAttrs (finalAttrs: _: {
-    #   version = "129.0.6668.70";
+    #   version = "131.0.6778.69";
     #   src = fetchurl {
     #     url = "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${finalAttrs.version}-1_amd64.deb";
-    #     hash = "sha256-Be6fvHyxGG3pm5USIVO6SATUVRGwqA2E3L6eF1778ls=";
+    #     hash = "sha256-7aE6RZE5kB3DaJFUDdc2Ter8SsZZM0JzYmKn1hF1BUs=";
     #   };
     # }))
     graphviz
@@ -61,6 +61,7 @@ in
     # remmina
     ripgrep
     signaturepdf
+    # stirling-pdf
 
     # TODO https://github.com/NixOS/nixpkgs/issues/250306
     # ripgrep-all

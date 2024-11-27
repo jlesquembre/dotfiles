@@ -269,9 +269,10 @@ in
       };
       authority = {
         claims = {
-          minTLSCertDuration = "5m";
-          maxTLSCertDuration = "24h";
-          defaultTLSCertDuration = "24h";
+          # Time must be minutes or hours
+          minHostSSHCertDuration = "5m";
+          maxHostSSHCertDuration = "1680h"; # 70 days
+          defaultHostSSHCertDuration = "720h"; # 30 days
         };
         provisioners = [
           {
