@@ -12,6 +12,10 @@
 
   networking.wireless.networks = {
 
+    R312_5G_8C8C = {
+      pskRaw = "ext:HOT_psk";
+    };
+
     HUAWEI-B525-5G-F6BF = {
       pskRaw = "ext:HUAWEI_B525_psk";
     };
