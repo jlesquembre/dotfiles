@@ -32,7 +32,6 @@ window#waybar {
   background: #64727d;
   border-bottom: 3px solid #ffffff;
 }
-
 #clock,
 #battery,
 #cpu,
@@ -146,4 +145,11 @@ window#waybar {
   background-color: #ecf0f1;
   color: #2d3436;
   border-bottom: none;
+}
+
+#custom-notification {
+  font-family: "NotoSansMono Nerd Font";
+  color: #fbf1c7;
+  font-size: 14px;
+  padding: 2px 4px;
 }

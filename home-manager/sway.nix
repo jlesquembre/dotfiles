@@ -335,21 +335,20 @@ in
 
   services.systembus-notify.enable = true;
 
-  # TODO replace with wired? Also volnoti?
-  services.mako = {
-    enable = true;
-    font = "Hack 14";
-    padding = "10";
-    margin = "30";
-    format = ''<i>%a</i>\n<b>%s</b>\n%b'';
-    height = 1500;
-    width = 700;
-    backgroundColor = "#285577FF";
-    defaultTimeout = 10000;
-    ignoreTimeout = false;
-    anchor = "top-right";
-    borderSize = 3;
-  };
+  # services.mako = {
+  #   enable = true;
+  #   font = "Hack 14";
+  #   padding = "10";
+  #   margin = "30";
+  #   format = ''<i>%a</i>\n<b>%s</b>\n%b'';
+  #   height = 1500;
+  #   width = 700;
+  #   backgroundColor = "#285577FF";
+  #   defaultTimeout = 10000;
+  #   ignoreTimeout = false;
+  #   anchor = "top-right";
+  #   borderSize = 3;
+  # };
 
   systemd.user.services.clipman =
     {
@@ -388,6 +387,11 @@ in
     };
   };
 
+
+  services.swaync = {
+    enable = true;
+    style = builtins.readFile ../dotfiles/swaync.css;
+  };
 
   services.avizo = {
     enable = true;

@@ -1,5 +1,10 @@
 # https://developer.gnome.org/pygtk/stable/pango-markup-language.html
 { pkgs }:
+
+let
+  swaync-client = "${pkgs.swaynotificationcenter}/bin/swaync-client";
+in
+
 {
   layer = "top"; # Waybar at top layer
   position = "bottom"; # Waybar position (top|bottom|left|right)
@@ -22,8 +27,29 @@
     "battery"
     "pulseaudio"
     "tray"
+    "custom/notification"
     "clock"
   ];
+
+  "custom/notification" = {
+    "tooltip" = false;
+    "format" = "{icon}";
+    "format-icons" = {
+      "notification" = "󰅸 ";
+      "none" = "󰂜 ";
+      "dnd-notification" = "󰅸 ";
+      "dnd-none" = "󱏨 ";
+      "inhibited-notification" = "󰅸 ";
+      "inhibited-none" = "󰂜 ";
+      "dnd-inhibited-notification" = "󰅸 ";
+      "dnd-inhibited-none" = "󱏨 ";
+    };
+    "return-type" = "json";
+    "exec" = "${swaync-client} -swb";
+    "on-click" = "${swaync-client} -t -sw";
+    "on-click-right" = "${swaync-client} -d -sw";
+    "escape" = true;
+  };
 
   # Modules configuration
   "sway/workspaces" = {

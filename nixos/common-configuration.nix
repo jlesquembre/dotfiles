@@ -161,7 +161,7 @@ in
     {
       enable = true;
       extraPackages = with pkgs; [
-        mako
+        # mako
         wofi
         wdisplays
         waybar
@@ -222,6 +222,9 @@ in
   services.udisks2.enable = true;
   services.udev.packages = with pkgs; [ libu2f-host yubikey-personalization ];
 
+  # TODO better users
+  # systemd.sysusers.enable
+
   users.mutableUsers = false;
   users.users.root = {
     hashedPasswordFile = config.sops.secrets.rootPassword.path;
@@ -280,6 +283,13 @@ in
       unifont
     ];
   };
+
+
+  # services.metabase = {
+  #   enable = true;
+  #   listen.port = 63000;
+  #   ssl.enable = false;
+  # };
 
 
   # The NixOS release to be compatible with for stateful data such as databases.
