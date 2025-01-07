@@ -30,6 +30,11 @@
 
     JLNet = {
       pskRaw = "ext:home_psk";
+      priority = 5; # Higher priority
+    };
+
+    PackhausHeumarkt = {
+      pskRaw = "ext:PackhausHeumarkt_psk";
     };
 
     ZTE_FE071B_5G = {

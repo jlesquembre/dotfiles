@@ -185,8 +185,6 @@ in
         email no-reply@lafuente.com
         on_demand_tls {
           ask      http://check.home.arpa/check
-          interval 1s
-          burst 10
         }
         # log {
         #   level DEBUG

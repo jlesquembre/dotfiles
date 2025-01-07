@@ -20,9 +20,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    githud = {
-      url = "github:gbataille/gitHUD";
-    };
+    # githud = {
+    #   url = "github:gbataille/gitHUD";
+    # };
 
     disko = {
       url = "github:nix-community/disko";
@@ -52,6 +52,10 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # ghostty = {
+    #   url = "github:ghostty-org/ghostty";
+    # };
 
   };
 
