@@ -175,6 +175,7 @@ in
       pkgs.clojure-lsp
       pkgs.emmet-language-server
       pkgs.gopls
+      pkgs.harper # Grammar checker
       pkgs.jdt-ls
       pkgs.pyright
       pkgs.rust-analyzer
@@ -230,6 +231,7 @@ in
       plenary-nvim
       # sqlite-lua
       aniseed
+      # nfnl
       nui-nvim
 
       # Telescope
@@ -300,10 +302,11 @@ in
       vim-gnupg
       harpoon2
 
-      # nterm-nvim
-      custom-vim-plugs.nterm-nvim
+      nterm-nvim
+      # custom-vim-plugs.nterm-nvim
       baleia-nvim
       # (h.neovim.localVimPlugin (vimPluginsDir + /nterm.nvim))
+      # kulala-nvim # TODO Add to nixpkgs
 
       # Git
       fugitive

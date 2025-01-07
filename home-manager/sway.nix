@@ -161,7 +161,7 @@ in
     config.floating.titlebar = true;
     config.workspaceAutoBackAndForth = true;
     config.workspaceLayout = "tabbed"; # one of "default", "stacked", "tabbed"
-    config.terminal = "${pkgs.wezterm}/bin/wezterm";
+    config.terminal = "${pkgs.ghostty}/bin/ghostty";
     config.input = {
       "type:keyboard" = { xkb_layout = customKeyboardName; };
     };
@@ -189,7 +189,7 @@ in
         modifier = config.wayland.windowManager.sway.config.modifier;
       in
       lib.mkOptionDefault {
-        "${modifier}+space" = "exec ${pkgs.wezterm}/bin/wezterm";
+        "${modifier}+space" = "exec ${pkgs.ghostty}/bin/ghostty";
         "${modifier}+Shift+space" = "exec ${pkgs.alacritty}/bin/alacritty";
         "${modifier}+0" = "workspace 10";
         "${modifier}+Shift+0" = "move container to workspace number 10";

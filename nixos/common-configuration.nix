@@ -91,8 +91,8 @@ in
     ncurses.dev # infocmp and more utils
     rsync
     alacritty
+    ghostty
     neovim
-
   ]
   ++ (with pkgs.gitAndTools; [
     delta
@@ -266,11 +266,7 @@ in
       freefont_ttf
       hack-font
       inconsolata
-      (nerdfonts.override {
-        fonts = [
-          "Hack"
-        ];
-      })
+      nerd-fonts.hack
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji

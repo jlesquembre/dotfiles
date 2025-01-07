@@ -42,7 +42,8 @@ in
 
   home.packages = with pkgs; [
 
-    inputs.githud.packages."${system}".default
+    # inputs.githud.packages."${system}".default
+    # inputs.ghostty.packages.${system}.default
     caddy
     clipman
     deadbeef # ???
@@ -155,7 +156,7 @@ in
     kondo
     gh
     httpie
-    httping
+    # httping
     httplab
     httpstat
     hurl
@@ -539,6 +540,64 @@ in
       PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
       PASSWORD_STORE_KEY = "E2BA57CA52D5867B";
       PASSWORD_STORE_CLIP_TIME = "60";
+    };
+  };
+
+  programs.ghostty = {
+    enable = true;
+    enableFishIntegration = true;
+    settings = {
+
+      shell-integration = "fish";
+      command = "fish";
+      font-family = "Hack";
+      font-size = 12;
+      adjust-underline-position = 4;
+
+      mouse-hide-while-typing = true;
+
+      gtk-single-instance = true;
+      gtk-tabs-location = "bottom";
+      gtk-wide-tabs = false;
+      window-padding-y = "2,0";
+      window-padding-balance = true;
+      window-decoration = false;
+
+      copy-on-select = "clipboard";
+      shell-integration-features = "no-cursor,sudo,no-title";
+      cursor-style = "block";
+      link-url = true;
+
+      keybind = [
+        "alt+t=new_tab"
+        "ctrl+q=new_window"
+        "alt+v=new_split:right"
+        "alt+x=new_split:down"
+        "alt+w=goto_split:next"
+        "alt+m=toggle_split_zoom"
+      ];
+
+      # Colors
+      foreground = "d8d8d8";
+      background = "0f1419";
+      palette = [
+        "0=#181818"
+        "1=#ab4642"
+        "2=#a1b56c"
+        "3=#f7ca88"
+        "4=#7cafc2"
+        "5=#ba8baf"
+        "6=#86c1b9"
+        "7=#d8d8d8"
+        "8=#585858"
+        "9=#ab4642"
+        "10=#a1b56c"
+        "11=#f7ca88"
+        "12=#7cafc2"
+        "13=#ba8baf"
+        "14=#86c1b9"
+        "15=#d8d8d8"
+      ];
     };
   };
 
