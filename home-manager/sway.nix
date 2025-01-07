@@ -58,37 +58,6 @@ let
       fi
     '';
 
-  volume-sh = pkgs.writeScriptBin "volume.sh"
-    ''
-      #!${pkgs.bash}/bin/bash
-
-      set -u
-
-      PATH="${pkgs.pamixer}/bin/:${pkgs.volnoti}/bin/"
-
-      CURVOL=$(pamixer --get-volume)
-      incr=5
-
-      if [ "$CURVOL" -ge 100 ] && [ "$1" = "up" ]; then
-        # Don't go up!
-        incr=0
-      fi
-
-      if [ "$1" = "toogle" ]; then
-        pamixer --toggle-mute
-      elif [ "$1" = "up" ]; then
-        pamixer --increase $incr
-      else
-        pamixer --decrease $incr
-      fi
-
-      if [ "$(pamixer --get-volume-human)" = "muted" ]; then
-        volnoti-show -m "$CURVOL"
-      else
-        volnoti-show "$(pamixer --get-volume)"
-      fi
-    '';
-
   take-screenshot = pkgs.writeScriptBin "screenshot.sh"
     # TODO use
     # https://github.com/jtheoof/swappy
@@ -248,14 +217,13 @@ in
 
         "${modifier}+c" = "exec ${take-screenshot}/bin/screenshot.sh";
 
-        # see https://github.com/grahamc/nixos-config/blob/aef2a2c1b0ca584b2c7c04dfbbd5d2615e3448d8/packages/volume/volume.sh
-        "XF86AudioRaiseVolume" = "exec --no-startup-id ${volume-sh}/bin/volume.sh up";
-        "XF86AudioLowerVolume" = "exec --no-startup-id ${volume-sh}/bin/volume.sh down";
-        "XF86AudioMute" = "exec --no-startup-id ${volume-sh}/bin/volume.sh toogle";
-        # "XF86MonBrightnessUp" = "exec @backlight@ up";
-        # "XF86MonBrightnessDown" = "exec @backlight@ down";
-        # "XF86KbdBrightnessUp" = "exec kbdlight up 20";
-        # "XF86KbdBrightnessDown" = "exec kbdlight down 20";
+        XF86AudioRaiseVolume = "exec volumectl -u up";
+        XF86AudioLowerVolume = "exec volumectl -u down";
+        XF86AudioMute = "exec volumectl toggle-mute";
+        XF86AudioMicMute = "exec volumectl -m toggle-mute";
+
+        XF86MonBrightnessUp = "exec lightctl up";
+        XF86MonBrightnessDown = "exec lightctl down";
       };
 
     extraConfig = ''
@@ -421,21 +389,8 @@ in
   };
 
 
-  systemd.user.services.volnoti = {
-    Unit = {
-      Description = "Volume Notifications";
-      PartOf = [ "graphical-session.target" ];
-    };
-    Install = {
-      # WantedBy = [ "sway-session.target" ];
-      WantedBy = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "simple";
-      Restart = "always";
-      ExecStart = "${pkgs.volnoti}/bin/volnoti -t 2 -n";
-      ExecStop = "${pkgs.procps}/bin/pkill volnoti";
-    };
+  services.avizo = {
+    enable = true;
   };
 
   # systemd.user.services.firefox = {

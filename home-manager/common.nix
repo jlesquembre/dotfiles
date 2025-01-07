@@ -240,7 +240,6 @@ in
     # notifications
     noti
     libnotify
-    notify-osd
 
     # DB utils
     pspg # pgcli
