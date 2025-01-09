@@ -191,7 +191,7 @@ in
         ''
           if not set -q WHATSUP
             set -gx WHATSUP 1
-            ${pkgs.pfetch}/bin/pfetch
+            ${pkgs.fastfetch}/bin/fastfetch -c ${../dotfiles/fastfetch.jsonc}
           end
         '';
 
