@@ -74,17 +74,17 @@ require("formatter").setup({
 
     nix = {
       function()
-        -- if vim.fn.executable("nixfmt") == 1 then
-        --   return {
-        --     exe = "nixfmt",
-        --   }
-        -- end
-        if vim.fn.executable("alejandra") == 1 then
+        if vim.fn.executable("nixfmt") == 1 then
           return {
-            exe = "alejandra",
-            stdin = true,
+            exe = "nixfmt",
           }
         end
+        -- if vim.fn.executable("alejandra") == 1 then
+        --   return {
+        --     exe = "alejandra",
+        --     stdin = true,
+        --   }
+        -- end
         return {
           exe = "nixpkgs-fmt",
           stdin = true,
