@@ -1,6 +1,7 @@
-{ options
-, pkgs
-, ...
+{
+  options,
+  pkgs,
+  ...
 }:
 
 {
@@ -54,7 +55,10 @@
 
   virtualisation.docker = {
     enable = true;
-    rootless.enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
   };
 
   virtualisation.containerd.enable = true;
