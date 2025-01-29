@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   customKeyboardName = "isodev";
 
@@ -28,107 +33,105 @@ let
     destination = "/kanshi/config";
   };
 
-  pass-menu = pkgs.writeScriptBin "pass-menu"
-    ''
-      #!/usr/bin/env bash
+  pass-menu = pkgs.writeScriptBin "pass-menu" ''
+    #!/usr/bin/env bash
 
-      shopt -s nullglob globstar
+    shopt -s nullglob globstar
 
-      otp=0
-      if [[ $1 == "--otp" ]]; then
-        otp=1
-        shift
-      fi
+    otp=0
+    if [[ $1 == "--otp" ]]; then
+      otp=1
+      shift
+    fi
 
-      prefix=''${PASSWORD_STORE_DIR-~/.password-store}
-      password_files=( "$prefix"/**/*.gpg )
-      password_files=( "''${password_files[@]#"$prefix"/}" )
-      password_files=( "''${password_files[@]%.gpg}" )
+    prefix=''${PASSWORD_STORE_DIR-~/.password-store}
+    password_files=( "$prefix"/**/*.gpg )
+    password_files=( "''${password_files[@]#"$prefix"/}" )
+    password_files=( "''${password_files[@]%.gpg}" )
 
-      password=$(printf '%s\n' "''${password_files[@]}" | "${pkgs.fuzzel}/bin/fuzzel" -d "$@")
+    password=$(printf '%s\n' "''${password_files[@]}" | "${pkgs.fuzzel}/bin/fuzzel" -d "$@")
 
-      [[ -n $password ]] || exit
+    [[ -n $password ]] || exit
 
+    pass show -c "$password" 2>/dev/null
+    # pass otp -c "$password" 2>/dev/null
+    if [[ $otp -eq 0 ]]; then
       pass show -c "$password" 2>/dev/null
-      # pass otp -c "$password" 2>/dev/null
-      if [[ $otp -eq 0 ]]; then
-        pass show -c "$password" 2>/dev/null
-      else
-        pass otp -c "$password" 2>/dev/null
-      fi
-    '';
+    else
+      pass otp -c "$password" 2>/dev/null
+    fi
+  '';
 
-  take-screenshot = pkgs.writeScriptBin "screenshot.sh"
-    # TODO use
-    # https://github.com/jtheoof/swappy
-    ''
-      #!${pkgs.bash}/bin/bash
+  take-screenshot =
+    pkgs.writeScriptBin "screenshot.sh"
+      # TODO use
+      # https://github.com/jtheoof/swappy
+      ''
+        #!${pkgs.bash}/bin/bash
 
-      set -u
+        set -u
 
-      PATH="${pkgs.coreutils}/bin/:${pkgs.sway-contrib.grimshot}/bin/"
-      grimshot save area "/tmp/screenshot__''$(date +%F_%H%M%S).png";
-    '';
+        PATH="${pkgs.coreutils}/bin/:${pkgs.sway-contrib.grimshot}/bin/"
+        grimshot save area "/tmp/screenshot__''$(date +%F_%H%M%S).png";
+      '';
 
   # https://github.com/grahamc/nixos-config/blob/master/packages/sway-cycle-workspace/cycle-workspace.sh
-  cycle-workspace = pkgs.writeScriptBin "cycle-workspace.sh"
-    ''
-      #!${pkgs.bash}/bin/bash
+  cycle-workspace = pkgs.writeScriptBin "cycle-workspace.sh" ''
+    #!${pkgs.bash}/bin/bash
 
-      set -eu
+    set -eu
 
-      PATH="${pkgs.jq}/bin/:$PATH"
+    PATH="${pkgs.jq}/bin/:$PATH"
 
-      get_outputs() {
-        swaymsg -t get_outputs | jq '.[] | .name' | sort
-      }
+    get_outputs() {
+      swaymsg -t get_outputs | jq '.[] | .name' | sort
+    }
 
-      get_current_output() {
-        swaymsg -t get_outputs | jq '.[] | select(.focused==true) | .name'
-      }
+    get_current_output() {
+      swaymsg -t get_outputs | jq '.[] | select(.focused==true) | .name'
+    }
 
-      get_next_output() {
-        all_outputs=$(get_outputs)
-        current_output=$(get_current_output)
-        printf "%s\n%s\n" "$all_outputs" "$all_outputs" |
-          grep -A1 "$current_output" |
-          head -n2 |
-          tail -n1
-      }
+    get_next_output() {
+      all_outputs=$(get_outputs)
+      current_output=$(get_current_output)
+      printf "%s\n%s\n" "$all_outputs" "$all_outputs" |
+        grep -A1 "$current_output" |
+        head -n2 |
+        tail -n1
+    }
 
-      swaymsg move workspace to "$(get_next_output)"
-    '';
+    swaymsg move workspace to "$(get_next_output)"
+  '';
 
   # https://github.com/swaywm/sway/issues/4121
-  focus-window = pkgs.writeScriptBin "focus-window.sh"
-    ''
-      #!${pkgs.bash}/bin/bash
+  focus-window = pkgs.writeScriptBin "focus-window.sh" ''
+    #!${pkgs.bash}/bin/bash
 
-      set -eu
+    set -eu
 
-      PATH="${pkgs.jq}/bin/:${pkgs.ripgrep}/bin/:${pkgs.gawk}/bin/:$PATH"
+    PATH="${pkgs.jq}/bin/:${pkgs.ripgrep}/bin/:${pkgs.gawk}/bin/:$PATH"
 
-      # Get regular windows
-      regular_windows=$(swaymsg -t get_tree | jq -r '.nodes[1].nodes[].nodes[] | .. | (.id|tostring) + " " + .name?' | rg -e "[0-9]* ."  )
+    # Get regular windows
+    regular_windows=$(swaymsg -t get_tree | jq -r '.nodes[1].nodes[].nodes[] | .. | (.id|tostring) + " " + .name?' | rg -e "[0-9]* ."  )
 
-      # Get floating windows
-      floating_windows=$(swaymsg -t get_tree | jq '.nodes[1].nodes[].floating_nodes[] | (.id|tostring) + " " + .name?'| rg -e "[0-9]* ." | tr -d '"')
+    # Get floating windows
+    floating_windows=$(swaymsg -t get_tree | jq '.nodes[1].nodes[].floating_nodes[] | (.id|tostring) + " " + .name?'| rg -e "[0-9]* ." | tr -d '"')
 
-      enter=$'\n'
-      if [[ $regular_windows && $floating_windows ]]; then
-        all_windows="$regular_windows$enter$floating_windows"
-      elif [[ $regular_windows ]]; then
-        all_windows=$regular_windows
-      else
-        all_windows=$floating_windows
-      fi
+    enter=$'\n'
+    if [[ $regular_windows && $floating_windows ]]; then
+      all_windows="$regular_windows$enter$floating_windows"
+    elif [[ $regular_windows ]]; then
+      all_windows=$regular_windows
+    else
+      all_windows=$floating_windows
+    fi
 
-      # Select window with rofi
-      selected=$(echo "$all_windows" | wofi --dmenu -i | awk '{print $1}')
+    # Select window with rofi
+    selected=$(echo "$all_windows" | wofi --dmenu -i | awk '{print $1}')
 
-      # Tell sway to focus said window
-      swaymsg [con_id="$selected"] focus
-    '';
+    # Tell sway to focus said window
+    swaymsg [con_id="$selected"] focus
+  '';
 
 in
 {
@@ -153,37 +156,48 @@ in
     checkConfig = false;
 
     config.modifier = "Mod4";
-    config.fonts =
-      {
-        names = [ "Hack 10" ];
-      };
+    config.fonts = {
+      names = [ "Hack 10" ];
+    };
     config.window.titlebar = true;
     config.floating.titlebar = true;
     config.workspaceAutoBackAndForth = true;
     config.workspaceLayout = "tabbed"; # one of "default", "stacked", "tabbed"
     config.terminal = "${pkgs.ghostty}/bin/ghostty";
     config.input = {
-      "type:keyboard" = { xkb_layout = customKeyboardName; };
+      "type:keyboard" = {
+        xkb_layout = customKeyboardName;
+      };
     };
     config.startup = [
       # { command = "GTK_USE_PORTAL=1 firefox"; }
       # { command = "systemctl --user restart polybar"; always = true; notification = false; }
       # { command = "alacritty"; }
     ];
-    config.window.commands =
-      [
-        { command = ''floating enable''; criteria = { app_id = "zenity"; }; }
-        {
-          # command = ''floating enable, move position 877 450, sticky enable, border none'';
-          command = ''floating enable, sticky enable, border normal 3'';
-          criteria = { app_id = "firefox"; title = "^Picture-in-Picture$"; };
-        }
-        {
-          command = ''floating enable, sticky enable'';
-          criteria = { app_id = "firefox"; title = "Firefox - Sharing Indicator$"; };
-        }
-        # { command = ''title_format "%title :: %shell"''; criteria = { shell = ".*"; }; }
-      ];
+    config.window.commands = [
+      {
+        command = ''floating enable'';
+        criteria = {
+          app_id = "zenity";
+        };
+      }
+      {
+        # command = ''floating enable, move position 877 450, sticky enable, border none'';
+        command = ''floating enable, sticky enable, border normal 3'';
+        criteria = {
+          app_id = "firefox";
+          title = "^Picture-in-Picture$";
+        };
+      }
+      {
+        command = ''floating enable, sticky enable'';
+        criteria = {
+          app_id = "firefox";
+          title = "Firefox - Sharing Indicator$";
+        };
+      }
+      # { command = ''title_format "%title :: %shell"''; criteria = { shell = ".*"; }; }
+    ];
     config.keybindings =
       let
         modifier = config.wayland.windowManager.sway.config.modifier;
@@ -202,8 +216,10 @@ in
         # "${modifier}+Shift+s" = "exec \"swaylock -f -c 000000 && systemctl suspend\"";
         "${modifier}+Shift+s" = "exec \"systemctl suspend\"";
         "${modifier}+Shift+b" = "exec \"swaylock -f -c 000000\"";
-        "${modifier}+o" = ''exec "zenity --question --text 'Reboot the system\nAre you sure?' && systemctl reboot"'';
-        "${modifier}+Shift+o" = ''exec "zenity --question --text 'Poweroff the system\nAre you sure?' && systemctl poweroff"'';
+        "${modifier}+o" =
+          ''exec "zenity --question --text 'Reboot the system\nAre you sure?' && systemctl reboot"'';
+        "${modifier}+Shift+o" =
+          ''exec "zenity --question --text 'Poweroff the system\nAre you sure?' && systemctl poweroff"'';
 
         "${modifier}+y" = "exec --no-startup-id ${cycle-workspace}/bin/cycle-workspace.sh";
         # "${modifier}+o" = "exec --no-startup-id ${focus-window}/bin/focus-window.sh";
@@ -316,7 +332,14 @@ in
       };
       Service = {
         Environment = [
-          "PATH=${lib.makeBinPath [ pkgs.bash pkgs.libnotify pkgs.swaylock pkgs.sway ]}"
+          "PATH=${
+            lib.makeBinPath [
+              pkgs.bash
+              pkgs.libnotify
+              pkgs.swaylock
+              pkgs.sway
+            ]
+          }"
         ];
         ExecStart = ''
           ${pkgs.swayidle}/bin/swayidle -w \
@@ -350,23 +373,22 @@ in
   #   borderSize = 3;
   # };
 
-  systemd.user.services.clipman =
-    {
-      Unit = {
-        Description = pkgs.clipman.meta.description;
-        PartOf = [ "graphical-session.target" ];
-      };
-      Install = {
-        WantedBy = [ "sway-session.target" ];
-      };
-      Service = {
-        # Wait for next clipman release
-        ExecStart = ''${pkgs.wl-clipboard-rs}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store --unix'';
-        # ExecStart = ''${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store'';
-        RestartSec = 3;
-        Restart = "always";
-      };
+  systemd.user.services.clipman = {
+    Unit = {
+      Description = pkgs.clipman.meta.description;
+      PartOf = [ "graphical-session.target" ];
     };
+    Install = {
+      WantedBy = [ "sway-session.target" ];
+    };
+    Service = {
+      # Wait for next clipman release
+      ExecStart = ''${pkgs.wl-clipboard-rs}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store --unix'';
+      # ExecStart = ''${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store'';
+      RestartSec = 3;
+      Restart = "always";
+    };
+  };
 
   xdg.configFile."kanshi/config".source = "${kanshiConfig}/kanshi/config";
   systemd.user.services.kanshi = {
@@ -386,7 +408,6 @@ in
       Environment = "XDG_CONFIG_HOME=${kanshiConfig}";
     };
   };
-
 
   services.swaync = {
     enable = true;

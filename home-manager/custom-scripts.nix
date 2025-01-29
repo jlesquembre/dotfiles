@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   # nix-freespace = self.callPackage ./extra/nix-freespace.nix { inherit (super); };
   # TODO unify with functions in fish.nix

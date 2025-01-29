@@ -1,4 +1,15 @@
-{ config, pkgs, lib, nix-medley, host-options, inputs, system, rootPath, username, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  nix-medley,
+  host-options,
+  inputs,
+  system,
+  rootPath,
+  username,
+  ...
+}:
 let
   dotfiles = toString ../dotfiles;
 in
@@ -56,6 +67,7 @@ in
     #     hash = "sha256-7aE6RZE5kB3DaJFUDdc2Ter8SsZZM0JzYmKn1hF1BUs=";
     #   };
     # }))
+    jrnl
     graphviz
     imv
     keybase-gui
@@ -250,7 +262,11 @@ in
     (pkgs.writeShellApplication {
       name = "tweagmate";
       text =
-        let secretPath = builtins.replaceStrings [ "%r" ] [ "$XDG_RUNTIME_DIR" ] config.sops.secrets.tweagmate_conf.path; in
+        let
+          secretPath =
+            builtins.replaceStrings [ "%r" ] [ "$XDG_RUNTIME_DIR" ]
+              config.sops.secrets.tweagmate_conf.path;
+        in
         ''
           ${pkgs.tmate}/bin/tmate -f "${secretPath}" "$@"
         '';
@@ -305,17 +321,23 @@ in
   };
 
   # $HOME/.nix-profile/share/applications
-  xdg.desktopEntries =
-    {
-      firefox = {
-        name = "Firefox";
-        genericName = "Web Browser";
-        exec = "firefox %U";
-        terminal = false;
-        categories = [ "Application" "Network" "WebBrowser" ];
-        mimeType = [ "text/html" "text/xml" ];
-      };
+  xdg.desktopEntries = {
+    firefox = {
+      name = "Firefox";
+      genericName = "Web Browser";
+      exec = "firefox %U";
+      terminal = false;
+      categories = [
+        "Application"
+        "Network"
+        "WebBrowser"
+      ];
+      mimeType = [
+        "text/html"
+        "text/xml"
+      ];
     };
+  };
 
   # Set it explicitly, not really necessary
   home.sessionVariables.CLJ_CONFIG = "${config.xdg.configHome}/clojure";
@@ -367,7 +389,6 @@ in
     silent
     -D /dev/stderr
   '';
-
 
   # NixOS already manage gpg-agent per user, add only some extra config
   # If home-manager manages it, you need to setup some services with NixOS at
@@ -530,12 +551,10 @@ in
 
   programs.password-store = {
     enable = true;
-    package = pkgs.pass-wayland.withExtensions (exts:
-      [
-        exts.pass-otp
-        exts.pass-genphrase
-      ]
-    );
+    package = pkgs.pass-wayland.withExtensions (exts: [
+      exts.pass-otp
+      exts.pass-genphrase
+    ]);
     settings = lib.mkForce {
       PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
       PASSWORD_STORE_KEY = "E2BA57CA52D5867B";
@@ -618,7 +637,6 @@ in
     comma.enable = true;
   };
 
-
   # autojump program
   programs.zoxide = {
     enable = true;
@@ -628,30 +646,29 @@ in
       "--no-aliases"
     ];
   };
-  programs.fish.interactiveShellInit =
-    ''
-      # zoxide
-      function j
-          __zoxide_z $argv
-      end
+  programs.fish.interactiveShellInit = ''
+    # zoxide
+    function j
+        __zoxide_z $argv
+    end
 
-      function jj
-          __zoxide_zi $argv
-      end
+    function jj
+        __zoxide_zi $argv
+    end
 
-      function ja
-          __zoxide_za $argv
-      end
+    function ja
+        __zoxide_za $argv
+    end
 
-      function jr
-          __zoxide_zr $argv
-      end
+    function jr
+        __zoxide_zr $argv
+    end
 
-      function jri
-          __zoxide_zri $argv
-      end
+    function jri
+        __zoxide_zri $argv
+    end
 
-    '';
+  '';
 
   programs.fzf = {
     enable = true;
@@ -689,11 +706,10 @@ in
       terminal.shell.program = "${pkgs.fish}/bin/fish";
       mouse.hide_when_typing = false;
       cursor = {
-        style =
-          {
-            shape = "Block";
-            blinking = "Always";
-          };
+        style = {
+          shape = "Block";
+          blinking = "Always";
+        };
         blink_interval = 500;
       };
       window = {
@@ -722,38 +738,34 @@ in
         ];
       };
       colors = {
-        primary =
-          {
-            background = "#0f1419";
-            foreground = "#d8d8d8";
-          };
-        cursor =
-          {
-            text = "#000000";
-            cursor = "#d8d8d8";
-          };
-        normal =
-          {
-            black = "#181818";
-            red = "#ab4642";
-            green = "#a1b56c";
-            yellow = "#f7ca88";
-            blue = "#7cafc2";
-            magenta = "#ba8baf";
-            cyan = "#86c1b9";
-            white = "#d8d8d8";
-          };
-        bright =
-          {
-            black = "#585858";
-            red = "#ab4642";
-            green = "#a1b56c";
-            yellow = "#f7ca88";
-            blue = "#7cafc2";
-            magenta = "#ba8baf";
-            cyan = "#86c1b9";
-            white = "#d8d8d8";
-          };
+        primary = {
+          background = "#0f1419";
+          foreground = "#d8d8d8";
+        };
+        cursor = {
+          text = "#000000";
+          cursor = "#d8d8d8";
+        };
+        normal = {
+          black = "#181818";
+          red = "#ab4642";
+          green = "#a1b56c";
+          yellow = "#f7ca88";
+          blue = "#7cafc2";
+          magenta = "#ba8baf";
+          cyan = "#86c1b9";
+          white = "#d8d8d8";
+        };
+        bright = {
+          black = "#585858";
+          red = "#ab4642";
+          green = "#a1b56c";
+          yellow = "#f7ca88";
+          blue = "#7cafc2";
+          magenta = "#ba8baf";
+          cyan = "#86c1b9";
+          white = "#d8d8d8";
+        };
       };
     };
   };
@@ -825,29 +837,28 @@ in
       };
     };
 
-    includes =
-      [
-        # {
-        #   condition = "gitdir:~/tweag/**";
-        #   contents = {
-        #     user = {
-        #       email = "jose.lafuente@tweag.io";
-        #       signingKey = "504E38E1827AD12E";
-        #     };
-        #   };
-        # }
-        {
-          condition = "gitdir:~/projects/docs/**";
-          contents = {
-            core = {
-              hooksPath = ".githooks";
-            };
+    includes = [
+      # {
+      #   condition = "gitdir:~/tweag/**";
+      #   contents = {
+      #     user = {
+      #       email = "jose.lafuente@tweag.io";
+      #       signingKey = "504E38E1827AD12E";
+      #     };
+      #   };
+      # }
+      {
+        condition = "gitdir:~/projects/docs/**";
+        contents = {
+          core = {
+            hooksPath = ".githooks";
           };
-        }
-      ];
+        };
+      }
+    ];
 
     delta.enable = true;
-    delta.options = #[ "--dark" "--theme base16" "--file-color #ffff00" "--file-style box" ];
+    delta.options = # [ "--dark" "--theme base16" "--file-color #ffff00" "--file-style box" ];
       {
         # side-by-side = true;
         decorations = {
@@ -879,27 +890,26 @@ in
       # https://morgan.cugerone.com/blog/workarounds-to-git-worktree-using-bare-repository-and-cannot-fetch-remote-branches/
       clone-worktree =
         let
-          script = pkgs.writers.writeBash "clone_worktree"
-            ''
-              url=$1
-              basename=''${url##*/}
-              name=''${2:-'''$${basename%.*}}
+          script = pkgs.writers.writeBash "clone_worktree" ''
+            url=$1
+            basename=''${url##*/}
+            name=''${2:-'''$${basename%.*}}
 
-              mkdir $name
-              cd "$name"
+            mkdir $name
+            cd "$name"
 
-              git clone --bare "$url" .bare
-              echo "gitdir: ./.bare" > .git
+            git clone --bare "$url" .bare
+            echo "gitdir: ./.bare" > .git
 
-              git worktree add main
-              git worktree add dev
-              git worktree add review
+            git worktree add main
+            git worktree add dev
+            git worktree add review
 
-              # Explicitly sets the remote origin fetch so we can fetch remote branches
-              git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-              # Gets all branches from origin
-              git fetch origin
-            '';
+            # Explicitly sets the remote origin fetch so we can fetch remote branches
+            git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+            # Gets all branches from origin
+            git fetch origin
+          '';
         in
         "!sh ${script}";
     };
@@ -938,7 +948,8 @@ in
     enable = false;
     # package = pkgs.vscodium;
     extensions =
-      with pkgs.vscode-extensions; [
+      with pkgs.vscode-extensions;
+      [
         bbenoist.Nix
         ms-azuretools.vscode-docker
         ms-kubernetes-tools.vscode-kubernetes-tools
@@ -1038,30 +1049,29 @@ in
     #     # privacy-badger
     #   ];
     profiles = {
-      default =
-        {
-          isDefault = true;
-          settings = {
-            "browser.display.background_color" = "#eeeeee";
-            "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
-            "browser.search.suggest.enabled" = false;
-            "browser.startup.page" = 3;
-            "browser.tabs.closeWindowWithLastTab" = true;
-            # "browser.urlbar.placeholderName" = "DuckDuckGo";
-            "devtools.theme" = "dark";
-            "experiments.activeExperiment" = false;
-            "experiments.enabled" = false;
-            "experiments.supported" = false;
-            "extensions.pocket.enabled" = true;
-            # "general.smoothScroll" = false;
-            # "layout.css.devPixelsPerPx" = "1";
-            # "network.IDN_show_punycode" = true;
-            # "network.allow-experiments" = false;
-            # "signon.rememberSignons" = false;
-            # "widget.content.gtk-theme-override" = "Adwaita:light";
-            "general.useragent.locale" = "en-US";
-          };
+      default = {
+        isDefault = true;
+        settings = {
+          "browser.display.background_color" = "#eeeeee";
+          "browser.search.hiddenOneOffs" = "Google,Yahoo,Bing,Amazon.com,Twitter";
+          "browser.search.suggest.enabled" = false;
+          "browser.startup.page" = 3;
+          "browser.tabs.closeWindowWithLastTab" = true;
+          # "browser.urlbar.placeholderName" = "DuckDuckGo";
+          "devtools.theme" = "dark";
+          "experiments.activeExperiment" = false;
+          "experiments.enabled" = false;
+          "experiments.supported" = false;
+          "extensions.pocket.enabled" = true;
+          # "general.smoothScroll" = false;
+          # "layout.css.devPixelsPerPx" = "1";
+          # "network.IDN_show_punycode" = true;
+          # "network.allow-experiments" = false;
+          # "signon.rememberSignons" = false;
+          # "widget.content.gtk-theme-override" = "Adwaita:light";
+          "general.useragent.locale" = "en-US";
         };
+      };
     };
   };
 
@@ -1074,21 +1084,20 @@ in
     settings = {
       add_newline = true;
       command_timeout = 2000;
-      format =
-        lib.concatStrings [
-          "$username"
-          "$hostname"
-          "$directory"
-          "$aws"
-          "$gcloud"
-          "$kubernetes"
-          ''''${env_var.KUBEPROMPT_VAL}''
-          "$all"
-          "$env_var"
-          "$nix_shell"
-          "$status"
-          "$character"
-        ];
+      format = lib.concatStrings [
+        "$username"
+        "$hostname"
+        "$directory"
+        "$aws"
+        "$gcloud"
+        "$kubernetes"
+        ''''${env_var.KUBEPROMPT_VAL}''
+        "$all"
+        "$env_var"
+        "$nix_shell"
+        "$status"
+        "$character"
+      ];
       status = {
         disabled = false;
         symbol = "";
@@ -1122,7 +1131,10 @@ in
         # detect_env_vars
         disabled = false;
         format = ''[\[$symbol](white)[$context](cyan)|[$namespace](purple)[\]](white)'';
-        detect_folders = [ "k8s" "kubernetes" ];
+        detect_folders = [
+          "k8s"
+          "kubernetes"
+        ];
       };
       java = {
         symbol = "";

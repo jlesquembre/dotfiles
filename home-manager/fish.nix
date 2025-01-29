@@ -1,4 +1,10 @@
-{ config, pkgs, lib, username, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  username,
+  ...
+}:
 let
   fishFunctionsDir = "${config.xdg.configHome}/fish/functions";
 in
@@ -160,7 +166,6 @@ in
         echo -e "yt-dlp -x --audio-quality 0 \"$url\""
       '';
 
-
       fzf_preview_all = ''
         if test -d $argv
           tree -C $argv | head -200
@@ -187,43 +192,38 @@ in
       # minikube
       minidocker = "fish -C 'functions -e fish_greeting; eval (minikube docker-env)'";
 
-      fish_greeting =
-        ''
-          if not set -q WHATSUP
-            set -gx WHATSUP 1
-            ${pkgs.fastfetch}/bin/fastfetch -c ${../dotfiles/fastfetch.jsonc}
-          end
-        '';
-
+      fish_greeting = ''
+        if not set -q WHATSUP
+          set -gx WHATSUP 1
+          ${pkgs.fastfetch}/bin/fastfetch -c ${../dotfiles/fastfetch.jsonc}
+        end
+      '';
 
       preexec = {
         body = "set -gx PAGE_BUFFER_NAME $argv";
         onEvent = "fish_preexec";
       };
 
-      get_pwd =
-        ''
-          echo $PWD | sed -e "s|^$HOME|~|"
-        '';
+      get_pwd = ''
+        echo $PWD | sed -e "s|^$HOME|~|"
+      '';
 
-      prepend_to_command =
-        ''
-          set -l cmd (commandline -poc)
-          if test "$cmd[1]" != "$argv"
-              commandline -C 0
-              commandline -i "$argv "
-              commandline -f end-of-line
-          end
-        '';
+      prepend_to_command = ''
+        set -l cmd (commandline -poc)
+        if test "$cmd[1]" != "$argv"
+            commandline -C 0
+            commandline -i "$argv "
+            commandline -f end-of-line
+        end
+      '';
 
-      fish_user_key_bindings =
-        ''
-          bind \cc 'commandline ""'
+      fish_user_key_bindings = ''
+        bind \cc 'commandline ""'
 
-          bind \ew 'prepend_to_command "watch"'
+        bind \ew 'prepend_to_command "watch"'
 
-          bind \cs 'fssh'
-        '';
+        bind \cs 'fssh'
+      '';
     };
 
     plugins = [

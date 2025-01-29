@@ -120,7 +120,13 @@ in
     format = "{capacity}% {icon}";
     # "format-good"= ""; # An empty format will hide the module
     # "format-full"= "";
-    format-icons = [ "" "" "" "" "" ];
+    format-icons = [
+      ""
+      ""
+      ""
+      ""
+      ""
+    ];
     # "🔌" # (AC power plug UTF-8 glyph)
     # status_bat = "🔋" (Battery glyph)
     on-click = "";
@@ -159,7 +165,10 @@ in
       phone = "";
       portable = "";
       car = "";
-      default = [ "" "" ];
+      default = [
+        ""
+        ""
+      ];
     };
     on-click-middle = "${pkgs.pamixer}/bin/pamixer --toggle";
     on-click = "${pkgs.pavucontrol}/bin/pavucontrol";

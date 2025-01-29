@@ -6,21 +6,19 @@ in
 {
 
   # TODO bundle it with jdt-ls?
-  java-debug = pkgs.fetchMavenArtifact
-    {
-      groupId = "com.microsoft.java";
-      artifactId = "com.microsoft.java.debug.plugin";
-      version = "0.30.0";
-      sha256 = "0xz33p397g4pw6y3ydb9yafh2vnws3ym0nljr3369k47gq0w02v5";
-    };
+  java-debug = pkgs.fetchMavenArtifact {
+    groupId = "com.microsoft.java";
+    artifactId = "com.microsoft.java.debug.plugin";
+    version = "0.30.0";
+    sha256 = "0xz33p397g4pw6y3ydb9yafh2vnws3ym0nljr3369k47gq0w02v5";
+  };
 
-  java-debug-p = pkgs.fetchMavenArtifact
-    {
-      groupId = "com.microsoft.java";
-      artifactId = "java.debug.parent";
-      version = "0.30.0";
-      sha256 = "1111111111111111111111111111111111111111111111111111";
-    };
+  java-debug-p = pkgs.fetchMavenArtifact {
+    groupId = "com.microsoft.java";
+    artifactId = "java.debug.parent";
+    version = "0.30.0";
+    sha256 = "1111111111111111111111111111111111111111111111111111";
+  };
 
   neovim-nightly = pkgs.neovim-unwrapped.overrideAttrs (oa: {
     version = "master";
@@ -87,7 +85,6 @@ in
       sha256 = "0mvr3pp980mnvmb8xqq2hm44s477mr2gf1h01yndw83kjj541vhl";
     };
   };
-
 
   nginx-vim = pkgs.vimUtils.buildVimPlugin {
     name = "nginx-vim";

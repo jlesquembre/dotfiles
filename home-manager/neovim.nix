@@ -1,4 +1,11 @@
-{ config, pkgs, lib, nix-medley, rootPath, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  nix-medley,
+  rootPath,
+  ...
+}:
 let
   nvim-deps = (import ./neovim-deps.nix) { pkgs = pkgs; };
 
@@ -15,11 +22,7 @@ let
   # vimPluginsDir = ../../projects;
 
   # TODO extract
-  readFileIfExists = f:
-    if builtins.pathExists f then
-      (builtins.readFile f)
-    else
-      "";
+  readFileIfExists = f: if builtins.pathExists f then (builtins.readFile f) else "";
 
   /**
     * Creates a vim plugin derivation with multiple lua files.
@@ -39,8 +42,6 @@ let
     * And then, in your init.vim you can do:
     * lua require'foo.filename'
 
-
-
     * Optionally provide 'vars' and 'replacements' to perform string substitution.
     * Substitutions are similar (but not identical) to how builtins.replaceStrings behaves.
     * See https://nixos.org/manual/nix/stable/#builtin-replaceStrings
@@ -55,19 +56,29 @@ let
     *   Output file ->
     *     FOO = BAR
   */
-  buildLuaConfig = { configDir, moduleName, vars ? null, replacements ? null, excludeFiles ? [ ] }:
+  buildLuaConfig =
+    {
+      configDir,
+      moduleName,
+      vars ? null,
+      replacements ? null,
+      excludeFiles ? [ ],
+    }:
     let
       pname = "user-lua-config-${moduleName}";
-      luaSrc = builtins.filterSource
-        (path: type:
-          (lib.hasSuffix ".lua" path) &&
-          ! (lib.lists.any (x: baseNameOf path == x) excludeFiles))
-        configDir;
+      luaSrc = builtins.filterSource (
+        path: type: (lib.hasSuffix ".lua" path) && !(lib.lists.any (x: baseNameOf path == x) excludeFiles)
+      ) configDir;
 
       compiledFennel =
         if (nix-medley.hasFileWithSuffix configDir ".fnl") then
-          nix-medley.neovim.compileAniseed { src = configDir; fnlDir = ""; outPrefix = "/"; }
-        else null;
+          nix-medley.neovim.compileAniseed {
+            src = configDir;
+            fnlDir = "";
+            outPrefix = "/";
+          }
+        else
+          null;
 
       luaRequires =
         let
@@ -95,41 +106,39 @@ let
       installPhase =
         let
           rtpPath = "share/vim-plugins";
-          subs =
-            lib.concatStringsSep " "
-              (lib.lists.zipListsWith (f: t: "--subst-var-by ${f} ${t}") vars replacements)
-          ;
+          subs = lib.concatStringsSep " " (
+            lib.lists.zipListsWith (f: t: "--subst-var-by ${f} ${t}") vars replacements
+          );
         in
         ''
           target=$out/lua/${moduleName}
           mkdir -p $target
           cp -r *.lua $target
         ''
-        +
-        lib.optionalString (vars != null)
-          ''
-            for filename in $target/*
-            do
-              substituteInPlace $filename ${subs}
-            done
-          '';
+        + lib.optionalString (vars != null) ''
+          for filename in $target/*
+          do
+            substituteInPlace $filename ${subs}
+          done
+        '';
       passthru.luaRequires = builtins.readFile "${luaRequires}";
     });
 
-  my-lua-config = (buildLuaConfig {
-    configDir = vimDir;
-    moduleName = "jlle";
-    excludeFiles = if builtins.isNull config then [ ] else [ "user.lua" ];
-    vars = [ "java.debug.plugin" ];
-    replacements = [ "${nvim-deps.java-debug.jar}" ];
-  });
+  my-lua-config = (
+    buildLuaConfig {
+      configDir = vimDir;
+      moduleName = "jlle";
+      excludeFiles = if builtins.isNull config then [ ] else [ "user.lua" ];
+      vars = [ "java.debug.plugin" ];
+      replacements = [ "${nvim-deps.java-debug.jar}" ];
+    }
+  );
 
 in
 {
   # Create a symlink to config without a rebuild
   xdg.configFile."nvim/lua/user.lua".source =
-    if builtins.isNull config
-    then
+    if builtins.isNull config then
       null
     else
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/dotfiles/neovim/user.lua";
@@ -140,17 +149,12 @@ in
     withNodeJs = true;
     withPython3 = true;
     withRuby = true;
-    extraConfig =
-      ''
-        ${builtins.readFile "${vimDir}/init.vim"}
-        ${builtins.readFile "${vimDir}/sandwich.vim"}
-        ${if builtins.isNull config
-        then
-          ""
-        else
-          "lua require'user'"}
-        ${my-lua-config.luaRequires}
-      '';
+    extraConfig = ''
+      ${builtins.readFile "${vimDir}/init.vim"}
+      ${builtins.readFile "${vimDir}/sandwich.vim"}
+      ${if builtins.isNull config then "" else "lua require'user'"}
+      ${my-lua-config.luaRequires}
+    '';
 
     # Needed to start the LSP servers
     extraPackages = [
@@ -188,12 +192,11 @@ in
       pkgs.nodePackages.prettier
       (
         let
-          config = pkgs.writeText "config.json"
-            ''
-              {
-                "keywordCase": "upper"
-              }
-            '';
+          config = pkgs.writeText "config.json" ''
+            {
+              "keywordCase": "upper"
+            }
+          '';
         in
         pkgs.writeShellApplication {
           name = "sql-formatter";
@@ -335,31 +338,30 @@ in
       vim-terraform
       {
         plugin = vimtex;
-        config =
-          ''
-            let g:vimtex_view_general_viewer = 'zathura'
-            let g:vimtex_view_automatic = 1
+        config = ''
+          let g:vimtex_view_general_viewer = 'zathura'
+          let g:vimtex_view_automatic = 1
 
-            let g:vimtex_quickfix_open_on_warning = 1
-            let g:vimtex_fold_enabled = 0
-            let g:vimtex_format_enabled = 1
-            let g:vimtex_quickfix_mode = 2
-            let g:vimtex_quickfix_autoclose_after_keystrokes = 1
-            let g:vimtex_compiler_latexmk = {
-                \ 'out_dir' : '/tmp/_vimtex',
-                \ 'callback' : 1,
-                \ 'continuous' : 1,
-                \ 'executable' : 'latexmk',
-                \ 'hooks' : [],
-                \ 'options' : [
-                \   '-verbose',
-                \   '-shell-escape',
-                \   '-file-line-error',
-                \   '-synctex=1',
-                \   '-interaction=nonstopmode',
-                \ ],
-                \}
-          '';
+          let g:vimtex_quickfix_open_on_warning = 1
+          let g:vimtex_fold_enabled = 0
+          let g:vimtex_format_enabled = 1
+          let g:vimtex_quickfix_mode = 2
+          let g:vimtex_quickfix_autoclose_after_keystrokes = 1
+          let g:vimtex_compiler_latexmk = {
+              \ 'out_dir' : '/tmp/_vimtex',
+              \ 'callback' : 1,
+              \ 'continuous' : 1,
+              \ 'executable' : 'latexmk',
+              \ 'hooks' : [],
+              \ 'options' : [
+              \   '-verbose',
+              \   '-shell-escape',
+              \   '-file-line-error',
+              \   '-synctex=1',
+              \   '-interaction=nonstopmode',
+              \ ],
+              \}
+        '';
       }
 
       # pkgs.vimPlugins.vim-toml
@@ -375,14 +377,12 @@ in
       # vim-scala
       # # just-vim
 
-
       # JS / TS
       package-info-nvim
       # vim-javascript
       # typescript-vim
       # vim-html-template-literals
       # # vim-mdx-js
-
 
       # # Other
       # # vim-hexokinase
