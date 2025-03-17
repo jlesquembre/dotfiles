@@ -53,26 +53,29 @@
   #   # ];
   # };
 
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-  };
+  # virtualisation.docker = {
+  #   enable = true;
+  #   rootless = {
+  #     enable = true;
+  #     setSocketVariable = true;
+  #   };
+  # };
 
-  virtualisation.containerd.enable = true;
+  # virtualisation.containerd.enable = true;
 
   virtualisation.cri-o.enable = true;
   virtualisation.podman = {
     enable = true;
     dockerCompat = false;
+    autoPrune.enable = true;
+    dockerSocket.enable = true;
   };
 
   programs.sysdig.enable = true;
 
   services.tumbler.enable = true;
 
+  programs.sniffnet.enable = true;
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark-qt;
 
@@ -82,34 +85,32 @@
   programs.dconf.enable = true;
 
   # locate options
-  services.locate = {
-    enable = false;
-    package = pkgs.mlocate;
-    localuser = null; # mlocate does not support this option so it must be null
-    # interval = "daily";
-    interval = "hourly";
-
-    pruneNames = [
-      ".git"
-      "cache"
-      ".cache"
-      ".cpcache"
-      ".aot_cache"
-      ".boot"
-      "node_modules"
-      "USB"
-    ];
-
-    prunePaths = options.services.locate.prunePaths.default ++ [
-      "/dev"
-      "/lost+found"
-      "/nix/var"
-      "/proc"
-      "/run"
-      "/sys"
-      "/tmp"
-      "/usr/tmp"
-      "/var/tmp"
-    ];
-  };
+  # services.locate = {
+  #   enable = false;
+  #   # package = pkgs.mlocate;
+  #   interval = "hourly";
+  #
+  #   pruneNames = [
+  #     ".git"
+  #     "cache"
+  #     ".cache"
+  #     ".cpcache"
+  #     ".aot_cache"
+  #     ".boot"
+  #     "node_modules"
+  #     "USB"
+  #   ];
+  #
+  #   prunePaths = options.services.locate.prunePaths.default ++ [
+  #     "/dev"
+  #     "/lost+found"
+  #     "/nix/var"
+  #     "/proc"
+  #     "/run"
+  #     "/sys"
+  #     "/tmp"
+  #     "/usr/tmp"
+  #     "/var/tmp"
+  #   ];
+  # };
 }

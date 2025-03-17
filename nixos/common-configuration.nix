@@ -1,20 +1,20 @@
-{ config
-, pkgs
-, lib
-, host-options
-, username
-, ageKeyFile
-, inputs
-, nixpkgs-system
-, rootPath
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  host-options,
+  username,
+  ageKeyFile,
+  inputs,
+  nixpkgs-system,
+  rootPath,
+  ...
 }:
 let
   userHome = "/home/${username}";
-  ssh-auth-keys =
-    [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO8qwM9dPUwYV7bo3jIJThyxeSLZI8qvHq3e0o75nLIo"
-    ];
+  ssh-auth-keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO8qwM9dPUwYV7bo3jIJThyxeSLZI8qvHq3e0o75nLIo"
+  ];
 in
 
 {
@@ -42,7 +42,10 @@ in
     '';
     settings = {
       sandbox = true;
-      trusted-users = [ "root" username ];
+      trusted-users = [
+        "root"
+        username
+      ];
       auto-optimise-store = true;
       # substituters = [ ];
       # trusted-public-keys = [ ];
@@ -56,8 +59,16 @@ in
         maxJobs = 24;
         sshUser = "nix";
         sshKey = config.sops.secrets.builder_ssh_key.path;
-        systems = [ "aarch64-linux" "x86_64-linux" ];
-        supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
+        systems = [
+          "aarch64-linux"
+          "x86_64-linux"
+        ];
+        supportedFeatures = [
+          "benchmark"
+          "big-parallel"
+          "kvm"
+          "nixos-test"
+        ];
         publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU9yamc1UjVRUmI2WDNiNkdvT3N2Q0hrSXpHUGE2SUpKWGRLTDB0SDUyYXcK";
       }
       {
@@ -65,8 +76,16 @@ in
         maxJobs = 24;
         sshUser = "nix";
         sshKey = config.sops.secrets.builder_ssh_key.path;
-        systems = [ "aarch64-darwin" "x86_64-darwin" ];
-        supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
+        systems = [
+          "aarch64-darwin"
+          "x86_64-darwin"
+        ];
+        supportedFeatures = [
+          "benchmark"
+          "big-parallel"
+          "kvm"
+          "nixos-test"
+        ];
         publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSURRTXltam43YmRITXVGd2dOa2lvaWpQckFVUEpoN0kvOTZMVVZ6SVVHUjcK";
       }
     ];
@@ -86,24 +105,24 @@ in
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages =
+    with pkgs;
+    [
 
-    ncurses.dev # infocmp and more utils
-    rsync
-    alacritty
-    ghostty
-    neovim
-  ]
-  ++ (with pkgs.gitAndTools; [
-    delta
-    git-open
-    git-recent
-    git-trim
-    gitFull
-    tig
-  ]);
-
-
+      ncurses.dev # infocmp and more utils
+      rsync
+      alacritty
+      ghostty
+      neovim
+    ]
+    ++ (with pkgs.gitAndTools; [
+      delta
+      git-open
+      git-recent
+      git-trim
+      gitFull
+      tig
+    ]);
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -120,23 +139,21 @@ in
   # security.pam.services.gdm.enableGnomeKeyring = true;
 
   # see /etc/pam.d
-  security.pam.services =
-    {
-      # see
-      # https://github.com/cruegge/pam-gnupg
-      # https://github.com/NixOS/nixpkgs/pull/97726
-      login.gnupg = {
-        enable = true;
-        storeOnly = true;
-        # noAutostart = true;
-      };
-      gdm.gnupg = {
-        enable = true;
-        storeOnly = true;
-      };
-      swaylock.gnupg.enable = true;
+  security.pam.services = {
+    # see
+    # https://github.com/cruegge/pam-gnupg
+    # https://github.com/NixOS/nixpkgs/pull/97726
+    login.gnupg = {
+      enable = true;
+      storeOnly = true;
+      # noAutostart = true;
     };
-
+    gdm.gnupg = {
+      enable = true;
+      storeOnly = true;
+    };
+    swaylock.gnupg.enable = true;
+  };
 
   services.pipewire = {
     enable = true;
@@ -157,25 +174,24 @@ in
 
   services.systembus-notify.enable = true;
 
-  programs.sway =
-    {
-      enable = true;
-      extraPackages = with pkgs; [
-        # mako
-        wofi
-        wdisplays
-        waybar
-        swaylock
-        swayidle
-        # (xwayland.overrideAttrs (attrs: { meta.priority = 1; }))
-        kanshi
-        xdg-desktop-portal-wlr
-        sway-contrib.grimshot
-        slurp
-        grim
-      ];
-      wrapperFeatures.gtk = true;
-    };
+  programs.sway = {
+    enable = true;
+    extraPackages = with pkgs; [
+      # mako
+      wofi
+      wdisplays
+      waybar
+      swaylock
+      swayidle
+      # (xwayland.overrideAttrs (attrs: { meta.priority = 1; }))
+      kanshi
+      xdg-desktop-portal-wlr
+      sway-contrib.grimshot
+      slurp
+      grim
+    ];
+    wrapperFeatures.gtk = true;
+  };
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
   # services.xserver.displayManager.sddm.enable = true;
@@ -220,7 +236,10 @@ in
 
   # services.devmon.enable = true;
   services.udisks2.enable = true;
-  services.udev.packages = with pkgs; [ libu2f-host yubikey-personalization ];
+  services.udev.packages = with pkgs; [
+    libu2f-host
+    yubikey-personalization
+  ];
 
   # TODO better users
   # systemd.sysusers.enable
@@ -240,10 +259,11 @@ in
     extraGroups = [
       "wheel"
       "networkmanager"
-      "docker"
+      # "docker"
+      "podman"
       "cdrom"
       "wireshark"
-      "mlocate"
+      # "mlocate"
       "dialout"
       "adbusers"
       "libvirtd"
@@ -284,13 +304,11 @@ in
     ];
   };
 
-
   # services.metabase = {
   #   enable = true;
   #   listen.port = 63000;
   #   ssl.enable = false;
   # };
-
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "23.11";

@@ -1,4 +1,10 @@
-{ config, options, pkgs, lib, ... }:
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
+}:
 {
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
   networking.wireless.userControlled.enable = true;
@@ -31,6 +37,11 @@
     JLNet = {
       pskRaw = "ext:home_psk";
       priority = 5; # Higher priority
+    };
+
+    PackhausHeumarkt_2G = {
+      pskRaw = "ext:PackhausHeumarkt_psk";
+      priority = 4; # Higher priority
     };
 
     PackhausHeumarkt = {
@@ -71,7 +82,6 @@
     TP-Link_1459 = {
       pskRaw = "ext:TPLINK_psk";
     };
-
 
     ONB-WLAN-PUBLIKUM = { };
     WESTlan = { };
