@@ -267,8 +267,7 @@ in
       # UI
       base16-nvim
       # custom-vim-plugs.feline-nvim
-      # lualine-nvim
-      feline-nvim
+      lualine-nvim
       nvim-notify
       nvim-spectre
 
