@@ -1,3 +1,5 @@
+local sql = require("jlle.sql_utils")
+
 require("lualine").setup({
   options = {
     icons_enabled = true,
@@ -24,7 +26,18 @@ require("lualine").setup({
     lualine_a = { "mode" },
     lualine_b = { "branch", "diff", "diagnostics" },
     lualine_c = { "filename" },
-    lualine_x = { "encoding", "fileformat", "filetype" },
+    lualine_x = {
+      {
+        sql.current_db,
+        icon = "",
+        cond = function()
+          return vim.bo.filetype == "sql"
+        end,
+      },
+      "encoding",
+      "fileformat",
+      "filetype",
+    },
     lualine_y = { "progress" },
     lualine_z = { "location" },
   },

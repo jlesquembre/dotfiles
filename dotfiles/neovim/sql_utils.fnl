@@ -6,6 +6,11 @@
 (defonce db-conns {})
 (var last-result nil)
 
+(defn current_db []
+  (if-let [conn (or vim.b.db vim.g.db)]
+    (.. "[" (a.get db-conns conn) "]")
+    "[NO DB]"))
+
 (fn getlines
   [start_lnum end_lnum]
   (if end_lnum
