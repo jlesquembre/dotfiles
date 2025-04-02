@@ -141,21 +141,23 @@ local function setup_lspconfig()
   end
 
   -- web
-  lspconfig.emmet_language_server.setup(extra_config({
-    filetypes = {
-      "css",
-      "eruby",
-      "html",
-      "javascript",
-      "javascriptreact",
-      "less",
-      "sass",
-      "scss",
-      "pug",
-      "typescript",
-      "typescriptreact",
-    },
-  }))
+  -- lspconfig.emmet_language_server.setup(extra_config({
+  --   filetypes = {
+  --     "css",
+  --     "eruby",
+  --     "html",
+  --     "javascript",
+  --     "javascriptreact",
+  --     "less",
+  --     "sass",
+  --     "scss",
+  --     "pug",
+  --     "typescript",
+  --     "typescriptreact",
+  --   },
+  -- }))
+
+  lspconfig.emmet_language_server.setup(default_config)
   lspconfig.cssls.setup(default_config)
   lspconfig.html.setup(default_config)
 

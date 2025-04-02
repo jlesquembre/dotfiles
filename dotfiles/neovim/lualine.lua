@@ -27,6 +27,9 @@ require("lualine").setup({
     lualine_b = { "branch", "diff", "diagnostics" },
     lualine_c = { "filename" },
     lualine_x = {
+      "encoding",
+      "fileformat",
+      "filetype",
       {
         sql.current_db,
         icon = "",
@@ -34,9 +37,6 @@ require("lualine").setup({
           return vim.bo.filetype == "sql"
         end,
       },
-      "encoding",
-      "fileformat",
-      "filetype",
     },
     lualine_y = { "progress" },
     lualine_z = { "location" },

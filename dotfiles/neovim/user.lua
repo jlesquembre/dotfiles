@@ -51,15 +51,14 @@ local function custom_colors(color_name)
   hi.DiffDelete = { guifg = c.base08, guifg = c.base00 }
   hi.DiffText = { guifg = "none", guibg = "#461e1c" }
 
-  hi.GitSignsAdd = { guifg = c.base0B, guibg = c.base01 }
-  hi.GitSignsChange = { guifg = c.base0D, guibg = c.base01 }
-  hi.GitSignsChangeDelete = { guifg = c.base0D, guibg = c.base01 }
-  hi.GitSignsDelete = { guifg = c.base08, guibg = c.base01 }
-
-  hi.GitSignsAddCul = { guifg = c.base0B, guibg = c.base03 }
-  hi.GitSignsChangeCul = { guifg = c.base0D, guibg = c.base03 }
-  hi.GitSignsChangeDeleteCul = { guifg = c.base0D, guibg = c.base03 }
-  hi.GitSignsDeleteCul = { guifg = c.base08, guibg = c.base03 }
+  hi.GitSignsAdd = { guifg = c.base0B }
+  hi.GitSignsChange = { guifg = c.base0D }
+  hi.GitSignsChangeDelete = { guifg = c.base0D }
+  hi.GitSignsDelete = { guifg = c.base08 }
+  -- hi.GitSignsAddCul = { guifg = c.base0B, guibg = c.base03 }
+  -- hi.GitSignsChangeCul = { guifg = c.base0D, guibg = c.base03 }
+  -- hi.GitSignsChangeDeleteCul = { guifg = c.base0D, guibg = c.base03 }
+  -- hi.GitSignsDeleteCul = { guifg = c.base08, guibg = c.base03 }
 
   -- hi.LspReferenceRead  = { guibg = c.base02 }
   -- hi.LspReferenceWrite = { guibg = c.base02 }
