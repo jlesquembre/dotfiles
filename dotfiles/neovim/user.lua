@@ -170,6 +170,5 @@ augroup END
   true
 )
 
-require("dressing").setup({
-  input = { win_options = { winblend = 0 } },
-})
+require("snacks").setup()
+require("snacks.picker").setup({ ui_select = true })

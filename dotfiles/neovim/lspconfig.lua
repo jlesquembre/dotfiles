@@ -2,19 +2,13 @@
 -- :lua print(vim.lsp.get_log_path())
 -- vim.lsp.set_log_level('debug')
 
--- See:
--- https://rishabhrd.github.io/jekyll/update/2020/09/19/nvim_lsp_config.html
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  underline = true,
+vim.diagnostic.config({
   virtual_text = true,
+  -- virtual_lines = { current_line = true },
+  underline = true,
   signs = false,
   update_in_insert = false,
 })
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
-
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
 
 require("goto-preview").setup({ default_mappings = false })
 local lspconfig = require("lspconfig")
@@ -38,51 +32,56 @@ function _G.peek_definition()
 end
 
 local function custom_attach(client, bufnr)
-  local function set_keymap(...)
-    vim.api.nvim_buf_set_keymap(bufnr, ...)
+  local function set_keymap(mode, lhs, rhs)
+    vim.keymap.set(mode, lhs, rhs, { remap = false, silent = false, buffer = bufnr })
   end
-  local opts = { noremap = true, silent = false }
 
   -- NEW in 0.10
-  -- vim.lsp.inlay_hint.enable()
+  vim.lsp.inlay_hint.enable()
 
-  set_keymap("n", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
+  set_keymap("n", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
+
+  set_keymap("n", "K", function()
+    vim.lsp.buf.hover({
+      border = "rounded",
+    })
+  end)
 
   -- set_keymap('n', 'gdd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   -- set_keymap('n', 'gdi',   '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  set_keymap("n", "gdd", [[<cmd>lua require('goto-preview').goto_preview_definition()<CR>]], opts)
-  set_keymap("n", "gdi", [[<cmd>lua require('goto-preview').goto_preview_implementation()<CR>]], opts)
-  set_keymap("n", "gdc", [[<cmd>lua require('goto-preview').close_all_win()<CR>]], opts)
+  set_keymap("n", "gdd", [[<cmd>lua require('goto-preview').goto_preview_definition()<CR>]])
+  set_keymap("n", "gdi", [[<cmd>lua require('goto-preview').goto_preview_implementation()<CR>]])
+  set_keymap("n", "gdc", [[<cmd>lua require('goto-preview').close_all_win()<CR>]])
   -- set_keymap('n', 'gd',    '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  set_keymap("n", "gdg", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  set_keymap("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+  set_keymap("n", "gdg", "<cmd>lua vim.lsp.buf.definition()<CR>")
+  set_keymap("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
 
-  set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  set_keymap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
-  set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
+  set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+  set_keymap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
+  set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
 
   -- builtin: <c-w>d
-  set_keymap("n", "<leader>dd", [[<cmd>lua vim.diagnostic.open_float({border = "single"})<CR>]], opts)
+  set_keymap("n", "<leader>dd", [[<cmd>lua vim.diagnostic.open_float({border = "single"})<CR>]])
 
-  set_keymap("n", "[d", [[<cmd>lua vim.diagnostic.goto_prev({float={border="single"}})<CR>]], opts)
-  set_keymap("n", "]d", [[<cmd>lua vim.diagnostic.goto_next({float={border="single"}})<CR>]], opts)
+  set_keymap("n", "[d", [[<cmd>lua vim.diagnostic.goto_prev({float={border="single"}})<CR>]])
+  set_keymap("n", "]d", [[<cmd>lua vim.diagnostic.goto_next({float={border="single"}})<CR>]])
 
-  set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-  set_keymap("n", "<leader>cl", "<cmd>lua vim.lsp.codelens.run()<CR>", opts)
+  set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
+  set_keymap("n", "<leader>cl", "<cmd>lua vim.lsp.codelens.run()<CR>")
 
-  -- set_keymap('n', 'gdp',  [[<cmd>lua peek_definition()<CR>]], opts)
+  -- set_keymap('n', 'gdp',  [[<cmd>lua peek_definition()<CR>]])
 
-  set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+  set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
   -- set_keymap("v", "<leader>dc", [[<cmd>'<,'>lua require("telescope.builtin").lsp_code_action()<CR>]], opts)
 
   -- DAP
-  set_keymap("n", "<leader>dc", [[<cmd>lua require"dap".continue()<CR>]], opts)
-  set_keymap("n", "<leader>dr", [[<cmd>lua require"dap".repl.toggle()<CR>]], opts)
-  set_keymap("n", "<leader>dK", [[<cmd>lua require"dap.ui.widgets".hover()<CR>]], opts)
-  set_keymap("n", "<leader>dt", [[<cmd>lua require"dap".toggle_breakpoint()<CR>]], opts)
-  set_keymap("n", "<leader>dso", [[<cmd>lua require"dap".step_over()<CR>]], opts)
-  set_keymap("n", "<leader>dsi", [[<cmd>lua require"dap".step_into()<CR>]], opts)
-  set_keymap("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]], opts)
+  set_keymap("n", "<leader>dc", [[<cmd>lua require"dap".continue()<CR>]])
+  set_keymap("n", "<leader>dr", [[<cmd>lua require"dap".repl.toggle()<CR>]])
+  set_keymap("n", "<leader>dK", [[<cmd>lua require"dap.ui.widgets".hover()<CR>]])
+  set_keymap("n", "<leader>dt", [[<cmd>lua require"dap".toggle_breakpoint()<CR>]])
+  set_keymap("n", "<leader>dso", [[<cmd>lua require"dap".step_over()<CR>]])
+  set_keymap("n", "<leader>dsi", [[<cmd>lua require"dap".step_into()<CR>]])
+  set_keymap("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
 
   if client.server_capabilities.document_highlight then
     vim.api.nvim_exec(
@@ -262,4 +261,5 @@ local M = {
   capabilities = capabilities,
   custom_attach = custom_attach,
 }
+
 return M

@@ -187,6 +187,7 @@ in
       pkgs.nil # Nix
       # pkgs.nixd
       pkgs.terraform-ls
+      pkgs.postgres-lsp
 
       # Formatters
       pkgs.nodePackages.prettier
@@ -249,7 +250,7 @@ in
       goto-preview
       # (h.neovim.localVimPlugin (vimPluginsDir + /nvim-jdtls))
       nvim-dap
-      dressing-nvim
+      snacks-nvim
       SchemaStore-nvim
 
       # auto completion

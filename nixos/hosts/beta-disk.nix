@@ -45,6 +45,8 @@
               # https://github.com/nix-community/disko/blob/0a17298c0d96190ef3be729d594ba202b9c53beb/lib/types/filesystem.nix#L71-L74
               # Options to mount command and to fileSystems.<name>.options
               mountOptions = [
+                # "fsck"
+                # "fix_errors"
                 "defaults"
                 "compression=lz4"
                 "discard"
