@@ -18,11 +18,47 @@ let
 
   vimDir = rootPath + /dotfiles/neovim;
 
-  # Doesn't work with flakes
-  # vimPluginsDir = ../../projects;
+  compileNfnl =
+    {
+      src,
+      nfnl ? pkgs.vimPlugins.nfnl,
+    }:
+    let
+      # Required to accept pkgs.vimPlugins AND pkgs.fetchFromGitHub
+      nfnl-plugin-root = nfnl + /share/vim-plugins/nfnl;
+      nfnl-root = if builtins.pathExists (nfnl-plugin-root) then nfnl-plugin-root else nfnl;
 
-  # TODO extract
-  readFileIfExists = f: if builtins.pathExists f then (builtins.readFile f) else "";
+    in
+    pkgs.runCommand "nfnl-output"
+      {
+        src = src;
+        allowSubstitues = false;
+        preferLocalBuild = true;
+      }
+      ''
+        export HOME=$TMP/home
+        export config_fnl=$TMP/config_files
+
+        mkdir -p $HOME
+        mkdir -p $config_fnl
+        mkdir -p $out
+
+        cp -r $src/*.fnl $config_fnl
+
+        echo '{}' > "$config_fnl/.nfnl.fnl"
+
+        ${pkgs.neovim}/bin/nvim -u NONE -i NONE --headless -c ":e $config_fnl/.nfnl.fnl" -c ':trust' +q
+
+        ${pkgs.neovim}/bin/nvim -u NONE -i NONE --headless \
+            -c "let &runtimepath = &runtimepath . ',${nfnl-root}'" \
+            -c "lua require('nfnl.api')['compile-all-files']('$config_fnl')" \
+            +q
+
+        for filename in $config_fnl/*.lua
+        do
+          cp $filename $out
+        done
+      '';
 
   /**
     * Creates a vim plugin derivation with multiple lua files.
@@ -70,19 +106,12 @@ let
         path: type: (lib.hasSuffix ".lua" path) && !(lib.lists.any (x: baseNameOf path == x) excludeFiles)
       ) configDir;
 
-      compiledFennel =
-        if (nix-medley.hasFileWithSuffix configDir ".fnl") then
-          nix-medley.neovim.compileAniseed {
-            src = configDir;
-            fnlDir = "";
-            outPrefix = "/";
-          }
-        else
-          null;
+      compiledFnl =
+        if (nix-medley.hasFileWithSuffix configDir ".fnl") then compileNfnl { src = configDir; } else null;
 
       luaRequires =
         let
-          fnlSrc = if (isNull compiledFennel) then "" else "${compiledFennel}/*.lua";
+          fnlSrc = "${compiledFnl}/*.lua";
         in
         pkgs.runCommand "luaRequires-${moduleName}" { } ''
           echo '" ${pname} ===' > $out
@@ -97,7 +126,7 @@ let
     (pkgs.stdenv.mkDerivation {
       inherit pname;
       version = "DEV";
-      srcs = [ luaSrc ] ++ (lib.optional (compiledFennel != null) compiledFennel);
+      srcs = [ luaSrc ] ++ (lib.optional (compiledFnl != null) compiledFnl);
       unpackPhase = ''
         for _src in $srcs; do
           cp -v $_src/* .
@@ -234,8 +263,8 @@ in
       popup-nvim
       plenary-nvim
       # sqlite-lua
-      aniseed
-      # nfnl
+      # aniseed
+      nfnl
       nui-nvim
 
       # Telescope

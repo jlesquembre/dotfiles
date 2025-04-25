@@ -1,14 +1,8 @@
-(module jlle.myconfig
-  {require {a aniseed.core
-            s aniseed.string
-            nvim aniseed.nvim
-            ; h harpoon
-            ; hmark harpoon.mark
-            ; hcmd harpoon.cmd-ui
-            ; hui harpoon.ui
-            spectre spectre
-            oil oil
-            other other-nvim}})
+(local core (require :nfnl.core))
+(local s (require :nfnl.string))
+(local spectre (require :spectre))
+(local oil (require :oil))
+(local other (require :other-nvim))
 
 ;; Custom mappings
 
@@ -43,10 +37,10 @@
               {:pattern "(.*).scss$"
                :target "%1.ts"}]
    :hooks {:filePickerBeforeShow (fn [files]
-                                   (let [existing-files (a.filter
-                                                          (fn [x] (a.get x :exists))
+                                   (let [existing-files (core.filter
+                                                          (fn [x] (core.get x :exists))
                                                           files)]
-                                     (if (a.empty? existing-files)
+                                     (if (core.empty? existing-files)
                                        files
                                        existing-files)))}})
 
@@ -86,20 +80,20 @@
   (vim.keymap.set "n" (.. kmap "w") (fn [] (spectre.open_visual {:select_word true}) opts)))
 
 ; fugitive: Disable editorconfig
-(nvim.create_autocmd
+(vim.api.nvim_create_autocmd
   "FileType"
   {:pattern "fugitive"
    :callback (fn [] (set vim.b.editorconfig  false))})
 
 ; Add filetype for .env files
-(nvim.create_autocmd
+(vim.api.nvim_create_autocmd
   "FileType"
   {:pattern "dotenv"
    :callback (fn [args]
                (vim.treesitter.start args.buf "bash")
                (set vim.bo.commentstring "# %s"))})
 
-(nvim.create_autocmd
+(vim.api.nvim_create_autocmd
   "FileType"
   {:pattern "sql"
    :callback (fn [args] (set vim.bo.commentstring "-- %s"))})
