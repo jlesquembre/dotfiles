@@ -40,7 +40,7 @@
 
 (fn get-query-range
   [line]
-  (let [line (or line (core.first (nvim.win_get_cursor 0)))
+  (let [line (or line (core.first (vim.api.nvim_win_get_cursor 0)))
         text (vim.trim (getlines line))]
     (if (vim.startswith text "\\")
       [line line]
