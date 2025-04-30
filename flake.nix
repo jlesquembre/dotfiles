@@ -40,11 +40,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-index-database =
-      {
-        url = "github:Mic92/nix-index-database";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -53,13 +52,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # ghostty = {
-    #   url = "github:ghostty-org/ghostty";
-    # };
-
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, flake-utils, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixos-hardware,
+      flake-utils,
+      ...
+    }@inputs:
     let
       system = "x86_64-linux";
       username = "jlle";
@@ -69,13 +71,17 @@
         overlays = [ (import ./overlays { }) ];
       };
       ageKeyFile = "/etc/nixos/key.txt";
-      utils = (import ./lib { inherit pkgs; inherit ageKeyFile; });
-      extraArgs =
-        {
-          rootPath = ./.;
-          nix-medley = inputs.nix-medley.lib pkgs;
+      utils = (
+        import ./lib {
+          inherit pkgs;
           inherit ageKeyFile;
-        };
+        }
+      );
+      extraArgs = {
+        rootPath = ./.;
+        nix-medley = inputs.nix-medley.lib pkgs;
+        inherit ageKeyFile;
+      };
 
       hosts = {
         alfa = { };
@@ -87,18 +93,30 @@
 
     in
     {
-      homeConfigurations = utils.mkHomeConfig
-        {
-          inherit hosts system username pkgs inputs extraArgs;
-          hmConfigDir = (builtins.toString ./home-manager);
-        };
+      homeConfigurations = utils.mkHomeConfig {
+        inherit
+          hosts
+          system
+          username
+          pkgs
+          inputs
+          extraArgs
+          ;
+        hmConfigDir = (builtins.toString ./home-manager);
+      };
 
       nixosConfigurations =
-        (utils.mkHosts
-          {
-            inherit hosts system username pkgs inputs extraArgs;
-            configDir = (builtins.toString ./nixos);
-          })
+        (utils.mkHosts {
+          inherit
+            hosts
+            system
+            username
+            pkgs
+            inputs
+            extraArgs
+            ;
+          configDir = (builtins.toString ./nixos);
+        })
         // {
           # nix build .#nixosConfigurations.iso-image.config.system.build.isoImage
           iso-image = nixpkgs.lib.nixosSystem {
@@ -107,7 +125,11 @@
               (nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
               {
                 boot.kernelPackages = pkgs.linuxPackages_latest;
-                boot.supportedFilesystems = pkgs.lib.mkForce [ "bcachefs" "vfat" "f2fs" ];
+                boot.supportedFilesystems = pkgs.lib.mkForce [
+                  "bcachefs"
+                  "vfat"
+                  "f2fs"
+                ];
                 environment.systemPackages = with pkgs; [
                   rsync
                 ];
@@ -116,8 +138,9 @@
           };
         };
 
-    } //
-    flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (system:
+    }
+    // flake-utils.lib.eachSystem [ flake-utils.lib.system.x86_64-linux ] (
+      system:
       let
         pkgs = import nixpkgs {
           inherit system;
@@ -128,26 +151,24 @@
         utils = (import ./lib { inherit pkgs; });
       in
       {
-        devShells =
-          {
-            default =
-              pkgs.mkShell {
-                packages = with pkgs;[
-                  coreutils
-                  curl
-                  fish
-                  git
-                  imagemagick
-                  nix
-                  paperkey
-                  pass
-                  qrencode
-                  sops
-                  v4l-utils
-                  zbar
-                ];
-              };
+        devShells = {
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              coreutils
+              curl
+              fish
+              git
+              imagemagick
+              nix
+              paperkey
+              pass
+              qrencode
+              sops
+              v4l-utils
+              zbar
+            ];
           };
+        };
 
         packages =
           let
@@ -159,30 +180,30 @@
             };
           in
           {
-            nvim-master =
-              utils.mkNeovim (nvimConfig.programs.neovim // {
+            nvim-master = utils.mkNeovim (
+              nvimConfig.programs.neovim
+              // {
                 nvimPackage = inputs.neovim.packages."${system}".neovim;
-              });
-            nvim =
-              utils.mkNeovim nvimConfig.programs.neovim;
+              }
+            );
+            nvim = utils.mkNeovim nvimConfig.programs.neovim;
           };
-        apps =
-          {
-            update-vim-plugins = {
-              type = "app";
-              program =
-                let
-                  vimDir = "./home-manager";
-                  update-vim-plugins = pkgs.writeShellScriptBin "update-vim-plugins"
-                    ''
-                      ${pkgs.vimPluginsUpdater}/bin/vim-plugins-updater \
-                          -i ${vimDir}/neovim-plugins.txt \
-                          -o ${vimDir}/neovim-plugins-generated.nix --no-commit \
-                          --nixpkgs ${builtins.toString nixpkgs}
-                    '';
-                in
-                "${update-vim-plugins}/bin/update-vim-plugins";
-            };
+        apps = {
+          update-vim-plugins = {
+            type = "app";
+            program =
+              let
+                vimDir = "./home-manager";
+                update-vim-plugins = pkgs.writeShellScriptBin "update-vim-plugins" ''
+                  ${pkgs.vimPluginsUpdater}/bin/vim-plugins-updater \
+                      -i ${vimDir}/neovim-plugins.txt \
+                      -o ${vimDir}/neovim-plugins-generated.nix --no-commit \
+                      --nixpkgs ${builtins.toString nixpkgs}
+                '';
+              in
+              "${update-vim-plugins}/bin/update-vim-plugins";
           };
-      });
+        };
+      }
+    );
 }
