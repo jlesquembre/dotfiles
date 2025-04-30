@@ -85,7 +85,7 @@
   []
   (vim.ui.select
     (get-envs)
-    {:prompt "Title"
+    {:prompt "Select DB"
      :format_item (fn [[k v]] (.. k " -> " v))}
     (fn [kv-pair]
       (when kv-pair

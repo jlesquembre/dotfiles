@@ -171,4 +171,13 @@ augroup END
 )
 
 require("snacks").setup()
-require("snacks.picker").setup({ ui_select = true })
+require("snacks.picker").setup({
+  ui_select = true,
+  win = {
+    input = {
+      keys = {
+        ["<Esc>"] = { "close", mode = { "n", "i" } },
+      },
+    },
+  },
+})
