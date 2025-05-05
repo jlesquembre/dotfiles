@@ -152,6 +152,8 @@ in
     enable = true;
     package = null;
 
+    systemd.enable = true;
+
     # https://github.com/nix-community/home-manager/issues/5311
     checkConfig = false;
 
@@ -242,14 +244,23 @@ in
         XF86MonBrightnessDown = "exec lightctl down";
       };
 
-    extraConfig = ''
-      seat * hide_cursor 5000
-      # seat * keyboard_grouping none
-      # seat * xcursor_theme default 24
-      seat seat0 xcursor_theme Qogir 32
+    # extraConfig = ''
+    #   seat * hide_cursor 5000
+    #   # seat * keyboard_grouping none
+    #   # seat * xcursor_theme default 24
+    #   seat seat0 xcursor_theme Qogir 32
+    #
+    #   include /etc/sway/config.d/*
+    # '';
 
-      include /etc/sway/config.d/*
-    '';
+    config.seat = {
+      "*" = {
+        hide_cursor = "5000";
+      };
+      seat0 = {
+        xcursor_theme = "Qogir 32";
+      };
+    };
 
     config.bars = [ ];
   };
