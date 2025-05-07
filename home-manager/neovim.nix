@@ -420,7 +420,6 @@ in
       # nvim-paredit
       # vim-sexp
       # vim-sexp-mappings-for-regular-people
-      # nvim-parinfer
       parpar-nvim
       nvim-parinfer
       nvim-paredit

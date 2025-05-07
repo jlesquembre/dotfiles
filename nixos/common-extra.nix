@@ -67,8 +67,19 @@
   virtualisation.podman = {
     enable = true;
     dockerCompat = false;
-    autoPrune.enable = true;
+    autoPrune = {
+      enable = true;
+      dates = "weekly";
+      flags = [
+        "--filter=until=24h"
+        "--filter=label!=important"
+      ];
+    };
     dockerSocket.enable = true;
+
+    defaultNetwork.settings = {
+      dns_enabled = true;
+    };
   };
 
   programs.sysdig.enable = true;
