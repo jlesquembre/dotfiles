@@ -104,7 +104,7 @@ in
     # JDK tools
     jdk
     visualvm
-    # jetbrains.idea-community
+    jetbrains.idea-community-bin
     # maven
     # gradle
 
@@ -158,7 +158,7 @@ in
     # stern
     podman-compose
     podman-tui
-    # podman-desktop
+    podman-desktop
 
     # dev tools
     btop
