@@ -1138,6 +1138,7 @@ in
         detect_folders = [
           "k8s"
           "kubernetes"
+          "podman"
         ];
       };
       java = {

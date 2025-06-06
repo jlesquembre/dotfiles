@@ -191,16 +191,15 @@ in
     ];
     wrapperFeatures.gtk = true;
   };
-  services.xserver.enable = true;
-  services.xserver.xkb.layout = "us";
-  # services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.gdm = {
+
+  services.displayManager.gdm = {
     enable = true;
     wayland = true;
     autoSuspend = false;
   };
 
-  # services.xserver.desktopManager.session = [
+  services.xserver.enable = true;
+  services.xserver.xkb.layout = "us";
   services.xserver.displayManager.session = [
     {
       name = "xterm";
