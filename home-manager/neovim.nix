@@ -294,6 +294,12 @@ in
       lspkind-nvim
       # pkgs.vimPlugins.completion-treesitter
 
+      # avante-nvim
+      codecompanion-nvim
+      # copilot-vim
+      copilot-lua
+      copilot-cmp
+
       # UI
       base16-nvim
       # custom-vim-plugs.feline-nvim
