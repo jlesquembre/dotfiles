@@ -69,11 +69,11 @@ in
     # }))
     # https://flox.dev/blog/bpftrace--a-scriptable-magnifying-glass-with-x-ray-vision-for-linux/
     bpftrace
-    harlequin
+    # harlequin
     jrnl
     graphviz
     imv
-    keybase-gui
+    # keybase-gui
     # remmina
     ripgrep
     signaturepdf
@@ -104,7 +104,7 @@ in
     # JDK tools
     jdk
     visualvm
-    jetbrains.idea-community-bin
+    # jetbrains.idea-community-bin
     # maven
     # gradle
 

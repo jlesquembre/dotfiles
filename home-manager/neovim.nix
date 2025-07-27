@@ -209,7 +209,8 @@ in
       pkgs.emmet-language-server
       pkgs.gopls
       pkgs.harper # Grammar checker
-      pkgs.jdt-ls
+      # pkgs.jdt-ls
+      pkgs.java-language-server
       pkgs.pyright
       pkgs.rust-analyzer
       pkgs.nls # Nickel
@@ -274,7 +275,7 @@ in
 
       # LSP
       nvim-lspconfig
-      nvim-jdtls
+      # nvim-jdtls
       nvim-metals
       goto-preview
       # (h.neovim.localVimPlugin (vimPluginsDir + /nvim-jdtls))
