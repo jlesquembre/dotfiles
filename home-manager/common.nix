@@ -159,6 +159,7 @@ in
     podman-compose
     podman-tui
     podman-desktop
+    toolbox
 
     # dev tools
     btop
@@ -1204,4 +1205,7 @@ in
       };
     };
   };
+
+  services.safeeyes.enable = true;
+
 }
