@@ -54,7 +54,7 @@ require("lualine").setup({
       {
         "tabs",
         tab_max_length = 50, -- Maximum width of each tab. The content will be shorten dynamically (example: apple/orange -> a/orange)
-        -- max_length = vim.o.columns / 3, -- Maximum width of tabs component.
+        max_length = vim.o.columns * 0.9, -- Maximum width of tabs component.
         -- Note:
         -- It can also be a function that returns
         -- the value of `max_length` dynamically.
@@ -100,7 +100,9 @@ require("lualine").setup({
     -- lualine_c = { "filename" },
     lualine_x = {},
     lualine_y = {},
-    lualine_z = { "tabs" },
+    lualine_z = {
+      { "tabs", max_length = vim.o.columns * 0.1 },
+    },
     -- lualine_z = {},
   },
   winbar = {},

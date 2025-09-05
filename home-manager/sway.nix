@@ -72,7 +72,8 @@ let
         set -u
 
         PATH="${pkgs.coreutils}/bin/:${pkgs.sway-contrib.grimshot}/bin/"
-        grimshot save area "/tmp/screenshot__''$(date +%F_%H%M%S).png";
+        mkdir -p "$HOME/_screenshots"
+        grimshot save area "$HOME/_screenshots/screenshot__''$(date +%F_%H%M%S).png";
       '';
 
   # https://github.com/grahamc/nixos-config/blob/master/packages/sway-cycle-workspace/cycle-workspace.sh

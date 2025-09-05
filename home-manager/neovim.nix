@@ -187,6 +187,8 @@ in
 
     # Needed to start the LSP servers
     extraPackages = [
+      pkgs.inotify-tools
+
       # typescript is needed because it provides the tsserver command.
       # First, it will try to find a tsserver installed with npm install,
       # if not found, it will look in our $PATH
