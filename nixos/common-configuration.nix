@@ -22,7 +22,7 @@ in
     ./common-extra.nix
   ];
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_16;
 
   sops.secrets.nixAccessTokens = {
     mode = "0440";
@@ -137,6 +137,21 @@ in
   # programs.seahorse.enable = true;
   # security.pam.services.gdm.enableGnomeKeyring = true;
 
+  security.polkit = {
+    enable = true;
+    adminIdentities = [ "unix-user:${username}" ];
+    # pkaction to see list of actions
+    extraConfig = ''
+      polkit.addRule(function(action, subject) {
+          if (action.id == "org.freedesktop.systemd1.manage-units" &&
+              subject.user == "${username}"
+          ) {
+              return polkit.Result.YES;
+          }
+      });
+    '';
+  };
+
   # see /etc/pam.d
   security.pam.services = {
     # see
@@ -157,6 +172,8 @@ in
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+    alsa.enable = true;
+    wireplumber.enable = true;
     # jack.enable = true;
   };
   security.rtkit.enable = true;
@@ -301,6 +318,16 @@ in
       unifont
     ];
   };
+
+  # programs.nix-ld.enable = true;
+  # programs.nix-ld.libraries = with pkgs; [
+  #   # Add any missing dynamic libraries for unpackaged programs
+  #   # here, NOT in environment.systemPackages
+  # ];
+
+  # programs.virt-manager.enable = true;
+  #
+  # virtualisation.libvirtd.enable = true;
 
   # services.metabase = {
   #   enable = true;
