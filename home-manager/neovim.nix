@@ -200,7 +200,7 @@ in
       # Disable it until it gets fixed, uses all your CPU
       # pkgs.nodePackages.vim-language-server
       pkgs.nodePackages.yaml-language-server
-      pkgs.nodePackages.dockerfile-language-server-nodejs
+      pkgs.dockerfile-language-server
 
       # Includes css, html and json language server
       # pkgs.vscode-ls
@@ -298,10 +298,11 @@ in
       # pkgs.vimPlugins.completion-treesitter
 
       # avante-nvim
-      codecompanion-nvim
-      # copilot-vim
+      # copilot-vim # Needed for auth
       copilot-lua
       copilot-cmp
+      codecompanion-nvim
+      wtf-nvim
 
       # UI
       base16-nvim
