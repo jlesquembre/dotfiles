@@ -31,7 +31,10 @@ function _G.peek_definition()
   return vim.lsp.buf_request(0, "textDocument/definition", params, preview_location_callback)
 end
 
-local function custom_attach(client, bufnr)
+local function custom_attach(ev)
+  local client = vim.lsp.get_client_by_id(ev.data.client_id)
+  local bufnr = ev.buf
+
   local function set_keymap(mode, lhs, rhs)
     vim.keymap.set(mode, lhs, rhs, { remap = false, silent = false, buffer = bufnr })
   end
@@ -99,167 +102,40 @@ local function custom_attach(client, bufnr)
   end
 end
 
-local function jdt_on_attach(client, bufnr)
-  require("jdtls").setup_dap()
-  custom_attach(client, bufnr)
+vim.api.nvim_create_autocmd("LspAttach", { callback = custom_attach })
 
-  local function set_keymap(...)
-    vim.api.nvim_buf_set_keymap(bufnr, ...)
-  end
-  local opts = { noremap = true, silent = true }
-
-  set_keymap("n", "<leader>dc", '<cmd>lua require("jdtls").code_action()<CR>', opts)
-  set_keymap("v", "<leader>dc", '<esc><cmd>lua require("jdtls").code_action(true)<CR>', opts)
-  -- set_keymap('n', '<leader>rn', '<cmd>lua require("jdtls").code_action(false, "refactor")<CR>', opts)
-
-  set_keymap("n", "<leader>di", '<Cmd>lua require"jdtls".organize_imports()<CR>', opts)
-  set_keymap("n", "<leader>de", '<Cmd>lua require("jdtls").extract_variable()<CR>', opts)
-  set_keymap("v", "<leader>de", '<Esc><Cmd>lua require("jdtls").extract_variable(true)<CR>', opts)
-  set_keymap("v", "<leader>dm", '<Esc><Cmd>lua require("jdtls").extract_method(true)<CR>', opts)
-
-  -- Run test mappings
-  set_keymap("n", "cptt", '<Cmd>lua require"jdtls".test_nearest_method()<CR>', opts)
-  set_keymap("n", "cpta", '<Cmd>lua require"jdtls".test_class()<CR>', opts)
-
-  require("jdtls.setup").add_commands()
-end
-
-local capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
-local function setup_lspconfig()
-  local default_config = { on_attach = custom_attach, capabilities = capabilities }
-  local function extra_config(t)
-    r = {}
-    for k, v in pairs(default_config) do
-      r[k] = v
-    end
-    for k, v in pairs(t) do
-      r[k] = v
-    end
-    return r
-  end
-
-  -- web
-  -- lspconfig.emmet_language_server.setup(extra_config({
-  --   filetypes = {
-  --     "css",
-  --     "eruby",
-  --     "html",
-  --     "javascript",
-  --     "javascriptreact",
-  --     "less",
-  --     "sass",
-  --     "scss",
-  --     "pug",
-  --     "typescript",
-  --     "typescriptreact",
-  --   },
-  -- }))
-
-  lspconfig.emmet_language_server.setup(default_config)
-  lspconfig.cssls.setup(default_config)
-  lspconfig.html.setup(default_config)
-
-  lspconfig.bashls.setup(default_config)
-  lspconfig.clojure_lsp.setup(default_config)
-  lspconfig.nickel_ls.setup(default_config)
-  lspconfig.svelte.setup(default_config)
-  lspconfig.vimls.setup(default_config)
-  lspconfig.yamlls.setup(default_config)
-  lspconfig.dockerls.setup(default_config)
-  lspconfig.gopls.setup(default_config)
-  lspconfig.pyright.setup(default_config)
-  lspconfig.rust_analyzer.setup(default_config)
-  lspconfig.nil_ls.setup(default_config)
-  -- lspconfig.nixd.setup(default_config)
-  lspconfig.terraformls.setup(default_config)
-  lspconfig.clangd.setup(default_config)
-  lspconfig.zls.setup(default_config)
-
-  -- Special configs
-  lspconfig.jsonls.setup(extra_config({
-    settings = {
-      json = {
-        schemas = require("schemastore").json.schemas(),
-      },
+vim.lsp.config.jsonls = {
+  settings = {
+    json = {
+      schemas = require("schemastore").json.schemas(),
     },
-  }))
-  lspconfig.ts_ls.setup(extra_config({
-    root_dir = function(fname)
-      return root_pattern("package.json", "tsconfig.json", ".git")(fname) or root_pattern(".")(fname)
-    end,
-  }))
-end
-
-setup_lspconfig()
-
--- function start_jdtls()
---   local settings = {
---     java = {
---       signatureHelp = { enabled = true },
---       referenceCodeLens = { enabled = true },
---       implementationsCodeLens = { enabled = true },
---       autobuild = { enabled = true },
---       trace = { server = "verbose" },
---       -- contentProvider = { preferred = 'fernflower' };
---       -- completion = {
---       --   favoriteStaticMembers = {
---       --     "org.hamcrest.MatcherAssert.assertThat",
---       --     "org.hamcrest.Matchers.*",
---       --     "org.hamcrest.CoreMatchers.*",
---       --     "org.junit.jupiter.api.Assertions.*",
---       --     "java.util.Objects.requireNonNull",
---       --     "java.util.Objects.requireNonNullElse",
---       --     "org.mockito.Mockito.*"
---       --   }
---       -- },
---       sources = {
---         organizeImports = {
---           starThreshold = 9999,
---           staticStarThreshold = 9999,
---         },
---       },
---       codeGeneration = {
---         toString = {
---           template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
---         },
---       },
---     },
---   }
---   local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
---   local root_dir = root_pattern(".git", "gradlew", "mvnw", "pom.xml")(bufname)
---   local workspace_dir = "/tmp/jdtls_workspaces/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
---   local bundles = {
---     "@java.debug.plugin@",
---   }
---   vim.list_extend(bundles, vim.split(vim.fn.glob("/home/jlle/tmp/vscode-java-test/server/*.jar"), "\n"))
---
---   require("jdtls").start_or_attach({
---     cmd = { "jdt-ls", "-data", workspace_dir },
---     on_attach = jdt_on_attach,
---     root_dir = root_dir,
---     capabilities = capabilities,
---     settings = settings,
---     init_options = {
---       bundles = bundles,
---       extendedCapabilities = require("jdtls").extendedClientCapabilities,
---     },
---   })
--- end
---
--- vim.api.nvim_exec(
---   [[
--- augroup LspCustom
---   autocmd!
---   autocmd FileType java lua start_jdtls()
--- augroup END
--- ]],
---   true
--- )
-
-local M = {
-  capabilities = capabilities,
-  custom_attach = custom_attach,
+  },
 }
 
-return M
+vim.lsp.config.ts_ls = {
+  root_dir = function(fname)
+    return root_pattern("package.json", "tsconfig.json", ".git")(fname) or root_pattern(".")(fname)
+  end,
+}
+
+vim.lsp.enable({
+  -- "emmet_language_server",
+  "jsonls",
+  "ts_ls",
+  "cssls",
+  "html",
+  "bashls",
+  "clojure_lsp",
+  "nickel_ls",
+  "svelte",
+  "vimls",
+  "yamlls",
+  "dockerls",
+  "gopls",
+  "pyright",
+  "rust_analyzer",
+  "nil_ls",
+  "terraformls",
+  "clangd",
+  "zls",
+})
