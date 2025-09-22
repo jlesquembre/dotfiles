@@ -123,6 +123,12 @@ in
       tig
     ]);
 
+  systemd.user.services."app-com.mitchellh.ghostty" = {
+    enable = true;
+    overrideStrategy = "asDropin";
+    path = [ pkgs.fish ];
+  };
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 

@@ -580,7 +580,6 @@ in
 
       mouse-hide-while-typing = true;
 
-      gtk-single-instance = true;
       gtk-tabs-location = "bottom";
       gtk-wide-tabs = false;
       window-padding-y = "2,0";

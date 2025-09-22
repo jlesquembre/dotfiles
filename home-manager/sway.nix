@@ -206,7 +206,8 @@ in
         modifier = config.wayland.windowManager.sway.config.modifier;
       in
       lib.mkOptionDefault {
-        "${modifier}+space" = "exec ${pkgs.ghostty}/bin/ghostty";
+        # -e is needed to start a new instance, so the terminal working directory is $HOME
+        "${modifier}+space" = "exec '${pkgs.ghostty}/bin/ghostty -e fish'";
         "${modifier}+Shift+space" = "exec ${pkgs.alacritty}/bin/alacritty";
         "${modifier}+0" = "workspace 10";
         "${modifier}+Shift+0" = "move container to workspace number 10";
