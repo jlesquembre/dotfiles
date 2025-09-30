@@ -325,11 +325,18 @@ in
     ];
   };
 
-  # programs.nix-ld.enable = true;
-  # programs.nix-ld.libraries = with pkgs; [
-  #   # Add any missing dynamic libraries for unpackaged programs
-  #   # here, NOT in environment.systemPackages
-  # ];
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      libgcc.lib
+      stdenv.cc.cc.lib
+      libz
+    ];
+  };
+
+  services.envfs = {
+    enable = true;
+  };
 
   # programs.virt-manager.enable = true;
   #

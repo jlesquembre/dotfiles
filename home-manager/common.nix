@@ -1079,7 +1079,6 @@ in
     };
   };
 
-  services.keybase.enable = true;
   services.kbfs.enable = true;
   services.batsignal.enable = true;
 
@@ -1206,5 +1205,7 @@ in
   };
 
   services.safeeyes.enable = true;
+
+  programs.satty.enable = true;
 
 }

@@ -11,8 +11,6 @@ vim.diagnostic.config({
 })
 
 require("goto-preview").setup({ default_mappings = false })
-local lspconfig = require("lspconfig")
-local root_pattern = lspconfig.util.root_pattern
 
 local function preview_location_callback(_, method, result)
   if result == nil or vim.tbl_isempty(result) then
@@ -110,12 +108,6 @@ vim.lsp.config.jsonls = {
       schemas = require("schemastore").json.schemas(),
     },
   },
-}
-
-vim.lsp.config.ts_ls = {
-  root_dir = function(fname)
-    return root_pattern("package.json", "tsconfig.json", ".git")(fname) or root_pattern(".")(fname)
-  end,
 }
 
 vim.lsp.enable({
