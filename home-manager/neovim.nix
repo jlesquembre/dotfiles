@@ -241,13 +241,14 @@ in
       )
       # pkgs.sqlfluff
       # pkgs.pgformatter
-      pkgs.nixpkgs-fmt
-      # pkgs.nixfmt-rfc-style
+      # pkgs.nixpkgs-fmt
+      pkgs.nixfmt-rfc-style
       pkgs.rustfmt
       # pkgs.terraform
       pkgs.ormolu
       pkgs.stylua
       pkgs.shfmt
+      pkgs.bazel-buildtools
 
       # Other tools
       pkgs.pspg
@@ -338,7 +339,8 @@ in
       vim-rsi
 
       # rainbow_parentheses-vim
-      formatter-nvim
+      # formatter-nvim
+      conform-nvim
       nvim-autopairs
       hop-nvim
       vim-gnupg

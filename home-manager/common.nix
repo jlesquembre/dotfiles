@@ -95,7 +95,7 @@ in
     nix-update
     nixpkgs-review
     nix-serve
-    nixpkgs-fmt
+    # nixpkgs-fmt
     nixfmt-rfc-style
     nix-output-monitor
     cntr
