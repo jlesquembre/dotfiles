@@ -9,11 +9,27 @@ conform.setup({
     rust = { "rustfmt", lsp_format = "fallback" },
     -- Conform will run the first available formatter
     javascript = { "prettierd", "prettier", stop_after_first = true },
+    typescript = { "prettier" },
+    ["markdown.mdx"] = { "prettier" },
+    markdown = { "prettier" },
+    css = { "prettier" },
+    json = { "prettier" },
+    jsonc = { "prettier" },
+    yaml = { "prettier" },
+    html = { "prettier" },
+    graphql = { "prettier" },
 
     bzl = { "buildifier" },
-
     nix = { "nixfmt" },
+
+    -- Use the "*" filetype to run formatters on all filetypes.
+    -- ["*"] = { "codespell" },
+
+    -- Use the "_" filetype to run formatters on filetypes that don't
+    -- have other formatters configured.
+    ["_"] = { "trim_whitespace" },
   },
+
   format_on_save = function(bufnr)
     -- Disable with a global or buffer-local variable
     if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
