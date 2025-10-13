@@ -223,6 +223,7 @@ in
 
       # Formatters
       pkgs.nodePackages.prettier
+      pkgs.black
       (
         let
           config = pkgs.writeText "config.json" ''
