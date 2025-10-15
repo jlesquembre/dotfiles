@@ -34,7 +34,7 @@
                  :exec-args {:template "app"}}
 
            :rebel      {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.5"}
-                                     com.rpl/specter            {:mvn/version "1.1.5"}}
+                                     com.rpl/specter            {:mvn/version "1.1.6"}}
                         :main-opts  ["-m" "rebel-readline.main"]}
 
            :rebel-cljs {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.5"}
