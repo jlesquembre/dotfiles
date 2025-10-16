@@ -325,18 +325,18 @@ in
     ];
   };
 
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      libgcc.lib
-      stdenv.cc.cc.lib
-      libz
-    ];
-  };
-
-  services.envfs = {
-    enable = true;
-  };
+  # programs.nix-ld = {
+  #   enable = true;
+  #   libraries = with pkgs; [
+  #     libgcc.lib
+  #     stdenv.cc.cc.lib
+  #     libz
+  #   ];
+  # };
+  #
+  # services.envfs = {
+  #   enable = true;
+  # };
 
   # programs.virt-manager.enable = true;
   #

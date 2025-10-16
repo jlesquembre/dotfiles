@@ -11,6 +11,8 @@ conform.setup({
     -- Conform will run the first available formatter
     javascript = { "prettier" },
     typescript = { "prettier" },
+    typescriptreact = { "prettier" },
+    javascriptreact = { "prettier" },
     ["markdown.mdx"] = { "prettier" },
     markdown = { "prettier" },
     css = { "prettier" },
@@ -37,7 +39,7 @@ conform.setup({
       return
     end
     -- These options will be passed to conform.format()
-    return { timeout_ms = 500, lsp_format = "fallback" }
+    return { timeout_ms = 1000, lsp_format = "fallback" }
   end,
 })
 

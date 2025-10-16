@@ -93,6 +93,7 @@
             # (/. + configDir + "/cachix.nix")
             (/. + configDir + "/network.nix")
             inputs.sops-nix.nixosModules.sops
+            inputs.determinate.nixosModules.default
           ] ++ host-options.nixos-modules or [ ]
 
           ++ pkgs.lib.lists.optional (host-options.bluetooth or false)
