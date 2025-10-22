@@ -94,12 +94,12 @@
                                ; {:git/url "https://github.com/jlesquembre/clj-dev-utils"
                                ;  :git/sha "5eec7a887bc9e066e2b6d8dc8263f8bfa4ec64d7"}}}
 
-           :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "1.4.0"}
-                                cider/cider-nrepl {:mvn/version "0.57.0"}}
+           :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "1.5.1"}
+                                cider/cider-nrepl {:mvn/version "0.58.0"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
-           :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "1.4.0"}
-                                     cider/cider-nrepl {:mvn/version "0.57.0"}
+           :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "1.5.1"}
+                                     cider/cider-nrepl {:mvn/version "0.58.0"}
                                      cider/piggieback {:mvn/version "0.6.1"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
                                     "[cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl]"]}
