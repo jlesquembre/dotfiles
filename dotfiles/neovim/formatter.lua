@@ -1,5 +1,16 @@
 local conform = require("conform")
 
+local markdown_formatter = vim.deepcopy(require("conform.formatters.prettier"))
+require("conform.util").add_formatter_args(markdown_formatter, {
+  "--prose-wrap",
+  "always",
+  "--print-width",
+  "80",
+}, { append = false })
+
+---@cast markdown_formatter conform.FormatterConfigOverride
+require("conform").formatters.prettier_markdown = markdown_formatter
+
 conform.setup({
   formatters_by_ft = {
     lua = { "stylua" },
@@ -13,8 +24,8 @@ conform.setup({
     typescript = { "prettier" },
     typescriptreact = { "prettier" },
     javascriptreact = { "prettier" },
-    ["markdown.mdx"] = { "prettier" },
-    markdown = { "prettier" },
+    ["markdown.mdx"] = { "prettier_markdown" },
+    markdown = { "prettier_markdown" },
     css = { "prettier" },
     json = { "prettier" },
     jsonc = { "prettier" },
