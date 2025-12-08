@@ -39,6 +39,10 @@
       priority = 5; # Higher priority
     };
 
+    MOTARRA = {
+      pskRaw = "ext:home_psk";
+    };
+
     PackhausHeumarkt_2G = {
       pskRaw = "ext:PackhausHeumarkt_psk";
       priority = 4; # Higher priority

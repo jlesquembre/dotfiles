@@ -386,21 +386,26 @@ in
   #   borderSize = 3;
   # };
 
-  systemd.user.services.clipman = {
-    Unit = {
-      Description = pkgs.clipman.meta.description;
-      PartOf = [ "graphical-session.target" ];
-    };
-    Install = {
-      WantedBy = [ "sway-session.target" ];
-    };
-    Service = {
-      # Wait for next clipman release
-      ExecStart = ''${pkgs.wl-clipboard-rs}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store --unix'';
-      # ExecStart = ''${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store'';
-      RestartSec = 3;
-      Restart = "always";
-    };
+  # systemd.user.services.clipman = {
+  #   Unit = {
+  #     Description = pkgs.clipman.meta.description;
+  #     PartOf = [ "graphical-session.target" ];
+  #   };
+  #   Install = {
+  #     WantedBy = [ "sway-session.target" ];
+  #   };
+  #   Service = {
+  #     # Wait for next clipman release
+  #     ExecStart = ''${pkgs.wl-clipboard-rs}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store --unix'';
+  #     # ExecStart = ''${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.clipman}/bin/clipman store'';
+  #     RestartSec = 3;
+  #     Restart = "always";
+  #   };
+  # };
+
+  services.clipman = {
+    enable = true;
+
   };
 
   xdg.configFile."kanshi/config".source = "${kanshiConfig}/kanshi/config";
