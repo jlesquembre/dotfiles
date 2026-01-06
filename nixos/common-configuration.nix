@@ -338,6 +338,12 @@ in
   #   enable = true;
   # };
 
+  # virtualisation.incus = {
+  #   enable = true;
+  #   ui.enable = true;
+  #   socketActivation = true;
+  # };
+
   # programs.virt-manager.enable = true;
   #
   # virtualisation.libvirtd.enable = true;

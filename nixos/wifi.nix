@@ -30,6 +30,10 @@
       pskRaw = "ext:NETGEAR71_psk";
     };
 
+    TP-Link_2194 = {
+      pskRaw = "ext:tplink_alicante_psk";
+    };
+
     noenv = {
       pskRaw = "ext:noenv_psk";
     };

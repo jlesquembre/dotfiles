@@ -307,6 +307,7 @@ in
       copilot-cmp
       codecompanion-nvim
       wtf-nvim
+      # sidekick-nvim
 
       # UI
       base16-nvim

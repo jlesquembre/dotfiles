@@ -154,6 +154,7 @@ in
     package = null;
 
     systemd.enable = true;
+    xwayland = false;
 
     # https://github.com/nix-community/home-manager/issues/5311
     checkConfig = false;
