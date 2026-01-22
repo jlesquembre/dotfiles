@@ -1,10 +1,15 @@
-{ config, pkgs, lib, modulesPath, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
 {
 
   # imports = [
   #   (import ../modules/common-configuration.nix { inherit hostName; })
   # ];
-
 
   hardware.opengl.enable = true;
   hardware.opengl.driSupport = true;
@@ -26,12 +31,10 @@
   #  fsType = "tmpfs";
   #  neededForBoot = true;
   #};
-  fileSystems."/data" =
-    {
-      device = "/dev/disk/by-uuid/ed73e8a3-4a43-4545-b464-c62e31e2b097";
-      fsType = "ext4";
-    };
-
+  fileSystems."/data" = {
+    device = "/dev/disk/by-uuid/ed73e8a3-4a43-4545-b464-c62e31e2b097";
+    fsType = "ext4";
+  };
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -97,15 +100,22 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [ "ehci_pci" "ata_piix" "pata_via" "usb_storage" "usbhid" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [
+    "ehci_pci"
+    "ata_piix"
+    "pata_via"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+    "sr_mod"
+  ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/d5048662-c2e2-4646-b84e-501d499958c0";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/d5048662-c2e2-4646-b84e-501d499958c0";
+    fsType = "ext4";
+  };
 
   swapDevices = [ ];
 

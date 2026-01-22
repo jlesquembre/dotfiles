@@ -1,13 +1,19 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   hostName = "delta";
   h = import ../modules/helpers.nix { inherit pkgs; };
 
-  nixos-hardware =
-    (builtins.fetchTarball {
+  nixos-hardware = (
+    builtins.fetchTarball {
       url = "https://github.com/NixOS/nixos-hardware/archive/7da029f26849f8696ac49652312c9171bf9eb170.tar.gz";
       sha256 = "0xhhm1gk28fhzqsd260kr007vpir10xvp5cq0sdy1fnzzp8wcyf5";
-    });
+    }
+  );
 in
 {
 

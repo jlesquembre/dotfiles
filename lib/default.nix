@@ -1,41 +1,62 @@
-{ pkgs, ageKeyFile ? "" }:
+{
+  pkgs,
+  ageKeyFile ? "",
+}:
 {
 
   mkNeovim =
-    { withNodeJs
-    , withPython3
-    , withRuby
-    , plugins
-    , extraConfig
-    , extraPackages ? [ ]
-    , nvimPackage ? pkgs.neovim-unwrapped
-    , ...
+    {
+      withNodeJs,
+      withPython3,
+      withRuby,
+      plugins,
+      extraConfig,
+      extraPackages ? [ ],
+      nvimPackage ? pkgs.neovim-unwrapped,
+      ...
     }:
     let
       lib = pkgs.lib;
-      extraMakeWrapperArgs = lib.optionalString (extraPackages != [ ])
-        ''--suffix PATH : "${lib.makeBinPath extraPackages}"'';
+      extraMakeWrapperArgs = lib.optionalString (
+        extraPackages != [ ]
+      ) ''--suffix PATH : "${lib.makeBinPath extraPackages}"'';
 
-      nvimConf =
-        pkgs.neovimUtils.makeNeovimConfig {
-          configure.packages.home-manager.start = map (x: x.plugin or x) plugins;
-          inherit withNodeJs withPython3 withRuby plugins;
-          customRC = extraConfig;
-        };
+      nvimConf = pkgs.neovimUtils.makeNeovimConfig {
+        configure.packages.home-manager.start = map (x: x.plugin or x) plugins;
+        inherit
+          withNodeJs
+          withPython3
+          withRuby
+          plugins
+          ;
+        customRC = extraConfig;
+      };
     in
-    pkgs.wrapNeovimUnstable nvimPackage
-      (nvimConf // {
-        wrapperArgs = (lib.escapeShellArgs nvimConf.wrapperArgs) + " "
-          + extraMakeWrapperArgs;
-      });
+    pkgs.wrapNeovimUnstable nvimPackage (
+      nvimConf
+      // {
+        wrapperArgs = (lib.escapeShellArgs nvimConf.wrapperArgs) + " " + extraMakeWrapperArgs;
+      }
+    );
 
   mkHomeConfig =
-    { hosts, username, pkgs, inputs, hmConfigDir, extraArgs, system }:
+    {
+      hosts,
+      username,
+      pkgs,
+      inputs,
+      hmConfigDir,
+      extraArgs,
+      system,
+    }:
     let
       inherit (pkgs.lib.attrsets) mapAttrs';
 
-      mkHomeConfig' = { host, host-options }:
-        let customCfg = hmConfigDir + "/hosts/${host}.nix"; in
+      mkHomeConfig' =
+        { host, host-options }:
+        let
+          customCfg = hmConfigDir + "/hosts/${host}.nix";
+        in
         {
           name = "${username}@${host}";
           value = inputs.home-manager.lib.homeManagerConfiguration {
@@ -50,7 +71,12 @@
                   homeDirectory = "/home/${username}";
                 };
                 _module.args = extraArgs // {
-                  inherit host-options inputs username system;
+                  inherit
+                    host-options
+                    inputs
+                    username
+                    system
+                    ;
                 };
               }
             ]
@@ -59,17 +85,27 @@
         };
 
     in
-    mapAttrs'
-      (name: value: mkHomeConfig' {
+    mapAttrs' (
+      name: value:
+      mkHomeConfig' {
         host = name;
         host-options = value;
-      })
-      hosts;
+      }
+    ) hosts;
 
   mkHosts =
-    { hosts, username, pkgs, configDir, extraArgs, system, inputs }:
+    {
+      hosts,
+      username,
+      pkgs,
+      configDir,
+      extraArgs,
+      system,
+      inputs,
+    }:
     let
-      mkHost' = { host, host-options }:
+      mkHost' =
+        { host, host-options }:
         inputs.nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs; };
@@ -94,20 +130,19 @@
             (/. + configDir + "/network.nix")
             inputs.sops-nix.nixosModules.sops
             inputs.determinate.nixosModules.default
-          ] ++ host-options.nixos-modules or [ ]
+          ]
+          ++ host-options.nixos-modules or [ ]
 
-          ++ pkgs.lib.lists.optional (host-options.bluetooth or false)
-            (/. + configDir + "/bluetooth.nix")
+          ++ pkgs.lib.lists.optional (host-options.bluetooth or false) (/. + configDir + "/bluetooth.nix")
 
-          ++ pkgs.lib.lists.optional (host-options.wifi or false)
-            (/. + configDir + "/wifi.nix")
-          ;
+          ++ pkgs.lib.lists.optional (host-options.wifi or false) (/. + configDir + "/wifi.nix");
         };
     in
-    builtins.mapAttrs
-      (name: value: mkHost' {
+    builtins.mapAttrs (
+      name: value:
+      mkHost' {
         host = name;
         host-options = value;
-      })
-      hosts;
+      }
+    ) hosts;
 }

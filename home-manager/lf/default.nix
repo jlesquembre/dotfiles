@@ -1,4 +1,15 @@
-{ config, pkgs, lib, nix-medley, host-options, inputs, system, rootPath, username, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  nix-medley,
+  host-options,
+  inputs,
+  system,
+  rootPath,
+  username,
+  ...
+}:
 
 # SEE
 # https://github.com/gokcehan/lf/blob/master/doc.md
@@ -181,7 +192,7 @@ in
       cursorpreviewfmt = "";
       info = "size";
       ifs = "\\n";
-      rulerfmt = ''  %a|  %p|  %d|  \033[7;31m %m \033[0m|  \033[7;33m %c \033[0m|  \033[7;35m %s \033[0m|  \033[7;34m %f \033[0m|  %i/%t'';
+      rulerfmt = ''%a|  %p|  %d|  \033[7;31m %m \033[0m|  \033[7;33m %c \033[0m|  \033[7;35m %s \033[0m|  \033[7;34m %f \033[0m|  %i/%t'';
     };
   };
 

@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, makeWrapper
-, nodejs_latest
-, vscode
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  nodejs_latest,
+  vscode,
 }:
 
 # Adapted from

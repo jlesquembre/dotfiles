@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, jdk
-, bash
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk,
+  bash,
 }:
 
 stdenv.mkDerivation rec {
@@ -53,6 +54,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/eclipse/eclipse.jdt.ls";
     description = "Java language server";
     license = licenses.epl20;
-    maintainers = with maintainers; [ matt-snider jlesquembre ];
+    maintainers = with maintainers; [
+      matt-snider
+      jlesquembre
+    ];
   };
 }

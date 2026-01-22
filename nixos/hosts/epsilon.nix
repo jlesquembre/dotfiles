@@ -1,4 +1,10 @@
-{ config, pkgs, lib, modulesPath, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
 {
 
   networking.wireless.interfaces = [ "wlp82s0" ];
@@ -8,7 +14,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # https://github.com/NixOS/nixos-hardware/blob/master/common/pc/laptop/acpi_call.nix
-  boot.kernelModules = [ "acpi_call" "kvm-intel" ];
+  boot.kernelModules = [
+    "acpi_call"
+    "kvm-intel"
+  ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
   # Enable touchpad, for options
@@ -42,23 +51,27 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "usbhid" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "nvme"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+    "rtsx_pci_sdmmc"
+  ];
   boot.initrd.kernelModules = [ ];
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/817d1c98-800e-43d7-98d5-cc42cced6e7d";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/817d1c98-800e-43d7-98d5-cc42cced6e7d";
+    fsType = "ext4";
+  };
 
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/39F5-E3A8";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/39F5-E3A8";
+    fsType = "vfat";
+  };
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/e03068e2-c65c-4872-9a57-4db835d28917"; }];
+  swapDevices = [ { device = "/dev/disk/by-uuid/e03068e2-c65c-4872-9a57-4db835d28917"; } ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }
