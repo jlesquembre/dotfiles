@@ -268,6 +268,10 @@ in
       authority = {
         claims = {
           # Time must be minutes or hours
+          minTLSCertDuration = "5m";
+          maxTLSCertDuration = "240h";
+          defaultTLSCertDuration = "160h";
+
           minHostSSHCertDuration = "5m";
           maxHostSSHCertDuration = "1680h"; # 70 days
           defaultHostSSHCertDuration = "720h"; # 30 days
