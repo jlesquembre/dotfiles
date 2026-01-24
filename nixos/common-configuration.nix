@@ -22,7 +22,7 @@ in
     ./common-extra.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_6_16;
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
 
   sops.secrets.nixAccessTokens = {
     mode = "0440";
@@ -104,24 +104,19 @@ in
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    with pkgs;
-    [
-
-      ncurses.dev # infocmp and more utils
-      rsync
-      alacritty
-      ghostty
-      neovim
-    ]
-    ++ (with pkgs.gitAndTools; [
-      delta
-      git-open
-      git-recent
-      git-trim
-      gitFull
-      tig
-    ]);
+  environment.systemPackages = with pkgs; [
+    ncurses.dev # infocmp and more utils
+    rsync
+    alacritty
+    ghostty
+    neovim
+    delta
+    git-open
+    git-recent
+    git-trim
+    gitFull
+    tig
+  ];
 
   systemd.user.services."app-com.mitchellh.ghostty" = {
     enable = true;
@@ -286,7 +281,6 @@ in
       "wireshark"
       # "mlocate"
       "dialout"
-      "adbusers"
       "libvirtd"
       # sops-nix group
       config.users.groups.keys.name
@@ -313,14 +307,14 @@ in
       nerd-fonts.hack
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       powerline-fonts
       roboto
       roboto-mono
       roboto-slab
       source-code-pro
       ttf_bitstream_vera
-      ubuntu_font_family
+      ubuntu-classic
       unifont
     ];
   };

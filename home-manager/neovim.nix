@@ -217,7 +217,7 @@ in
       pkgs.nil # Nix
       # pkgs.nixd
       pkgs.terraform-ls
-      pkgs.postgres-lsp
+      pkgs.postgres-language-server
 
       # Formatters
       pkgs.nodePackages.prettier
@@ -240,8 +240,7 @@ in
       )
       # pkgs.sqlfluff
       # pkgs.pgformatter
-      # pkgs.nixpkgs-fmt
-      pkgs.nixfmt-rfc-style
+      pkgs.nixfmt
       pkgs.rustfmt
       # pkgs.terraform
       pkgs.ormolu

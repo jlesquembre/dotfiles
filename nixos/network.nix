@@ -137,11 +137,11 @@ in
   ];
   services.resolved = {
     enable = true;
-    domains = [ "local" ];
-    llmnr = "false";
-    extraConfig = ''
-      DNSStubListener=no
-    '';
+    settings.Resolve = {
+      DNSStubListener = false;
+      LLMNR = false;
+      Domains = [ "local" ];
+    };
   };
 
   networking.dhcpcd.enable = false;

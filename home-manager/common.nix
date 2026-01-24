@@ -57,7 +57,7 @@ in
     # inputs.ghostty.packages.${system}.default
     caddy
     clipman
-    deadbeef # ???
+    # deadbeef # ???
     zenity
     google-chrome
     # (google-chrome.overrideAttrs (finalAttrs: _: {
@@ -85,7 +85,7 @@ in
     ugrep
     # wf-recorder
     wl-clipboard-rs
-    xfce.ristretto
+    ristretto
     xournalpp
     yt-dlp
     # wob
@@ -95,8 +95,7 @@ in
     nix-update
     nixpkgs-review
     nix-serve
-    # nixpkgs-fmt
-    nixfmt-rfc-style
+    nixfmt
     nix-output-monitor
     cntr
     # nix_graph
@@ -145,7 +144,7 @@ in
     # gomplate
     minikube
     kind
-    kube3d
+    k3d
     dapper
     kubeval
     click
@@ -166,7 +165,7 @@ in
     cheat
     curlie
     dnsutils
-    dogdns
+    doggo
     entr
     watchexec
     jq
@@ -177,7 +176,7 @@ in
     httplab
     httpstat
     hurl
-    siege
+    # siege
     socat
     step-ca
     step-cli
@@ -205,7 +204,7 @@ in
     pavucontrol
     pciutils
     pdftk
-    poppler_utils # xpdf
+    poppler-utils # xpdf
     prettyping
     proselint
     pwgen
@@ -232,7 +231,7 @@ in
 
     # screenshot utils
     flameshot
-    xfce.xfce4-screenshooter
+    xfce4-screenshooter
 
     # screencasts
     asciinema
@@ -785,9 +784,7 @@ in
 
   programs.git = {
     enable = true;
-    package = pkgs.gitAndTools.gitFull;
-    userName = "José Luis Lafuente";
-    userEmail = "jl@lafuente.dev";
+    package = pkgs.gitFull;
     signing = {
       signByDefault = true;
       key = "8A3455EBE455489A";
@@ -796,51 +793,6 @@ in
       ".worktree/"
     ];
     lfs.enable = true;
-    extraConfig = {
-      core = {
-        editor = "nvim";
-        # hooksPath = ".githooks";
-      };
-      init = {
-        defaultBranch = "main";
-      };
-      gui = {
-        spellingdictionary = "en_US";
-      };
-      push = {
-        default = "simple";
-        followTags = true;
-        autoSetupRemote = true;
-      };
-      checkout = {
-        defaultRemote = "origin";
-      };
-      fetch = {
-        prune = true;
-      };
-      commit = {
-        verbose = true;
-      };
-      "diff \"blackbox\"" = {
-        textconv = "gpg --use-agent -q --batch --decrypt";
-      };
-      "diff \"sopsdiffer\"" = {
-        textconv = "sops -d";
-      };
-      diff = {
-        tool = "difftastic";
-      };
-      difftool = {
-        prompt = false;
-      };
-      "difftool \"difftastic\"" = {
-        cmd = ''${pkgs.difftastic}/bin/difft --color auto --background dark "$LOCAL" "$REMOTE"'';
-      };
-      pager = {
-        difftool = true;
-      };
-    };
-
     includes = [
       # {
       #   condition = "gitdir:~/tweag/**";
@@ -860,9 +812,105 @@ in
         };
       }
     ];
+    settings = {
+      user = {
+        name = "José Luis Lafuente";
+        email = "jl@lafuente.dev";
+      };
+      extraConfig = {
+        core = {
+          editor = "nvim";
+          # hooksPath = ".githooks";
+        };
+        init = {
+          defaultBranch = "main";
+        };
+        gui = {
+          spellingdictionary = "en_US";
+        };
+        push = {
+          default = "simple";
+          followTags = true;
+          autoSetupRemote = true;
+        };
+        checkout = {
+          defaultRemote = "origin";
+        };
+        fetch = {
+          prune = true;
+        };
+        commit = {
+          verbose = true;
+        };
+        "diff \"blackbox\"" = {
+          textconv = "gpg --use-agent -q --batch --decrypt";
+        };
+        "diff \"sopsdiffer\"" = {
+          textconv = "sops -d";
+        };
+        diff = {
+          tool = "difftastic";
+        };
+        difftool = {
+          prompt = false;
+        };
+        "difftool \"difftastic\"" = {
+          cmd = ''${pkgs.difftastic}/bin/difft --color auto --background dark "$LOCAL" "$REMOTE"'';
+        };
+        pager = {
+          difftool = true;
+        };
+      };
 
-    delta.enable = true;
-    delta.options = # [ "--dark" "--theme base16" "--file-color #ffff00" "--file-style box" ];
+      alias = {
+        dft = "difftool";
+        lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short --all";
+        cloner = "clone --recursive";
+        lasttag = "describe --tags --abbrev=0";
+        lt = "describe --tags --abbrev=0";
+        patch = "--no-pager diff --no-color";
+        diffmin = "diff --word-diff-regex=.";
+        diffword = "diff --word-diff";
+
+        # Pull Request Managment, from https://gist.github.com/gnarf/5406589
+        # pr = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f";
+        prw = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git worktree add .worktree/pr-$1 pr/$1 ; }; f";
+        pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=\${ref#refs/heads/} ; git branch -D $branch ; done";
+        # spr = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f";
+
+        # https://morgan.cugerone.com/blog/workarounds-to-git-worktree-using-bare-repository-and-cannot-fetch-remote-branches/
+        clone-worktree =
+          let
+            script = pkgs.writers.writeBash "clone_worktree" ''
+              url=$1
+              basename=''${url##*/}
+              name=''${2:-'''$${basename%.*}}
+
+              mkdir $name
+              cd "$name"
+
+              git clone --bare "$url" .bare
+              echo "gitdir: ./.bare" > .git
+
+              git worktree add main
+              git worktree add dev
+              git worktree add review
+
+              # Explicitly sets the remote origin fetch so we can fetch remote branches
+              git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+              # Gets all branches from origin
+              git fetch origin
+            '';
+          in
+          "!sh ${script}";
+      };
+    };
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = # [ "--dark" "--theme base16" "--file-color #ffff00" "--file-style box" ];
       {
         # side-by-side = true;
         decorations = {
@@ -875,48 +923,6 @@ in
         whitespace-error-style = "22 reverse";
         syntax-theme = "base16";
       };
-    aliases = {
-      dft = "difftool";
-      lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short --all";
-      cloner = "clone --recursive";
-      lasttag = "describe --tags --abbrev=0";
-      lt = "describe --tags --abbrev=0";
-      patch = "--no-pager diff --no-color";
-      diffmin = "diff --word-diff-regex=.";
-      diffword = "diff --word-diff";
-
-      # Pull Request Managment, from https://gist.github.com/gnarf/5406589
-      # pr = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f";
-      prw = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git worktree add .worktree/pr-$1 pr/$1 ; }; f";
-      pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=\${ref#refs/heads/} ; git branch -D $branch ; done";
-      # spr = "!f() { git fetch -fu \${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f";
-
-      # https://morgan.cugerone.com/blog/workarounds-to-git-worktree-using-bare-repository-and-cannot-fetch-remote-branches/
-      clone-worktree =
-        let
-          script = pkgs.writers.writeBash "clone_worktree" ''
-            url=$1
-            basename=''${url##*/}
-            name=''${2:-'''$${basename%.*}}
-
-            mkdir $name
-            cd "$name"
-
-            git clone --bare "$url" .bare
-            echo "gitdir: ./.bare" > .git
-
-            git worktree add main
-            git worktree add dev
-            git worktree add review
-
-            # Explicitly sets the remote origin fetch so we can fetch remote branches
-            git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-            # Gets all branches from origin
-            git fetch origin
-          '';
-        in
-        "!sh ${script}";
-    };
   };
 
   programs.zathura = {
@@ -1042,7 +1048,7 @@ in
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-wayland;
+    package = pkgs.firefox;
     # extensions =
     #   with pkgs.nur.repos.rycee.firefox-addons; [
     #     browserpass

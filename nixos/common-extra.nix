@@ -90,8 +90,6 @@
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark-qt;
 
-  programs.adb.enable = true;
-
   # Need to setup gnome themes with home-manager
   programs.dconf.enable = true;
 
