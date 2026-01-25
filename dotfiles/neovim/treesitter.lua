@@ -1,4 +1,4 @@
-require("nvim-treesitter.configs").setup({
+require("nvim-treesitter.config").setup({
   additional_vim_regex_highlighting = false,
   -- Not needed, Nix manage the parsers
   -- one of "all", "maintained" (parsers with maintainers), or a list of languages

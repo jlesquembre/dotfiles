@@ -9,7 +9,10 @@
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
   networking.wireless.userControlled = true;
 
-  sops.secrets."wireless.conf" = { };
+  sops.secrets."wireless.conf" = {
+    mode = "0440";
+    group = config.users.groups.wpa_supplicant.name;
+  };
   networking.wireless.secretsFile = config.sops.secrets."wireless.conf".path;
 
   environment.systemPackages = [
