@@ -106,12 +106,13 @@ in
       getip = "getent hosts";
 
       # Clojure
-      cljs-repl = "clj -m cljs.repl.node";
-      cljs = "clj -m cljs.main";
-      clj-outdated = "clj -A:outdated -a";
-      clj-rebel = "clojure -A:rebel";
-      cljs-rebel = "clojure -A:rebel-cljs";
+      clju = "clj -A:outdated -a";
       clj-find-deps = "clj -A:find-deps -F:table -l 10";
+      clj-rebel = "clojure -A:rebel";
+
+      cljs = "clj -m cljs.main";
+      cljs-repl = "clj -m cljs.repl.node";
+      cljs-rebel = "clojure -A:rebel-cljs";
 
       "!!" = {
         position = "anywhere";
