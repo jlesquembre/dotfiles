@@ -817,49 +817,47 @@ in
         name = "José Luis Lafuente";
         email = "jl@lafuente.dev";
       };
-      extraConfig = {
-        core = {
-          editor = "nvim";
-          # hooksPath = ".githooks";
-        };
-        init = {
-          defaultBranch = "main";
-        };
-        gui = {
-          spellingdictionary = "en_US";
-        };
-        push = {
-          default = "simple";
-          followTags = true;
-          autoSetupRemote = true;
-        };
-        checkout = {
-          defaultRemote = "origin";
-        };
-        fetch = {
-          prune = true;
-        };
-        commit = {
-          verbose = true;
-        };
-        "diff \"blackbox\"" = {
-          textconv = "gpg --use-agent -q --batch --decrypt";
-        };
-        "diff \"sopsdiffer\"" = {
-          textconv = "sops -d";
-        };
-        diff = {
-          tool = "difftastic";
-        };
-        difftool = {
-          prompt = false;
-        };
-        "difftool \"difftastic\"" = {
-          cmd = ''${pkgs.difftastic}/bin/difft --color auto --background dark "$LOCAL" "$REMOTE"'';
-        };
-        pager = {
-          difftool = true;
-        };
+      core = {
+        editor = "nvim";
+        # hooksPath = ".githooks";
+      };
+      init = {
+        defaultBranch = "main";
+      };
+      gui = {
+        spellingdictionary = "en_US";
+      };
+      push = {
+        default = "simple";
+        followTags = true;
+        autoSetupRemote = true;
+      };
+      checkout = {
+        defaultRemote = "origin";
+      };
+      fetch = {
+        prune = true;
+      };
+      commit = {
+        verbose = true;
+      };
+      "diff \"blackbox\"" = {
+        textconv = "gpg --use-agent -q --batch --decrypt";
+      };
+      "diff \"sopsdiffer\"" = {
+        textconv = "sops -d";
+      };
+      diff = {
+        tool = "difftastic";
+      };
+      difftool = {
+        prompt = false;
+      };
+      "difftool \"difftastic\"" = {
+        cmd = ''${pkgs.difftastic}/bin/difft --color auto --background dark "$LOCAL" "$REMOTE"'';
+      };
+      pager = {
+        difftool = true;
       };
 
       alias = {
@@ -1100,7 +1098,7 @@ in
         "$aws"
         "$gcloud"
         "$kubernetes"
-        ''''${env_var.KUBEPROMPT_VAL}''
+        "\${env_var.KUBEPROMPT_VAL}"
         "$all"
         "$env_var"
         "$nix_shell"
@@ -1179,15 +1177,15 @@ in
       #   disabled = true;
       # };
       git_status = {
-        diverged = ''⇕⇡''${ahead_count}⇣''${behind_count}'';
-        stashed = ''[''${count}≡](green)'';
-        modified = ''[''${count}+](yellow)'';
-        deleted = ''[''${count}-](red)'';
-        conflicted = ''[''${count}~](red)'';
-        ahead = ''⇡''${count}'';
-        behind = ''⇣''${count}'';
-        untracked = ''[''${count}?](blue)'';
-        staged = ''[''${count}+](green)'';
+        diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
+        stashed = "[\${count}≡](green)";
+        modified = "[\${count}+](yellow)";
+        deleted = "[\${count}-](red)";
+        conflicted = "[\${count}~](red)";
+        ahead = "⇡\${count}";
+        behind = "⇣\${count}";
+        untracked = "[\${count}?](blue)";
+        staged = "[\${count}+](green)";
         style = "white";
       };
 
