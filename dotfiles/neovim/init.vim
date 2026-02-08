@@ -106,6 +106,7 @@ augroup END
 augroup CustomFileTypeDetection
   autocmd!
   autocmd BufRead,BufNewFile Tiltfile setfiletype bzl
+  autocmd BufRead,BufNewFile *.bb setfiletype clojure
 augroup END
 
 " Set augroup
