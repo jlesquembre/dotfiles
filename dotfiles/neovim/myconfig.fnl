@@ -113,7 +113,9 @@
 
 (oil.setup
   {:view_options {:show_hidden  true}
-   :keymaps {"<C-s>" {:desc "foo"
+   :watch_for_changes true
+   :keymaps {"<C-l>"  "actions.refresh"
+             "<C-s>" {:desc "Open right"
                       :callback (fn [] (oil.select {:vertical true :split "belowright"}))}}})
 
 (vim.keymap.set "n" "-" (fn [] (oil.open)) {:desc "Open parent directory"})
