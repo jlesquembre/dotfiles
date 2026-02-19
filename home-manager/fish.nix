@@ -52,10 +52,12 @@ in
       gst = "git status";
       grm = "git_delete_merged";
       gw = "git worktree";
-      gwa = {
-        expansion = "git worktree add .worktree/%";
-        setCursor = "%";
-      };
+      gwa = "git_worktree_add";
+      gwr = "git_worktree_remove";
+      # gwa = {
+      #   expansion = "git worktree add .worktree/%";
+      #   setCursor = "%";
+      # };
 
       # Docker
       d = "podman";
@@ -137,12 +139,71 @@ in
     };
 
     functions = {
-      jw = ''
+      gww = ''
         set dir "$(git worktree list | fzf | awk '{print $1}')"
         if test -n "$dir"
             cd "$dir"
         end
       '';
+
+      git_worktree_remove = ''
+        set -l clean_icon "⠀" # NOTE: this is a unicode whitespace: \u2800 (Braille pattern blank)
+        set -l dirty_icon "⚠"
+
+        set -l items
+
+        for wt_dir in (git worktree list --porcelain 2>/dev/null | grep '^worktree ' | awk '{print $2}' | rg '.worktree')
+            set -l wt_icon $clean_icon
+            if test (count (git -C "$wt_dir" status --porcelain 2>/dev/null)) -gt 0
+                set wt_icon $dirty_icon
+            end
+            set -a items "$wt_icon:$wt_dir"
+        end
+
+        set -l out (printf '%s\n' $items | fzf --prompt="worktree remove> " --accept-nth 2 --with-nth '{1} {2}'  --delimiter : --expect=ctrl-d --footer="⚠ = dirty worktree (Ctrl-D to force delete)")
+
+        set -l picked_dir $out[2]
+        if test -z "$picked_dir"
+            return 1
+        end
+
+        if test (count (git -C "$picked_dir" status --porcelain 2>/dev/null)) -gt 0
+            if test "$key" != ctrl-d
+                echo "Worktree is dirty: $picked_dir" >&2
+                echo "Press Ctrl-D in fzf to force delete." >&2
+                return 1
+            end
+            if test (pwd) = "$picked_dir"; cd (_git_worktree_root); end
+            git worktree remove --force "$picked_dir"
+            echo "--> git worktree remove --force $picked_dir"
+        else
+            if test (pwd) = "$picked_dir"; cd (_git_worktree_root); end
+            git worktree remove "$picked_dir"
+            echo "--> git worktree remove $picked_dir"
+        end
+      '';
+
+      _git_worktree_root = ''
+        git worktree list --porcelain 2>/dev/null | rg '^worktree ' | awk '{print $2}' | rg -v '.worktree'
+      '';
+
+      git_worktree_add = ''
+        if test (count $argv) -ne 1
+            echo "Usage: new_git_worktree <name>" >&2
+            return 2
+        end
+
+        set -l new_tree "$argv[1]"
+        set -l tree_path "$(_git_worktree_root)/.worktree/$new_tree"
+        echo "--> " git worktree add "$tree_path" -b "$new_tree"
+        git worktree add "$tree_path" -b "$new_tree"
+        or begin
+            return $status
+        end
+
+        cd "$tree_path"
+      '';
+
       l = "eza --long --group --header --git --group-directories-first $argv";
       ll = "l --all --all $argv";
       lll = "l --all --tree --level 2 $argv";
