@@ -229,10 +229,10 @@ cnoremap <expr> %% getcmdtype() == ':' ? fnameescape(expand('%:h')) . '/' : '%%'
 
 " Better replacement for cnoreabbrev
 function! SetAliases()
-  execute 'Alias g Git'
-  execute 'Alias gp Git\ pull\ --ff-only'
-  execute 'Alias gs Git\ switch'
-  execute 'Alias gsc Git\ switch\ --create'
+  "execute 'Alias g Git'
+  "execute 'Alias gp Git\ pull\ --ff-only'
+  "execute 'Alias gs Git\ switch'
+  "execute 'Alias gsc Git\ switch\ --create'
   " Create parent directories
   execute 'Alias mk Mkdir!\ |\ update'
 
