@@ -109,7 +109,7 @@ in
       getip = "getent hosts";
 
       # Clojure
-      clju = "clj -A:outdated -a";
+      clju = "clj -M:upgrade";
       clj-find-deps = "clj -A:find-deps -F:table -l 10";
       clj-rebel = "clojure -A:rebel";
 
