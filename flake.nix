@@ -47,11 +47,6 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    neovim = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
   };
@@ -102,6 +97,7 @@
           username
           pkgs
           inputs
+          self
           extraArgs
           ;
         hmConfigDir = (builtins.toString ./home-manager);
@@ -172,24 +168,9 @@
           };
         };
 
-        packages =
-          let
-            nvimConfig = import ./home-manager/neovim.nix {
-              inherit pkgs nix-medley;
-              rootPath = ./.;
-              lib = pkgs.lib;
-              config = null;
-            };
-          in
-          {
-            nvim-master = utils.mkNeovim (
-              nvimConfig.programs.neovim
-              // {
-                nvimPackage = inputs.neovim.packages."${system}".neovim;
-              }
-            );
-            nvim = utils.mkNeovim nvimConfig.programs.neovim;
-          };
+        packages = {
+          nvim = pkgs.callPackage ./pkgs/neovim { inherit pkgs; };
+        };
         apps = {
           update-vim-plugins = {
             type = "app";

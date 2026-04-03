@@ -497,3 +497,27 @@ augroup turbo_commit
   autocmd BufEnter COMMIT_EDITMSG startinsert
   autocmd BufEnter COMMIT_EDITMSG inoremap <C-s> <esc>ZZ
 augroup END
+
+
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_view_automatic = 1
+
+let g:vimtex_quickfix_open_on_warning = 1
+let g:vimtex_fold_enabled = 0
+let g:vimtex_format_enabled = 1
+let g:vimtex_quickfix_mode = 2
+let g:vimtex_quickfix_autoclose_after_keystrokes = 1
+let g:vimtex_compiler_latexmk = {
+    \ 'out_dir' : '/tmp/_vimtex',
+    \ 'callback' : 1,
+    \ 'continuous' : 1,
+    \ 'executable' : 'latexmk',
+    \ 'hooks' : [],
+    \ 'options' : [
+    \   '-verbose',
+    \   '-shell-escape',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \}

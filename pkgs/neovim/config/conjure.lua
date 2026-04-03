@@ -60,6 +60,7 @@ vim.g["conjure#client#clojure#nrepl#mapping#run_current_test"] = "ptc"
 vim.g["conjure#log#strip_ansi_escape_sequences_line_limit"] = 0
 -- Depends on https://github.com/jlesquembre/clj-dev-utils/blob/2770bbbd8eb14b60369510107098040b3e9c0ca6/src/local_utils.clj#L139
 vim.g["conjure#client#clojure#nrepl#refresh#after"] = "local-utils/reload-system"
+vim.g["conjure#client#clojure#nrepl#refresh#backend"] = "clj-reload"
 
 local baleia = require("baleia").setup({ line_starts_at = 3 })
 
@@ -118,20 +119,20 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 -- S-exp
 
 local paredit = require("nvim-paredit")
-local parpar = require("parpar")
-
-parpar.setup({
-  -- paredit = {
-  --   -- pass any nvim-paredit options here
-  --   keys = {
-  --     -- custom bindings are automatically wrapped
-  --     ["<A-H>"] = { paredit.api.slurp_backwards, "Slurp backwards" },
-  --     ["<A-J>"] = { paredit.api.barf_backwards, "Barf backwards" },
-  --     ["<A-K>"] = { paredit.api.barf_forwards, "Barf forwards" },
-  --     ["<A-L>"] = { paredit.api.slurp_forwards, "Slurp forwards" },
-  --   },
-  -- },
-})
+-- local parpar = require("parpar")
+--
+-- parpar.setup({
+--   -- paredit = {
+--   --   -- pass any nvim-paredit options here
+--   --   keys = {
+--   --     -- custom bindings are automatically wrapped
+--   --     ["<A-H>"] = { paredit.api.slurp_backwards, "Slurp backwards" },
+--   --     ["<A-J>"] = { paredit.api.barf_backwards, "Barf backwards" },
+--   --     ["<A-K>"] = { paredit.api.barf_forwards, "Barf forwards" },
+--   --     ["<A-L>"] = { paredit.api.slurp_forwards, "Slurp forwards" },
+--   --   },
+--   -- },
+-- })
 
 -- vim.g.sexp_enable_insert_mode_mappings = 0
 -- vim.g.sexp_insert_after_wrap = 0
