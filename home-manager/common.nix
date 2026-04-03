@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  extra-pkgs,
   lib,
   nix-medley,
   host-options,
@@ -31,7 +32,6 @@ in
     ./sway.nix
     ./fish.nix
     ./custom-scripts.nix
-    ./neovim.nix
     ./lf
   ];
 
@@ -53,6 +53,7 @@ in
 
   home.packages = with pkgs; [
 
+    extra-pkgs.nvim
     # inputs.githud.packages."${system}".default
     # inputs.ghostty.packages.${system}.default
     caddy
@@ -252,7 +253,7 @@ in
     x265
     libopus
     opusfile
-    opusTools
+    opus-tools
 
     # notifications
     noti

@@ -4,47 +4,13 @@
 }:
 {
 
-  mkNeovim =
-    {
-      withNodeJs,
-      withPython3,
-      withRuby,
-      plugins,
-      extraConfig,
-      extraPackages ? [ ],
-      nvimPackage ? pkgs.neovim-unwrapped,
-      ...
-    }:
-    let
-      lib = pkgs.lib;
-      extraMakeWrapperArgs = lib.optionalString (
-        extraPackages != [ ]
-      ) ''--suffix PATH : "${lib.makeBinPath extraPackages}"'';
-
-      nvimConf = pkgs.neovimUtils.makeNeovimConfig {
-        configure.packages.home-manager.start = map (x: x.plugin or x) plugins;
-        inherit
-          withNodeJs
-          withPython3
-          withRuby
-          plugins
-          ;
-        customRC = extraConfig;
-      };
-    in
-    pkgs.wrapNeovimUnstable nvimPackage (
-      nvimConf
-      // {
-        wrapperArgs = (lib.escapeShellArgs nvimConf.wrapperArgs) + " " + extraMakeWrapperArgs;
-      }
-    );
-
   mkHomeConfig =
     {
       hosts,
       username,
       pkgs,
       inputs,
+      self,
       hmConfigDir,
       extraArgs,
       system,
@@ -77,6 +43,7 @@
                     username
                     system
                     ;
+                  extra-pkgs = self.outputs.packages.${system};
                 };
               }
             ]
