@@ -52,9 +52,9 @@ vim.g["conjure#client#clojure#nrepl#mapping#run_all_tests"] = "pta"
 vim.g["conjure#client#clojure#nrepl#mapping#run_current_ns_tests"] = "ptt"
 vim.g["conjure#client#clojure#nrepl#mapping#run_alternate_ns_tests"] = "ptN"
 vim.g["conjure#client#clojure#nrepl#mapping#run_current_test"] = "ptc"
--- let g:conjure#client#clojure#nrepl#mapping#refresh_changed = "rr"
--- let g:conjure#client#clojure#nrepl#mapping#refresh_all = "ra"
--- let g:conjure#client#clojure#nrepl#mapping#refresh_clear = "rc"
+vim.g["conjure#client#clojure#nrepl#mapping#refresh_changed"] = false -- "rr"
+vim.g["conjure#client#clojure#nrepl#mapping#refresh_all"] = false -- "ra"
+vim.g["conjure#client#clojure#nrepl#mapping#refresh_clear"] = false -- "rc"
 --
 -- vim.g['conjure#client#fennel#aniseed#aniseed_module_prefix'] = "aniseed."
 vim.g["conjure#log#strip_ansi_escape_sequences_line_limit"] = 0
@@ -81,6 +81,9 @@ function lisp_settings(args)
   set_keymap(bufnr, "n", "saj", "<Plug>(operator-sandwich-add)ie(", {})
   set_keymap(bufnr, "n", "sau", "<Plug>(operator-sandwich-add)ie[", {})
   set_keymap(bufnr, "n", "sam", "<Plug>(operator-sandwich-add)ie{", {})
+
+  set_keymap(bufnr, "n", "crr", "<cmd>ConjureEval ((requiring-resolve 'local-utils/custom-reload))<cr>", {})
+  set_keymap(bufnr, "n", "cra", "<cmd>ConjureEval ((requiring-resolve 'local-utils/custom-reload) :all)<cr>", {})
 
   -- set_keymap(bufnr, "n", "<c-n>", "<cmd>ParinferToggleMode<cr>", {})
   -- set_keymap(bufnr, "i", "<c-n>", "<cmd>ParinferToggleMode<cr>", {})
@@ -118,7 +121,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 
 -- S-exp
 
-local paredit = require("nvim-paredit")
+require("nvim-paredit").setup()
 -- local parpar = require("parpar")
 --
 -- parpar.setup({
