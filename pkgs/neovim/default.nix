@@ -307,13 +307,12 @@ let
     # # vim-hexokinase
 
     # Clojure
-    # nvim-paredit
     # vim-sexp
     # vim-sexp-mappings-for-regular-people
     # parpar-nvim
     # nvim-parinfer
     nvim-paredit
-    # pkgs.parinfer-rust
+    pkgs.parinfer-rust
     conjure
     # vim-clojure-highlight
     # # vim-kibit
@@ -330,13 +329,13 @@ let
     # First, it will try to find a tsserver installed with npm install,
     # if not found, it will look in our $PATH
     # See https://github.com/theia-ide/typescript-language-server/blob/a92027377b7ba8b1c9318baad98045e5128baa8e/server/src/lsp-server.ts#L75-L94
-    pkgs.nodePackages.typescript
-    pkgs.nodePackages.typescript-language-server
+    pkgs.typescript
+    pkgs.typescript-language-server
 
-    pkgs.nodePackages.bash-language-server
+    pkgs.bash-language-server
     # Disable it until it gets fixed, uses all your CPU
     # pkgs.nodePackages.vim-language-server
-    pkgs.nodePackages.yaml-language-server
+    pkgs.yaml-language-server
     pkgs.dockerfile-language-server
 
     # Includes css, html and json language server
@@ -359,7 +358,7 @@ let
     pkgs.postgres-language-server
 
     # Formatters
-    pkgs.nodePackages.prettier
+    pkgs.prettier
     pkgs.black
     (
       let
@@ -372,7 +371,7 @@ let
       pkgs.writeShellApplication {
         name = "sql-formatter";
         runtimeInputs = [
-          pkgs.nodePackages.sql-formatter
+          pkgs.sql-formatter
         ];
         text = ''sql-formatter --config ${config} "$@"'';
       }
