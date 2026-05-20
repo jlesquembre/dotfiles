@@ -226,6 +226,7 @@ let
     # Text edition
     vim-repeat
     vim-sandwich
+    # mini-surround
     # vim-speeddating
     # ultisnips
     # vim-snippets
@@ -312,7 +313,7 @@ let
     # parpar-nvim
     # nvim-parinfer
     nvim-paredit
-    pkgs.parinfer-rust
+    # pkgs.parinfer-rust
     conjure
     # vim-clojure-highlight
     # # vim-kibit
@@ -325,6 +326,7 @@ let
   # ];
 
   extraDeps = [
+    pkgs.tree-sitter
     # typescript is needed because it provides the tsserver command.
     # First, it will try to find a tsserver installed with npm install,
     # if not found, it will look in our $PATH
@@ -359,7 +361,9 @@ let
 
     # Formatters
     pkgs.prettier
+    # pkgs.biome
     pkgs.black
+    pkgs.isort
     (
       let
         config = pkgs.writeText "config.json" ''
@@ -409,12 +413,14 @@ let
       plugin: "ln -vsfT ${plugin} $out/pack/${packageName}/start/${lib.getName plugin}"
     ) startPluginsWithDeps}
   '';
+
 in
 
 symlinkJoin {
   name = "nvim";
   paths = [ neovim-unwrapped ];
   nativeBuildInputs = [ makeWrapper ];
+  # See :h $NVIM_APPNAME
   postBuild = ''
     wrapProgram $out/bin/nvim \
       --add-flags '-u ${init-lua}' \

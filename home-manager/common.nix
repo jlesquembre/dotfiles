@@ -25,7 +25,7 @@ in
   # the Home Manager release notes for a list of state version
   # changes in each release.
 
-  home.stateVersion = "23.11";
+  home.stateVersion = "26.05";
 
   imports = [
     ./custom-options.nix

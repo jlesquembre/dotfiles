@@ -88,7 +88,6 @@
 
   programs.sniffnet.enable = true;
   programs.wireshark.enable = true;
-  programs.wireshark.package = pkgs.wireshark-qt;
 
   # Need to setup gnome themes with home-manager
   programs.dconf.enable = true;

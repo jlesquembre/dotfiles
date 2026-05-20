@@ -24,7 +24,7 @@ local function custom_colors(color_name)
   local bg = "#080808" -- From moonfly colors
   local fg = "#d8d8d8"
 
-  hi.Normal = { guibg = bg }
+  hi.Normal = { guibg = bg, guifg = fg }
   hi.Error = { guifg = bg }
   hi.ErrorMsg = { guibg = bg }
   hi.Conceal = { guibg = "none" }
@@ -107,16 +107,6 @@ augroup END
 
 require("nterm.main").init()
 vim.keymap.set("t", "<C-e>", [[<cmd>lua require'nterm.main'.term_toggle()<cr>]], { remap = false })
-
-local lisp_langs = require("jlle.conjure").lisp_langs
-
-require("nvim-autopairs").setup({
-  disable_filetype = { "TelescopePrompt", unpack(lisp_langs) },
-})
-
-vim.g.rainbow_delimiters = {
-  whitelist = lisp_langs,
-}
 
 function _G.toggle_qf()
   local qf_exists = false
