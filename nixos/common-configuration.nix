@@ -32,6 +32,14 @@ in
 
   nixpkgs.flake.setNixPath = false;
 
+  environment.etc."determinate/config.json".text = ''
+    {
+      "garbageCollector": {
+        "strategy": "disabled"
+      },
+    }
+  '';
+
   nix = {
     channel.enable = false;
     extraOptions = ''

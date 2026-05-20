@@ -96,7 +96,7 @@ in
       ndd = "nvd diff /nix/var/nix/profiles/per-user/${username}/home-manager result";
 
       # Others
-      pi = "nix shell github:NixOS/nixpkgs/nixos-unstable#nodejs -c npx @mariozechner/pi-coding-agent";
+      pi = "nix shell github:NixOS/nixpkgs/nixos-unstable#nodejs -c npx @earendil-works/pi-coding-agent";
       s = "caddy file-server --browse --listen :8080";
       c = "bat";
       v = "nvim";
