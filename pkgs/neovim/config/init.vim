@@ -150,69 +150,6 @@ function! <SID>SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
-function! s:strip(str)
-python3 << EOF
-import vim
-from html import unescape
-# replace non-breaking space, see https://stackoverflow.com/a/38010708/799785
-result = unescape(vim.eval("a:str")).strip().replace("\xa0", " ")
-if (result.startswith('"') and result.endswith('"')) or (result.startswith("'") and result.endswith("'")):
-    result = result[1:-1]
-vim.command('return "{}"'.format(result.replace('"', '\\"')))
-EOF
-endfunction
-
-function! s:gethost(str)
-python3 << EOF
-import vim
-from urllib.parse import urlparse
-url = vim.eval("a:str")
-host = urlparse(url).hostname
-if host.startswith('www.'):
-    host = host[4:]
-vim.command('return "{}"'.format(host))
-EOF
-endfunction
-
-function! FormatLink(format)
-  let l:link = s:strip(getline('.'))
-
-  " let l:title = system('wget -qO- '. shellescape(l:link) . ' | gawk -v IGNORECASE=1 -v RS=''</title'' ''RT{gsub(/.*<title[^>]*>/,"");print;exit}'' ')
-  let l:title = system('curl -q -L --compressed --silent '. shellescape(l:link) . ' | gawk -v IGNORECASE=1 -v RS=''</title'' ''RT{gsub(/.*<title[^>]*>/,"");print;exit}'' ')
-  let l:host = s:gethost(l:link)
-  let b:title = s:strip(l:title)
-
-  " \v -> very magig
-  " {-} non-greedy match
-  if l:host ==# 'github.com'
-    let l:title = substitute(b:title, '\v^\p+[\-\|]\s+', '', 'gi')
-  elseif l:host ==# 'stackoverflow.com' || l:host =~# '.\+\.stackexchange\.com'
-    let l:title = substitute(b:title, '\v^\p{-}\-\s+', '', 'gi')
-    let l:title = substitute(l:title, '\v\s+\-\p{-}$', '', 'gi')
-  elseif l:host ==# 'manning.com'
-    let l:title = substitute(b:title, '\v^\p+[\-\|]\s+', '', 'gi')
-  else
-    let l:title = substitute(b:title, '\v\s+[\-\|]\s+\p+$', '', 'gi')
-  endif
-
-  if a:format == ''
-    let l:format = expand('%:e')
-  else
-    let l:format = a:format
-  endif
-
-  if (index(['rst'], l:format) >= 0)
-    let l:newline = '`' . l:title . ' <' . l:link . '>`_'
-  else
-    let l:newline = '[' . l:title . '](' . l:link . ')'
-  endif
-
-  call setline('.', l:newline)
-  normal 0
-
-  echomsg 'Original title (saved on b:title, `<C-R>=` to insert it): ' . b:title
-
-endfunction
 
 " COMMANDS
 " ============================================================================
@@ -392,14 +329,6 @@ nnoremap <Leader>rR :%s//g<Left><Left>
 "vnoremap <Leader>rr :s//g<Left><Left>
 ""vnoremap <Leader>rw :s/\<<C-r><C-w>\>//g<Left><Left>
 
-" Search and replace in all files in the quicklist
-" nnoremap <Leader>rq :cfdo %s/\<<C-r><C-w>\>//g \| update<C-Left><C-Left><Left><Left><Left>
-" " Undo previous action
-" nnoremap <Leader>ru :cfdo undo \| update
-
-nnoremap <silent> <Leader>u :call FormatLink('')<cr>
-" nnoremap <Leader>um :call FormatLink('md')<cr>
-" nnoremap <Leader>ur :call FormatLink('rst')<cr>
 
 nnoremap <leader>cl :r !conventional-changelog -u<cr>
 
