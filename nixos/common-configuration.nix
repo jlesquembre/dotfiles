@@ -36,7 +36,7 @@ in
     {
       "garbageCollector": {
         "strategy": "disabled"
-      },
+      }
     }
   '';
 

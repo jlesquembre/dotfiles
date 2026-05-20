@@ -16,7 +16,10 @@
   networking.wireless.interfaces = [ "wlp0s20f3" ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 5;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Needed when typing in passwords for full disk encryption
