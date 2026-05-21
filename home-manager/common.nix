@@ -1133,6 +1133,7 @@ in
       gcloud = {
         # symbol = "🇬️ ";
         symbol = " ";
+        detect_env_vars = [ "CLOUDSDK_CONFIG" ];
       };
       kubernetes = {
         # TODO not implemented yet
