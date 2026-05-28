@@ -24,6 +24,9 @@
     R312_5G_8C8C = {
       pskRaw = "ext:HOT_psk";
     };
+    "FRITZ!Box 5530 YW" = {
+      pskRaw = "ext:ljuba_psk";
+    };
 
     HUAWEI-B525-5G-F6BF = {
       pskRaw = "ext:HUAWEI_B525_psk";
