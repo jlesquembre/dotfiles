@@ -98,6 +98,7 @@ in
     nix-serve
     nixfmt
     nix-output-monitor
+    nix-init
     cntr
     # nix_graph
 
