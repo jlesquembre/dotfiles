@@ -76,6 +76,8 @@ in
           "kvm"
           "nixos-test"
         ];
+        # To update the key run
+        # cat ~/.ssh/known_hosts | grep build01 | awk '{print $2,$3}' | base64 -w0
         publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU9yamc1UjVRUmI2WDNiNkdvT3N2Q0hrSXpHUGE2SUpKWGRLTDB0SDUyYXcK";
       }
       {
@@ -93,7 +95,9 @@ in
           "kvm"
           "nixos-test"
         ];
-        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSURRTXltam43YmRITXVGd2dOa2lvaWpQckFVUEpoN0kvOTZMVVZ6SVVHUjcK";
+        # To update the key run
+        # cat ~/.ssh/known_hosts | grep build02 | awk '{print $2,$3}' | base64 -w0
+        publicHostKey = "ZWNkc2Etc2hhMi1uaXN0cDI1NiBBQUFBRTJWalpITmhMWE5vWVRJdGJtbHpkSEF5TlRZQUFBQUlibWx6ZEhBeU5UWUFBQUJCQk53NnYyNnFyT3dBSjZCdlpYRWhtL2lOWWtqcCtDVUlOUWdLMnk0VTFnSWppSTRBQ1Q1d2p6MHQ0bmQzcmVZdjdtcjJoOG9KV084ZForRm43TDRZZGhZPQpzc2gtcnNhIEFBQUFCM056YUMxeWMyRUFBQUFEQVFBQkFBQUJnUUQxaFA1d3pURVJ6TjZSN2V2WGUwWUFlN2EycFJ4cW5YV3FqT2gvM0ExZmxzRWlyK0xsSUpibmduRy9kZFRsK25UYk1yckxsdm1yUXZrOHNmaG4yMkxFMTdQNDZ3dGd5YThpRzRiZnlHR2lzUDlQQml5bkNvWDVJK28yR2YwOTA2S1dUd05BcE95ZkNPYUVlcktMdG9ZQnVtSnh2QVFlQTY5WWlvL3FJbFZPRXZDbHorZHFyZ3VVcHBsd2RRZWNpWFp5NkNsU1NnS0FyeWErTGJqSGlRY1FndEwzeEpWYU9vQnNKaEl1YnZmRERkZlZmZzFYLzZTeFRsOVVLS1B6RXNVYlZBUnQvUzhhQzBHOUUra2hLa3dWM2dYVGNhNmYrZEZLekZjL2VQQ2F0SGZKZGZiczdqc0YzZnVPbHJ1SVFWRDZNSVpkWkJsbnM0REtMQVlZUjlOcS9lNEhHcnhCT2dMckR2SWw5dGlMdC9IMWMrWElrbU9oYXhlT2g4a2FKcUdSa0pwVW1mYlp2MXVUUGQweFdtMjJpZHdRZDhRZFIvQkhXeS8za0VmdG9vZUU3ZTZick5pTEk5R0l2TUUzUGxKODZwVVYzakhKcFpuYVhqRjVMbHNlck8wNTFiWVFFSUtzdUx0cVAwS3ZMUGxsSXFKaUQraTRPTm1UVnhhejNGVT0Kc3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU8xR25qQnY1VkJPdzBFMnpoZjRMeC92K2Z4dEx2VDc0dWQxbEJ0dWlZazkK";
       }
     ];
   };
