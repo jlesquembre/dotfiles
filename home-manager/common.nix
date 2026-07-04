@@ -682,12 +682,14 @@ in
     defaultOptions = [ "--height 40% --layout=reverse --border" ];
 
     # ALT-C
-    changeDirWidgetCommand = "fd -t d . $HOME";
-    changeDirWidgetOptions = [ "--preview 'fzf_preview_all {}'" ];
+    changeDirWidget = {
+      command = "fd -t d . $HOME";
+      options = [ "--preview 'fzf_preview_all {}'" ];
+    };
 
     # CTRL-T
     # fileWidgetCommand = "";
-    fileWidgetOptions = [ "--preview 'fzf_preview_all {}'" ];
+    fileWidget.options = [ "--preview 'fzf_preview_all {}'" ];
 
     # CTRL-R
     # historyWidgetOptions = [ "--preview 'echo {}' --preview-window down:3:hidden --bind '?:toggle-preview'" ];
