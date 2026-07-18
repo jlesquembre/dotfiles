@@ -137,7 +137,11 @@ in
   };
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    # required by sshfs
+    allowSFTP = true;
+  };
 
   # Enable GnuPG agent with SSH support
   programs.gnupg.agent.enable = true;
@@ -328,6 +332,11 @@ in
       ubuntu-classic
       unifont
     ];
+  };
+
+  programs.fuse = {
+    enable = true;
+    userAllowOther = true;
   };
 
   # programs.nix-ld = {

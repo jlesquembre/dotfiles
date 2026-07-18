@@ -53,6 +53,8 @@ in
 
   home.packages = with pkgs; [
 
+    python3
+
     extra-pkgs.nvim
     # inputs.githud.packages."${system}".default
     # inputs.ghostty.packages.${system}.default
@@ -144,7 +146,7 @@ in
     # kubectl-fzf
     # istioctl
     # gomplate
-    minikube
+    # minikube
     kind
     k3d
     dapper
@@ -176,7 +178,7 @@ in
     httpie
     # httping
     httplab
-    httpstat
+    # httpstat
     hurl
     # siege
     socat
@@ -210,7 +212,8 @@ in
     prettyping
     proselint
     pwgen
-    texlive.combined.scheme-full
+    texliveFull
+    # texlive.combined.scheme-full
     tldr
     tmux
     transmission_4
@@ -548,6 +551,7 @@ in
   };
 
   home.pointerCursor = {
+    enable = true;
     package = pkgs.qogir-icon-theme;
     name = "Qogir";
     size = 32;
