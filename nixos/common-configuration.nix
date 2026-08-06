@@ -67,7 +67,6 @@ in
         sshUser = "nix";
         sshKey = config.sops.secrets.builder_ssh_key.path;
         systems = [
-          "aarch64-linux"
           "x86_64-linux"
         ];
         supportedFeatures = [
@@ -87,6 +86,7 @@ in
         sshKey = config.sops.secrets.builder_ssh_key.path;
         systems = [
           "aarch64-darwin"
+          "aarch64-linux"
           "x86_64-darwin"
         ];
         supportedFeatures = [

@@ -29,6 +29,7 @@ in
 
       # Git
       g = "git";
+      gb = "git recent";
       gcl = "git clone";
       gco = "git checkout";
       gcon = "git checkout -b";
