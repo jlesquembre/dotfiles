@@ -30,11 +30,11 @@
                  :exec-fn clj-new/create
                  :exec-args {:template "app"}}
 
-           :rebel      {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.7"}
+           :rebel      {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.11"}
                                      com.rpl/specter            {:mvn/version "1.1.6"}}
                         :main-opts  ["-m" "rebel-readline.main"]}
 
-           :rebel-cljs {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.5"}
+           :rebel-cljs {:extra-deps {com.bhauman/rebel-readline-cljs {:mvn/version "0.1.11"}
                                      com.bhauman/figwheel-main       {:mvn/version "0.2.20"}}
                         :main-opts  ["-m" "figwheel.main"]}
 
@@ -92,12 +92,12 @@
                                ;  :git/sha "5eec7a887bc9e066e2b6d8dc8263f8bfa4ec64d7"}}}
 
            :nrepl {:extra-deps {nrepl/nrepl  {:mvn/version "1.7.0"}
-                                cider/cider-nrepl {:mvn/version "0.59.0"}}
+                                cider/cider-nrepl {:mvn/version "0.62.2"}}
                    :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
            :nrepl-cljs {:extra-deps {nrepl/nrepl  {:mvn/version "1.7.0"}
-                                     cider/cider-nrepl {:mvn/version "0.59.0"}
-                                     cider/piggieback {:mvn/version "0.6.1"}}
+                                     cider/cider-nrepl {:mvn/version "0.62.2"}
+                                     cider/piggieback {:mvn/version "0.7.0"}}
                         :main-opts ["-m" "nrepl.cmdline" "--middleware"
                                     "[cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl]"]}
            :extra {:extra-deps {org.clojure/test.check {:mvn/version "1.1.3"}
