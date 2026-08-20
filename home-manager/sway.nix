@@ -49,12 +49,15 @@ let
     password_files=( "''${password_files[@]#"$prefix"/}" )
     password_files=( "''${password_files[@]%.gpg}" )
 
-    password=$(printf '%s\n' "''${password_files[@]}" | "${pkgs.fuzzel}/bin/fuzzel" -d "$@")
+    prompt="PASS > "
+    if [[ $otp -eq 1 ]]; then
+      prompt="OTP > "
+    fi
+
+    password=$(printf '%s\n' "''${password_files[@]}" | "${pkgs.fuzzel}/bin/fuzzel" -d -p "$prompt" "$@")
 
     [[ -n $password ]] || exit
 
-    pass show -c "$password" 2>/dev/null
-    # pass otp -c "$password" 2>/dev/null
     if [[ $otp -eq 0 ]]; then
       pass show -c "$password" 2>/dev/null
     else
@@ -180,21 +183,21 @@ in
     ];
     config.window.commands = [
       {
-        command = ''floating enable'';
+        command = "floating enable";
         criteria = {
           app_id = "zenity";
         };
       }
       {
         # command = ''floating enable, move position 877 450, sticky enable, border none'';
-        command = ''floating enable, sticky enable, border normal 3'';
+        command = "floating enable, sticky enable, border normal 3";
         criteria = {
           app_id = "firefox";
           title = "^Picture-in-Picture$";
         };
       }
       {
-        command = ''floating enable, sticky enable'';
+        command = "floating enable, sticky enable";
         criteria = {
           app_id = "firefox";
           title = "Firefox - Sharing Indicator$";

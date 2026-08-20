@@ -140,6 +140,17 @@ in
     };
 
     functions = {
+
+      # git recent helper, see https://github.com/paulirish/git-recent#usage
+      recent = ''
+        set -l o (command git-recent $argv)
+        if test -d "$o"
+          cd $o
+        else if test -n "$o"
+          echo $o
+        end
+      '';
+
       gww = ''
         set dir "$(git worktree list | fzf | awk '{print $1}')"
         if test -n "$dir"
