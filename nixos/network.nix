@@ -56,63 +56,45 @@ in
     wait-online.enable = false;
 
     # man systemd.network
-    # networks."wlan" =
-    #   {
-    #     matchConfig = { Name = "wl*"; };
-    #     networkConfig = { DHCP = "ipv4"; };
-    #     dhcpV4Config = { UseDNS = false; };
-    #   };
-
-    # networks."eth" =
-    #   {
-    #     matchConfig = { Name = "en*"; };
-    #     networkConfig = { DHCP = "ipv4"; };
-    #     dhcpV4Config = { UseDNS = false; };
-    #   };
-
-    # Bonding
-    # https://wiki.archlinux.org/title/systemd-networkd#Bonding_a_wired_and_wireless_interface
-    netdevs."30-bond0" = {
-      netdevConfig = {
-        Name = "bond0";
-        Kind = "bond";
+    # Prefer any ethernet over wifi using route metrics (no bonding).
+    # Lower metric wins.
+    networks =
+      let
+        mkMetricDhcpNetwork =
+          {
+            namePattern,
+            metric,
+          }:
+          {
+            matchConfig = {
+              Name = namePattern;
+            };
+            networkConfig = {
+              DHCP = "yes";
+            };
+            dhcpV4Config = {
+              UseDNS = false;
+              RouteMetric = metric;
+            };
+            dhcpV6Config = {
+              UseDNS = false;
+            };
+            ipv6AcceptRAConfig = {
+              UseDNS = false;
+              RouteMetric = metric;
+            };
+          };
+      in
+      {
+        "30-ethernet" = mkMetricDhcpNetwork {
+          namePattern = "en*";
+          metric = 100;
+        };
+        "40-wifi" = mkMetricDhcpNetwork {
+          namePattern = "wl*";
+          metric = 600;
+        };
       };
-      bondConfig = {
-        Mode = "active-backup";
-        PrimaryReselectPolicy = "always";
-        MIIMonitorSec = "1s";
-      };
-    };
-
-    networks."30-eth-bond0" = {
-      matchConfig = {
-        Name = "en*";
-      };
-      networkConfig = {
-        Bond = "bond0";
-        PrimarySlave = true;
-      };
-    };
-    networks."30-wifi-bond0" = {
-      matchConfig = {
-        Name = "wl*";
-      };
-      networkConfig = {
-        Bond = "bond0";
-      };
-    };
-
-    networks."30-bond0" = {
-      matchConfig = {
-        Name = "bond0";
-      };
-      networkConfig = {
-        DHCP = "ipv4";
-      };
-      dhcpV4Config = {
-        UseDNS = false;
-      };
-    };
 
     # # Bridge
     # netdevs."00-br0" =
