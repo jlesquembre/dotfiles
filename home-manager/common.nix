@@ -119,6 +119,8 @@ in
     babashka
     # joker
     zprint
+    parinfer-rust
+    clojure-mcp-light
 
     nickel
 

@@ -312,8 +312,8 @@ let
     # vim-sexp-mappings-for-regular-people
     # parpar-nvim
     # nvim-parinfer
-    nvim-paredit
-    # pkgs.parinfer-rust
+    # nvim-paredit
+    pkgs.parinfer-rust
     conjure
     # vim-clojure-highlight
     # # vim-kibit

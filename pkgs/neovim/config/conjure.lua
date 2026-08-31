@@ -121,19 +121,19 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 
 -- S-exp
 
-require("nvim-paredit").setup({
-  indent = {
-    enabled = false,
-    -- indentor = require("nvim-paredit.indentation.native").indentor,
-  },
-})
+-- require("nvim-paredit").setup({
+--   indent = {
+--     enabled = false,
+--     -- indentor = require("nvim-paredit.indentation.native").indentor,
+--   },
+-- })
 
 -- local lisp_langs = require("jlle.conjure").lisp_langs
 
 require("nvim-autopairs").setup({
   disable_filetype = {
     "TelescopePrompt",
-    -- unpack(lisp_langs),
+    unpack(M.lisp_langs),
   },
 })
 
