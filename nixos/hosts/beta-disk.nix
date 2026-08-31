@@ -48,7 +48,8 @@
                 # "fsck"
                 # "fix_errors"
                 "defaults"
-                "compression=lz4"
+                # Bcachefs no longer supports non-persistent I/O path options like compression and background_compression at mount time
+                # "compression=lz4"
                 "discard"
               ];
             };
