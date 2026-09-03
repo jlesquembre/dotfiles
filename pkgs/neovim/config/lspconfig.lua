@@ -64,8 +64,8 @@ local function custom_attach(ev)
   -- builtin: <c-w>d
   set_keymap("n", "<leader>dd", [[<cmd>lua vim.diagnostic.open_float({border = "single"})<CR>]])
 
-  set_keymap("n", "[d", [[<cmd>lua vim.diagnostic.goto_prev({float={border="single"}})<CR>]])
-  set_keymap("n", "]d", [[<cmd>lua vim.diagnostic.goto_next({float={border="single"}})<CR>]])
+  set_keymap("n", "[d", [[<cmd>lua vim.diagnostic.jump({count=-1,float={border="single"}})<CR>]])
+  set_keymap("n", "]d", [[<cmd>lua vim.diagnostic.jump({count=1,float={border="single"}})<CR>]])
 
   set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
   set_keymap("n", "<leader>cl", "<cmd>lua vim.lsp.codelens.run()<CR>")
