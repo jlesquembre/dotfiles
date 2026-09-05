@@ -229,6 +229,11 @@ in
     dstp
 
     git-extras
+    git-open
+    git-recent
+    git-trim
+    git-gone
+    lazygit
 
     # encryption
     age

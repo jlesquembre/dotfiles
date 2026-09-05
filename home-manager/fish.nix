@@ -25,11 +25,17 @@ in
       source ${fishFunctionsDir}/ll.fish
     '';
 
+    completions = {
+      git_worktree_add.body = ''
+        complete -f -c git_worktree_add -a '(git for-each-ref --format="%(refname:short)" refs/heads 2>/dev/null)'
+      '';
+    };
+
     shellAbbrs = {
 
       # Git
       g = "git";
-      gb = "git recent";
+      # gb = "git recent";
       gcl = "git clone";
       gco = "git checkout";
       gcon = "git checkout -b";
@@ -43,8 +49,8 @@ in
       pp = "git push --set-upstream origin HEAD";
       pt = "git push --tags";
       pf = "git push --force-with-lease";
-      gr = "git branch -d";
-      grr = "git push origin --delete";
+      gr = "git recent";
+      # grr = "git push origin --delete";
       gm = "git merge --ff-only";
       gd = "git diff";
       gdt = "git difftool";
@@ -55,6 +61,7 @@ in
       gw = "git worktree";
       gwa = "git_worktree_add";
       gwr = "git_worktree_remove";
+      gl = "lazygit";
       # gwa = {
       #   expansion = "git worktree add .worktree/%";
       #   setCursor = "%";
@@ -152,47 +159,55 @@ in
       '';
 
       gww = ''
-        set dir "$(git worktree list | fzf | awk '{print $1}')"
-        if test -n "$dir"
-            cd "$dir"
-        end
-      '';
-
-      git_worktree_remove = ''
-        set -l clean_icon "⠀" # NOTE: this is a unicode whitespace: \u2800 (Braille pattern blank)
+        set -l clean_icon " "
         set -l dirty_icon "⚠"
 
+        set -l root_dir (_git_worktree_root)
         set -l items
 
-        for wt_dir in (git worktree list --porcelain 2>/dev/null | grep '^worktree ' | awk '{print $2}' | rg '.worktree')
+        for wt_line in (string split \n -- (git worktree list 2>/dev/null))
+            set -l wt_dir (echo "$wt_line" | awk '{print $1}')
+
             set -l wt_icon $clean_icon
             if test (count (git -C "$wt_dir" status --porcelain 2>/dev/null)) -gt 0
-                set wt_icon $dirty_icon
+          set wt_icon $dirty_icon
             end
-            set -a items "$wt_icon:$wt_dir"
+
+            # hidden key before delimiter, visible text after delimiter
+            set -a items "$wt_dir|$wt_icon  $wt_line"
         end
 
-        set -l out (printf '%s\n' $items | fzf --prompt="worktree remove> " --accept-nth 2 --with-nth '{1} {2}'  --delimiter : --expect=ctrl-d --footer="⚠ = dirty worktree (Ctrl-D to force delete)")
+        set -l out (printf '%s\n' $items | fzf --prompt="worktree> " --delimiter='|' --with-nth=2 --expect=ctrl-d --footer="Enter: jump  |  Ctrl-D: delete  |  ⚠ = dirty")
 
-        set -l picked_dir $out[2]
-        if test -z "$picked_dir"
+        set -l key $out[1]
+        set -l picked_row $out[2]
+        if test -z "$picked_row"
             return 1
         end
 
-        if test (count (git -C "$picked_dir" status --porcelain 2>/dev/null)) -gt 0
-            if test "$key" != ctrl-d
-                echo "Worktree is dirty: $picked_dir" >&2
-                echo "Press Ctrl-D in fzf to force delete." >&2
-                return 1
+        set -l picked_dir (string split -m1 '|' -- "$picked_row")[1]
+
+        if test "$key" = ctrl-d
+            if test "$picked_dir" = "$root_dir"
+          echo "Refusing to delete root worktree: $picked_dir" >&2
+          return 1
             end
-            if test (pwd) = "$picked_dir"; cd (_git_worktree_root); end
-            git worktree remove --force "$picked_dir"
-            echo "--> git worktree remove --force $picked_dir"
-        else
-            if test (pwd) = "$picked_dir"; cd (_git_worktree_root); end
-            git worktree remove "$picked_dir"
-            echo "--> git worktree remove $picked_dir"
+
+            if test (pwd) = "$picked_dir"
+          cd "$root_dir"
+            end
+
+            if test (count (git -C "$picked_dir" status --porcelain 2>/dev/null)) -gt 0
+          git worktree remove --force "$picked_dir"
+          echo "--> git worktree remove --force $picked_dir"
+            else
+          git worktree remove "$picked_dir"
+          echo "--> git worktree remove $picked_dir"
+            end
+            return $status
         end
+
+        cd "$picked_dir"
       '';
 
       _git_worktree_root = ''
@@ -201,14 +216,20 @@ in
 
       git_worktree_add = ''
         if test (count $argv) -ne 1
-            echo "Usage: new_git_worktree <name>" >&2
+            echo "Usage: git_worktree_add <branch-or-new-name>" >&2
             return 2
         end
 
-        set -l new_tree "$argv[1]"
-        set -l tree_path "$(_git_worktree_root)/.worktree/$new_tree"
-        echo "--> " git worktree add "$tree_path" -b "$new_tree"
-        git worktree add "$tree_path" -b "$new_tree"
+        set -l branch "$argv[1]"
+        set -l tree_path "$(_git_worktree_root)/.worktree/$branch"
+
+        if git show-ref --verify --quiet "refs/heads/$branch"
+            echo "--> git worktree add $tree_path $branch"
+            git worktree add "$tree_path" "$branch"
+        else
+            echo "--> git worktree add $tree_path -b $branch"
+            git worktree add "$tree_path" -b "$branch"
+        end
         or begin
             return $status
         end

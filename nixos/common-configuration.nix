@@ -123,9 +123,6 @@ in
     ghostty
     neovim
     delta
-    git-open
-    git-recent
-    git-trim
     gitFull
     tig
   ];
