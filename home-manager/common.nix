@@ -133,6 +133,7 @@ in
     fd
     gpg-tui
     genpass
+    lychee
 
     # Cloud
     awscli2

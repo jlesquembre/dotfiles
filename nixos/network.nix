@@ -217,7 +217,7 @@ in
       docs.home.arpa {
         import local_cert
         bind 127.0.0.1
-        root * ${docsPath}/public
+        root * ${docsPath}/_site
         file_server
         header {
           -Last-Modified
