@@ -46,10 +46,15 @@ local function custom_colors(color_name)
   hi.OnSelect = { guifg = "none", guibg = "#fff36d" }
 
   hi.DiffLine = { guifg = c.base03 }
-  hi.DiffAdd = { guifg = "none", guibg = "#3b4229" }
-  hi.DiffChange = { guifg = "none", guibg = "#2f4047" }
-  hi.DiffDelete = { guifg = c.base08, guifg = c.base00 }
-  hi.DiffText = { guifg = "none", guibg = "#461e1c" }
+  hi.DiffAdd = { guifg = c.base0B, guibg = "#1f2a1f" }
+  hi.DiffChange = { guifg = c.base0D, guibg = "#1f2530" }
+  hi.DiffDelete = { guifg = c.base08, guibg = "#2d1b1b" }
+  hi.DiffText = { guifg = c.base05, guibg = "#3a2a1f", gui = "bold" }
+
+  -- Improve gitsigns preview_hunk(_inline) readability
+  hi.GitSignsAddInline = { guibg = "#2c3f2c", gui = "bold" }
+  hi.GitSignsChangeInline = { guibg = "#2a3442", gui = "bold" }
+  hi.GitSignsDeleteInline = { guibg = "#4a2a2a", gui = "bold" }
 
   hi.GitSignsAdd = { guifg = c.base0B }
   hi.GitSignsChange = { guifg = c.base0D }
