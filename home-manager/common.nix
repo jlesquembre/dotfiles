@@ -53,8 +53,6 @@ in
 
   home.packages = with pkgs; [
 
-    python3
-
     extra-pkgs.nvim
     # inputs.githud.packages."${system}".default
     # inputs.ghostty.packages.${system}.default
