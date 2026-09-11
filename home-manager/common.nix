@@ -658,32 +658,8 @@ in
     enableFishIntegration = true;
     options = [
       "--cmd j"
-      "--no-aliases"
     ];
   };
-  programs.fish.interactiveShellInit = ''
-    # zoxide
-    function j
-        __zoxide_z $argv
-    end
-
-    function jj
-        __zoxide_zi $argv
-    end
-
-    function ja
-        __zoxide_za $argv
-    end
-
-    function jr
-        __zoxide_zr $argv
-    end
-
-    function jri
-        __zoxide_zri $argv
-    end
-
-  '';
 
   programs.fzf = {
     enable = true;

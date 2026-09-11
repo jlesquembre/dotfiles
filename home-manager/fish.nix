@@ -117,6 +117,7 @@ in
       ndd = "nvd diff /nix/var/nix/profiles/per-user/${username}/home-manager result";
 
       # Others
+      jj = "ji";
       pi = "pi-agent";
       s = "caddy file-server --browse --listen :8080";
       c = "bat";
