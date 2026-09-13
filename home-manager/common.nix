@@ -165,6 +165,9 @@ in
     podman-desktop
     toolbox
 
+    # tools
+    gitingest
+
     # dev tools
     btop
     cheat
