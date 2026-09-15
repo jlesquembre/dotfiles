@@ -82,11 +82,11 @@ require("gitsigns").setup({
     -- Sometimes external commits don't trigger filewatch updates reliably.
     -- Force a refresh when coming back to the window/buffer or after Fugitive updates.
     local aug = vim.api.nvim_create_augroup("GitsignsRefresh" .. bufnr, { clear = true })
-    vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
-      group = aug,
-      buffer = bufnr,
-      callback = gitsigns.refresh,
-    })
+    -- vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+    --   group = aug,
+    --   buffer = bufnr,
+    --   callback = gitsigns.refresh,
+    -- })
     vim.api.nvim_create_autocmd("User", {
       group = aug,
       pattern = "FugitiveChanged",

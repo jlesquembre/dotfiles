@@ -2,6 +2,7 @@
 (local s (require :nfnl.string))
 (local spectre (require :spectre))
 (local oil (require :oil))
+(local yp (require :yank-path))
 (local other (require :other-nvim))
 
 ;; Custom mappings
@@ -111,11 +112,38 @@
    {"%.env.*" "dotenv"
     "%.envrc.*" "sh"}})
 
+(fn copy-oil-entry-path [opts]
+  (let [entry (oil.get_cursor_entry)
+        dir (oil.get_current_dir)]
+    (when entry
+      (let [path ((or (and opts opts.transform) (fn [x] x)) (.. (or dir "") entry.name))
+            label (or (and opts opts.label) "value")]
+        (vim.fn.setreg "+" path)
+        (vim.notify (.. "Copied " label ": " path))))))
+
+
 (oil.setup
   {:view_options {:show_hidden  true}
    :watch_for_changes true
-   :keymaps {"<C-l>"  "actions.refresh"
+   :keymaps {"<C-l>" "actions.refresh"
              "<C-s>" {:desc "Open right"
-                      :callback (fn [] (oil.select {:vertical true :split "belowright"}))}}})
+                      :callback (fn [] (oil.select {:vertical true :split "belowright"}))}
+             "yp" {:desc "Copy absolute path"
+                   :callback (fn [] (copy-oil-entry-path {:label "absolute path"}))}
+             "y." {:desc "Copy relative path"
+                   :callback (fn []
+                               (copy-oil-entry-path
+                                 {:label "relative path"
+                                  :transform (fn [path] (vim.fn.fnamemodify path ":."))}))}
+             "yn" {:desc "Copy filename"
+                   :callback (fn []
+                               (copy-oil-entry-path
+                                 {:label "name"
+                                  :transform (fn [path] (vim.fn.fnamemodify path ":t"))}))}}})
 
 (vim.keymap.set "n" "-" (fn [] (oil.open)) {:desc "Open parent directory"})
+
+(yp.setup {:prompt  "Yank which path?"
+           :default_mapping  false})
+
+(vim.keymap.set "n" "<leader>yp" (fn [] (yp.yank_file_path)) {:desc "Yank file path"})

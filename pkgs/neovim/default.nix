@@ -31,6 +31,8 @@ let
         preferLocalBuild = true;
       }
       ''
+        set -euo pipefail
+
         export HOME=$TMP/home
         export config_fnl=$TMP/config_files
 
@@ -44,10 +46,29 @@ let
 
         ${pkgs.neovim}/bin/nvim -u NONE -i NONE --headless -c ":e $config_fnl/.nfnl.fnl" -c ':trust' +q
 
+        compile_log="$TMP/nfnl-compile.log"
         ${pkgs.neovim}/bin/nvim -u NONE -i NONE --headless \
             -c "let &runtimepath = &runtimepath . ',${nfnl-root}'" \
             -c "lua require('nfnl.api')['compile-all-files']('$config_fnl')" \
-            +q
+            +q >"$compile_log" 2>&1
+
+        for filename in $config_fnl/*.fnl
+        do
+          lua_file="''${filename%.fnl}.lua"
+          if [ ! -f "$lua_file" ]; then
+            msg=$(
+              printf '\n'
+              printf '%s\n' '============================================================'
+              printf '%s\n' 'FENNEL COMPILE FAILURE'
+              printf 'File: %s\n' "$filename"
+              printf 'Compiler log: %s\n' "$compile_log"
+              printf '%s\n' '============================================================'
+            )
+            printf '%s\n' "$msg" >&2
+            cat "$compile_log" >&2
+            exit 1
+          fi
+        done
 
         for filename in $config_fnl/*.lua
         do
@@ -158,8 +179,6 @@ let
     # vimPlugins.plenary-nvim # not needed, since it will be pulled automatically as a dependency
 
     nvim-web-devicons
-    # TODO
-    # https://github.com/ywpkwon/yank-path.nvim
 
     # if you only want some grammars do
     # (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.python p.java ]))
@@ -218,6 +237,7 @@ let
 
     # Navigation
     oil-nvim
+    yank-path-nvim
     # https://github.com/Rolv-Apneseth/tfm.nvim
     vim-unimpaired
     nvim-bqf

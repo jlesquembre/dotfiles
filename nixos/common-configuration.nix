@@ -189,6 +189,24 @@ in
     alsa.enable = true;
     wireplumber.enable = true;
     # jack.enable = true;
+
+    # Prevent WirePlumber from suspending ALSA output sinks when idle.
+    # Without this, the DisplayPort audio link drops when PipeWire suspends
+    # the sink, requiring a cable replug or reboot to restore sound.
+    wireplumber.extraConfig = {
+      "99-no-suspend" = {
+        "monitor.alsa.rules" = [
+          {
+            matches = [ { "node.name" = "~alsa_output.*"; } ];
+            actions = {
+              update-props = {
+                "session.suspend-timeout-seconds" = 0;
+              };
+            };
+          }
+        ];
+      };
+    };
   };
   security.rtkit.enable = true;
   xdg.portal = {

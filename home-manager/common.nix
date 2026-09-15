@@ -278,6 +278,15 @@ in
     # libmysqlclient mariadb.client
 
     (pkgs.writeShellApplication {
+      name = "fix-audio";
+      text = ''
+        # Toggle the DisplayPort output off and on to renegotiate the DP audio
+        # link. Fixes audio loss caused by PipeWire suspending the sink.
+        swaymsg output DP-2 disable && sleep 2 && swaymsg output DP-2 enable
+      '';
+    })
+
+    (pkgs.writeShellApplication {
       name = "tweagmate";
       text =
         let

@@ -51,6 +51,12 @@ local function custom_colors(color_name)
   hi.DiffDelete = { guifg = c.base08, guibg = "#2d1b1b" }
   hi.DiffText = { guifg = c.base05, guibg = "#3a2a1f", gui = "bold" }
 
+  -- Approximate git-delta default dark diff palette
+  -- hi.DiffAdd = { guifg = "#d4ffd4", guibg = "#003800" }
+  -- hi.DiffChange = { guifg = "#cfe8ff", guibg = "#0b2f4a" }
+  -- hi.DiffDelete = { guifg = "#ffd7d7", guibg = "#3f0001" }
+  -- hi.DiffText = { guifg = "#fff2b3", guibg = "#4a3f0b", gui = "bold" }
+
   -- Improve gitsigns preview_hunk(_inline) readability
   hi.GitSignsAddInline = { guibg = "#2c3f2c", gui = "bold" }
   hi.GitSignsChangeInline = { guibg = "#2a3442", gui = "bold" }
