@@ -298,6 +298,19 @@ in
           ${pkgs.tmate}/bin/tmate -f "${secretPath}" "$@"
         '';
     })
+
+    # pi agent launcher
+    (pkgs.writeShellApplication {
+      name = "pi-agent";
+      text = ''
+        fast_path="$HOME/.pi/result-pi-agent/bin/pi-agent"
+        if [ -x "$fast_path" ]; then
+          exec "$fast_path" "$@"
+        fi
+        exec nix run "$HOME/.pi#pi-agent" -- "$@"
+      '';
+    })
+
   ];
 
   home.sessionVariables = {
@@ -368,6 +381,15 @@ in
 
   # Set it explicitly, not really necessary
   home.sessionVariables.CLJ_CONFIG = "${config.xdg.configHome}/clojure";
+
+  # Prevent Chrome from tearing down and restarting its audio service process
+  # when switching tabs. Without these flags, Chrome releases the PipeWire sink
+  # on tab switch, causing the DisplayPort audio link to drop and requiring a
+  # cable replug or reboot to restore sound.
+  # xdg.configFile."chrome-flags.conf".text = ''
+  #   --disable-features=AudioServiceOutOfProcess,AudioServiceSandbox
+  # '';
+
   xdg.configFile.clojure = {
     target = "clojure/deps.edn";
     text = (
@@ -793,6 +815,7 @@ in
     };
     ignores = [
       ".worktree/"
+      ".pi/todos/"
     ];
     lfs.enable = true;
     includes = [
@@ -1209,6 +1232,95 @@ in
         disabled = true;
       };
     };
+  };
+
+  systemd.user.services.pi-agent-refresh =
+    let
+      piDir = "${config.home.homeDirectory}/.pi";
+      resultLink = "${piDir}/result-pi-agent";
+      piAgentRefresh = pkgs.writeShellApplication {
+        name = "pi-agent-refresh";
+        runtimeInputs = [
+          pkgs.nix
+          pkgs.coreutils
+          pkgs.libnotify
+        ];
+        text = ''
+          trap 'notify-send -a "pi-agent" -u critical -i dialog-error -h string:x-canonical-private-synchronous:pi-agent-refresh-fail "pi-agent refresh failed" "Run: journalctl --user -u pi-agent-refresh.service -n 200 --no-pager"' ERR
+
+          nix flake update
+          nix build .#pi-agent --out-link "${resultLink}"
+
+          notify-send -a "pi-agent" -u normal -i software-update-available -h string:x-canonical-private-synchronous:pi-agent-refresh-ok -t 10000 "pi-agent refreshed" "Flake inputs updated and wrapper rebuilt.\nLink: ${resultLink}"
+        '';
+      };
+    in
+    {
+      Unit = {
+        Description = "Refresh ~/.pi flake and build pi-agent wrapper";
+        # Generic graphical target works across Sway/Hyprland/other desktop sessions.
+        PartOf = [ "graphical-session.target" ];
+        After = [
+          "graphical-session.target"
+          "network-online.target"
+        ];
+        Wants = [ "network-online.target" ];
+      };
+
+      Service = {
+        Type = "oneshot";
+        WorkingDirectory = "%h/.pi";
+        Environment = [
+          "HOME=${config.home.homeDirectory}"
+        ];
+        ExecStart = "${piAgentRefresh}/bin/pi-agent-refresh";
+
+        ProtectSystem = "strict";
+        ProtectHome = "read-only";
+        ReadWritePaths = [
+          "%h/.pi"
+          "%h/.cache"
+        ];
+
+        BindReadOnlyPaths = [
+          "/nix/store"
+        ];
+        NoNewPrivileges = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ProtectClock = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectKernelLogs = true;
+        ProtectControlGroups = true;
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        RestrictSUIDSGID = true;
+        RestrictRealtime = true;
+        RestrictNamespaces = true;
+        SystemCallArchitectures = "native";
+        # Keep default-style file modes for artifacts created by this service
+        # (files 0644, directories 0755 unless tools request stricter modes).
+        UMask = "0022";
+      };
+    };
+
+  systemd.user.timers.pi-agent-refresh = {
+    Unit = {
+      Description = "Daily pi-agent flake refresh";
+      # Start/stop with graphical login so post-run notifications are visible.
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Timer = {
+      OnCalendar = "daily";
+      # Catch up missed runs on next graphical login.
+      Persistent = true;
+      # Allow up to 2 minutes scheduling jitter so systemd can coalesce wakeups.
+      AccuracySec = "2m";
+      Unit = "pi-agent-refresh.service";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 
   services.safeeyes.enable = true;

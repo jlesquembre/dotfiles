@@ -6,21 +6,8 @@
 }:
 let
   fishFunctionsDir = "${config.xdg.configHome}/fish/functions";
-  pi-wrapper = pkgs.writeShellApplication {
-    name = "pi-agent";
-    runtimeInputs = [
-      pkgs.nodejs
-      pkgs.python3
-    ];
-    text = ''
-      exec npx -y @earendil-works/pi-coding-agent "$@"
-    '';
-  };
 in
 {
-  home.packages = [
-    pi-wrapper
-  ];
 
   programs.fish = {
     enable = true;
