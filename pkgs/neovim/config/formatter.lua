@@ -1,4 +1,5 @@
 local conform = require("conform")
+local notify = require("notify")
 
 local markdown_formatter = vim.deepcopy(require("conform.formatters.prettier"))
 require("conform.util").add_formatter_args(markdown_formatter, {
@@ -35,6 +36,8 @@ conform.setup({
 
     bzl = { "buildifier" },
     nix = { "nixfmt" },
+    -- clojure = { "lsp_format" },
+    -- clojure = { "cljfmt" },
 
     -- Use the "*" filetype to run formatters on all filetypes.
     -- ["*"] = { "codespell" },
@@ -54,7 +57,38 @@ conform.setup({
   end,
 })
 
-local notify = require("notify")
+-- Run LSP commands before formatting a file
+vim.api.nvim_create_autocmd("BufWritePre", {
+  desc = "Format before save",
+  pattern = { "*.clj", "*.cljs", "*.cljc", "*.edn", "*.bb" },
+  group = vim.api.nvim_create_augroup("FormatConfig", { clear = true }),
+  callback = function(ev)
+    if vim.g.disable_autoformat or vim.b[ev.buf].disable_autoformat then
+      return
+    end
+
+    -- Prevent LSP/Conform from running on scratch/unnamed/special buffers
+    if vim.bo[ev.buf].buftype ~= "" or vim.api.nvim_buf_get_name(ev.buf) == "" then
+      return
+    end
+
+    local client = vim.lsp.get_clients({ name = "clojure_lsp", bufnr = ev.buf })[1]
+
+    if client then
+      local request_result = client:request_sync("workspace/executeCommand", {
+        command = "clean-ns",
+        arguments = { vim.uri_from_bufnr(ev.buf), 0, 0 },
+      })
+
+      if request_result and request_result.err then
+        vim.notify(request_result.err.message, vim.log.levels.ERROR)
+        return
+      end
+    end
+
+    require("conform").format({ bufnr = ev.buf, lsp_format = "first", timeout_ms = 2000 })
+  end,
+})
 
 vim.api.nvim_create_user_command("FormatToggle", function(args)
   if args.bang then
