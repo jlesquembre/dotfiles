@@ -110,7 +110,7 @@ augroup CustomActions
   autocmd BufRead,BufNewFile Tiltfile setfiletype bzl
   " autocmd FileType TelescopePrompt inoremap <buffer> <esc> <cmd>lua require('telescope.actions').close(vim.api.nvim_get_current_buf())<cr>
   autocmd BufNewFile,BufRead *.mdx set filetype=markdown.mdx
-  autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="Reverse", timeout=350}
+  autocmd TextYankPost * silent! lua vim.hl.on_yank {higroup="Reverse", timeout=350}
 augroup END
 ]],
   true

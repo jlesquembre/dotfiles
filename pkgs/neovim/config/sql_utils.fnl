@@ -57,11 +57,11 @@
   [start end hl-group]
   (let [bufnr (vim.api.nvim_get_current_buf)]
     (vim.api.nvim_buf_clear_namespace bufnr sql-ns 0 -1)
-    (vim.highlight.range bufnr sql-ns
-                         (or hl-group "OnSelect")
-                         [(core.dec start) 0]
-                         [(core.dec end) (core.count (getlines end))]
-                         {:regtype "V" :inclusive true})
+    (vim.hl.range bufnr sql-ns
+                  (or hl-group "OnSelect")
+                  [(core.dec start) 0]
+                  [(core.dec end) (core.count (getlines end))]
+                  {:regtype "V" :inclusive true})
     (set sql-timer (vim.defer_fn
                      (fn []
                        (set sql-timer nil)
