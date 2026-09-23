@@ -192,7 +192,6 @@ in
     step-cli
     sysz
     tcpdump
-    tmate
     watchman
     websocat
     websocketd
@@ -286,19 +285,6 @@ in
         # link. Fixes audio loss caused by PipeWire suspending the sink.
         swaymsg output DP-2 disable && sleep 2 && swaymsg output DP-2 enable
       '';
-    })
-
-    (pkgs.writeShellApplication {
-      name = "tweagmate";
-      text =
-        let
-          secretPath =
-            builtins.replaceStrings [ "%r" ] [ "$XDG_RUNTIME_DIR" ]
-              config.sops.secrets.tweagmate_conf.path;
-        in
-        ''
-          ${pkgs.tmate}/bin/tmate -f "${secretPath}" "$@"
-        '';
     })
 
     # pi agent launcher
