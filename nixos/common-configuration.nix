@@ -69,6 +69,8 @@ in
         systems = [
           "x86_64-linux"
         ];
+        protocol = "ssh-ng";
+        # speedFactor = 10;
         supportedFeatures = [
           "benchmark"
           "big-parallel"

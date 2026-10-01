@@ -71,6 +71,9 @@ in
             };
             networkConfig = {
               DHCP = "yes";
+              # Docs: https://www.freedesktop.org/software/systemd/man/systemd.network.html#%5BNetwork%5D%20Section%20Options
+              ConfigureWithoutCarrier = true;
+              IgnoreCarrierLoss = "5s";
             };
             dhcpV4Config = {
               UseDNS = false;

@@ -239,7 +239,8 @@ in
       '';
 
       l = "eza --long --group --header --git --group-directories-first $argv";
-      ll = "l --all --all $argv";
+      lt = "eza --tree --long --group --header --git --group-directories-first $argv";
+      ll = "l --all $argv";
       lll = "l --all --tree --level 2 $argv";
       lookbusy = ''cat /dev/urandom | hexdump -C | grep --color "ca fe"'';
       srg = ''nvim -c "Grepper -jump -highlight -query '$argv'"'';

@@ -8,6 +8,7 @@
 {
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
   networking.wireless.userControlled = true;
+  networking.wireless.allowAuxiliaryImperativeNetworks = true;
 
   sops.secrets."wireless.conf" = {
     mode = "0440";
