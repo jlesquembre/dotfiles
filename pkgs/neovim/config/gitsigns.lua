@@ -85,12 +85,23 @@ require("gitsigns").setup({
     -- vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
     --   group = aug,
     --   buffer = bufnr,
-    --   callback = gitsigns.refresh,
+    --   callback = function()
+    --     -- Run after Fugitive has finished changing the index/worktree.
+    --     vim.schedule(function()
+    --       if vim.api.nvim_buf_is_valid(bufnr) then
+    --         gitsigns.refresh({ bufnr = bufnr })
+    --       end
+    --     end)
+    --   end,
     -- })
     vim.api.nvim_create_autocmd("User", {
       group = aug,
       pattern = "FugitiveChanged",
-      callback = gitsigns.refresh,
+      callback = function()
+        vim.schedule(function()
+          gitsigns.refresh()
+        end)
+      end,
     })
   end,
 })
