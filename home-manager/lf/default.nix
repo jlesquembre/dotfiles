@@ -26,7 +26,7 @@ let
 
       if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
           geometry="$(($2-2))x$3"
-          ${pkgs.chafa}/bin/chafa "$1" -f sixel -s "$geometry" --animate false
+          ${pkgs.chafa}/bin/chafa "$1" -f kitty -s "$geometry" --animate false
           # ${pkgs.swayimg}/bin/swayimg -g $x,$y,$w,$h "$1"
           exit 1
       fi
@@ -186,7 +186,6 @@ in
       drawbox = true;
       icons = false;
       ignorecase = true;
-      sixel = true;
       # cursorpreviewfmt = "\\033[7;2m";
       # cursorpreviewfmt = "\\033[7;90m";
       cursorpreviewfmt = "";
