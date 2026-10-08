@@ -15,24 +15,43 @@
 # https://github.com/gokcehan/lf/blob/master/doc.md
 
 let
-  previewer =
-    # https://github.com/horriblename/lfimg-sixel/blob/master/preview
-    pkgs.writeShellScript "previewer" ''
-      file=$1
+  previewer = pkgs.writeShellApplication {
+    name = "lf-previewer";
+    runtimeInputs = with pkgs; [
+      file
+      kitty.kitten
+      pistol
+    ];
+    text = ''
+      file_path=$1
       w=$2
       h=$3
       x=$4
       y=$5
 
-      if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
-          geometry="$(($2-2))x$3"
-          ${pkgs.chafa}/bin/chafa "$1" -f kitty -s "$geometry" --animate false
-          # ${pkgs.swayimg}/bin/swayimg -g $x,$y,$w,$h "$1"
-          exit 1
-      fi
+      case "$(file -Lb --mime-type "$file_path")" in
+        image/*)
+          # Use explicit placement so lf layout is not disturbed.
+          # lf previewer convention: return 1 when preview is drawn directly to tty
+          # (so lf does not try to render stdout preview text on top of it).
+          if kitten icat --stdin no --transfer-mode memory --place "''${w}x''${h}@''${x}x''${y}" "$1" </dev/null >/dev/tty 2>/dev/null; then
+            exit 1
+          fi
+          ;;
+      esac
 
-      pistol "$file"
+      pistol "$file_path"
     '';
+  };
+
+  cleaner = pkgs.writeShellApplication {
+    name = "lf-cleaner";
+    runtimeInputs = with pkgs; [ kitty.kitten ];
+    text = ''
+      exec kitten icat --clear --stdin no --transfer-mode memory </dev/null >/dev/tty
+    '';
+  };
+
 in
 
 {
@@ -180,7 +199,8 @@ in
     };
 
     settings = {
-      previewer = builtins.toString previewer;
+      previewer = "${previewer}/bin/lf-previewer";
+      cleaner = "${cleaner}/bin/lf-cleaner";
       preview = true;
       hidden = true;
       drawbox = true;
@@ -191,7 +211,30 @@ in
       cursorpreviewfmt = "";
       info = "size";
       ifs = "\\n";
-      rulerfmt = ''%a|  %p|  %d|  \033[7;31m %m \033[0m|  \033[7;33m %c \033[0m|  \033[7;35m %s \033[0m|  \033[7;34m %f \033[0m|  %i/%t'';
+      rulerfile = builtins.toString (
+        pkgs.writeText "lf-ruler" ''
+          {{with .Message -}}
+              {{. -}}
+          {{else with .Stat -}}
+              {{.Permissions | printf "\033[36m%s\033[0m" -}}
+              {{with .LinkCount}} {{.}}{{end -}}
+              {{with .User}} {{.}}{{end -}}
+              {{with .Group}} {{.}}{{end -}}
+              {{.Size | humanize | printf " %5s" -}}
+              {{.ModTime | printf " %s" -}}
+              {{with .Target}} -> {{.}}{{end -}}
+          {{end -}}
+          {{.SPACER -}}
+          {{with .Keys}}  {{.}}{{end -}}
+          {{with .Progress}}  {{join . " "}}{{end -}}
+          {{with .Copy}}  {{len . | printf "%s %d \033[0m" $.Options.copyfmt}}{{end -}}
+          {{with .Cut}}  {{len . | printf "%s %d \033[0m" $.Options.cutfmt}}{{end -}}
+          {{with .Select}}  {{len . | printf "%s %d \033[0m" $.Options.selectfmt}}{{end -}}
+          {{with .Visual}}  {{len . | printf "%s %d \033[0m" $.Options.visualfmt}}{{end -}}
+          {{with .Filter}}  {{join . " " | printf "\033[7;34m %s \033[0m"}}{{end -}}
+          {{printf "%s  %d/%d" (df) .Index .Total}}
+        ''
+      );
     };
   };
 
@@ -210,6 +253,3 @@ in
   };
 
 }
-
-# TODO add
-# https://github.com/jstkdng/ueberzugpp
