@@ -517,20 +517,22 @@ in
 
   };
 
-  home.file.maven = {
-    text = ''
-      <settings>
-        <servers>
-          <server>
-            <id>clojars</id>
-            <username>jlesquembre</username>
-            <password>''${clojars.password}</password>
-          </server>
-        </servers>
-      </settings>
-    '';
-    target = ".m2/settings.xml";
-  };
+  # I need a better solution, see
+  # https://maven.apache.org/guides/mini/guide-encryption.html
+  # home.file.maven = {
+  #   text = ''
+  #     <settings>
+  #       <servers>
+  #         <server>
+  #           <id>clojars</id>
+  #           <username>jlesquembre</username>
+  #           <password>''${clojars.password}</password>
+  #         </server>
+  #       </servers>
+  #     </settings>
+  #   '';
+  #   target = ".m2/settings.xml";
+  # };
 
   fonts.fontconfig.enable = true;
 
