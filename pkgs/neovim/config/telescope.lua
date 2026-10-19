@@ -29,6 +29,9 @@ require("telescope").setup({
   extensions = {
     live_grep_args = {
       auto_quoting = true,
+      additional_args = function()
+        return { "--hidden", "--glob", "!**/.git/*" }
+      end,
       mappings = {
         i = {
           ["<C-f>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),

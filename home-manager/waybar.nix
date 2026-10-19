@@ -98,7 +98,7 @@ in
   };
   memory = {
     interval = 30;
-    format = " {used:0.1f}G/{total:0.1f}G ({}%)";
+    format = " {used:0.1f}G/{total:0.1f}G ({percentage}%)";
     states = {
       warning = 80;
       critical = 90;
