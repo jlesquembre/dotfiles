@@ -316,6 +316,7 @@ in
       "libvirtd"
       # sops-nix group
       config.users.groups.keys.name
+      config.users.groups.wpa_supplicant.name
     ];
     openssh.authorizedKeys.keys = ssh-auth-keys;
   };
